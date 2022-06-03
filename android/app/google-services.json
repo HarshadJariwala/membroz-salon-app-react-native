@@ -1,0 +1,2072 @@
+{
+  "project_info": {
+    "project_number": "24932558592",
+    "firebase_url": "https://membroz-44bf7.firebaseio.com",
+    "project_id": "membroz-44bf7",
+    "storage_bucket": "membroz-44bf7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24932558592:android:491153bd30af26032df5e5",
+        "android_client_info": {
+          "package_name": "app.product.enterprise"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVTuuwrjNvtjZMgYqgmYuR_aB3kKkYkII"
+        },
+        {
+          "current_key": "AIzaSyAsKk_zGh5_ryKBUQF1U6EDFcnD_W_NMrU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "24932558592-0g9ernschjgrih3r3dcjs0ikjr2ts1qt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "app.product.enterprisemembroz"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24932558592:android:3a832273be24eec82df5e5",
+        "android_client_info": {
+          "package_name": "app.product.enterpriseallmembroz"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVTuuwrjNvtjZMgYqgmYuR_aB3kKkYkII"
+        },
+        {
+          "current_key": "AIzaSyAsKk_zGh5_ryKBUQF1U6EDFcnD_W_NMrU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "24932558592-0g9ernschjgrih3r3dcjs0ikjr2ts1qt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "app.product.enterprisemembroz"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24932558592:android:df3d25b89fa8cdb42df5e5",
+        "android_client_info": {
+          "package_name": "app.product.fhiit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVTuuwrjNvtjZMgYqgmYuR_aB3kKkYkII"
+        },
+        {
+          "current_key": "AIzaSyAsKk_zGh5_ryKBUQF1U6EDFcnD_W_NMrU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "24932558592-0g9ernschjgrih3r3dcjs0ikjr2ts1qt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "app.product.enterprisemembroz"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24932558592:android:98a902491f2bc0b92df5e5",
+        "android_client_info": {
+          "package_name": "app.product.membroz"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVTuuwrjNvtjZMgYqgmYuR_aB3kKkYkII"
+        },
+        {
+          "current_key": "AIzaSyAsKk_zGh5_ryKBUQF1U6EDFcnD_W_NMrU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "24932558592-0g9ernschjgrih3r3dcjs0ikjr2ts1qt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "app.product.enterprisemembroz"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24932558592:android:fc207b45dd69ce5f2df5e5",
+        "android_client_info": {
+          "package_name": "app.product.membroz2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVTuuwrjNvtjZMgYqgmYuR_aB3kKkYkII"
+        },
+        {
+          "current_key": "AIzaSyAsKk_zGh5_ryKBUQF1U6EDFcnD_W_NMrU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "24932558592-0g9ernschjgrih3r3dcjs0ikjr2ts1qt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "app.product.enterprisemembroz"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24932558592:android:c65da9145be98dd12df5e5",
+        "android_client_info": {
+          "package_name": "app.product.myischool"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVTuuwrjNvtjZMgYqgmYuR_aB3kKkYkII"
+        },
+        {
+          "current_key": "AIzaSyAsKk_zGh5_ryKBUQF1U6EDFcnD_W_NMrU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "24932558592-0g9ernschjgrih3r3dcjs0ikjr2ts1qt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "app.product.enterprisemembroz"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24932558592:android:8323af05d43d980e2df5e5",
+        "android_client_info": {
+          "package_name": "app.product.myischoolstaff"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVTuuwrjNvtjZMgYqgmYuR_aB3kKkYkII"
+        },
+        {
+          "current_key": "AIzaSyAsKk_zGh5_ryKBUQF1U6EDFcnD_W_NMrU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "24932558592-0g9ernschjgrih3r3dcjs0ikjr2ts1qt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "app.product.enterprisemembroz"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24932558592:android:16be0402c98fd8392df5e5",
+        "android_client_info": {
+          "package_name": "app.product.rossettegrandvacations"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVTuuwrjNvtjZMgYqgmYuR_aB3kKkYkII"
+        },
+        {
+          "current_key": "AIzaSyAsKk_zGh5_ryKBUQF1U6EDFcnD_W_NMrU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "24932558592-0g9ernschjgrih3r3dcjs0ikjr2ts1qt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "app.product.enterprisemembroz"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24932558592:android:ac742913603ed6e92df5e5",
+        "android_client_info": {
+          "package_name": "app.product.sevenseasonhospitality"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVTuuwrjNvtjZMgYqgmYuR_aB3kKkYkII"
+        },
+        {
+          "current_key": "AIzaSyAsKk_zGh5_ryKBUQF1U6EDFcnD_W_NMrU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "24932558592-0g9ernschjgrih3r3dcjs0ikjr2ts1qt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "app.product.enterprisemembroz"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24932558592:android:b000ab09b7d977952df5e5",
+        "android_client_info": {
+          "package_name": "com.app.clubholizone"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVTuuwrjNvtjZMgYqgmYuR_aB3kKkYkII"
+        },
+        {
+          "current_key": "AIzaSyAsKk_zGh5_ryKBUQF1U6EDFcnD_W_NMrU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "24932558592-0g9ernschjgrih3r3dcjs0ikjr2ts1qt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "app.product.enterprisemembroz"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24932558592:android:066fc7b55b048b2c2df5e5",
+        "android_client_info": {
+          "package_name": "com.app.easyfitness"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVTuuwrjNvtjZMgYqgmYuR_aB3kKkYkII"
+        },
+        {
+          "current_key": "AIzaSyAsKk_zGh5_ryKBUQF1U6EDFcnD_W_NMrU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "24932558592-0g9ernschjgrih3r3dcjs0ikjr2ts1qt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "app.product.enterprisemembroz"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24932558592:android:f168042be7d623922df5e5",
+        "android_client_info": {
+          "package_name": "com.app.edzpreschool"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVTuuwrjNvtjZMgYqgmYuR_aB3kKkYkII"
+        },
+        {
+          "current_key": "AIzaSyAsKk_zGh5_ryKBUQF1U6EDFcnD_W_NMrU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "24932558592-0g9ernschjgrih3r3dcjs0ikjr2ts1qt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "app.product.enterprisemembroz"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24932558592:android:cbb3120968edb4c42df5e5",
+        "android_client_info": {
+          "package_name": "com.app.edzpreschoolteacher"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVTuuwrjNvtjZMgYqgmYuR_aB3kKkYkII"
+        },
+        {
+          "current_key": "AIzaSyAsKk_zGh5_ryKBUQF1U6EDFcnD_W_NMrU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "24932558592-0g9ernschjgrih3r3dcjs0ikjr2ts1qt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "app.product.enterprisemembroz"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24932558592:android:19376b96e16e2576",
+        "android_client_info": {
+          "package_name": "com.app.edzskool"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVTuuwrjNvtjZMgYqgmYuR_aB3kKkYkII"
+        },
+        {
+          "current_key": "AIzaSyAsKk_zGh5_ryKBUQF1U6EDFcnD_W_NMrU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "24932558592-0g9ernschjgrih3r3dcjs0ikjr2ts1qt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "app.product.enterprisemembroz"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24932558592:android:a5008d762c86ea9d",
+        "android_client_info": {
+          "package_name": "com.app.flexifittrainer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVTuuwrjNvtjZMgYqgmYuR_aB3kKkYkII"
+        },
+        {
+          "current_key": "AIzaSyAsKk_zGh5_ryKBUQF1U6EDFcnD_W_NMrU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "24932558592-0g9ernschjgrih3r3dcjs0ikjr2ts1qt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "app.product.enterprisemembroz"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24932558592:android:ae9215dffe74e2832df5e5",
+        "android_client_info": {
+          "package_name": "com.app.jeskir"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVTuuwrjNvtjZMgYqgmYuR_aB3kKkYkII"
+        },
+        {
+          "current_key": "AIzaSyAsKk_zGh5_ryKBUQF1U6EDFcnD_W_NMrU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "24932558592-0g9ernschjgrih3r3dcjs0ikjr2ts1qt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "app.product.enterprisemembroz"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24932558592:android:967a4bee9a6b850e",
+        "android_client_info": {
+          "package_name": "com.app.membroz"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVTuuwrjNvtjZMgYqgmYuR_aB3kKkYkII"
+        },
+        {
+          "current_key": "AIzaSyAsKk_zGh5_ryKBUQF1U6EDFcnD_W_NMrU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "24932558592-0g9ernschjgrih3r3dcjs0ikjr2ts1qt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "app.product.enterprisemembroz"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24932558592:android:02f250c7a5a31ae52df5e5",
+        "android_client_info": {
+          "package_name": "com.app.membrozcrm"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVTuuwrjNvtjZMgYqgmYuR_aB3kKkYkII"
+        },
+        {
+          "current_key": "AIzaSyAsKk_zGh5_ryKBUQF1U6EDFcnD_W_NMrU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "24932558592-0g9ernschjgrih3r3dcjs0ikjr2ts1qt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "app.product.enterprisemembroz"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24932558592:android:281e6a0d1208f92a",
+        "android_client_info": {
+          "package_name": "com.app.membrozgym"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVTuuwrjNvtjZMgYqgmYuR_aB3kKkYkII"
+        },
+        {
+          "current_key": "AIzaSyAsKk_zGh5_ryKBUQF1U6EDFcnD_W_NMrU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "24932558592-0g9ernschjgrih3r3dcjs0ikjr2ts1qt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "app.product.enterprisemembroz"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24932558592:android:f37a4c8ea49071f22df5e5",
+        "android_client_info": {
+          "package_name": "com.app.membroztrainer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVTuuwrjNvtjZMgYqgmYuR_aB3kKkYkII"
+        },
+        {
+          "current_key": "AIzaSyAsKk_zGh5_ryKBUQF1U6EDFcnD_W_NMrU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "24932558592-0g9ernschjgrih3r3dcjs0ikjr2ts1qt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "app.product.enterprisemembroz"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24932558592:android:d3ba899397aaf6662df5e5",
+        "android_client_info": {
+          "package_name": "com.app.rossettes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVTuuwrjNvtjZMgYqgmYuR_aB3kKkYkII"
+        },
+        {
+          "current_key": "AIzaSyAsKk_zGh5_ryKBUQF1U6EDFcnD_W_NMrU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "24932558592-0g9ernschjgrih3r3dcjs0ikjr2ts1qt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "app.product.enterprisemembroz"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24932558592:android:332d6ff83f0bdcc72df5e5",
+        "android_client_info": {
+          "package_name": "com.app.telecallingmembrozapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVTuuwrjNvtjZMgYqgmYuR_aB3kKkYkII"
+        },
+        {
+          "current_key": "AIzaSyAsKk_zGh5_ryKBUQF1U6EDFcnD_W_NMrU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "24932558592-0g9ernschjgrih3r3dcjs0ikjr2ts1qt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "app.product.enterprisemembroz"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24932558592:android:a791ce4bef77d1ff",
+        "android_client_info": {
+          "package_name": "com.app.yogatopics"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVTuuwrjNvtjZMgYqgmYuR_aB3kKkYkII"
+        },
+        {
+          "current_key": "AIzaSyAsKk_zGh5_ryKBUQF1U6EDFcnD_W_NMrU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "24932558592-0g9ernschjgrih3r3dcjs0ikjr2ts1qt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "app.product.enterprisemembroz"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24932558592:android:13096eb8ce6ea8fa2df5e5",
+        "android_client_info": {
+          "package_name": "com.belgaumpresidencyclub"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVTuuwrjNvtjZMgYqgmYuR_aB3kKkYkII"
+        },
+        {
+          "current_key": "AIzaSyAsKk_zGh5_ryKBUQF1U6EDFcnD_W_NMrU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "24932558592-0g9ernschjgrih3r3dcjs0ikjr2ts1qt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "app.product.enterprisemembroz"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24932558592:android:23f9f9c3446f35022df5e5",
+        "android_client_info": {
+          "package_name": "com.cocoontrainer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVTuuwrjNvtjZMgYqgmYuR_aB3kKkYkII"
+        },
+        {
+          "current_key": "AIzaSyAsKk_zGh5_ryKBUQF1U6EDFcnD_W_NMrU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "24932558592-0g9ernschjgrih3r3dcjs0ikjr2ts1qt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "app.product.enterprisemembroz"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24932558592:android:0dc77533693a5bbf2df5e5",
+        "android_client_info": {
+          "package_name": "com.dubaiyogatrainers"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "24932558592-qtef4j7985udbcs6v806nvhdrcua8kh4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dubaiyogatrainers",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVTuuwrjNvtjZMgYqgmYuR_aB3kKkYkII"
+        },
+        {
+          "current_key": "AIzaSyAsKk_zGh5_ryKBUQF1U6EDFcnD_W_NMrU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "24932558592-0g9ernschjgrih3r3dcjs0ikjr2ts1qt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "app.product.enterprisemembroz"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24932558592:android:d68a61daec0d0ea42df5e5",
+        "android_client_info": {
+          "package_name": "com.dubaiyogatrainersuser"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "24932558592-g65ecpsrph71ph7t1tbbbk3bu90ijkf5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dubaiyogatrainersuser",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVTuuwrjNvtjZMgYqgmYuR_aB3kKkYkII"
+        },
+        {
+          "current_key": "AIzaSyAsKk_zGh5_ryKBUQF1U6EDFcnD_W_NMrU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "24932558592-0g9ernschjgrih3r3dcjs0ikjr2ts1qt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "app.product.enterprisemembroz"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24932558592:android:9681e0281ac3c9e62df5e5",
+        "android_client_info": {
+          "package_name": "com.example.staffmembroz"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVTuuwrjNvtjZMgYqgmYuR_aB3kKkYkII"
+        },
+        {
+          "current_key": "AIzaSyAsKk_zGh5_ryKBUQF1U6EDFcnD_W_NMrU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "24932558592-0g9ernschjgrih3r3dcjs0ikjr2ts1qt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "app.product.enterprisemembroz"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24932558592:android:1db90b176734ccb32df5e5",
+        "android_client_info": {
+          "package_name": "com.exoticaheritageclub"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVTuuwrjNvtjZMgYqgmYuR_aB3kKkYkII"
+        },
+        {
+          "current_key": "AIzaSyAsKk_zGh5_ryKBUQF1U6EDFcnD_W_NMrU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "24932558592-0g9ernschjgrih3r3dcjs0ikjr2ts1qt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "app.product.enterprisemembroz"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24932558592:android:829c5bc863d347192df5e5",
+        "android_client_info": {
+          "package_name": "com.fitnessstudio"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "24932558592-iicaqciu751s8fdm836497k3mffnb5sc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fitnessstudio",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVTuuwrjNvtjZMgYqgmYuR_aB3kKkYkII"
+        },
+        {
+          "current_key": "AIzaSyAsKk_zGh5_ryKBUQF1U6EDFcnD_W_NMrU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "24932558592-0g9ernschjgrih3r3dcjs0ikjr2ts1qt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "app.product.enterprisemembroz"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24932558592:android:d514535066e3ca432df5e5",
+        "android_client_info": {
+          "package_name": "com.gravityapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVTuuwrjNvtjZMgYqgmYuR_aB3kKkYkII"
+        },
+        {
+          "current_key": "AIzaSyAsKk_zGh5_ryKBUQF1U6EDFcnD_W_NMrU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "24932558592-0g9ernschjgrih3r3dcjs0ikjr2ts1qt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "app.product.enterprisemembroz"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24932558592:android:8ef30abfdfd6d5fb2df5e5",
+        "android_client_info": {
+          "package_name": "com.gravitystaff"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVTuuwrjNvtjZMgYqgmYuR_aB3kKkYkII"
+        },
+        {
+          "current_key": "AIzaSyAsKk_zGh5_ryKBUQF1U6EDFcnD_W_NMrU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "24932558592-0g9ernschjgrih3r3dcjs0ikjr2ts1qt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "app.product.enterprisemembroz"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24932558592:android:49c6379b40eb11ff2df5e5",
+        "android_client_info": {
+          "package_name": "com.gym_react_native"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVTuuwrjNvtjZMgYqgmYuR_aB3kKkYkII"
+        },
+        {
+          "current_key": "AIzaSyAsKk_zGh5_ryKBUQF1U6EDFcnD_W_NMrU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "24932558592-0g9ernschjgrih3r3dcjs0ikjr2ts1qt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "app.product.enterprisemembroz"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24932558592:android:513ef550faa3dff62df5e5",
+        "android_client_info": {
+          "package_name": "com.hotelbooking"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVTuuwrjNvtjZMgYqgmYuR_aB3kKkYkII"
+        },
+        {
+          "current_key": "AIzaSyAsKk_zGh5_ryKBUQF1U6EDFcnD_W_NMrU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "24932558592-0g9ernschjgrih3r3dcjs0ikjr2ts1qt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "app.product.enterprisemembroz"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24932558592:android:07c89dc11d2655222df5e5",
+        "android_client_info": {
+          "package_name": "com.longvisionhospitality"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVTuuwrjNvtjZMgYqgmYuR_aB3kKkYkII"
+        },
+        {
+          "current_key": "AIzaSyAsKk_zGh5_ryKBUQF1U6EDFcnD_W_NMrU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "24932558592-0g9ernschjgrih3r3dcjs0ikjr2ts1qt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "app.product.enterprisemembroz"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24932558592:android:1acc1d6f3743b1462df5e5",
+        "android_client_info": {
+          "package_name": "com.membroz_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "24932558592-ulgsf9l6mdnb5jaqei2v1tenp9n07bd9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.membroz_app",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVTuuwrjNvtjZMgYqgmYuR_aB3kKkYkII"
+        },
+        {
+          "current_key": "AIzaSyAsKk_zGh5_ryKBUQF1U6EDFcnD_W_NMrU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "24932558592-0g9ernschjgrih3r3dcjs0ikjr2ts1qt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "app.product.enterprisemembroz"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24932558592:android:379768be4cfc0fdc2df5e5",
+        "android_client_info": {
+          "package_name": "com.membroz_salon"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVTuuwrjNvtjZMgYqgmYuR_aB3kKkYkII"
+        },
+        {
+          "current_key": "AIzaSyAsKk_zGh5_ryKBUQF1U6EDFcnD_W_NMrU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "24932558592-0g9ernschjgrih3r3dcjs0ikjr2ts1qt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "app.product.enterprisemembroz"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24932558592:android:98ee0a15cd4f41bf2df5e5",
+        "android_client_info": {
+          "package_name": "com.membroz_user_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "24932558592-n0fhmr15p42o2sasvp9h8rtptu04buh3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.membroz_user_app",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVTuuwrjNvtjZMgYqgmYuR_aB3kKkYkII"
+        },
+        {
+          "current_key": "AIzaSyAsKk_zGh5_ryKBUQF1U6EDFcnD_W_NMrU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "24932558592-0g9ernschjgrih3r3dcjs0ikjr2ts1qt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "app.product.enterprisemembroz"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24932558592:android:f6a21a0477c46e002df5e5",
+        "android_client_info": {
+          "package_name": "com.membrozclub"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVTuuwrjNvtjZMgYqgmYuR_aB3kKkYkII"
+        },
+        {
+          "current_key": "AIzaSyAsKk_zGh5_ryKBUQF1U6EDFcnD_W_NMrU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "24932558592-0g9ernschjgrih3r3dcjs0ikjr2ts1qt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "app.product.enterprisemembroz"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24932558592:android:13f2daa342a9a8f62df5e5",
+        "android_client_info": {
+          "package_name": "com.membrozcrm"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVTuuwrjNvtjZMgYqgmYuR_aB3kKkYkII"
+        },
+        {
+          "current_key": "AIzaSyAsKk_zGh5_ryKBUQF1U6EDFcnD_W_NMrU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "24932558592-0g9ernschjgrih3r3dcjs0ikjr2ts1qt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "app.product.enterprisemembroz"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24932558592:android:9fd5ac9f535fa7d22df5e5",
+        "android_client_info": {
+          "package_name": "com.membrozgym"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVTuuwrjNvtjZMgYqgmYuR_aB3kKkYkII"
+        },
+        {
+          "current_key": "AIzaSyAsKk_zGh5_ryKBUQF1U6EDFcnD_W_NMrU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "24932558592-0g9ernschjgrih3r3dcjs0ikjr2ts1qt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "app.product.enterprisemembroz"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24932558592:android:3c41b8ecc91c22772df5e5",
+        "android_client_info": {
+          "package_name": "com.membrozretails"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "24932558592-41h0b9scd4chanudrrg1hl2hbac5q5ns.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.membrozretails",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVTuuwrjNvtjZMgYqgmYuR_aB3kKkYkII"
+        },
+        {
+          "current_key": "AIzaSyAsKk_zGh5_ryKBUQF1U6EDFcnD_W_NMrU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "24932558592-0g9ernschjgrih3r3dcjs0ikjr2ts1qt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "app.product.enterprisemembroz"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24932558592:android:40a395b4a6b2d04f2df5e5",
+        "android_client_info": {
+          "package_name": "com.pinkshospitality"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVTuuwrjNvtjZMgYqgmYuR_aB3kKkYkII"
+        },
+        {
+          "current_key": "AIzaSyAsKk_zGh5_ryKBUQF1U6EDFcnD_W_NMrU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "24932558592-0g9ernschjgrih3r3dcjs0ikjr2ts1qt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "app.product.enterprisemembroz"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24932558592:android:daafa1b7dcefabdb2df5e5",
+        "android_client_info": {
+          "package_name": "com.schooleducationapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "24932558592-b83aokavebh2u0178rc5iq7u1qsqa7sg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.schooleducationapp",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVTuuwrjNvtjZMgYqgmYuR_aB3kKkYkII"
+        },
+        {
+          "current_key": "AIzaSyAsKk_zGh5_ryKBUQF1U6EDFcnD_W_NMrU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "24932558592-0g9ernschjgrih3r3dcjs0ikjr2ts1qt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "app.product.enterprisemembroz"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24932558592:android:c74fbebda723039f2df5e5",
+        "android_client_info": {
+          "package_name": "com.sevenseasonsresortandspa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVTuuwrjNvtjZMgYqgmYuR_aB3kKkYkII"
+        },
+        {
+          "current_key": "AIzaSyAsKk_zGh5_ryKBUQF1U6EDFcnD_W_NMrU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "24932558592-0g9ernschjgrih3r3dcjs0ikjr2ts1qt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "app.product.enterprisemembroz"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24932558592:android:5d362806bdb231de2df5e5",
+        "android_client_info": {
+          "package_name": "com.staffmembroz"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "24932558592-rt97jitganlq8m400iopp19bqpd97jv8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.staffmembroz",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVTuuwrjNvtjZMgYqgmYuR_aB3kKkYkII"
+        },
+        {
+          "current_key": "AIzaSyAsKk_zGh5_ryKBUQF1U6EDFcnD_W_NMrU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "24932558592-0g9ernschjgrih3r3dcjs0ikjr2ts1qt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "app.product.enterprisemembroz"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24932558592:android:9ad92ec487f094c42df5e5",
+        "android_client_info": {
+          "package_name": "com.surgefitness"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVTuuwrjNvtjZMgYqgmYuR_aB3kKkYkII"
+        },
+        {
+          "current_key": "AIzaSyAsKk_zGh5_ryKBUQF1U6EDFcnD_W_NMrU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "24932558592-0g9ernschjgrih3r3dcjs0ikjr2ts1qt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "app.product.enterprisemembroz"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24932558592:android:61bd8ee35e930e4d2df5e5",
+        "android_client_info": {
+          "package_name": "com.tagvacationclubs"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVTuuwrjNvtjZMgYqgmYuR_aB3kKkYkII"
+        },
+        {
+          "current_key": "AIzaSyAsKk_zGh5_ryKBUQF1U6EDFcnD_W_NMrU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "24932558592-0g9ernschjgrih3r3dcjs0ikjr2ts1qt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "app.product.enterprisemembroz"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24932558592:android:2dcb9bb839efedb82df5e5",
+        "android_client_info": {
+          "package_name": "com.tfgapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVTuuwrjNvtjZMgYqgmYuR_aB3kKkYkII"
+        },
+        {
+          "current_key": "AIzaSyAsKk_zGh5_ryKBUQF1U6EDFcnD_W_NMrU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "24932558592-0g9ernschjgrih3r3dcjs0ikjr2ts1qt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "app.product.enterprisemembroz"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24932558592:android:9079c35c916495f12df5e5",
+        "android_client_info": {
+          "package_name": "com.theparkpriviera"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "24932558592-amgivc2ftbcntsrlh9nqftk90023gguv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.theparkpriviera",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVTuuwrjNvtjZMgYqgmYuR_aB3kKkYkII"
+        },
+        {
+          "current_key": "AIzaSyAsKk_zGh5_ryKBUQF1U6EDFcnD_W_NMrU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "24932558592-0g9ernschjgrih3r3dcjs0ikjr2ts1qt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "app.product.enterprisemembroz"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24932558592:android:302edead6aba01d92df5e5",
+        "android_client_info": {
+          "package_name": "com.tulipholidays"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVTuuwrjNvtjZMgYqgmYuR_aB3kKkYkII"
+        },
+        {
+          "current_key": "AIzaSyAsKk_zGh5_ryKBUQF1U6EDFcnD_W_NMrU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "24932558592-f8r0eamgabd7756u63ioqsj0318qshvu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "24932558592-0g9ernschjgrih3r3dcjs0ikjr2ts1qt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "app.product.enterprisemembroz"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
