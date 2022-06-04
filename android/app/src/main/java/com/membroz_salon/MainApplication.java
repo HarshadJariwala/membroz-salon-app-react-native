@@ -7,10 +7,12 @@ import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
-// import com.facebook.react.config.ReactFeatureFlags;
+import com.facebook.react.config.ReactFeatureFlags;
 import com.facebook.soloader.SoLoader;
 import com.membroz_salon.newarchitecture.MainApplicationReactNativeHost;
 import java.lang.reflect.InvocationTargetException;
+import com.facebook.react.bridge.JSIModulePackage; // <- add
+import com.swmansion.reanimated.ReanimatedJSIModulePackage; // <- add
 import java.util.List;
 
 public class MainApplication extends Application implements ReactApplication {
@@ -30,6 +32,10 @@ public class MainApplication extends Application implements ReactApplication {
           // packages.add(new MyReactNativePackage());
           return packages;
         }
+
+        @Override 
+        protected JSIModulePackage getJSIModulePackage() 
+        { return new ReanimatedJSIModulePackage(); }
 
         @Override
         protected String getJSMainModuleName() {
