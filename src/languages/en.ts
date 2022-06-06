@@ -463,4 +463,5 @@ export default {
     pointtext: "Points",
     yourrewardpoint: "Your Reward Points Balance",
     pointhistory: "View Points History",
+    firstnameerror: "First name is required!",
 }

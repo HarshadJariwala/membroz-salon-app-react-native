@@ -33,6 +33,41 @@ const HEIGHT = Dimensions.get('window').height;
 
 const UpdateProfileScreen = (props) => {
 
+    const [memberId, setMemberId] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [firstname, setFirstname] = useState(null);
+    const [firsterror, setfirsterror] = useState(null);
+    const [email, setEmail] = useState(null);
+    const [emailerror, setemailError] = useState(null);
+    const [mobileno, setMobileno] = useState(null);
+    const [mobilenoError, setMobilenoError] = useState(null);
+
+    const firstTextInputRef = React.createRef();
+
+    useEffect(() => {
+        //LANGUAGE MANAGEMENT FUNCTION        
+        MemberLanguage();
+        //GET COUNTRY LIST
+        getCountryList();
+        getMemberDeatilsLocalStorage();
+    }, []);
+
+    useEffect(() => { }, [
+        memberId, loading, firstname, firsterror, email, emailerror, mobileno, mobilenoError
+    ]);
+
+    //CHECK FIRST NAME VALIDATION
+    const CheckSFirstName = (firstname) => {
+        if (!firstname || firstname.length <= 0) {
+            setfirsterror(languageConfig.firstnameerror);
+            return;
+        }
+        setFirstname(firstname);
+        setfirsterror(null);
+        return;
+    }
+
+
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: COLOR.BACKGROUNDCOLOR }}>
             <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={KEY.ALWAYS}>
