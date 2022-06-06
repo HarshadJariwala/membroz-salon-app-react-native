@@ -105,6 +105,7 @@ const ForgotPasswordScreen = (props) => {
             const CheckUserResponse = await CheckMemberService(body);
             if (Object.keys(CheckUserResponse.data).length !== 0 && CheckUserResponse.data != null && CheckUserResponse.data != 'undefind' && CheckUserResponse.status == 200) {
                 const verifyOtpNumber = Math.floor(1000 + Math.random() * 9000);
+                console.log(`verifyOtpNumber`, verifyOtpNumber);
                 setVerifyOtpNumber(verifyOtpNumber);
                 setMemberInfo(CheckUserResponse.data);
                 onPressSubmit(CheckUserResponse.data.property, verifyOtpNumber);
@@ -136,7 +137,7 @@ const ForgotPasswordScreen = (props) => {
                 setloading(false);
                 let userValue;
                 if (memberName) {
-                    userValue = memberName.toUpperCase()
+                    userValue = { id: memberInfo._id, username: memberName.toUpperCase() }
                 }
                 resetScreen();
                 props.navigation.navigate(SCREEN.NEWPASSWORDSCREEN, { userValue });

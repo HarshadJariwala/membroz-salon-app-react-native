@@ -283,6 +283,9 @@ dependencies {
     // rn-fetch-blob modules
     implementation project(':rn-fetch-blob')
 
+    //Razorpay Package
+    implementation project(':react-native-razorpay')
+
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules
 

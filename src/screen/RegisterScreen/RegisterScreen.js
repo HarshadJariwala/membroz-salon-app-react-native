@@ -17,7 +17,6 @@ import Toast from 'react-native-simple-toast';
 import * as COLOR from '../../styles/colors';
 import * as IMAGE from '../../styles/image';
 import styles from './RegisterStyle';
-
 const WIDTH = Dimensions.get('window').width;
 const HEIGHT = Dimensions.get('window').height;
 
@@ -165,7 +164,6 @@ const RegisterScreen = (props) => {
                                 onChangeText={(fullname) => CheckFullname(fullname)}
                             />
                         </View>
-
                         <View>
                             <TextInput placeholder={languageConfig.emailplaceholder}
                                 placeholderTextColor={COLOR.GRANITE_GRAY}
@@ -179,7 +177,6 @@ const RegisterScreen = (props) => {
                                 onChangeText={(email) => CheckEmail(email)}
                             />
                         </View>
-
                         <View>
                             <TextInput placeholder={languageConfig.mobileplaceholder}
                                 placeholderTextColor={COLOR.GRANITE_GRAY}
@@ -194,23 +191,19 @@ const RegisterScreen = (props) => {
                                 onChangeText={(mobile) => CheckMobileno(mobile)}
                             />
                         </View>
-
                         <TouchableOpacity style={styles.loginBtn} onPress={() => onPressToRegister()}>
                             <Text style={{
                                 fontWeight: FONT.FONT_WEIGHT_BOLD, color: COLOR.WHITE,
                                 fontSize: FONT.FONT_SIZE_18, textTransform: KEY.CAPITALIZE
                             }}>{languageConfig.register}</Text>
                         </TouchableOpacity>
-
                         <View style={styles.joinBtn}>
                             <Text style={{ fontWeight: FONT.FONT_WEIGHT_NORMAL, color: COLOR.WHITE, fontSize: FONT.FONT_SIZE_16 }}>{languageConfig.createaccount}</Text>
                             <TouchableOpacity style={{ marginLeft: 10 }} onPress={() => { resetScreen(), props.navigation.navigate(SCREEN.LOGINSCREEN) }} >
                                 <Text style={{ fontWeight: FONT.FONT_WEIGHT_NORMAL, color: COLOR.DEFALUTCOLOR, fontSize: FONT.FONT_SIZE_16 }}>{languageConfig.loginbtn}</Text>
                             </TouchableOpacity>
                         </View>
-
                     </View>
-                    <View style={{ marginVertical: 20 }} />
                 </ScrollView>
             </ImageBackground>
             {loading ? <Loader /> : null}

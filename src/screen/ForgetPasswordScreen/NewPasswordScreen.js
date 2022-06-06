@@ -94,7 +94,7 @@ const NewPasswordScreen = (props) => {
 
     //SIGN IN BUTTON ONPRESS TO PROCESS
     const onPressSubmit = async () => {
-        axiosConfig(null);
+        axiosConfig(memberName.id);
         if (!newPassword || !rePassword) {
             setNewPasswordCheck(newPassword);
             setRePasswordCheck(rePassword);
@@ -109,7 +109,7 @@ const NewPasswordScreen = (props) => {
 
         const body = {
             "newpassword": newPassword,
-            "username": memberName
+            "username": memberName.username
         }
         setloading(true);
         try {

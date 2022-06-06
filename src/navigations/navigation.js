@@ -90,7 +90,7 @@ const NavigationDrawerStructureRight = (props) => {
 
 const AuthStackScreen = () => {
     return (
-        <Stack.Navigator initialRouteName="ExpoloreLoginScreen" screenOptions={{ headerShadowVisible: false }}>
+        <Stack.Navigator initialRouteName="LoginScreen" screenOptions={{ headerShadowVisible: false }}>
             <Stack.Screen
                 name="LoginScreen"
                 component={LOGINSCREEN}

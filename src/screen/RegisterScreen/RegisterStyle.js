@@ -26,11 +26,11 @@ const styles = StyleSheet.create({
         fontWeight: FONT.FONT_WEIGHT_BOLD
     },
     inputTextView: {
-        borderRadius: 30,
+        borderRadius: 5,
         borderWidth: 2,
         borderColor: COLOR.WHITE,
         alignItems: KEY.FLEX_START,
-        marginBottom: 15,
+        marginBottom: 20,
         width: WIDTH - 30,
         height: 45,
         marginLeft: 20,
@@ -38,14 +38,16 @@ const styles = StyleSheet.create({
         color: COLOR.GRANITE_GRAY,
         fontSize: FONT.FONT_SIZE_16,
         paddingLeft: 15,
-        backgroundColor: COLOR.WHITE
+        backgroundColor: COLOR.WHITE,
+        borderBottomRightRadius: 20,
+        borderTopLeftRadius: 20
     },
     inputTextViewError: {
-        borderRadius: 30,
+        borderRadius: 5,
         borderWidth: 2,
         borderColor: COLOR.ERRORCOLOR,
         alignItems: KEY.FLEX_START,
-        marginBottom: 15,
+        marginBottom: 20,
         width: WIDTH - 30,
         height: 45,
         marginLeft: 20,
@@ -53,15 +55,19 @@ const styles = StyleSheet.create({
         color: COLOR.GRANITE_GRAY,
         fontSize: FONT.FONT_SIZE_16,
         paddingLeft: 15,
-        backgroundColor: COLOR.WHITE
+        backgroundColor: COLOR.WHITE,
+        borderBottomRightRadius: 20,
+        borderTopLeftRadius: 20
     },
     loginBtn: {
-        borderRadius: 30,
+        borderRadius: 5,
         backgroundColor: COLOR.DEFALUTCOLOR,
         width: WIDTH - 30,
         height: 45,
         justifyContent: KEY.CENTER,
-        alignItems: KEY.CENTER
+        alignItems: KEY.CENTER,
+        borderBottomRightRadius: 20,
+        borderTopLeftRadius: 20
     },
     backgroundImage: {
         flex: 1,

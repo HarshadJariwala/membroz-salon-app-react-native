@@ -14,6 +14,7 @@ import axiosConfig from '../../helpers/axiosConfig';
 import Loader from '../../components/loader/index';
 import * as KEY from '../../context/actions/key';
 import * as FONT from '../../styles/typography';
+import { Button } from 'react-native-elements';
 import Toast from 'react-native-simple-toast';
 import * as COLOR from '../../styles/colors';
 import * as IMAGE from '../../styles/image';
@@ -32,7 +33,6 @@ export default LoginScreen = (props) => {
     const [passwordError, setPasswordError] = useState(null);
     const [loading, setLoading] = useState(false);
     const secondTextInputRef = React.createRef();
-    const [explore, setExplore] = useState(false);
     const [loginOTP, setLoginOTP] = useState(false);
 
     useEffect(() => {
@@ -50,7 +50,6 @@ export default LoginScreen = (props) => {
             setBackgroungImage(userData.loginimage);
             setAppLogoVisible(userData.applogovisibleloginscreen);
             setLoginOTP(userData.loginotp ? true : false);
-            setExplore(userData.exploreimage != null ? true : false);
         }
     };
 
@@ -131,11 +130,6 @@ export default LoginScreen = (props) => {
         setLoading(false);
     }
 
-    //LOGIN WITH OTP FUNCTION
-    const onPressToLoginOTP = () => {
-        props.navigation.navigate(SCREEN.LOGINWITHOTP);
-    }
-
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: COLOR.BACKGROUNDCOLOR }}>
             <StatusBar hidden={false} translucent={true} backgroundColor={KEY.TRANSPARENT} barStyle={Platform.OS === KEY.IOS ? KEY.DARK_CONTENT : KEY.LIGHT_CONTENT} />
@@ -147,7 +141,6 @@ export default LoginScreen = (props) => {
                                 style={STYLES.imageLogo} /> :
                             <View style={{ marginTop: HEIGHT / 3 }} />
                         }
-
                         <Text style={STYLES.welcomeText}>{languageConfig.loginbtn}</Text>
                         <View style={{ marginBottom: 10 }}>
                             <TextInput placeholder={languageConfig.usernameplaceholder}
@@ -181,22 +174,13 @@ export default LoginScreen = (props) => {
                         <TouchableOpacity style={STYLES.loginBtn} onPress={() => onPressToLogin()}>
                             <Text style={{ fontWeight: FONT.FONT_WEIGHT_BOLD, color: COLOR.WHITE, fontSize: FONT.FONT_SIZE_18 }}>{languageConfig.loginbtn}</Text>
                         </TouchableOpacity>
-                        {
-                            loginOTP &&
-                            <TouchableOpacity style={STYLES.loginBtnOTP} onPress={() => onPressToLoginOTP()}>
-                                <Text style={{ fontWeight: FONT.FONT_WEIGHT_BOLD, color: COLOR.WHITE, fontSize: FONT.FONT_SIZE_18 }}>{languageConfig.loginotpbtn}</Text>
-                            </TouchableOpacity>
-                        }
-
                         <View style={STYLES.joinBtn}>
                             <Text style={{ fontWeight: FONT.FONT_WEIGHT_NORMAL, color: COLOR.WHITE, fontSize: FONT.FONT_SIZE_16 }}>{languageConfig.dontaccount}</Text>
-                            <TouchableOpacity style={{ marginLeft: 10 }} onPress={() => { resetScreen(), props.navigation.navigate(SCREEN.REGISTERSCREEN) }} >
+                            <TouchableOpacity style={{ marginLeft: 5 }} onPress={() => { resetScreen(), props.navigation.navigate(SCREEN.REGISTERSCREEN) }} >
                                 <Text style={{ fontWeight: FONT.FONT_WEIGHT_NORMAL, color: COLOR.DEFALUTCOLOR, fontSize: FONT.FONT_SIZE_16 }}>{languageConfig.register}</Text>
                             </TouchableOpacity>
                         </View>
-
                     </View>
-                    <View style={{ marginBottom: HEIGHT / 4 }} />
                 </ScrollView>
             </ImageBackground>
             {loading ? <Loader /> : null}
