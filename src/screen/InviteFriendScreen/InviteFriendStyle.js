@@ -1,4 +1,4 @@
-import { StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet, Dimensions, Platform } from 'react-native';
 import * as KEY from '../../context/actions/key';
 import * as FONT from '../../styles/typography';
 import * as COLOR from '../../styles/colors';
@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
         marginBottom: 20
     },
     viewSquareTwoColumn: {
-        //flex: 1,
+
         height: 180,
         width: WIDTH / 2.2,
         margin: 7,
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
     referCodetext: {
         alignSelf: KEY.CENTER,
         fontSize: FONT.FONT_SIZE_18,
-        fontWeight: FONT.FONT_WEIGHT_BOLD,
+        fontWeight: FONT.FONT_BOLD,
         color: COLOR.BLACK,
         textTransform: KEY.UPPERCASE
     },
@@ -75,7 +75,50 @@ const styles = StyleSheet.create({
         alignSelf: KEY.CENTER,
         marginTop: 10,
         backgroundColor: COLOR.SKY_LIGHT_COLOR
-    }
+    },
+    mainbox: {
+        marginBottom: 10,
+        marginTop: 20,
+        width: 150,
+        height: 120,
+        shadowColor: COLOR.BLACK,
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 1.84,
+        elevation: Platform.OS === 'ios' ? 2 : 3,
+        borderRadius: 10,
+        backgroundColor: COLOR.WHITE,
+
+    },
+    box1: {
+        width: 150,
+        height: 35,
+        borderRadius: 10,
+        backgroundColor: COLOR.DEFALUTCOLOR,
+        justifyContent: KEY.CENTER,
+        alignItems: KEY.CENTER
+
+    },
+    inputView2: {
+        backgroundColor: COLOR.DEFALUTCOLOR,
+        borderRadius: 30,
+        height: 45,
+        width: WIDTH - 40,
+        margin: 20,
+        justifyContent: KEY.CENTER,
+        alignItems: KEY.CENTER
+
+    },
+    Share_button: {
+        margin: 10,
+        fontSize: FONT.FONT_SIZE_16,
+        fontWeight: FONT.FONT_BOLD,
+        color: COLOR.WHITE,
+    },
+
 });
 
 export default styles;

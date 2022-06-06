@@ -114,6 +114,22 @@ const styles = StyleSheet.create({
         justifyContent: KEY.CENTER,
         alignItems: KEY.CENTER
     },
+    msgModalView: {
+        marginTop: HEIGHT / 2.5,
+        height: 200,
+        width: WIDTH,
+        borderRadius: 0,
+        backgroundColor: COLOR.SPLASHMODELCOLOR,
+        alignItems: KEY.FLEX_START,
+        shadowColor: COLOR.BLACK,
+        shadowOffset: {
+            width: 0,
+            height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5
+    }
 });
 
 export default styles;
