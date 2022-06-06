@@ -7,6 +7,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import { RemoteServerController } from '../../services/LocalService/LocalService';
 import { MemberLanguage } from '../../services/LocalService/LanguageService';
 import crashlytics, { firebase } from "@react-native-firebase/crashlytics";
+import * as LocalService from '../../services/LocalService/LocalService';
 import languageConfig from '../../languages/languageConfig';
 import * as SCREEN from '../../context/screen/screenName';
 import Loader from '../../components/loader/index';
@@ -21,29 +22,98 @@ const HEIGHT = Dimensions.get('window').height;
 const WIDTH = Dimensions.get('window').width;
 
 const InviteFriendScreen = () => {
+    const [loading, setLoading] = useState(false);
+    const [memberInfo, setMemberInfo] = useState(null);
+    const [memberNumber, setMemberNumber] = useState(null);
+
+    useEffect(() => {
+        getMemberDeatilsLocalStorage();
+    }, [])
+
+    //GET MEMBER DATA IN MOBILE LOCAL STORAGE
+    const getMemberDeatilsLocalStorage = async () => {
+        var memberInfo = await LocalService.LocalStorageService();
+        if (memberInfo) {
+            setMemberInfo(memberInfo);
+            setMemberNumber(memberInfo?.membernumber);
+        }
+    }
+
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: COLOR.BACKGROUNDCOLOR }}>
-            <StatusBar hidden={false} translucent={true} backgroundColor={COLOR.DEFALUTCOLOR} barStyle={KEY.DARK_CONTENT} />
+            <StatusBar hidden={false} translucent={true} backgroundColor={COLOR.STATUSBARCOLOR} barStyle={KEY.DARK_CONTENT} />
             <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={KEY.ALWAYS}>
                 <View style={{ justifyContent: KEY.CENTER, alignItems: KEY.CENTER }}>
                     <Text style={{
                         fontSize: FONT.FONT_SIZE_22, color: COLOR.DEFALUTCOLOR,
-                        fontWeight: FONT.FONT_WEIGHT_BOLD
-                    }}>{"Invite your friends &"}</Text>
+                        fontWeight: FONT.FONT_BOLD
+                    }}>{languageConfig.mainTitel}</Text>
                     <Text style={{
                         fontSize: FONT.FONT_SIZE_22, color: COLOR.DEFALUTCOLOR,
-                        fontWeight: FONT.FONT_WEIGHT_BOLD
-                    }}>{"earn credits/rewards"}</Text>
-                    <Image style={{ height: 200, width: 400, resizeMode: KEY.COVER, marginTop: 20 }}
-                        source={require("../../assets/images/images/img1.png")} />
-
+                        fontWeight: FONT.FONT_BOLD
+                    }}>{languageConfig.maintitletext2}</Text>
+                    <Image style={{ height: 160, width: 300, resizeMode: KEY.COVER, marginTop: 20, marginBottom: 20 }}
+                        source={IMAGE.INVITEEARN} />
                     <Text style={{
-                        fontSize: FONT.FONT_SIZE_18, color: COLOR.BLACK,
-                        fontWeight: FONT.FONT_WEIGHT_BOLD
-                    }}>{"Your Referral Code"}</Text>
+                        fontSize: FONT.FONT_SIZE_14, color: COLOR.BLACK,
+                        fontWeight: FONT.FONT_BOLD
+                    }}>{languageConfig.refercode}</Text>
                     <View style={styles.referCodeStyle}>
-                        <Text style={styles.referCodetext}>{"CLUBS1022"}</Text>
+                        <Text style={styles.referCodetext}>{memberNumber}</Text>
                     </View>
+                    <View style={{ flexDirection: KEY.ROW, }}>
+                        <View style={{ justifyContent: KEY.CENTER, alignItems: KEY.CENTER }} >
+                            <View style={styles.mainbox}>
+                                <View style={styles.box1}>
+                                    <Text style={{
+                                        flexDirection: KEY.ROW, color: COLOR.WHITE,
+                                        fontWeight: FONT.FONT_BOLD, alignSelf: KEY.CENTER, fontSize: FONT.FONT_SIZE_16
+                                    }}>{languageConfig.totalreawardstext}</Text>
+                                </View>
+                                <View style={{ flexDirection: KEY.COLUMN, justifyContent: KEY.CENTER, alignItems: KEY.CENTER, marginTop: 5 }}>
+                                    <Text style={{ fontSize: FONT.FONT_SIZE_20, color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD }}>{"450"}</Text>
+                                    <Text style={{
+                                        fontSize: FONT.FONT_SIZE_16,
+                                        color: COLOR.DEFALUTCOLOR,
+                                        marginTop: 10
+                                    }}>{languageConfig.totalinvitedtext1}</Text>
+                                </View>
+                            </View>
+                        </View>
+                        <View style={{ marginLeft: 20 }}>
+                            <View style={styles.mainbox}>
+                                <View style={styles.box1}>
+                                    <Text style={{
+                                        flexDirection: KEY.ROW, color: COLOR.WHITE,
+                                        fontWeight: FONT.FONT_BOLD, alignSelf: KEY.CENTER, fontSize: FONT.FONT_SIZE_16
+                                    }}>{languageConfig.totalinvitedtext}</Text>
+                                </View>
+                                <View style={{ flexDirection: KEY.COLOR, justifyContent: KEY.CENTER, alignItems: KEY.CENTER, marginTop: 5 }}>
+                                    <Text style={{ fontSize: FONT.FONT_SIZE_20, color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD }}>{"45"}</Text>
+                                    <Text style={{
+                                        fontSize: FONT.FONT_SIZE_16,
+                                        color: COLOR.BLACK,
+                                        top: 10
+                                    }}>{languageConfig.friends}</Text>
+                                </View>
+                            </View>
+                        </View>
+                    </View>
+                    <View style={{ flexDirection: KEY.COLUMN, marginTop: 10 }}>
+                        <Text style={{ color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD, fontSize: FONT.FONT_SIZE_16, marginLeft: 2 }}>{languageConfig.Titletext}</Text>
+                        <Text style={{ fontSize: FONT.FONT_SIZE_14, }}>{languageConfig.onetext}</Text>
+                        <Text style={{ fontSize: FONT.FONT_SIZE_14 }}>{languageConfig.secondtext}</Text>
+                        <Text style={{ fontSize: FONT.FONT_SIZE_14 }}>{languageConfig.threetext}</Text>
+                    </View>
+                    <TouchableOpacity >
+                        <View style={styles.inputView2}  >
+
+                            <Text style={styles.Share_button}>
+                                {languageConfig.sharenowtext}
+                            </Text>
+                            {/* <Button onPress={() => props.navigation.navigate('RegistrationScreen')} /> */}
+                        </View>
+                    </TouchableOpacity>
                 </View>
             </ScrollView>
         </SafeAreaView>

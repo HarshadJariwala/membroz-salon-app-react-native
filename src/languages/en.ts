@@ -464,4 +464,18 @@ export default {
     yourrewardpoint: "Your Reward Points Balance",
     pointhistory: "View Points History",
     firstnameerror: "First name is required!",
+
+    //Invite A Friends Text
+    mainTitel: "Invite your friends &",
+    maintitletext2: "earn credits/rewards",
+    refercode: "Your Referral Code",
+    totalreawardstext: "Total Rewards",
+    totalinvitedtext: "Total Invited",
+    totalinvitedtext1: "View Wallet",
+    friends: "Friends",
+    Titletext: "How to invite and & earn",
+    onetext: "1. invite your friends by sharing your referral link",
+    secondtext: "2. Your friend sign-up using your unique link",
+    threetext: "3. Get rewarded on successful sign-up",
+    sharenowtext: "Share Now"
 }

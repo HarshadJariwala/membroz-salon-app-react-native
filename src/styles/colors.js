@@ -1,8 +1,8 @@
 //APP MAIN COLOR
 export const DEFALUTCOLOR = '#F29015';
-export const DEFAULTLIGHT = '#F29015';
-export const BACKGROUNDCOLOR = '#F8FCFF';
-export const STATUSBARCOLOR = '#F29015';
+export const DEFAULTLIGHT = '#FFFCF7';
+export const BACKGROUNDCOLOR = '#FFFCF7';
+export const STATUSBARCOLOR = '#FFFCF7';
 export const SPLASHSCREENCOLOR = '#FFFFFF';
 export const WHITE = '#FFFFFF';
 export const BLACK = '#000000';

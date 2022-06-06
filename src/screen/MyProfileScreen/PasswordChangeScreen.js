@@ -8,12 +8,10 @@ import {
     TouchableOpacity,
     Keyboard
 } from 'react-native';
-export { ChangePasswordService } from '../../services/PasswordService/PasswordService';
 import { ChangePasswordService } from '../../services/PasswordService/PasswordService';
 import { MemberLanguage } from '../../services/LocalService/LanguageService';
 import crashlytics, { firebase } from "@react-native-firebase/crashlytics";
 import * as LocalService from '../../services/LocalService/LocalService';
-import { AUTHUSER, AUTHUSERINFO, CLOUD_URL } from '../../context/actions/type';
 import AsyncStorage from '@react-native-community/async-storage';
 import languageConfig from '../../languages/languageConfig';
 import * as SCREEN from '../../context/screen/screenName';
@@ -24,7 +22,6 @@ import Toast from 'react-native-simple-toast';
 import * as COLOR from '../../styles/colors';
 import * as IMAGE from '../../styles/image';
 import styles from './PasswordChangeStyle';
-
 const WIDTH = Dimensions.get('window').width;
 
 const PasswordChangeScreen = (props) => {
@@ -39,7 +36,6 @@ const PasswordChangeScreen = (props) => {
     const [RePasswordError, setRePasswordError] = useState(null);
     const [memberProfile, setMemberProfile] = useState(null);
     const [memberName, setMemberName] = useState(null);
-
     const secondTextInputRef = React.createRef();
     const thirdTextInputRef = React.createRef();
 
@@ -141,12 +137,11 @@ const PasswordChangeScreen = (props) => {
             const response = await ChangePasswordService(body);
             if (response.data != null && response.data != 'undefind' && response.status == 200) {
                 Toast.show(languageConfig.passwordchangesuccess, Toast.SHORT);
-                resetScreen();
                 setAuthUserInfo({ username: memberNumber, password: newPassword });
+                resetScreen();
                 props.navigation.replace(SCREEN.MYPROFILESCREEN);
             }
         } catch (error) {
-            console.log(`error`, error);
             firebase.crashlytics().recordError(error);
             Toast.show(languageConfig.passwordnochangeerror, Toast.SHORT);
             resetScreen();
@@ -160,7 +155,7 @@ const PasswordChangeScreen = (props) => {
                 <View style={styles.containerView}>
                     <View style={{ justifyContent: KEY.CENTER, alignItems: KEY.CENTER, marginTop: 20 }}>
                         <TouchableOpacity style={styles.viewRound}>
-                            <Image source={memberProfile ? memberProfile : IMAGE.USERPROFILE}
+                            <Image source={!memberProfile ? IMAGE.USERPROFILE : { uri: memberProfile }}
                                 style={{ height: 95, width: 95, borderRadius: 100 }} />
                         </TouchableOpacity>
                         <Text style={styles.text}>{memberName}</Text>
@@ -180,7 +175,7 @@ const PasswordChangeScreen = (props) => {
                                 onSubmitEditing={() => secondTextInputRef.current.focus()}
                                 onChangeText={(currentpassword) => checkCurrentPassword(currentpassword)}
                             />
-                            {currentPasswordError && <Text style={{ marginLeft: 15, fontSize: FONT.FONT_SIZE_16, color: COLOR.ERRORCOLOR, marginTop: -15, marginBottom: 5 }}>{currentPasswordError}</Text>}
+                            {currentPasswordError && <Text style={{ marginLeft: 15, fontSize: FONT.FONT_SIZE_14, color: COLOR.ERRORCOLOR, marginTop: -15, marginBottom: 5 }}>{currentPasswordError}</Text>}
                         </View>
 
                         <View>
@@ -197,7 +192,7 @@ const PasswordChangeScreen = (props) => {
                                 onSubmitEditing={() => thirdTextInputRef.current.focus()}
                                 onChangeText={(newpassword) => checkNewPassword(newpassword)}
                             />
-                            {newPasswordError && <Text style={{ marginLeft: 15, fontSize: FONT.FONT_SIZE_16, color: COLOR.ERRORCOLOR, marginTop: -15, marginBottom: 5 }}>{newPasswordError}</Text>}
+                            {newPasswordError && <Text style={{ marginLeft: 15, fontSize: FONT.FONT_SIZE_14, color: COLOR.ERRORCOLOR, marginTop: -15, marginBottom: 5 }}>{newPasswordError}</Text>}
                         </View>
 
                         <View>
@@ -214,7 +209,7 @@ const PasswordChangeScreen = (props) => {
                                 onSubmitEditing={() => Keyboard.dismiss()}
                                 onChangeText={(repassword) => checkRePassword(repassword)}
                             />
-                            {RePasswordError && <Text style={{ marginLeft: 15, fontSize: FONT.FONT_SIZE_16, color: COLOR.ERRORCOLOR, marginTop: -15, marginBottom: 5 }}>{RePasswordError}</Text>}
+                            {RePasswordError && <Text style={{ marginLeft: 15, fontSize: FONT.FONT_SIZE_14, color: COLOR.ERRORCOLOR, marginTop: -15, marginBottom: 5 }}>{RePasswordError}</Text>}
                         </View>
 
                         <TouchableOpacity style={styles.forgotButton} onPress={() => onPressChangePassword()}>
