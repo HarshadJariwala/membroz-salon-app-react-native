@@ -35,15 +35,17 @@ const styles = StyleSheet.create({
         marginTop: 5,
     },
     btnStyle: {
-        marginTop: 50,
+        marginTop: 20,
         alignItems: KEY.CENTER,
         justifyContent: KEY.CENTER,
-        borderRadius: 30,
+        borderRadius: 5,
         backgroundColor: COLOR.DEFALUTCOLOR,
         width: WIDTH - 30,
         height: 45,
         justifyContent: KEY.CENTER,
-        alignItems: KEY.CENTER
+        alignItems: KEY.CENTER,
+        borderBottomRightRadius: 20,
+        borderTopLeftRadius: 20,
     },
     imageLogo: {
         height: 150,
