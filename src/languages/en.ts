@@ -477,5 +477,59 @@ export default {
     onetext: "1. invite your friends by sharing your referral link",
     secondtext: "2. Your friend sign-up using your unique link",
     threetext: "3. Get rewarded on successful sign-up",
-    sharenowtext: "Share Now"
+    sharenowtext: "Share Now",
+
+    //Membership Plan
+    MembershipplanText: "membership plan",
+
+    //calendar text
+    Legend: "legend",
+    PresentdayText: "present",
+    HolidayDaytext: "holiday",
+    Weekoffdaytext: "week off",
+    yesterdaytext: "yesterday",
+    todaytext: "today",
+    lastsevendaystext: "last 7 days",
+    thisweektext: "this week",
+    lastmonthtext: "last month",
+
+    //submit query
+    HeppytoText: "Happy to help you",
+    SelectCategoryText: "Select category",
+    subjecttext: "Subject",
+    contactnumberText: "Contact number",
+    emailtext: "Email",
+    meassgetext: "Meassge",
+    attachFileText: "Attach file",
+    SubmitText: "Submit",
+
+    //Recent Transaction
+    AddMoneyText: "Add Money to JioMart",
+    fivehundredText: "+500 pts",
+    PaidText: "Paid to JouMart",
+    fivehundreadminustext: "-500 pts",
+
+    //walet Transaction
+    PaidMoneyText: "paid",
+    ReceivedMoneyText: "Received",
+    AddedMoneyText: "Added",
+
+    //submit query
+    CatogeryText: "Catogry required",
+    Selectcategorytext: "Select catogory is required",
+    Contactext: "Contact Number is required",
+    email: "Email is required",
+    meassgeText: "Meassge is Required",
+    complatedtext: "complated",
+
+    //day name
+    mondaytext: "monday",
+    tuesdaytext: "tuesday",
+    wednesdaytext: "wednesday",
+    thursdaytext: "thursday",
+    fridaytext: "friday",
+    saturdaytext: "saturday",
+    sundaytext: "sunday",
+    requestforsupporttext: "Request for support",
+    systemenhancementstext: "System Enhancements",
 }

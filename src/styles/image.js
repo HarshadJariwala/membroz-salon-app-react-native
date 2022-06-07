@@ -24,10 +24,11 @@ import ASSESSMENTICON from '../../src/assets/images/assessmenticon.png';
 import WORKOUTICON from '../../src/assets/images/workouticon.png';
 import TRAININGICON from '../../src/assets/images/trainingicon.png';
 import HOMEICON from '../../src/assets/images/homeicon.png';
+import MENUICON from '../../src/assets/images/menuicon.png';
 
 export {
     BACKGROUND_IMAGE, MEMBROZ_LOGO, USERPROFILE, NO_PHOTO, BELL_ICON,
     NODATA, WORKOUT, MUSCLESE, LEARINING, MONEYICON, WALLET, REWARDPOINT, ATTENDANCE,
     PREFERENCE, OFFERS, TERMS, CONTACT, INVITEEARN, TIMEICON, RIGHTSIDE, LEFTSIDE,
-    MEDALICON, ASSESSMENTICON, WORKOUTICON, TRAININGICON, HOMEICON
+    MEDALICON, ASSESSMENTICON, WORKOUTICON, TRAININGICON, HOMEICON, MENUICON
 };

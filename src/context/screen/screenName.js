@@ -23,6 +23,7 @@ export const WALLETSCREEN = 'WalletScreen';
 export const WALLETTRANSACTION = 'WalletTransaction';
 export const REWARDPOINTSCREEN = 'RewardPointScreen';
 export const REWARDPOINTTRANSACTION = 'RewardPointTransaction';
+export const SUBMITQUERY = 'SubmitQuery';
 
 
 

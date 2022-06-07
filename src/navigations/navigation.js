@@ -27,6 +27,7 @@ import WALLETTRANSACTION from '../screen/WalletScreen/WalletTransaction';
 import REWARDPOINTTRANSACTION from '../screen/RewardpointScreen/RewardPointTransaction';
 import REWARDPOINTSCREEN from '../screen/RewardpointScreen/RewardPointScreen';
 import INVITEFRIENDSCREEN from '../screen/InviteFriendScreen/InviteFriendScreen';
+import SUBMITQUERY from '../screen/ContactUsScreen/SubmitQuery';
 
 import { MemberLanguage } from '../services/LocalService/LanguageService';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
@@ -42,6 +43,9 @@ import * as KEY from '../context/actions/key';
 import * as FONT from '../styles/typography';
 import * as COLOR from '../styles/colors';
 import * as IMAGE from '../styles/image';
+import { NotificationService } from '../services/NotificationService/NotificationService';
+import { firebase } from '@react-native-firebase/crashlytics';
+import AsyncStorage from '@react-native-community/async-storage';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -57,10 +61,10 @@ const NavigationDrawerStructureLeft = (props) => {
             <TouchableOpacity onPress={() => toggleDrawer()}>
                 {/*Donute Button Image */}
                 <Image
-                    source={{ uri: 'https://raw.githubusercontent.com/AboutReact/sampleresource/master/drawerWhite.png' }}
+                    source={IMAGE.MENUICON}
                     style={{
-                        width: 25,
-                        height: 25,
+                        width: 27,
+                        height: 18,
                         marginLeft: 10,
                         tintColor: COLOR.BLACK
                     }}
@@ -72,17 +76,41 @@ const NavigationDrawerStructureLeft = (props) => {
 
 //Structure for the navigatin Drawer
 const NavigationDrawerStructureRight = (props) => {
-    //console.log(`props`, props.navigationProps.navigate('NotificationScreen'));
+    const [userID, setUserID] = useState(null);
+    const [notification, setNotification] = useState(0);
+
+    useEffect(() => {
+        AsyncStorage.getItem(KEY.AUTHUSER).then((res) => {
+            let userid = JSON.parse(res)._id;
+            setUserID(userid);
+            getNotification(userid);
+        });
+    }, [])
+
+    useEffect(() => {
+    }, [userID, notification])
+
+    //get notification function
+    const getNotification = async (id) => {
+        try {
+            const response = await NotificationService(id);
+            console.log(`response getNotification`, response.data);
+            setNotification(response.data.length)
+        } catch (error) {
+            firebase.crashlytics().recordError(error);
+        }
+    }
+
     return (
         <TouchableOpacity
-            onPress={() => props.navigationProps.navigate('NotificationScreen')}
+            onPress={() => props.navigationProps.navigate(SCREEN.NOTIFICATIONSCREEN)}
             style={{ justifyContent: KEY.FLEX_END, alignItems: KEY.FLEX_END, marginRight: 25, marginTop: 10 }}>
             <Ionicons name="notifications-outline" size={25} color={COLOR.BLACK} style={{ marginTop: -30 }} />
             <View style={{
                 marginRight: -10, marginTop: -35, height: 22, width: 22,
                 borderRadius: 100, justifyContent: KEY.CENTER, alignItems: KEY.CENTER, backgroundColor: COLOR.DEFALUTCOLOR
             }}>
-                <Text style={{ fontWeight: FONT.FONT_WEIGHT_BOLD, fontSize: 12, color: COLOR.WHITE }}>{'0'}</Text>
+                <Text style={{ fontWeight: FONT.FONT_BOLD, fontSize: 12, color: COLOR.WHITE }}>{notification}</Text>
             </View>
         </TouchableOpacity>
     );
@@ -369,6 +397,23 @@ const ContactUsStackScreen = ({ navigation }) => {
                     }
                 }}
             />
+            <Stack.Screen
+                name="SubmitQuery"
+                component={SUBMITQUERY}
+                options={{
+                    title: 'Submit Query', //Set Header Title
+                    headerRight: () => <NavigationDrawerStructureRight navigationProps={navigation} />,
+                    headerStyle: {
+                        backgroundColor: COLOR.BACKGROUNDCOLOR, //Set Header color
+                    },
+                    headerTintColor: COLOR.BLACK, //Set Header text color
+                    headerTitleAlign: KEY.CENTER,
+                    headerTitleStyle: {
+                        fontWeight: FONT.FONT_WEIGHT_MEDIAM, //Set Header text style
+                    }
+                }}
+            />
+
         </Stack.Navigator>
     )
 }
