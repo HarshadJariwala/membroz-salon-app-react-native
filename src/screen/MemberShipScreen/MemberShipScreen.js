@@ -17,6 +17,7 @@ import * as LocalService from '../../services/LocalService/LocalService';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import languageConfig from '../../languages/languageConfig';
 import * as SCREEN from '../../context/screen/screenName';
+import { useFocusEffect } from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Loader from '../../components/loader/index';
 import * as KEY from '../../context/actions/key';
@@ -30,6 +31,32 @@ const HEIGHT = Dimensions.get('window').height;
 const WIDTH = Dimensions.get('window').width;
 
 const MemberShipScreen = () => {
+
+    const [currencySymbol, setCurrencySymbol] = useState(null);
+    const [memberProfilePic, setMemberProfilePic] = useState(null);
+    const [memberNumber, setMemberNumber] = useState(null);
+    const [memberName, setMemberName] = useState(null);
+    const [membershipPlan, setMembershipPlan] = useState(null);
+    const [memberInfo, setMemberInfo] = useState(null);
+    const [membershipcost, setMembershipcost] = useState(null);
+    const [membershipstart, setMembershipstart] = useState(null);
+    const [membershipend, setMembershipend] = useState(null);
+    const [branchname, setBranchname] = useState(null);
+
+    useFocusEffect(
+        React.useCallback(() => {
+            const getCallBackScreen = () => {
+                console.log("memberInfo", memberInfo);
+                //LANGUAGE MANAGEMENT FUNCTION
+                MemberLanguage();
+                if (memberInfo) {
+                    getmemberid = memberInfo?._id;
+                    setMembershipPlan(memberInfo?.membershipid?.property?.membershipname);
+                    setMembershipcost
+                }
+            }
+        })
+    )
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: COLOR.BACKGROUNDCOLOR }}>
             <StatusBar hidden={false} translucent={true} backgroundColor={COLOR.DEFALUTCOLOR} barStyle={KEY.DARK_CONTENT} />

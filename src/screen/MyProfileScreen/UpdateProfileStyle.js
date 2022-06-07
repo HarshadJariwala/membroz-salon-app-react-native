@@ -27,8 +27,7 @@ const styles = StyleSheet.create({
     inputTextView: {
         borderBottomRightRadius: 20,
         borderTopLeftRadius: 20,
-        borderBottomLeftRadius: 5,
-        borderTopRightRadius: 5,
+        borderRadius: 5,
         borderWidth: 1,
         alignItems: KEY.FLEX_START,
         marginBottom: 15,
