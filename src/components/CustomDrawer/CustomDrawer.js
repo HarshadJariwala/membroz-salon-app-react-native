@@ -107,8 +107,10 @@ const CustomDrawer = (props) => {
                     <TouchableOpacity onPress={() => onPressLogout()} style={{ paddingVertical: 0, marginLeft: 20 }}>
                         <View style={{ flexDirection: KEY.ROW, alignItems: KEY.CENTER }}>
                             <Image source={IMAGE.LOGOUTICON}
-                                style={{ width: 20, height: 20, tintColor: COLOR.LIGHT_BLACK }} />
-                            <Text style={{ fontSize: FONT.FONT_SIZE_16, fontWeight: FONT.FONT_NORMAL, marginLeft: 16 }}>{"Logout"}</Text>
+                                style={{ width: 20, height: 20, tintColor: COLOR.BLACK }} />
+                            <Text style={{ fontSize: FONT.FONT_SIZE_16, fontWeight: FONT.FONT_NORMAL, marginLeft: 16, color: COLOR.BLACK }}>
+                                {languageConfig.Logouttext}
+                            </Text>
                         </View>
                     </TouchableOpacity>
                 </View>

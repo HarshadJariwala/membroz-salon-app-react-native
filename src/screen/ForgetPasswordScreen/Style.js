@@ -72,10 +72,10 @@ const styles = StyleSheet.create({
     },
     backgroundImage: {
         flex: 1,
-        width: WIDTH,
-        height: HEIGHT + 30,
-        // height: "100%",
-        // width: "100%"
+        // width: WIDTH,
+        // height: HEIGHT + 30,
+        height: "100%",
+        width: "100%"
     }
 });
 

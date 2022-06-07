@@ -19,3 +19,28 @@ export const addAppointmentService = (data) => {
     const body = JSON.stringify(data)
     return Axios.post('appointments', body);
 }
+
+export const getBookingRequestListService = (id) => {
+    const body = {
+        "search": [
+            { "searchfield": "attendee", "searchvalue": id, "criteria": "eq", "datatype": "ObjectId" },
+            { "searchfield": "status", "searchvalue": "requested", "criteria": "eq", "datatype": "text" },
+        ],
+        "formname": "myappointment",
+        "sort": { "appointmentdate": -1 }
+    }
+    return Axios.post('appointments/filter', body);
+}
+
+export const getBookingHistoryListService = (id) => {
+    const body = {
+        "search": [
+            { "searchfield": "attendee", "searchvalue": id, "criteria": "eq", "datatype": "ObjectId" },
+            { "searchfield": "status", "searchvalue": "checkout", "criteria": "eq", "datatype": "text" },
+            { "searchfield": "status", "searchvalue": "confirmed", "criteria": "eq", "datatype": "text" },
+        ],
+        "formname": "myappointment",
+        "sort": { "appointmentdate": -1 }
+    }
+    return Axios.post('appointments/filter', body);
+}

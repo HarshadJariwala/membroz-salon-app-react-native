@@ -30,6 +30,7 @@ import REWARDPOINTSCREEN from '../screen/RewardpointScreen/RewardPointScreen';
 import INVITEFRIENDSCREEN from '../screen/InviteFriendScreen/InviteFriendScreen';
 import SUBMITQUERY from '../screen/ContactUsScreen/SubmitQuery';
 import ACTIVITYCALENDERSCREEN from '../screen/ActivityCalenderScreen/ActivityCalenderScreen';
+import MYBOOKING from '../screen/MyBooking/MyBooking';
 
 import { NotificationService } from '../services/NotificationService/NotificationService';
 import { MemberLanguage } from '../services/LocalService/LanguageService';
@@ -49,6 +50,7 @@ import * as IMAGE from '../styles/image';
 import * as SCREEN from '../context/screen/screenName';
 import { firebase } from '@react-native-firebase/crashlytics';
 import AsyncStorage from '@react-native-community/async-storage';
+
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 
@@ -59,20 +61,18 @@ const NavigationDrawerStructureLeft = (props) => {
         props.navigationProps.toggleDrawer();
     };
     return (
-        <View style={{ flexDirection: KEY.ROW }}>
-            <TouchableOpacity onPress={() => toggleDrawer()}>
-                {/*Donute Button Image */}
-                <Image
-                    source={IMAGE.MENUICON}
-                    style={{
-                        width: 27,
-                        height: 18,
-                        marginLeft: 10,
-                        tintColor: COLOR.BLACK
-                    }}
-                />
-            </TouchableOpacity>
-        </View>
+        <TouchableOpacity onPress={() => toggleDrawer()} style={{}}>
+            {/*Donute Button Image */}
+            <Image
+                source={IMAGE.MENUICON}
+                style={{
+                    width: 27,
+                    height: 18,
+                    marginLeft: 12,
+                    tintColor: COLOR.BLACK
+                }}
+            />
+        </TouchableOpacity>
     );
 }
 
@@ -580,6 +580,34 @@ const InviteFriendStackScreen = ({ navigation }) => {
     )
 }
 
+const MyBookingStackScreen = ({ navigation }) => {
+    return (
+        <Stack.Navigator initialRouteName='MyBooking'
+            screenOptions={{ headerShadowVisible: false }}>
+            <Stack.Screen
+                name="MyBooking"
+                component={MYBOOKING}
+                options={{
+                    title: 'My Booking', //Set Header Title
+                    headerLeft: () =>
+                        <NavigationDrawerStructureLeft
+                            navigationProps={navigation}
+                        />,
+                    headerRight: () => <NavigationDrawerStructureRight navigationProps={navigation} />,
+                    headerStyle: {
+                        backgroundColor: COLOR.BACKGROUNDCOLOR, //Set Header color
+                    },
+                    headerTintColor: COLOR.BLACK, //Set Header text color
+                    headerTitleAlign: KEY.CENTER,
+                    headerTitleStyle: {
+                        fontWeight: FONT.FONT_WEIGHT_MEDIAM, //Set Header text style
+                    }
+                }}
+            />
+        </Stack.Navigator>
+    )
+}
+
 const ExploreStackScreen = ({ navigation }) => {
     return (
         <Stack.Navigator initialRouteName='ExploreScreen'
@@ -633,11 +661,11 @@ const NavigationsDrawer = (props) => {
                 drawerActiveTintColor: COLOR.DEFALUTCOLOR,
                 drawerActiveBackgroundColor: COLOR.WHITE,
                 drawerInactiveBackgroundColor: COLOR.WHITE,
-                drawerInactiveTintColor: COLOR.LIGHT_BLACK,
+                drawerInactiveTintColor: COLOR.BLACK,
                 drawerLabelStyle: {
                     fontWeight: FONT.FONT_NORMAL,
                     fontSize: FONT.FONT_SIZE_16,
-                    margin: -5,
+                    margin: 0,
                     marginLeft: -15
                 },
                 drawerItemStyle: { marginTop: -8 },
@@ -686,7 +714,7 @@ const NavigationsDrawer = (props) => {
             />
             <Drawer.Screen
                 name="mybooking"
-                component={MemberShipStackScreen}
+                component={MyBookingStackScreen}
                 options={{
                     drawerLabel: 'My Booking', drawerIcon: ({ color }) => (
                         <Image source={IMAGE.MYBOOKINGICON}

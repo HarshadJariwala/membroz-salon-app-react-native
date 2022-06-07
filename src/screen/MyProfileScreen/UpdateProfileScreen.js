@@ -27,20 +27,16 @@ import * as IMAGE from '../../styles/image';
 import styles from './UpdateProfileStyle';
 import RNFetchBlob from 'rn-fetch-blob';
 import moment from 'moment';
-import { add, set, Value } from 'react-native-reanimated';
-import { checkLocationAccuracy } from 'react-native-permissions';
-
 const WIDTH = Dimensions.get('window').width;
 const HEIGHT = Dimensions.get('window').height;
 
 const UpdateProfileScreen = (props) => {
-
     const [memberInfo, setMemberInfo] = useState(null);
     const [memberName, setMemberName] = useState(null);
-    const [memberId, setMemberID] = useState(null);
+    const [memberID, setMemberID] = useState(null);
     const [loading, setLoading] = useState(false);
-    const [firstname, setFirstname] = useState(null);
-    const [firsterror, setFirstError] = useState(null);
+    const [fullname, setFullname] = useState(null);
+    const [fullnameerror, setFullNameError] = useState(null);
     const [email, setEmail] = useState(null);
     const [emailerror, setEmailError] = useState(null);
     const [mobileno, setMobileno] = useState(null);
@@ -54,31 +50,29 @@ const UpdateProfileScreen = (props) => {
     const secondTextInputRef = React.createRef();
     const thirdTextInputRef = React.createRef();
     const fourTextInputRef = React.createRef();
+    const fiveTextInputRef = React.createRef();
+    const sixTextInputRef = React.createRef();
 
     useEffect(() => {
+        setLoading(true);
         //LANGUAGE MANAGEMENT FUNCTION        
         MemberLanguage();
-
         getMemberDeatilsLocalStorage();
         //console.log("dnjsdkj");
     }, []);
 
     useEffect(() => { }, [
-        memberId, loading, firstname, firsterror, email, emailerror, mobileno, mobilenoError, memberName, memberInfo,
-        address, city, state, pincode, memberprofilePic
-
+        memberID, loading, fullname, fullnameerror, email,
+        emailerror, mobileno, mobilenoError, memberName,
+        memberInfo, address, city, state, pincode, memberprofilePic
     ]);
-
-
 
     //GET MEMBER DATA IN MOBILE LOCAL STORAGE
     const getMemberDeatilsLocalStorage = async () => {
         var memberInfo = await LocalService.LocalStorageService();
-
         if (memberInfo) {
-            setLoading(true);
             setMemberID(memberInfo?._id);
-            setFirstname(memberInfo?.property?.first_name);
+            setFullname(memberInfo?.fullname);
             setEmail(memberInfo?.property?.primaryemail);
             setMobileno(memberInfo?.property?.mobile);
             setAddress(memberInfo?.property?.address);
@@ -88,18 +82,20 @@ const UpdateProfileScreen = (props) => {
             setMemberInfo(memberInfo);
             setMemberName(memberInfo?.fullname);
             setMemberprofilePic(memberInfo?.profilepic);
+            setLoading(false);
         } else {
             setLoading(false);
         }
     }
-    //CHECK FIRST NAME VALIDATION
-    const CheckFirstName = (first_name) => {
-        if (!first_name || first_name.length <= 0) {
-            setMobilenoError(languageConfig.mobileerror);
+
+    //CHECK FULL NAME VALIDATION
+    const CheckFullName = (fullname) => {
+        if (!fullname || fullname.length <= 0) {
+            setFullNameError(languageConfig.mobileerror);
             return;
         }
-        setMobileno(first_name);
-        setMobilenoError(null);
+        setFullname(fullname);
+        setFullNameError(null);
         return;
     }
 
@@ -130,33 +126,44 @@ const UpdateProfileScreen = (props) => {
         return;
     }
 
-
     //UPDATE PROFILE PICTURE API CALL
     const UpdateProfileService = async () => {
-        console.log("UpdateProfileService")
-        if (!firstname || !mobileno || !email) {
-
-            CheckFirstName(firstname);
-            console.log("email", email)
+        if (!fullname || !mobileno || !email) {
+            CheckFullName(fullname);
             CheckEmail(email);
-            console.log("mobileno", mobileno)
             CheckMobileno(mobileno);
             return;
         }
+        Keyboard.dismiss();
         setLoading(true);
         let member = memberInfo;
-        member.property.first_name = firstname;
+        member.fullname = fullname;
         member.property.email = email;
         member.property.mobile = mobileno;
         member.property.city = city;
         member.property.address = address;
         member.property.country = state;
         member.property.pincode = pincode;
+        try {
+            const response = await patchMemberService(memberID, member);
+            if (response.data != null && response.data != 'undefind' && response.status == 200) {
+                props.navigation.replace(SCREEN.MYPROFILESCREEN);
+                LocalService.AuthenticateMember(response.data);
+                setLoading(false);
+                Toast.show(languageConfig.profilesucessmessage, Toast.LONG);
+            }
+        }
+        catch (error) {
+            console.log(`error`, error);
+            firebase.crashlytics().recordError(error);
+            setLoading(false);
+            Toast.show(languageConfig.profileerrormessage, Toast.LONG);
+        }
     }
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: COLOR.BACKGROUNDCOLOR }}>
-
+            <StatusBar hidden={false} translucent={true} backgroundColor={COLOR.STATUSBARCOLOR} barStyle={Platform.OS === 'ios' ? KEY.DARK_CONTENT : KEY.DARK_CONTENT} />
             <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={KEY.ALWAYS}>
                 <View style={styles.containerView}>
                     <View style={{ justifyContent: KEY.CENTER, alignItems: KEY.CENTER, marginTop: 20 }}>
@@ -166,7 +173,6 @@ const UpdateProfileScreen = (props) => {
                         </TouchableOpacity>
                         <Text style={styles.text}>{memberName && memberName}</Text>
                     </View>
-
                     <View style={styles.cardView}>
                         <View style={{ marginTop: 20 }}>
                             <TextInput
@@ -174,15 +180,13 @@ const UpdateProfileScreen = (props) => {
                                 placeholderTextColor={COLOR.PLACEHOLDER_COLOR}
                                 selectionColor={COLOR.GRANITE_GRAY}
                                 returnKeyType={KEY.NEXT}
-                                style={!firsterror ? styles.inputTextView : styles.inputTextViewError}
-                                defaultValue={firstname}
+                                style={!fullnameerror ? styles.inputTextView : styles.inputTextViewError}
+                                defaultValue={fullname}
                                 blurOnSubmit={false}
                                 onSubmitEditing={() => firstTextInputRef.current.focus()}
-                                onChangeText={(firstname) => CheckFirstName(firstname)}
-
+                                onChangeText={(fullname) => CheckFullName(fullname)}
                             />
                         </View>
-
                         <View>
                             <TextInput
                                 placeholder={languageConfig.emailplaceholder}
@@ -193,12 +197,11 @@ const UpdateProfileScreen = (props) => {
                                 style={!emailerror ? styles.inputTextView : styles.inputTextViewError}
                                 defaultValue={email}
                                 blurOnSubmit={false}
-                                ref={secondTextInputRef}
+                                ref={firstTextInputRef}
                                 onSubmitEditing={() => secondTextInputRef.current.focus()}
                                 onChangeText={(email) => CheckEmail(email)}
                             />
                         </View>
-
                         <View>
                             <TextInput
                                 placeholder={languageConfig.mobileplaceholder}
@@ -209,21 +212,22 @@ const UpdateProfileScreen = (props) => {
                                 style={!mobilenoError ? styles.inputTextView : styles.inputTextViewError}
                                 defaultValue={mobileno}
                                 blurOnSubmit={false}
-                                ref={thirdTextInputRef}
-                                onSubmitEditing={() => Keyboard.dismiss()}
+                                ref={secondTextInputRef}
+                                onSubmitEditing={() => thirdTextInputRef.current.focus()}
                                 onChangeText={(mobile) => CheckMobileno(mobile)}
                             />
                         </View>
 
                         <View>
                             <TextInput
-                                placeholder={languageConfig.addressline1}
+                                placeholder={languageConfig.addresstext}
                                 placeholderTextColor={COLOR.PLACEHOLDER_COLOR}
                                 returnKeyType={KEY.NEXT}
                                 selectionColor={COLOR.GRANITE_GRAY}
                                 style={styles.inputTextView}
                                 defaultValue={address}
                                 blurOnSubmit={false}
+                                ref={thirdTextInputRef}
                                 onSubmitEditing={() => fourTextInputRef.current.focus()}
                                 onChangeText={(address) => setAddress(address)}
 
@@ -240,6 +244,7 @@ const UpdateProfileScreen = (props) => {
                                 defaultValue={city}
                                 blurOnSubmit={false}
                                 ref={fourTextInputRef}
+                                onSubmitEditing={() => fiveTextInputRef.current.focus()}
                                 onChangeText={(city) => setCity(city)}
                             />
                         </View>
@@ -253,7 +258,8 @@ const UpdateProfileScreen = (props) => {
                                 style={styles.inputTextView}
                                 defaultValue={state}
                                 blurOnSubmit={false}
-                                ref={fourTextInputRef}
+                                ref={fiveTextInputRef}
+                                onSubmitEditing={() => sixTextInputRef.current.focus()}
                                 onChangeText={(state) => setState(state)}
                             />
                         </View>
@@ -267,18 +273,18 @@ const UpdateProfileScreen = (props) => {
                                 style={styles.inputTextView}
                                 defaultValue={pincode}
                                 blurOnSubmit={false}
-                                ref={fourTextInputRef}
+                                ref={sixTextInputRef}
+                                onSubmitEditing={() => UpdateProfileService()}
                                 onChangeText={(pincode) => setPincode(pincode)}
                             />
                         </View>
-
                         <TouchableOpacity style={styles.forgotButton} onPress={() => UpdateProfileService()}>
                             <Text style={{ fontWeight: FONT.FONT_WEIGHT_BOLD, color: COLOR.WHITE, fontSize: FONT.FONT_SIZE_16 }}>{languageConfig.updatetext}</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
-                <View style={{ marginBottom: 20 }} />
             </ScrollView>
+            {loading ? <Loader /> : null}
         </SafeAreaView>
     )
 }

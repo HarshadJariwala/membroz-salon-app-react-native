@@ -14,9 +14,7 @@ const styles = StyleSheet.create({
     forgotButton: {
         borderBottomRightRadius: 20,
         borderTopLeftRadius: 20,
-        borderBottomLeftRadius: 5,
-        borderTopRightRadius: 5,
-        //borderWidth: 1,
+        borderRadius: 5,
         backgroundColor: COLOR.DEFALUTCOLOR,
         width: WIDTH - 50,
         height: 45,
@@ -41,8 +39,7 @@ const styles = StyleSheet.create({
     inputTextViewError: {
         borderBottomRightRadius: 20,
         borderTopLeftRadius: 20,
-        borderBottomLeftRadius: 5,
-        borderTopRightRadius: 5,
+        borderRadius: 5,
         borderWidth: 1,
         borderColor: COLOR.ERRORCOLOR,
         alignItems: KEY.FLEX_START,

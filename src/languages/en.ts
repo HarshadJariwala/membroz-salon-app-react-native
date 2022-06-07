@@ -138,7 +138,7 @@ export default {
     weeklydiet: "Weekly Diet",
     appointmentno: "Appointment No",
     timesloattext: "Time Slot",
-    historytext: "history",
+    historytext: "History",
     scheduletext: "schedule",
     checkintime: "CheckIn Time ",
     checkouttime: "CheckOut Time",
@@ -465,6 +465,7 @@ export default {
     yourrewardpoint: "Your Reward Points Balance",
     pointhistory: "View Points History",
     firstnameerror: "First name is required!",
+    currentbookingtext: "Current Booking",
 
     //Invite A Friends Text
     mainTitel: "Invite your friends &",

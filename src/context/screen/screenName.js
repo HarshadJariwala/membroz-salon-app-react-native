@@ -26,6 +26,7 @@ export const REWARDPOINTSCREEN = 'RewardPointScreen';
 export const REWARDPOINTTRANSACTION = 'RewardPointTransaction';
 export const SUBMITQUERY = 'SubmitQuery';
 export const ACTIVITYCALENDERSCREEN = 'ActivityCalenderScreen';
+export const MYBOOKING = 'MyBooking';
 
 
 
