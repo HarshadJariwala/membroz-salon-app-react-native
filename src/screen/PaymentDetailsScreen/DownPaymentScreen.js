@@ -74,12 +74,15 @@ export default DownPaymentScreen = (props) => {
         setLoading(true);
         RazorpayCheckout.open(options).then((data) => {
             // handle success
-            genratebill(data, res);
+            //    genratebill(data, res);
         }).catch((error) => {
+            console.log(`error`, error);
+            toast.show(languageConfig.razorpaypaymenterrormessage);
             //firebase.crashlytics().recordError(error);
             // handle failure
             setLoading(false);
-            props.navigation.replace(SCREEN.PAYMENTDETAILSSCREEN);
+            //props.navigation.replace(SCREEN.PAYMENTDETAILSSCREEN);
+            props.navigation.goBack(null);
         });
     }
 
@@ -99,7 +102,7 @@ export default DownPaymentScreen = (props) => {
             if (billPaymentResponse.data != null && billPaymentResponse.data != 'undefind' && billPaymentResponse.status == 200) {
                 // onRefresh();
                 setLoading(false);
-                props.navigation.replace(SCREEN.PAYMENTDETAILSSCREEN);
+                props.navigation.goBack(SCREEN.PAYMENTDETAILSSCREEN);
             }
         } catch (error) {
             firebase.crashlytics().recordError(error);
@@ -155,7 +158,7 @@ export default DownPaymentScreen = (props) => {
                     </View>
                     <Text style={styles.headerText}>{PaymentItem && PaymentItem.paymentterms && PaymentItem.paymentterms.paymentitem && PaymentItem.paymentterms.paymentitem.paymentitemname}</Text>
                     <View style={{ flexDirection: KEY.ROW, marginTop: 5 }}>
-                        <Text style={{ color: COLOR.DEFALUTCOLOR, fontWeight: FONT.FONT_WEIGHT_BOLD, fontSize: FONT.FONT_SIZE_18 }}>{currencySymbol + Number(PaymentItem.balance).toFixed(0)}</Text>
+                        <Text style={{ color: COLOR.DEFALUTCOLOR, fontWeight: FONT.FONT_BOLD, fontSize: FONT.FONT_SIZE_18 }}>{currencySymbol + Number(PaymentItem.balance).toFixed(0)}</Text>
                     </View>
                 </View>
 
@@ -164,7 +167,7 @@ export default DownPaymentScreen = (props) => {
                         <Ionicons size={30} name={checked == true ? "radio-button-on" : "radio-button-off"} color={COLOR.DEFALUTCOLOR} style={{ marginRight: 10 }} />
                     </TouchableOpacity>
                     <View style={{ justifyContent: KEY.CENTER, flex: 1, marginBottom: 15 }}>
-                        <Text style={{ fontSize: FONT.FONT_SIZE_16, fontWeight: FONT.FONT_WEIGHT_BOLD, marginTop: 10, color: COLOR.BLACK }}>{languageConfig.razorpayonlinepayment}</Text>
+                        <Text style={{ fontSize: FONT.FONT_SIZE_16, fontWeight: FONT.FONT_BOLD, marginTop: 10, color: COLOR.BLACK }}>{languageConfig.razorpayonlinepayment}</Text>
                         <Text style={{ color: COLOR.TAUPE_GRAY, fontSize: FONT.FONT_SIZE_16, alignItems: KEY.CENTER, marginRight: 10 }}>{languageConfig.razorpayonlinepayment1}</Text>
                     </View>
                 </View>
@@ -172,8 +175,8 @@ export default DownPaymentScreen = (props) => {
             <View style={{ justifyContent: KEY.CENTER, alignItems: KEY.CENTER }}>
                 <TouchableOpacity style={styles.updateBtn} onPress={() => openPaymentScreen(PaymentItem)}>
                     <View style={{ flexDirection: KEY.ROW }}>
-                        <Text style={{ fontWeight: FONT.FONT_WEIGHT_BOLD, color: COLOR.WHITE, fontSize: FONT.FONT_SIZE_20, }}>{languageConfig.proceedtopay}</Text>
-                        <Text style={{ fontWeight: FONT.FONT_WEIGHT_BOLD, color: COLOR.WHITE, fontSize: FONT.FONT_SIZE_20, marginLeft: 5 }} >{currencySymbol + Number(PaymentItem.balance).toFixed(0)}</Text>
+                        <Text style={{ fontWeight: FONT.FONT_BOLD, color: COLOR.WHITE, fontSize: FONT.FONT_SIZE_20, }}>{languageConfig.proceedtopay}</Text>
+                        <Text style={{ fontWeight: FONT.FONT_BOLD, color: COLOR.WHITE, fontSize: FONT.FONT_SIZE_20, marginLeft: 5 }} >{currencySymbol + Number(PaymentItem.balance).toFixed(0)}</Text>
                     </View>
                 </TouchableOpacity>
             </View>

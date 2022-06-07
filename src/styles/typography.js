@@ -1,10 +1,13 @@
 import { scaleFont } from './mixins';
 
 // FONT WEIGHT
-export const FONT_WEIGHT_NORMAL = 'normal';
-export const FONT_WEIGHT_BOLD = 'bold';
+// export const FONT_WEIGHT_NORMAL = 'normal';
+// export const FONT_WEIGHT_BOLD = 'bold';
 export const FONT_WEIGHT_REGULAR = '400';
 export const FONT_WEIGHT_MEDIAM = '700';
+
+export const FONT_NORMAL = 'normal';
+export const FONT_BOLD = 'bold';
 
 // FONT SIZE
 export const FONT_SIZE_24 = 24;

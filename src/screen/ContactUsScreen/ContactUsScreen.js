@@ -146,7 +146,7 @@ const ContactUsScreen = (props) => {
                                 alignItems: KEY.FLEX_START, fontSize: FONT.FONT_SIZE_18,
                                 color: COLOR.BLACK, marginLeft: 10, fontWeight: FONT.FONT_BOLD,
                                 textTransform: KEY.LOWERCASE
-                            }}>{languageConfig.saturdaytext + ' - ' + languageConfig.thursdaytext}</Text>
+                            }}>{languageConfig.mondaytext + ' - ' + languageConfig.saturdaytext}</Text>
 
                             <View style={{
                                 flexDirection: KEY.ROW, alignItems: KEY.CENTER, alignSelf: KEY.FLEX_START, marginTop: 5, marginLeft: 10

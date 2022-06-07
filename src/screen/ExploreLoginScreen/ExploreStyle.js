@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
         justifyContent: KEY.CENTER,
         alignSelf: KEY.CENTER,
         fontSize: FONT.FONT_SIZE_16,
-        fontWeight: FONT.FONT_WEIGHT_BOLD,
+        fontWeight: FONT.FONT_BOLD,
         color: COLOR.BLACK,
         textTransform: KEY.CAPITALIZE
     },
@@ -40,10 +40,10 @@ const styles = StyleSheet.create({
     },
     cardImage: {
         alignItems: KEY.CENTER,
-        height: 160,
+        height: 200,
         width: WIDTH,
         borderRadius: 10,
-        resizeMode: KEY.COVER,
+        resizeMode: KEY.STRETCH,
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20
     }

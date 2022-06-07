@@ -14,6 +14,7 @@ import UPDATEPROFILESCREEN from '../screen/MyProfileScreen/UpdateProfileScreen';
 import TRAINERDETAILSCREEN from '../screen/TrainerScreen/TrainerDetailScreen';
 import MYPROFILESCREEN from '../screen/MyProfileScreen/MyProfileScreen';
 import EXPLORESCREEN from '../screen/ExploreLoginScreen/ExploreScreen';
+import EXPLORESTATUS from '../screen/ExploreLoginScreen/ExploreStatus';
 import REGISTERSCREEN from '../screen/RegisterScreen/RegisterScreen';
 import OFFERSCREEN from '../screen/ExploreLoginScreen/OfferScreen';
 import TRAINERSCREEN from '../screen/TrainerScreen/TrainerScreen';
@@ -28,7 +29,9 @@ import REWARDPOINTTRANSACTION from '../screen/RewardpointScreen/RewardPointTrans
 import REWARDPOINTSCREEN from '../screen/RewardpointScreen/RewardPointScreen';
 import INVITEFRIENDSCREEN from '../screen/InviteFriendScreen/InviteFriendScreen';
 import SUBMITQUERY from '../screen/ContactUsScreen/SubmitQuery';
+import ACTIVITYCALENDERSCREEN from '../screen/ActivityCalenderScreen/ActivityCalenderScreen';
 
+import { NotificationService } from '../services/NotificationService/NotificationService';
 import { MemberLanguage } from '../services/LocalService/LanguageService';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import * as LocalService from '../services/LocalService/LocalService';
@@ -43,10 +46,9 @@ import * as KEY from '../context/actions/key';
 import * as FONT from '../styles/typography';
 import * as COLOR from '../styles/colors';
 import * as IMAGE from '../styles/image';
-import { NotificationService } from '../services/NotificationService/NotificationService';
+import * as SCREEN from '../context/screen/screenName';
 import { firebase } from '@react-native-firebase/crashlytics';
 import AsyncStorage from '@react-native-community/async-storage';
-
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 
@@ -127,6 +129,16 @@ const AuthStackScreen = () => {
             <Stack.Screen
                 name="ExploreScreen"
                 component={EXPLORESCREEN}
+                options={{
+                    headerTitleAlign: KEY.CENTER,
+                    title: languageConfig.exploresurge,
+                    headerTintColor: Platform.OS == 'android' ? COLOR.BLACK : COLOR.DEFALUTCOLOR,
+                    headerTransparent: true
+                }}
+            />
+            <Stack.Screen
+                name="ExploreStatus"
+                component={EXPLORESTATUS}
                 options={{
                     headerTitleAlign: KEY.CENTER,
                     title: languageConfig.exploresurge,
@@ -512,6 +524,34 @@ const RewardPointStackScreen = ({ navigation }) => {
     )
 }
 
+const ActivityCalenderStackScreen = ({ navigation }) => {
+    return (
+        <Stack.Navigator initialRouteName='ActivityCalenderScreen'
+            screenOptions={{ headerShadowVisible: false }}>
+            <Stack.Screen
+                name="ActivityCalenderScreen"
+                component={ACTIVITYCALENDERSCREEN}
+                options={{
+                    title: 'Activity Calender', //Set Header Title
+                    headerLeft: () =>
+                        <NavigationDrawerStructureLeft
+                            navigationProps={navigation}
+                        />,
+                    headerRight: () => <NavigationDrawerStructureRight navigationProps={navigation} />,
+                    headerStyle: {
+                        backgroundColor: COLOR.BACKGROUNDCOLOR, //Set Header color
+                    },
+                    headerTintColor: COLOR.BLACK, //Set Header text color
+                    headerTitleAlign: KEY.CENTER,
+                    headerTitleStyle: {
+                        fontWeight: FONT.FONT_WEIGHT_MEDIAM, //Set Header text style
+                    }
+                }}
+            />
+        </Stack.Navigator>
+    )
+}
+
 const InviteFriendStackScreen = ({ navigation }) => {
     return (
         <Stack.Navigator initialRouteName='InviteFriendScreen'
@@ -540,13 +580,68 @@ const InviteFriendStackScreen = ({ navigation }) => {
     )
 }
 
+const ExploreStackScreen = ({ navigation }) => {
+    return (
+        <Stack.Navigator initialRouteName='ExploreScreen'
+            screenOptions={{ headerShadowVisible: false }}>
+            <Stack.Screen
+                name="ExploreScreen"
+                component={EXPLORESCREEN}
+                options={{
+                    title: 'Explore Salon', //Set Header Title
+                    headerLeft: () =>
+                        <NavigationDrawerStructureLeft
+                            navigationProps={navigation}
+                        />,
+                    headerRight: () => <NavigationDrawerStructureRight navigationProps={navigation} />,
+                    headerStyle: {
+                        backgroundColor: COLOR.BACKGROUNDCOLOR, //Set Header color
+                    },
+                    headerTintColor: COLOR.BLACK, //Set Header text color
+                    headerTitleAlign: KEY.CENTER,
+                    headerTitleStyle: {
+                        fontWeight: FONT.FONT_WEIGHT_MEDIAM, //Set Header text style
+                    }
+                }}
+            />
+            <Stack.Screen
+                name="ExploreStatus"
+                component={EXPLORESTATUS}
+                options={{
+                    title: 'Explore Salon', //Set Header Title                    
+                    headerRight: () => <NavigationDrawerStructureRight navigationProps={navigation} />,
+                    headerStyle: {
+                        backgroundColor: COLOR.BACKGROUNDCOLOR, //Set Header color
+                    },
+                    headerTintColor: COLOR.BLACK, //Set Header text color
+                    headerTitleAlign: KEY.CENTER,
+                    headerTitleStyle: {
+                        fontWeight: FONT.FONT_WEIGHT_MEDIAM, //Set Header text style
+                    }
+                }}
+            />
+
+        </Stack.Navigator>
+    )
+}
+
 const NavigationsDrawer = (props) => {
     return (
         <Drawer.Navigator initialRouteName="HomeScreen"
             screenOptions={{
-                activeTintColor: COLOR.BLACK,
-                headerShown: false,
-                itemStyle: { marginVertical: 5 }
+                activeTintColor: COLOR.DEFALUTCOLOR,
+                drawerActiveTintColor: COLOR.DEFALUTCOLOR,
+                drawerActiveBackgroundColor: COLOR.WHITE,
+                drawerInactiveBackgroundColor: COLOR.WHITE,
+                drawerInactiveTintColor: COLOR.LIGHT_BLACK,
+                drawerLabelStyle: {
+                    fontWeight: FONT.FONT_NORMAL,
+                    fontSize: FONT.FONT_SIZE_16,
+                    margin: -5,
+                    marginLeft: -15
+                },
+                drawerItemStyle: { marginTop: -8 },
+                headerShown: false
             }}
             drawerContent={(props) => <CustomDrawer {...props} />}>
             <Drawer.Screen
@@ -554,7 +649,8 @@ const NavigationsDrawer = (props) => {
                 component={HomeStackScreen}
                 options={{
                     drawerLabel: 'Home', drawerIcon: ({ color }) => (
-                        <Ionicons name="home" size={22} color={color} />
+                        <Image source={IMAGE.HOMEICON}
+                            style={{ width: 20, height: 25, tintColor: color, marginBottom: -5 }} />
                     )
                 }}
             />
@@ -562,26 +658,9 @@ const NavigationsDrawer = (props) => {
                 name="MyProfileScreen"
                 component={MyProfileStackScreen}
                 options={{
-                    drawerLabel: 'Profile', drawerIcon: ({ color }) => (
-                        <Ionicons name="person-outline" size={22} color={color} />
-                    )
-                }}
-            />
-            <Drawer.Screen
-                name="DownPaymentScreen"
-                component={PaymentStackScreen}
-                options={{
-                    drawerLabel: 'Payment', drawerIcon: ({ color }) => (
-                        <Ionicons name="wallet" size={22} color={color} />
-                    )
-                }}
-            />
-            <Drawer.Screen
-                name="TrainerScreen"
-                component={TrainerStackScreen}
-                options={{
-                    drawerLabel: 'Trainers', drawerIcon: ({ color }) => (
-                        <Ionicons name="wallet" size={22} color={color} />
+                    drawerLabel: 'My Profile', drawerIcon: ({ color }) => (
+                        <Image source={IMAGE.USERICON}
+                            style={{ width: 20, height: 20, tintColor: color }} />
                     )
                 }}
             />
@@ -590,16 +669,58 @@ const NavigationsDrawer = (props) => {
                 component={MemberShipStackScreen}
                 options={{
                     drawerLabel: 'Membership', drawerIcon: ({ color }) => (
-                        <Ionicons name="wallet" size={22} color={color} />
+                        <Image source={IMAGE.MEMBERSHIPICON}
+                            style={{ width: 20, height: 20, tintColor: color }} />
                     )
                 }}
             />
             <Drawer.Screen
-                name="ContactUsScreen"
-                component={ContactUsStackScreen}
+                name="ourservices"
+                component={MemberShipStackScreen}
                 options={{
-                    drawerLabel: 'Contact Us', drawerIcon: ({ color }) => (
-                        <Ionicons name="wallet" size={22} color={color} />
+                    drawerLabel: 'Our Services', drawerIcon: ({ color }) => (
+                        <Image source={IMAGE.TRAININGICON}
+                            style={{ width: 21, height: 21, tintColor: color }} />
+                    )
+                }}
+            />
+            <Drawer.Screen
+                name="mybooking"
+                component={MemberShipStackScreen}
+                options={{
+                    drawerLabel: 'My Booking', drawerIcon: ({ color }) => (
+                        <Image source={IMAGE.MYBOOKINGICON}
+                            style={{ width: 21, height: 21, tintColor: color }} />
+                    )
+                }}
+            />
+            <Drawer.Screen
+                name="DownPaymentScreen"
+                component={PaymentStackScreen}
+                options={{
+                    drawerLabel: 'Payment', drawerIcon: ({ color }) => (
+                        <Image source={IMAGE.MONEYICON}
+                            style={{ width: 24, height: 18, tintColor: color }} />
+                    )
+                }}
+            />
+            <Drawer.Screen
+                name="TrainerScreen"
+                component={TrainerStackScreen}
+                options={{
+                    drawerLabel: 'Our Specialist', drawerIcon: ({ color }) => (
+                        <Image source={IMAGE.USERGROUPICON}
+                            style={{ width: 20, height: 20, tintColor: color }} />
+                    )
+                }}
+            />
+            <Drawer.Screen
+                name="exploresalon"
+                component={ExploreStackScreen}
+                options={{
+                    drawerLabel: 'Explore Salon', drawerIcon: ({ color }) => (
+                        <Image source={IMAGE.EXPLOREICON}
+                            style={{ width: 20, height: 20, tintColor: color }} />
                     )
                 }}
             />
@@ -608,7 +729,8 @@ const NavigationsDrawer = (props) => {
                 component={WalletStackScreen}
                 options={{
                     drawerLabel: 'Wallet', drawerIcon: ({ color }) => (
-                        <Ionicons name="wallet" size={22} color={color} />
+                        <Image source={IMAGE.WALLET}
+                            style={{ width: 20, height: 20, tintColor: color }} />
                     )
                 }}
             />
@@ -616,8 +738,19 @@ const NavigationsDrawer = (props) => {
                 name="RewardPointScreen"
                 component={RewardPointStackScreen}
                 options={{
-                    drawerLabel: 'Reward Point', drawerIcon: ({ color }) => (
-                        <Ionicons name="wallet" size={22} color={color} />
+                    drawerLabel: 'Reward Points', drawerIcon: ({ color }) => (
+                        <Image source={IMAGE.REWARDPOINT}
+                            style={{ width: 20, height: 20, tintColor: color }} />
+                    )
+                }}
+            />
+            <Drawer.Screen
+                name="activitycalender"
+                component={ActivityCalenderStackScreen}
+                options={{
+                    drawerLabel: 'Activity Calender', drawerIcon: ({ color }) => (
+                        <Image source={IMAGE.ACTIVITYCALENDERICON}
+                            style={{ width: 21, height: 21, tintColor: color }} />
                     )
                 }}
             />
@@ -626,7 +759,18 @@ const NavigationsDrawer = (props) => {
                 component={InviteFriendStackScreen}
                 options={{
                     drawerLabel: 'Invite a friend', drawerIcon: ({ color }) => (
-                        <Ionicons name="wallet" size={22} color={color} />
+                        <Image source={IMAGE.INVITEICON}
+                            style={{ width: 22, height: 18, tintColor: color }} />
+                    )
+                }}
+            />
+            <Drawer.Screen
+                name="ContactUsScreen"
+                component={ContactUsStackScreen}
+                options={{
+                    drawerLabel: 'Contact Us', drawerIcon: ({ color }) => (
+                        <Image source={IMAGE.CONTACT}
+                            style={{ width: 20, height: 20, tintColor: color }} />
                     )
                 }}
             />

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {
     View, Text, SafeAreaView, TouchableOpacity, ScrollView,
-    Image, StatusBar, FlatList, RefreshControl, Animated
+    Image, StatusBar, FlatList, RefreshControl, Animated, Dimensions
 } from 'react-native';
 import { getByIdNotificationDeleteService, NotificationService, deleteAllNotificationService }
     from '../../services/NotificationService/NotificationService';
@@ -21,8 +21,10 @@ import * as FONT from '../../styles/typography';
 import Toast from 'react-native-simple-toast';
 import * as COLOR from '../../styles/colors';
 import * as IMAGE from '../../styles/image';
-import * as STYLE from './styles';
+import styles from './styles';
 import moment from 'moment';
+const WIDTH = Dimensions.get('window').width;
+const HEIGHT = Dimensions.get('window').height;
 
 const NotificationScreen = (props) => {
     const [loading, setloading] = useState(false);
@@ -62,29 +64,32 @@ const NotificationScreen = (props) => {
             const response = await NotificationService(id);
             setNotification(response.data.length);
             setNotificationList(response.data);
+            setloading(false);
         } catch (error) {
+            setloading(false);
             firebase.crashlytics().recordError(error);
-            //console.log(`error`, error);
         }
     }
 
     //render Notification on flatlist function
     const renderNotification = ({ item }) => (
-        <View style={{ justifyContent: KEY.CENTER, alignItems: KEY.CENTER }} >
+        <View>
             <Swipeable renderRightActions={() => RightActions(item)} onSwipeableRightOpen={() => swipeToDeleteNotification(item)}>
-                <View style={STYLE.styles.notificationview}>
-                    <View style={{ alignItems: KEY.FLEX_END, justifyContent: KEY.FLEX_END, marginTop: 5 }}>
-                        <Text style={{ fontSize: 12, marginRight: 20, color: '#999999' }}>
-                            {moment(item.createdAt).format('LL') == moment(item.createdAt).format('LL') ? moment(item.createdAt).format('LT') : moment(item.createdAt).format('LLL')}
-                        </Text>
-                    </View>
-                    <View style={{ flexDirection: KEY.ROW, flex: 1, marginTop: -30, marginLeft: 15, alignItems: KEY.CENTER }}>
-                        <View style={{ width: 40, height: 40, backgroundColor: '#04DE71', borderRadius: 20, justifyContent: KEY.CENTER, alignItems: KEY.CENTER }}>
-                            <FontAwesome name='rupee' size={25} color={COLOR.WHITE} />
+                <View style={{ justifyContent: KEY.CENTER, alignItems: KEY.CENTER, marginBottom: 10, marginTop: 10 }}>
+                    <View style={styles.notificationview}>
+                        <View style={{ alignItems: KEY.FLEX_END, justifyContent: KEY.FLEX_END, marginTop: 5 }}>
+                            <Text style={{ fontSize: 12, marginRight: 20, color: COLOR.PLACEHOLDER_COLOR }}>
+                                {moment(item.createdAt).format('LL') == moment(item.createdAt).format('LL') ? moment(item.createdAt).format('LT') : moment(item.createdAt).format('LLL')}
+                            </Text>
                         </View>
-                        <View style={{ flex: 1, marginLeft: 15 }}>
-                            <Text style={{ fontSize: 12, color: '#F67742' }} >#{item.property.subject}</Text>
-                            <Text style={{ fontSize: 14, color: COLOR.BLACK }}>{item.property.message}</Text>
+                        <View style={{ flexDirection: KEY.ROW, flex: 1, marginTop: -30, marginLeft: 15, alignItems: KEY.CENTER, }}>
+                            <View style={styles.rounfIconStyle}>
+                                <Image style={{ width: 20, height: 15, tintColor: COLOR.DEFALUTCOLOR, }} source={IMAGE.MONEYICON} />
+                            </View>
+                            <View style={{ flex: 1, marginLeft: 15 }}>
+                                {/* <Text style={{ fontSize: 12, color: COLOR.DEFALUTCOLOR }} >#{item?.property?.subject}</Text> */}
+                                <Text style={{ fontSize: 14, color: COLOR.BLACK }}>{item?.property?.message}</Text>
+                            </View>
                         </View>
                     </View>
                 </View>
@@ -99,8 +104,8 @@ const NotificationScreen = (props) => {
             if (response.data != null && response.data != undefined && response.status == 200)
                 getNotification(MemberId);
         } catch (error) {
+            setloading(false);
             firebase.crashlytics().recordError(error);
-            console.log(`error`, error);
         }
     }
 
@@ -139,13 +144,17 @@ const NotificationScreen = (props) => {
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: COLOR.BACKGROUNDCOLOR }}>
-            <StatusBar hidden={false} translucent={true} backgroundColor={COLOR.DEFALUTCOLOR} barStyle={KEY.DARK_CONTENT} />
+            <StatusBar hidden={false} translucent={true} backgroundColor={COLOR.STATUSBARCOLOR} barStyle={KEY.DARK_CONTENT} />
             <ScrollView showsVerticalScrollIndicator={false}
                 nestedScrollEnabled={true}
-                refreshControl={<RefreshControl refreshing={refreshing} title={languageConfig.pullrefreshtext} tintColor={COLOR.DEFALUTCOLOR} titleColor={COLOR.DEFALUTCOLOR} colors={[COLOR.DEFALUTCOLOR]} onRefresh={() => onRefresh()} />}>
+                refreshControl={<RefreshControl refreshing={refreshing} title={languageConfig.pullrefreshtext} tintColor={COLOR.DEFALUTCOLOR} titleColor={COLOR.DEFALUTCOLOR}
+                    colors={[COLOR.DEFALUTCOLOR]} onRefresh={() => onRefresh()} />}>
                 {(notificationList == null) || (notificationList && notificationList.length <= 0) ?
                     (loading ? null :
-                        <Text style={{ textAlign: KEY.CENTER, fontSize: 16, color: '#747474', marginTop: 50 }}>No Notification available</Text>
+                        <View style={{ justifyContent: KEY.CENTER, alignItems: KEY.CENTER }}>
+                            <Image source={IMAGE.NODATA} style={{ height: 150, width: 200, marginTop: HEIGHT * 0.2 }} resizeMode={KEY.CONTAIN} />
+                            <Text style={{ fontSize: FONT.FONT_SIZE_16, color: COLOR.TAUPE_GRAY, marginTop: 10 }}>{languageConfig.norecordtext}</Text>
+                        </View>
                     )
                     :
                     <FlatList
@@ -154,9 +163,9 @@ const NotificationScreen = (props) => {
                         keyExtractor={item => item._id}
                     />
                 }
-
                 <View style={{ paddingBottom: 50 }} />
             </ScrollView>
+            {loading ? <Loader /> : null}
         </SafeAreaView>
     )
 }

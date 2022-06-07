@@ -1,52 +1,37 @@
 import { StyleSheet, Dimensions } from 'react-native';
+import * as KEY from '../../context/actions/key';
+import * as COLOR from '../../styles/colors';
 const HEIGHT = Dimensions.get('window').height;
 const WIDTH = Dimensions.get('window').width;
 
-export const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#00D9CE',
-    },
+const styles = StyleSheet.create({
     notificationview: {
-        flexDirection: 'column',
+        flex: 1,
+        width: WIDTH - 30,
         height: 90,
-        width: WIDTH - 20,
-        backgroundColor: '#FFFFFF',
-        marginTop: 10,
-        borderRadius: 20,
-        shadowOpacity: 0.5,
-        shadowRadius: 3,
-        shadowOffset: {
-            height: 0,
-            width: 0,
-        },
-        elevation: 2,
-        shadowColor: '#F9EFD6',
-        marginBottom: 5
-    },
-    submitbtn: {
-        flexDirection: 'row',
-        marginRight: 15,
-        width: 90,
-        height: 30,
-        backgroundColor: '#FFFFFF',
-        borderRadius: 100,
-        alignItems: 'center',
-        justifyContent: 'center',
-        shadowColor: '#000000',
+        borderRadius: 10,
+        backgroundColor: COLOR.WHITE,
+        shadowColor: COLOR.BLACK,
         shadowOffset: {
             width: 0,
             height: 2,
         },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 1
+        shadowOpacity: 0.23,
+        shadowRadius: 2.62,
+        elevation: 4,
+        flexDirection: KEY.COLUMN,
+
     },
-    headerstyle: {
-        backgroundColor: '#00D9CE',
-        width: WIDTH,
-        height: 100,
-        borderBottomLeftRadius: 35,
-        borderBottomRightRadius: 35
+    rounfIconStyle: {
+        //marginTop: 10,
+        height: 35,
+        width: 35,
+        borderRadius: 100,
+        borderColor: COLOR.DEFALUTCOLOR,
+        borderWidth: 1,
+        justifyContent: KEY.CENTER,
+        alignItems: KEY.CENTER
     },
 })
+
+export default styles;
