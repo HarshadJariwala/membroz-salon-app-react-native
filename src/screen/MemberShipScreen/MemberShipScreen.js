@@ -15,6 +15,7 @@ import { MemberLanguage } from '../../services/LocalService/LanguageService';
 import crashlytics, { firebase } from "@react-native-firebase/crashlytics";
 import * as LocalService from '../../services/LocalService/LocalService';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import getCurrency from '../../services/getCurrencyService/getCurrency';
 import languageConfig from '../../languages/languageConfig';
 import * as SCREEN from '../../context/screen/screenName';
 import { useFocusEffect } from '@react-navigation/native';
@@ -30,7 +31,7 @@ import moment from 'moment';
 const HEIGHT = Dimensions.get('window').height;
 const WIDTH = Dimensions.get('window').width;
 
-const MemberShipScreen = () => {
+const MemberShipScreen = (props) => {
 
     const [currencySymbol, setCurrencySymbol] = useState(null);
     const [memberProfilePic, setMemberProfilePic] = useState(null);
@@ -46,30 +47,64 @@ const MemberShipScreen = () => {
     useFocusEffect(
         React.useCallback(() => {
             const getCallBackScreen = () => {
-                console.log("memberInfo", memberInfo);
                 //LANGUAGE MANAGEMENT FUNCTION
                 MemberLanguage();
                 if (memberInfo) {
+                    console.log(`memberInfo`)
                     getmemberid = memberInfo?._id;
                     setMembershipPlan(memberInfo?.membershipid?.property?.membershipname);
-                    setMembershipcost
+                    setMembershipcost(memberInfo.membershipid.property.cost);
+                    setMembershipstart(memberInfo.membershipstart);
+                    setMembershipend(memberInfo.membershipend);
+                    setBranchname(memberInfo.branchid.branchname);
+                    setMemberName(memberInfo?.fullname);
                 }
             }
-        })
-    )
+            getCallBackScreen();
+        }, [])
+    );
+    useEffect(() => {
+        //LANGUAGE MANAGEMENT FUNCTION
+        MemberLanguage();
+        // CHECK REMOTECONTROLLER USE TO AUTOCONFIG APP
+        getMemberDeatilsLocalStorage();
+    }, []);
+
+    useEffect(() => {
+    }, [membershipPlan, membershipcost, memberProfilePic, membershipstart,
+        branchname, membershipend, memberName])
+
+    //GET MEMBER DATA IN MOBILE LOCAL STORAGE
+    const getMemberDeatilsLocalStorage = async () => {
+        var memberInfo = await LocalService.LocalStorageService();
+        if (memberInfo) {
+            console.log("memberInfo", memberInfo)
+            const response = getCurrency(memberInfo.branchid.currency);
+            setMemberInfo(memberInfo);
+            setCurrencySymbol(response);
+            setMemberProfilePic(memberInfo?.profilepic);
+            setMemberNumber(memberInfo.membernumber);
+            setMemberName(memberInfo.fullname);
+            setMembershipPlan("abc");
+            setMembershipcost(200);
+            setMembershipstart(new Date());
+            setMembershipend(new Date());
+            setBranchname(memberInfo.branchid?.branchname);
+        }
+    }
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: COLOR.BACKGROUNDCOLOR }}>
             <StatusBar hidden={false} translucent={true} backgroundColor={COLOR.STATUSBARCOLOR} barStyle={KEY.DARK_CONTENT} />
             <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={KEY.ALWAYS}>
                 <View style={{ justifyContent: KEY.CENTER, alignItems: KEY.CENTER }}>
                     <TouchableOpacity style={styles.viweRound}>
-                        <Image source={IMAGE.USERPROFILE}
+                        <Image source={!memberProfilePic ? IMAGE.USERPROFILE : { uri: memberProfilePic }}
                             style={{ height: 95, width: 95, borderRadius: 100 }} />
                     </TouchableOpacity>
-                    <Text style={styles.text}>{"Membroz Member"}</Text>
+                    <Text style={styles.text}>{memberName}</Text>
                     <View style={{ flexDirection: KEY.ROW, alignItems: KEY.CENTER, marginTop: 5 }}>
                         <Ionicons name='location-outline' size={22} color={COLOR.DEFALUTCOLOR} />
-                        <Text style={{ fontSize: FONT.FONT_SIZE_14, color: COLOR.GRANITE_GRAY, marginLeft: 5 }}>{"Place Mall"}</Text>
+                        <Text style={{ fontSize: FONT.FONT_SIZE_14, color: COLOR.GRANITE_GRAY, marginLeft: 5 }}>{branchname}</Text>
                     </View>
                 </View>
 
@@ -86,7 +121,7 @@ const MemberShipScreen = () => {
                                     <Text style={{
                                         fontSize: FONT.FONT_SIZE_16, textTransform: KEY.CAPITALIZE, color: COLOR.BLACK,
                                         fontWeight: FONT.FONT_WEIGHT_BOLD, width: WIDTH / 2
-                                    }} numberOfLines={1}>{'Gold Member Ship new plan'}</Text>
+                                    }} numberOfLines={1}>{membershipPlan}</Text>
                                 </View>
                             </View>
                             <View style={{ flex: 1, alignItems: KEY.FLEX_END, marginTop: 10 }}>
@@ -112,7 +147,7 @@ const MemberShipScreen = () => {
                                     <Text style={{
                                         fontSize: FONT.FONT_SIZE_16, textTransform: KEY.UPPERCASE, color: COLOR.BLACK,
                                         fontWeight: FONT.FONT_WEIGHT_BOLD
-                                    }}>{'$4500'}</Text>
+                                    }}>{currencySymbol + membershipcost}</Text>
                                 </View>
                             </View>
                         </View>
@@ -130,7 +165,7 @@ const MemberShipScreen = () => {
                                     <Text style={{
                                         fontSize: FONT.FONT_SIZE_16, textTransform: KEY.UPPERCASE, color: COLOR.BLACK,
                                         fontWeight: FONT.FONT_WEIGHT_BOLD
-                                    }}>{moment().format('MMMM DD,YYYY')}</Text>
+                                    }}>{moment(membershipstart).format('MMMM DD,YYYY')}</Text>
                                 </View>
                             </View>
                         </View>
@@ -148,14 +183,14 @@ const MemberShipScreen = () => {
                                     <Text style={{
                                         fontSize: FONT.FONT_SIZE_16, textTransform: KEY.UPPERCASE, color: COLOR.BLACK,
                                         fontWeight: FONT.FONT_WEIGHT_BOLD
-                                    }}>{moment().format('MMMM DD,YYYY')}</Text>
+                                    }}>{moment(membershipend).format('MMMM DD,YYYY')}</Text>
                                 </View>
                             </View>
                         </View>
                     </View>
                 </View>
 
-                <View style={styles.viewMain}>
+                {/* <View style={styles.viewMain}>
                     <View style={styles.viewRectangle}>
                         <View style={{
                             flexDirection: KEY.ROW, marginTop: 10,
@@ -252,7 +287,7 @@ const MemberShipScreen = () => {
                         </View>
                     </View>
                     <View style={{ marginBottom: 80 }} />
-                </View>
+                </View> */}
             </ScrollView>
         </SafeAreaView>
     )
