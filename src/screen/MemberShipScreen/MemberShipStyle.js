@@ -81,7 +81,9 @@ const styles = StyleSheet.create({
         alignItems: KEY.CENTER
     },
     btnStyle: {
-        borderRadius: 30,
+        borderBottomRightRadius: 20,
+        borderTopLeftRadius: 20,
+        borderRadius: 5,
         backgroundColor: COLOR.DEFALUTCOLOR,
         width: WIDTH / 5,
         height: 35,
