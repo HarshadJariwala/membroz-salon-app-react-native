@@ -15,6 +15,7 @@ import crashlytics, { firebase } from "@react-native-firebase/crashlytics";
 import * as LocalService from '../../services/LocalService/LocalService';
 import getCurrency from '../../services/getCurrencyService/getCurrency';
 import languageConfig from '../../languages/languageConfig';
+import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import * as SCREEN from '../../context/screen/screenName';
 import Loader from '../../components/loader/index';
 import * as KEY from '../../context/actions/key';
@@ -133,16 +134,19 @@ const PaymentDetailsScreen = (props) => {
         <View>
             <TouchableOpacity style={{ justifyContent: KEY.SPACEBETWEEN, alignItems: KEY.CENTER, flexDirection: KEY.ROW, marginTop: 5 }}>
                 <View style={{ justifyContent: KEY.FLEX_START, flexDirection: KEY.ROW, alignItems: KEY.CENTER, marginLeft: 20 }}>
-                    <MaterialCommunityIcons name='check-circle' size={30} style={{ color: COLOR.WEB_FOREST_GREEN, alignItems: KEY.FLEX_START, marginTop: 8 }} />
+                    <View style={styles.rounfIconStyle}>
+                        {/* <FONTAWESOME5 NAME='MONEY-BILL-WAVE-ALT' SIZE={20} COLOR={COLOR.DEFALUTCOLOR} /> */}
+                        <Image style={{ width: 20, height: 15, tintColor: COLOR.DEFALUTCOLOR, }} source={IMAGE.MONEYICON} />
+                    </View>
                     <View style={{ flexDirection: KEY.COLUMN, alignItems: KEY.FLEX_START, marginLeft: 20, width: 150 }}>
-                        <Text style={{ fontSize: FONT.FONT_SIZE_16, textTransform: KEY.CAPITALIZE, color: COLOR.BLACK, fontWeight: FONT.FONT_WEIGHT_BOLD }}>
+                        <Text style={{ fontSize: FONT.FONT_SIZE_16, textTransform: KEY.CAPITALIZE, color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD }}>
                             {item && item.item && item.item.paymentterms && item.item.paymentterms.paymentitem && item.item.paymentterms.paymentitem.paymentitemname ? item.item.paymentterms.paymentitem.paymentitemname : languageConfig.noterms}</Text>
                         <Text style={styles.text}>{moment(item && item.paymentdate).format('lll')}</Text>
                     </View>
                 </View>
-
                 <View style={{ justifyContent: KEY.FLEX_END, marginRight: 20 }}>
-                    <Text style={{ color: COLOR.BLACK, fontWeight: FONT.FONT_WEIGHT_BOLD, fontSize: FONT.FONT_SIZE_14 }}>{currencySymbol + Number(item && item.paidamount).toFixed(2)}</Text>
+                    <Text style={{ color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD, fontSize: FONT.FONT_SIZE_14 }}>{currencySymbol + Number(item && item.paidamount).toFixed(2)}</Text>
+
                 </View>
             </TouchableOpacity>
             <View style={{ borderBottomColor: COLOR.BRIGHT_GRAY, borderBottomWidth: 1, marginTop: 10, marginRight: 15, marginLeft: 15 }} />
@@ -155,17 +159,18 @@ const PaymentDetailsScreen = (props) => {
             <TouchableOpacity onPress={() => openPaymentScreen(item)}
                 style={{ justifyContent: KEY.SPACEBETWEEN, alignItems: KEY.CENTER, flexDirection: KEY.ROW, marginTop: 5 }}>
                 <View style={{ justifyContent: KEY.FLEX_START, flexDirection: KEY.ROW, alignItems: KEY.CENTER, marginLeft: 20 }}>
-                    <MaterialCommunityIcons name='clock' size={30} style={{ color: COLOR.YELLOW, alignItems: KEY.FLEX_START, marginTop: 8 }} />
+                    <View style={styles.rounfIconStyle}>
+                        <Image style={{ width: 20, height: 15, tintColor: COLOR.DEFALUTCOLOR, }} source={IMAGE.MONEYICON} />
+                    </View>
                     <View style={{ flexDirection: KEY.COLUMN, alignItems: KEY.FLEX_START, marginLeft: 20, width: 150 }}>
-                        <Text style={{ fontSize: FONT.FONT_SIZE_16, textTransform: KEY.CAPITALIZE, color: COLOR.BLACK, fontWeight: FONT.FONT_WEIGHT_BOLD }}>
+                        <Text style={{ fontSize: FONT.FONT_SIZE_16, textTransform: KEY.CAPITALIZE, color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD }}>
                             {item && item.paymentterms && item.paymentterms.paymentitem && item.paymentterms.paymentitem.paymentitemname ? item.paymentterms.paymentitem.paymentitemname : languageConfig.noterms}</Text>
                         <Text style={styles.text}>{moment(item && item.paymentdate).format('ll')}</Text>
                     </View>
                 </View>
-
                 <View style={{ justifyContent: KEY.FLEX_END, marginRight: 20, flexDirection: KEY.ROW, alignItems: KEY.CENTER }}>
-                    <Text style={{ color: COLOR.BLACK, fontWeight: FONT.FONT_WEIGHT_BOLD, fontSize: FONT.FONT_SIZE_14 }}>{currencySymbol + Number(item && item.balance).toFixed(2)}</Text>
-                    <MaterialCommunityIcons name='chevron-right' size={30} style={{ color: COLOR.BLACK }} />
+                    <Text style={{ color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD, fontSize: FONT.FONT_SIZE_14 }}>{currencySymbol + Number(item && item.balance).toFixed(2)}</Text>
+                    <EvilIcons name='chevron-right' size={30} color={COLOR.BLACK} style={{ marginLeft: 10 }} />
                 </View>
             </TouchableOpacity>
             <View style={{ borderBottomColor: COLOR.BRIGHT_GRAY, borderBottomWidth: 1, marginTop: 10, marginRight: 15, marginLeft: 15 }} />
@@ -189,13 +194,12 @@ const PaymentDetailsScreen = (props) => {
                             ))
                         }
                     </View>
-
                     {
                         status == languageConfig.historytext &&
                         <>
                             <Text style={{
                                 fontSize: FONT.FONT_SIZE_18, color: COLOR.BLACK,
-                                marginTop: 10, marginLeft: 20, fontWeight: FONT.FONT_WEIGHT_BOLD
+                                marginTop: 10, marginLeft: 20, fontWeight: FONT.FONT_BOLD
                             }}>{languageConfig.recenettransactions}</Text>
                             <View style={styles.viewMain}>
                                 <FlatList
@@ -219,7 +223,7 @@ const PaymentDetailsScreen = (props) => {
                                             <></>
                                             :
                                             <View style={{ justifyContent: KEY.CENTER, alignItems: KEY.CENTER }}>
-                                                <Image source={IMAGE.RECORD_ICON} style={{ height: 150, width: 200, marginTop: 100 }} resizeMode={KEY.CONTAIN} />
+                                                <Image source={IMAGE.NODATA} style={{ height: 150, width: 200, marginTop: HEIGHT * 0.2 }} resizeMode={KEY.CONTAIN} />
                                                 <Text style={{ fontSize: FONT.FONT_SIZE_16, color: COLOR.TAUPE_GRAY, marginTop: 10 }}>{languageConfig.norecordtext}</Text>
                                             </View>
                                     )}
@@ -232,7 +236,7 @@ const PaymentDetailsScreen = (props) => {
                         <>
                             <Text style={{
                                 fontSize: FONT.FONT_SIZE_18, color: COLOR.BLACK,
-                                marginTop: 10, marginLeft: 20, fontWeight: FONT.FONT_WEIGHT_BOLD
+                                marginTop: 10, marginLeft: 20, fontWeight: FONT.FONT_BOLD
                             }}>{languageConfig.paymentdue}</Text>
                             <View style={styles.viewMain}>
                                 <FlatList
@@ -256,7 +260,7 @@ const PaymentDetailsScreen = (props) => {
                                             <></>
                                             :
                                             <View style={{ justifyContent: KEY.CENTER, alignItems: KEY.CENTER }}>
-                                                <Image source={IMAGE.RECORD_ICON} style={{ height: 150, width: 200, marginTop: 100 }} resizeMode={KEY.CONTAIN} />
+                                                <Image source={IMAGE.NODATA} style={{ height: 150, width: 200, marginTop: HEIGHT * 0.2 }} resizeMode={KEY.CONTAIN} />
                                                 <Text style={{ fontSize: FONT.FONT_SIZE_16, color: COLOR.TAUPE_GRAY, marginTop: 10 }}>{languageConfig.norecordtext}</Text>
                                             </View>
                                     )}
@@ -268,7 +272,7 @@ const PaymentDetailsScreen = (props) => {
                 :
                 loading == false ?
                     <View style={{ justifyContent: KEY.CENTER, alignItems: KEY.CENTER }}>
-                        <Image source={IMAGE.RECORD_ICON} style={{ height: 150, width: 200, marginTop: 100 }} resizeMode={KEY.CONTAIN} />
+                        <Image source={IMAGE.NODATA} style={{ height: 150, width: 200, marginTop: HEIGHT * 0.2 }} resizeMode={KEY.CONTAIN} />
                         <Text style={{ fontSize: FONT.FONT_SIZE_16, color: COLOR.TAUPE_GRAY, marginTop: 10 }}>{languageConfig.norecordtext}</Text>
                     </View>
                     : <Loader />

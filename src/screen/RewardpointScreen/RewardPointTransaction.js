@@ -24,7 +24,7 @@ const WIDTH = Dimensions.get('window').width;
 const RewardPointTransaction = () => {
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: COLOR.BACKGROUNDCOLOR }}>
-            <StatusBar hidden={false} translucent={true} backgroundColor={COLOR.DEFALUTCOLOR} barStyle={KEY.DARK_CONTENT} />
+            <StatusBar hidden={false} translucent={true} backgroundColor={COLOR.STATUSBARCOLOR} barStyle={KEY.DARK_CONTENT} />
             <View style={{ flexDirection: KEY.ROW, marginBottom: 10 }}>
                 <TouchableOpacity style={styles.activeTabStyle}>
                     <Text style={styles.activeTextStyle}>{"All"}</Text>

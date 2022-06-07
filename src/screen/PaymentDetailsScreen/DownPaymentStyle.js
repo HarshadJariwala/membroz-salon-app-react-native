@@ -10,12 +10,12 @@ const styles = StyleSheet.create({
     containerView: {
         justifyContent: KEY.CENTER,
         alignItems: KEY.CENTER,
-        marginTop: 15
+        //    marginTop: 15
     },
     headerText: {
         color: COLOR.BLACK,
         fontSize: FONT.FONT_SIZE_20,
-        fontWeight: FONT.FONT_WEIGHT_BOLD,
+        fontWeight: FONT.FONT_BOLD,
         marginTop: 10,
         flex: 1
     },
@@ -43,16 +43,16 @@ const styles = StyleSheet.create({
         marginTop: 80
     },
     updateBtn: {
-        borderRadius: 100,
+        borderRadius: 5,
         backgroundColor: COLOR.DEFALUTCOLOR,
-        width: WIDTH - 100,
-        height: 55,
+        width: WIDTH - 30,
+        height: 45,
         alignItems: KEY.CENTER,
         justifyContent: KEY.CENTER,
-        // position: KEY.ABSOLUTE,
-        bottom: 180,
-        // left: 15,
-        // right: 15,
+        borderBottomRightRadius: 20,
+        borderTopLeftRadius: 20,
+        bottom: 20,
+
     },
     rounfIconStyle: {
         marginTop: 20,

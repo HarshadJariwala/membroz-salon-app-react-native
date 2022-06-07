@@ -161,6 +161,7 @@ export default {
     noterms: "no terms!",
     billpayment: "Bill Payment",
     duepayment: "Due Payment",
+    razorpaypaymenterrormessage: "Payment method not found",
     submittedsuccessfully: "Submitted successfully!",
     submittedproblem: "Submitted problem!",
     invitation: "Invitation",

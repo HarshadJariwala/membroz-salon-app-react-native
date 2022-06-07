@@ -39,13 +39,13 @@ const styles = StyleSheet.create({
     },
     tabText: {
         fontSize: FONT.FONT_SIZE_18,
-        fontWeight: FONT.FONT_WEIGHT_BOLD,
+        fontWeight: FONT.FONT_BOLD,
         textTransform: KEY.CAPITALIZE,
         color: COLOR.LIGHT_BLACK
     },
     tabTextActive: {
         fontSize: FONT.FONT_SIZE_18,
-        fontWeight: FONT.FONT_WEIGHT_BOLD,
+        fontWeight: FONT.FONT_BOLD,
         textTransform: KEY.CAPITALIZE,
         color: COLOR.DEFALUTCOLOR
 
@@ -64,6 +64,16 @@ const styles = StyleSheet.create({
     text: {
         fontSize: FONT.FONT_SIZE_14,
         color: COLOR.TAUPE_GRAY
+    },
+    rounfIconStyle: {
+        //marginTop: 10,
+        height: 35,
+        width: 35,
+        borderRadius: 100,
+        borderColor: COLOR.DEFALUTCOLOR,
+        borderWidth: 1,
+        justifyContent: KEY.CENTER,
+        alignItems: KEY.CENTER
     },
 });
 

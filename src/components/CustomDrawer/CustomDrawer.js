@@ -1,83 +1,138 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
-    View,
-    Text,
-    ImageBackground,
-    Image,
-    TouchableOpacity,
+    View, Text,
+    ImageBackground, Image,
+    TouchableOpacity, Alert,
+    StyleSheet, Dimensions
 } from 'react-native';
-import {
-    DrawerContentScrollView,
-    DrawerItemList,
-} from '@react-navigation/drawer';
-import * as COLOR from '../../styles/colors';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import { DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';
+import { MemberLanguage } from '../../services/LocalService/LanguageService';
+import * as LocalService from '../../services/LocalService/LocalService';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import AsyncStorage from '@react-native-community/async-storage';
+import languageConfig from '../../languages/languageConfig';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import Feather from 'react-native-vector-icons/Feather';
+import { useFocusEffect } from '@react-navigation/native';
+import * as SCREEN from '../../context/screen/screenName';
+import * as KEY from '../../context/actions/key';
+import * as FONT from '../../styles/typography';
+import * as COLOR from '../../styles/colors';
+import * as IMAGE from '../../styles/image';
 
 const CustomDrawer = (props) => {
+    const [memberInfo, setMemberInfo] = useState(null);
+    const [memberProfilePic, setMemberProfilePic] = useState(null);
+    const [memberNumber, setMemberNumber] = useState(null);
+    const [memberName, setMemberName] = useState(null);
+
+    useFocusEffect(
+        React.useCallback(() => {
+            const getCallBackScreen = () => {
+                //LANGUAGE MANAGEMENT FUNCTION
+                MemberLanguage();
+                if (memberInfo) {
+                    setMemberProfilePic(memberInfo?.profilepic);
+                    setMemberNumber(memberInfo?.membernumber);
+                    setMemberName(memberInfo?.fullname);
+                }
+            }
+            getCallBackScreen();
+        }, [])
+    );
+
+    useEffect(() => {
+        getMemberDeatilsLocalStorage();
+    }, [])
+
+    //GET MEMBER DATA IN MOBILE LOCAL STORAGE
+    const getMemberDeatilsLocalStorage = async () => {
+        var memberInfo = await LocalService.LocalStorageService();
+        if (memberInfo) {
+            setMemberInfo(memberInfo);
+            setMemberProfilePic(memberInfo?.profilepic);
+            setMemberNumber(memberInfo?.membernumber);
+            setMemberName(memberInfo?.fullname);
+        }
+    }
+
+    //LOGOUT BUTTON CLICK TO CALL 
+    const onPressLogout = () => {
+        Alert.alert(
+            languageConfig.Logouttext,
+            languageConfig.profilelogout,
+            [
+                {
+                    text: languageConfig.cancel,
+                    style: "cancel"
+                },
+                {
+                    text: languageConfig.Logouttext2, onPress: () => {
+                        AsyncStorage.removeItem(KEY.AUTHUSERINFO);
+                        // AsyncStorage.removeItem(REMOVEDATA);
+                        AsyncStorage.removeItem(KEY.AUTHUSER);
+                        Toast.show(languageConfig.logoutsuccessmessage, Toast.SHORT);
+                        props.navigation.replace(SCREEN.AUTH);
+                    }
+                }
+            ]
+        );
+    }
+
     return (
         <View style={{ flex: 1 }}>
             <DrawerContentScrollView
                 {...props}
-                contentContainerStyle={{ backgroundColor: '#8200d6' }}>
-                <ImageBackground
-                    source={{ uri: "https://res.cloudinary.com/membroz/image/upload/v1632728295/Membroz%20Mobile%20app%20/background_l4v1dc.jpg" }}
-                    style={{ padding: 20 }}>
-                    <Image
-                        source={{ uri: "https://res.cloudinary.com/membroz/image/upload/v1637309115/Mobile%20Public%20Image/ic_account_mgu7ie.png" }}
-                        style={{ height: 80, width: 80, borderRadius: 40, marginBottom: 10 }}
-                    />
-                    <Text
-                        style={{
-                            color: COLOR.WHITE,
-                            fontSize: 18,
-                            marginBottom: 5,
-                        }}>
-                        John Doe
-                    </Text>
-                    <View style={{ flexDirection: 'row' }}>
-                        <Text
-                            style={{
-                                color: COLOR.WHITE,
-                                marginRight: 5,
-                            }}>
-                            280 Coins
-                        </Text>
-                        <FontAwesome5 name="coins" size={14} color={COLOR.WHITE} />
-                    </View>
-                </ImageBackground>
-                <View style={{ flex: 1, backgroundColor: COLOR.WHITE, paddingTop: 10 }}>
+                contentContainerStyle={{ backgroundColor: COLOR.WHI }}>
+                <View style={{ justifyContent: KEY.FLEX_START, alignItems: KEY.FLEX_START }}>
+                    <TouchableOpacity onPress={() => props.navigation.navigate(SCREEN.UPDATEPROFILESCREEN)}>
+                        <View style={{ flexDirection: KEY.ROW, marginTop: 10, marginBottom: 10 }}>
+                            <View style={{ justifyContent: KEY.CENTER, alignItems: KEY.CENTER }}>
+                                <View style={styles.rounfIconStyle}>
+                                    <Image style={{
+                                        borderRadius: 100,
+                                        width: 45, height: 45
+                                    }} source={!memberProfilePic ? IMAGE.USERPROFILE : { uri: memberProfilePic }} />
+                                </View>
+                            </View>
+                            <View style={{ justifyContent: KEY.CENTER, flexDirection: KEY.COLUMN, marginLeft: 10, width: "65%" }}>
+                                <Text numberOfLines={1} style={{ fontSize: FONT.FONT_SIZE_14, color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD }}>{memberName}</Text>
+                                <Text numberOfLines={1} style={{ fontSize: FONT.FONT_SIZE_14, color: COLOR.BLACK }}>{"Member Id #" + memberNumber}</Text>
+                            </View>
+                        </View>
+                    </TouchableOpacity>
+                </View>
+                <View style={{ flex: 1, backgroundColor: COLOR.WHITE, marginTop: 5 }}>
                     <DrawerItemList {...props} />
+                    <TouchableOpacity onPress={() => onPressLogout()} style={{ paddingVertical: 0, marginLeft: 20 }}>
+                        <View style={{ flexDirection: KEY.ROW, alignItems: KEY.CENTER }}>
+                            <Image source={IMAGE.LOGOUTICON}
+                                style={{ width: 20, height: 20, tintColor: COLOR.LIGHT_BLACK }} />
+                            <Text style={{ fontSize: FONT.FONT_SIZE_16, fontWeight: FONT.FONT_NORMAL, marginLeft: 16 }}>{"Logout"}</Text>
+                        </View>
+                    </TouchableOpacity>
                 </View>
             </DrawerContentScrollView>
-            <View style={{ padding: 20, borderTopWidth: 1, borderTopColor: '#ccc' }}>
-                <TouchableOpacity onPress={() => { }} style={{ paddingVertical: 15 }}>
-                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        <Ionicons name="share-social-outline" size={22} />
-                        <Text
-                            style={{
-                                fontSize: 15,
-                                marginLeft: 5,
-                            }}>
-                            Tell a Friend
-                        </Text>
-                    </View>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => { }} style={{ paddingVertical: 15 }}>
-                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        <Ionicons name="exit-outline" size={22} />
-                        <Text
-                            style={{
-                                fontSize: 15,
-                                marginLeft: 5,
-                            }}>
-                            Sign Out
-                        </Text>
-                    </View>
-                </TouchableOpacity>
-            </View>
         </View>
     );
 };
 
 export default CustomDrawer;
+
+const styles = StyleSheet.create({
+    rounfIconStyle: {
+        marginLeft: 15,
+        height: 50,
+        width: 50,
+        borderRadius: 100,
+        borderColor: COLOR.DEFALUTCOLOR,
+        borderWidth: 2,
+        justifyContent: KEY.CENTER,
+        alignItems: KEY.CENTER
+    },
+    rectangleText: {
+        fontSize: FONT.FONT_SIZE_14,
+        color: COLOR.GRANITE_GRAY,
+        marginTop: 5,
+    }
+});

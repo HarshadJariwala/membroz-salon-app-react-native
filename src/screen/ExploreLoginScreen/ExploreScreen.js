@@ -103,7 +103,7 @@ const ExploreScreen = () => {
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: COLOR.BACKGROUNDCOLOR }}>
-            <StatusBar hidden={false} translucent={true} backgroundColor={KEY.TRANSPARENT} barStyle={KEY.DARK_CONTENT} />
+            <StatusBar hidden={false} translucent={true} backgroundColor={KEY.STATUSBARCOLOR} barStyle={KEY.DARK_CONTENT} />
             <View style={{ marginTop: 60 }} />
             <FlatList
                 style={{ marginTop: 15 }}
