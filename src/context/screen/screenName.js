@@ -8,6 +8,7 @@ export const FORGETPASSWORDSCREEN = 'ForgetPasswordScreen';
 export const OFFERSCREEN = 'OfferScreen';
 export const REGISTERSCREEN = 'RegisterScreen';
 export const EXPLORESCREEN = 'ExploreScreen';
+export const EXPLORESTATUS = 'ExploreStatus';
 export const NEWPASSWORDSCREEN = 'NewPasswordScreen';
 export const MYPROFILESCREEN = 'MyProfileScreen';
 export const UPDATEPROFILESCREEN = 'UpdateProfileScreen';
@@ -25,6 +26,7 @@ export const REWARDPOINTSCREEN = 'RewardPointScreen';
 export const REWARDPOINTTRANSACTION = 'RewardPointTransaction';
 export const SUBMITQUERY = 'SubmitQuery';
 export const ACTIVITYCALENDERSCREEN = 'ActivityCalenderScreen';
+
 
 
 

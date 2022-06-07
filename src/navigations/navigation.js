@@ -14,6 +14,7 @@ import UPDATEPROFILESCREEN from '../screen/MyProfileScreen/UpdateProfileScreen';
 import TRAINERDETAILSCREEN from '../screen/TrainerScreen/TrainerDetailScreen';
 import MYPROFILESCREEN from '../screen/MyProfileScreen/MyProfileScreen';
 import EXPLORESCREEN from '../screen/ExploreLoginScreen/ExploreScreen';
+import EXPLORESTATUS from '../screen/ExploreLoginScreen/ExploreStatus';
 import REGISTERSCREEN from '../screen/RegisterScreen/RegisterScreen';
 import OFFERSCREEN from '../screen/ExploreLoginScreen/OfferScreen';
 import TRAINERSCREEN from '../screen/TrainerScreen/TrainerScreen';
@@ -128,6 +129,16 @@ const AuthStackScreen = () => {
             <Stack.Screen
                 name="ExploreScreen"
                 component={EXPLORESCREEN}
+                options={{
+                    headerTitleAlign: KEY.CENTER,
+                    title: languageConfig.exploresurge,
+                    headerTintColor: Platform.OS == 'android' ? COLOR.BLACK : COLOR.DEFALUTCOLOR,
+                    headerTransparent: true
+                }}
+            />
+            <Stack.Screen
+                name="ExploreStatus"
+                component={EXPLORESTATUS}
                 options={{
                     headerTitleAlign: KEY.CENTER,
                     title: languageConfig.exploresurge,
@@ -569,6 +580,51 @@ const InviteFriendStackScreen = ({ navigation }) => {
     )
 }
 
+const ExploreStackScreen = ({ navigation }) => {
+    return (
+        <Stack.Navigator initialRouteName='ExploreScreen'
+            screenOptions={{ headerShadowVisible: false }}>
+            <Stack.Screen
+                name="ExploreScreen"
+                component={EXPLORESCREEN}
+                options={{
+                    title: 'Explore Salon', //Set Header Title
+                    headerLeft: () =>
+                        <NavigationDrawerStructureLeft
+                            navigationProps={navigation}
+                        />,
+                    headerRight: () => <NavigationDrawerStructureRight navigationProps={navigation} />,
+                    headerStyle: {
+                        backgroundColor: COLOR.BACKGROUNDCOLOR, //Set Header color
+                    },
+                    headerTintColor: COLOR.BLACK, //Set Header text color
+                    headerTitleAlign: KEY.CENTER,
+                    headerTitleStyle: {
+                        fontWeight: FONT.FONT_WEIGHT_MEDIAM, //Set Header text style
+                    }
+                }}
+            />
+            <Stack.Screen
+                name="ExploreStatus"
+                component={EXPLORESTATUS}
+                options={{
+                    title: 'Explore Salon', //Set Header Title                    
+                    headerRight: () => <NavigationDrawerStructureRight navigationProps={navigation} />,
+                    headerStyle: {
+                        backgroundColor: COLOR.BACKGROUNDCOLOR, //Set Header color
+                    },
+                    headerTintColor: COLOR.BLACK, //Set Header text color
+                    headerTitleAlign: KEY.CENTER,
+                    headerTitleStyle: {
+                        fontWeight: FONT.FONT_WEIGHT_MEDIAM, //Set Header text style
+                    }
+                }}
+            />
+
+        </Stack.Navigator>
+    )
+}
+
 const NavigationsDrawer = (props) => {
     return (
         <Drawer.Navigator initialRouteName="HomeScreen"
@@ -660,9 +716,9 @@ const NavigationsDrawer = (props) => {
             />
             <Drawer.Screen
                 name="exploresalon"
-                component={PaymentStackScreen}
+                component={ExploreStackScreen}
                 options={{
-                    drawerLabel: 'explore Salon', drawerIcon: ({ color }) => (
+                    drawerLabel: 'Explore Salon', drawerIcon: ({ color }) => (
                         <Image source={IMAGE.EXPLOREICON}
                             style={{ width: 20, height: 20, tintColor: color }} />
                     )
