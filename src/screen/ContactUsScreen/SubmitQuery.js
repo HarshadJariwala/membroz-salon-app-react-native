@@ -322,19 +322,11 @@ const SubmitQuery = (props) => {
                         </View>
                         <View>
                             <SelectDropdown
-                                buttonTextStyle={{
-                                    color: category ? COLOR.BLACK : COLOR.X11_GRAY,
-                                    textAlign: KEY.LEFT, marginLeft: 20, fontSize: FONT.FONT_SIZE_16
-                                }}
+                                buttonTextStyle={{ color: category ? COLOR.BLACK : COLOR.X11_GRAY, textAlign: KEY.LEFT, marginLeft: 20, fontSize: FONT.FONT_SIZE_16 }}
                                 defaultButtonText="Select category"
                                 data={data}
-                                dropdownStyle={{ color: COLOR.GRANITE_GRAY, marginBottom: 20, marginLeft: 5 }}
-                                buttonStyle={{
-                                    width: WIDTH - 30,
-                                    backgroundColor: KEY.TRANSPARENT,
-                                    color: COLOR.GRANITE_GRAY,
-                                    marginBottom: 0
-                                }}
+                                dropdownStyle={{ color: COLOR.PLACEHOLDER_COLOR_2, marginBottom: 20, marginLeft: 5 }}
+                                buttonStyle={{ width: WIDTH - 30, backgroundColor: KEY.TRANSPARENT, color: COLOR.PLACEHOLDER_COLOR_2, marginBottom: 0 }}
                                 renderDropdownIcon={() => <Ionicons name="chevron-down" size={20} color={COLOR.BLACK} />}
                                 dropdownIconPosition={"right"}
                                 onSelect={(selectedItem, index) => {
@@ -344,38 +336,26 @@ const SubmitQuery = (props) => {
                             />
                             {
                                 !categoryError ?
+
                                     <View
                                         style={{
-                                            borderRadius: 5,
-                                            borderWidth: 1,
-                                            borderColor: COLOR.GRANITE_GRAY,
-                                            marginBottom: 15,
-                                            width: WIDTH - 60,
-                                            paddingLeft: 15,
-                                            color: COLOR.BLACK,
-                                            fontSize: FONT.FONT_SIZE_16,
-                                            fontFamily: FONT.FONT_NORMAL,
-                                            borderBottomRightRadius: 20,
-                                            borderTopLeftRadius: 20,
+                                            borderBottomColor: COLOR.X11_GRAY,
+                                            borderBottomWidth: 1,
                                             alignSelf: KEY.CENTER,
-
+                                            marginTop: 0,
+                                            width: WIDTH - 60,
+                                            color: COLOR.BLACK
                                         }}
                                     />
                                     :
                                     <View
                                         style={{
-                                            borderRadius: 5,
-                                            borderWidth: 1,
-                                            borderColor: COLOR.ERRORCOLOR,
-                                            marginBottom: 15,
-                                            width: WIDTH - 60,
-                                            paddingLeft: 15,
-                                            color: COLOR.BLACK,
-                                            fontSize: FONT.FONT_SIZE_16,
-                                            fontFamily: FONT.FONT_NORMAL,
-                                            borderBottomRightRadius: 20,
-                                            borderTopLeftRadius: 20,
+                                            borderBottomColor: COLOR.ERRORCOLOR,
+                                            borderBottomWidth: 1,
                                             alignSelf: KEY.CENTER,
+                                            marginTop: 0,
+                                            width: WIDTH - 60,
+                                            color: COLOR.BLACK
                                         }}
                                     />
                             }

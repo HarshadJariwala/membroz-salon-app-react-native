@@ -29,30 +29,25 @@ const styles = StyleSheet.create({
         marginBottom: 10
     },
     inputTextView1: {
-        borderRadius: 5,
-        borderWidth: 0.5,
-        borderColor: COLOR.GRANITE_GRAY,
+        // fontSize: FONT.FONT_SIZE_16,
+        // color: COLOR.X11_GRAY,
+        borderBottomColor: COLOR.X11_GRAY,
+        borderBottomWidth: 1,
         marginBottom: 15,
         width: WIDTH - 60,
-        paddingLeft: 15,
         color: COLOR.BLACK,
         fontSize: FONT.FONT_SIZE_16,
-        fontFamily: FONT.FONT_NORMAL,
-        borderBottomRightRadius: 20,
-        borderTopLeftRadius: 20
+        fontFamily: FONT.FONT_NORMAL
+
     },
     inputTextViewError1: {
-        borderRadius: 5,
-        borderWidth: 1,
-        borderColor: COLOR.ERRORCOLOR,
+        borderBottomColor: COLOR.ERROR_LINE_COLOR,
+        borderBottomWidth: 1,
         marginBottom: 15,
         width: WIDTH - 60,
-        paddingLeft: 15,
         color: COLOR.BLACK,
         fontSize: FONT.FONT_SIZE_16,
-        fontFamily: FONT.FONT_NORMAL,
-        borderBottomRightRadius: 20,
-        borderTopLeftRadius: 20
+        fontFamily: FONT.FONT_NORMAL
     },
     line: {
         borderBottomColor: COLOR.GRAY,
@@ -67,15 +62,13 @@ const styles = StyleSheet.create({
         fontSize: FONT.FONT_SIZE_18
     },
     submitquery: {
-        marginTop: 15,
-        borderRadius: 5,
+        marginTop: 10,
+        borderRadius: 30,
         backgroundColor: COLOR.DEFALUTCOLOR,
         width: WIDTH - 60,
         height: 45,
         justifyContent: KEY.CENTER,
-        alignItems: KEY.CENTER,
-        borderBottomRightRadius: 20,
-        borderTopLeftRadius: 20
+        alignItems: KEY.CENTER
     },
     msgModalView: {
         marginTop: HEIGHT,

@@ -56,10 +56,10 @@ const OurSpecialist = ({ navigation }) => {
 
     //GET MYTEAM API THROUGH FETCH DATA
     const getMyTeamList = async () => {
-        console.log("getMyTeamList")
+        //console.log("getMyTeamList")
         try {
             const response = await UserListService();
-            console.log("response", response)
+            //console.log("response", response)
             if (response.data != null && response.data != 'undefind' && response.status === 200) {
                 wait(1000).then(() => {
                     setLoading(false);
