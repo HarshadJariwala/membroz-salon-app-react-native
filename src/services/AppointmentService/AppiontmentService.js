@@ -36,8 +36,7 @@ export const getBookingHistoryListService = (id) => {
     const body = {
         "search": [
             { "searchfield": "attendee", "searchvalue": id, "criteria": "eq", "datatype": "ObjectId" },
-            { "searchfield": "status", "searchvalue": "checkout", "criteria": "eq", "datatype": "text" },
-            { "searchfield": "status", "searchvalue": "confirmed", "criteria": "eq", "datatype": "text" },
+            { "searchfield": "status", "searchvalue": "requested", "criteria": "ne", "datatype": "text" },
         ],
         "formname": "myappointment",
         "sort": { "appointmentdate": -1 }
