@@ -113,12 +113,13 @@ export default OurSpecialist = ({ navigation }) => {
                 </View>
                 <View style={{ marginLeft: 10, flexDirection: KEY.COLUMN, alignItems: KEY.FLEX_START, width: WIDTH / 2 }}>
                     {item.property && item.property.fullname &&
-                        <Text style={{ fontSize: FONT.FONT_SIZE_18, color: COLOR.BLACK, fontWeight: FONT.FONT_WEIGHT_BOLD, textTransform: KEY.CAPITALIZE }}>
+                        <Text style={{ fontSize: FONT.FONT_SIZE_16, color: COLOR.BLACK, fontWeight: FONT.FONT_WEIGHT_BOLD, textTransform: KEY.CAPITALIZE }}>
                             {item.property.fullname}</Text>}
                     {item.designationid && item.designationid.title &&
                         <Text style={{ marginTop: 2, fontSize: FONT.FONT_SIZE_14, color: COLOR.GRANITE_GRAY, textTransform: KEY.CAPITALIZE }}>
                             {item.designationid.title}</Text>}
-                    {item.property && item.property.mobile &&
+                    {
+                        item.property && item.property.mobile &&
                         <View style={{ marginTop: 2, flexDirection: KEY.ROW, alignItems: KEY.SPACEBETWEEN }}>
                             <TouchableOpacity onPress={() => onPressCall(item)}
                                 style={{ alignItems: KEY.CENTER }}>

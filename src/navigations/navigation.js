@@ -31,8 +31,8 @@ import INVITEFRIENDSCREEN from '../screen/InviteFriendScreen/InviteFriendScreen'
 import SUBMITQUERY from '../screen/ContactUsScreen/SubmitQuery';
 import ACTIVITYCALENDERSCREEN from '../screen/ActivityCalenderScreen/ActivityCalenderScreen';
 import MYBOOKING from '../screen/MyBooking/MyBooking';
-import OURSPECIALIST from '../screen/Our Specialist/OurSpecialist';
-import OURSPECIALISTDTAILS from '../screen/Our Specialist/OurSpecialistDtails';
+import OURSPECIALIST from '../screen/OurSpecialist/OurSpecialist';
+import OURSPECIALISTDTAILS from '../screen/OurSpecialist/OurSpecialistDtails';
 
 import { NotificationService } from '../services/NotificationService/NotificationService';
 import { MemberLanguage } from '../services/LocalService/LanguageService';
