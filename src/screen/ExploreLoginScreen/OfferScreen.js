@@ -25,10 +25,11 @@ const HEIGHT = Dimensions.get('window').height;
 const OfferScreen = (props) => {
     const [loading, setLoading] = useState(false);
     const [offerList, setOfferList] = useState([]);
-    const [authKey, setAuthKey] = useState(null);
+    const [memberID, setMemberID] = useState(null);
     const [refreshing, setrefreshing] = useState(false);
     const [appLogo, setAppLogo] = useState(null);
     const [memberInfo, setMemberInfo] = useState(null);
+
     useEffect(() => {
         // CHECK AUTHCONTROLLER USE TO LOGIN OR NOT LOGIN        
         RemoteController();
@@ -41,9 +42,6 @@ const OfferScreen = (props) => {
     async function RemoteController() {
         var userData = await RemoteServerController();
         if (userData) {
-            // setAuthKey(userData.authkey);
-            axiosConfig(userData.authkey);
-            setAuthKey(userData.authkey);
             setAppLogo(userData.applogo);
             //GET OFFER LIST
             await getOfferList();
@@ -51,13 +49,14 @@ const OfferScreen = (props) => {
     };
 
     useEffect(() => {
-    }, [loading, offerList, authKey, appLogo, memberInfo]);
+    }, [loading, offerList, appLogo, memberInfo, memberID]);
 
     //GET MEMBER DATA IN MOBILE LOCAL STORAGE
     const getMemberDeatilsLocalStorage = async () => {
         var memberInfo = await LocalService.LocalStorageService();
         if (memberInfo) {
             setMemberInfo(memberInfo);
+            setMemberID(memberInfo._id);
         }
     }
 
@@ -116,15 +115,10 @@ const OfferScreen = (props) => {
         getOfferList();
         wait(3000).then(() => setrefreshing(false));
     }
+
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: COLOR.BACKGROUNDCOLOR }}>
             <StatusBar hidden={false} translucent={true} backgroundColor={KEY.TRANSPARENT} barStyle={KEY.DARK_CONTENT} />
-            {
-                memberInfo ?
-                    <View style={{ marginTop: 0 }} />
-                    :
-                    <View style={{ marginTop: 80 }} />
-            }
             {
                 offerList && offerList.length > 0 ?
                     <FlatList
