@@ -8,6 +8,7 @@ import { MemberLanguage } from '../../services/LocalService/LanguageService';
 import crashlytics, { firebase } from "@react-native-firebase/crashlytics";
 import { OfferService } from '../../services/OfferService/OfferService';
 import languageConfig from '../../languages/languageConfig';
+import * as LocalService from '../../services/LocalService/LocalService';
 import * as SCREEN from '../../context/screen/screenName';
 import axiosConfig from '../../helpers/axiosConfig';
 import Loader from '../../components/loader/index';
@@ -27,13 +28,13 @@ const OfferScreen = (props) => {
     const [authKey, setAuthKey] = useState(null);
     const [refreshing, setrefreshing] = useState(false);
     const [appLogo, setAppLogo] = useState(null);
-
+    const [memberInfo, setMemberInfo] = useState(null);
     useEffect(() => {
         // CHECK AUTHCONTROLLER USE TO LOGIN OR NOT LOGIN        
         RemoteController();
         //LANGUAGE MANAGEMENT FUNCTION
         MemberLanguage();
-
+        getMemberDeatilsLocalStorage();
     }, []);
 
     //REMOTE DATA FATCH IN LOCAL STORAGE
@@ -50,7 +51,15 @@ const OfferScreen = (props) => {
     };
 
     useEffect(() => {
-    }, [loading, offerList, authKey, appLogo]);
+    }, [loading, offerList, authKey, appLogo, memberInfo]);
+
+    //GET MEMBER DATA IN MOBILE LOCAL STORAGE
+    const getMemberDeatilsLocalStorage = async () => {
+        var memberInfo = await LocalService.LocalStorageService();
+        if (memberInfo) {
+            setMemberInfo(memberInfo);
+        }
+    }
 
     //LOGIN BTN CLICK TO CALL FUNCTION
     const getOfferList = async () => {
@@ -72,23 +81,17 @@ const OfferScreen = (props) => {
         <TouchableOpacity style={{ marginBottom: 0 }}>
             <View style={styles.viewSquareTwoColumn}>
                 <View style={{
-                    height: 60, width: 60, marginBottom: 10, borderRadius: 100,
-                    justifyContent: KEY.CENTER, alignItems: KEY.CENTER, marginTop: 5,
+                    marginBottom: 5, borderRadius: 100,
+                    justifyContent: KEY.CENTER, alignItems: KEY.CENTER, marginTop: 0,
                     alignSelf: KEY.CENTER, marginLeft: -5, borderColor: COLOR.DEFALUTCOLOR,
                 }}>
-                    <Image
-                        source={item?.property && item?.property?.image &&
-                            item?.property?.image[0] && item?.property?.image[0]?.attachment
-                            ? { uri: item.property.image[0].attachment } : { uri: appLogo }
-                        }
-                        style={{
-                            height: 50, width: 50,
-                            tintColor: COLOR.DEFALUTCOLOR, borderColor: COLOR.DEFALUTCOLOR, borderRadius: 100
-                        }} />
+                    <Text style={styles.titleText}>
+                        {item.couponcode}
+                    </Text>
+                    <Text style={styles.subtitleText}>
+                        {item.appliedcouponper}
+                    </Text>
                 </View>
-                <Text numberOfLines={1} style={styles.titleText}>
-                    {item.couponcode}
-                </Text>
                 {item?.property?.description &&
                     <Text style={styles.descripationText}>
                         <RenderHTML contentWidth={WIDTH / 3}
@@ -113,31 +116,43 @@ const OfferScreen = (props) => {
         getOfferList();
         wait(3000).then(() => setrefreshing(false));
     }
-
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: COLOR.BACKGROUNDCOLOR }}>
-            <StatusBar hidden={false} translucent={true} backgroundColor={KEY.STATUSBARCOLOR} barStyle={KEY.DARK_CONTENT} />
-            <View style={{ marginTop: 60 }} />
-            <FlatList
-                style={{ marginTop: 15 }}
-                data={offerList}
-                numColumns={2}
-                keyExtractor={(item, index) => index.toString()}
-                keyboardShouldPersistTaps={KEY.ALWAYS}
-                renderItem={renderOffers}
-                contentContainerStyle={{ paddingBottom: 20, alignSelf: KEY.CENTER }}
-                refreshControl={
-                    <RefreshControl
-                        refreshing={refreshing}
-                        title={languageConfig.pullrefreshtext}
-                        tintColor={COLOR.DEFALUTCOLOR}
-                        titleColor={COLOR.DEFALUTCOLOR}
-                        colors={[COLOR.DEFALUTCOLOR]}
-                        onRefresh={onRefresh} />
-                }
-            />
-
-            {loading ? <Loader /> : null}
+            <StatusBar hidden={false} translucent={true} backgroundColor={KEY.TRANSPARENT} barStyle={KEY.DARK_CONTENT} />
+            {
+                memberInfo ?
+                    <View style={{ marginTop: 0 }} />
+                    :
+                    <View style={{ marginTop: 80 }} />
+            }
+            {
+                offerList && offerList.length > 0 ?
+                    <FlatList
+                        style={{ marginTop: 0 }}
+                        data={offerList}
+                        numColumns={2}
+                        keyExtractor={(item, index) => index.toString()}
+                        keyboardShouldPersistTaps={KEY.ALWAYS}
+                        renderItem={renderOffers}
+                        contentContainerStyle={{ paddingBottom: 20, alignSelf: KEY.CENTER }}
+                        refreshControl={
+                            <RefreshControl
+                                refreshing={refreshing}
+                                title={languageConfig.pullrefreshtext}
+                                tintColor={COLOR.DEFALUTCOLOR}
+                                titleColor={COLOR.DEFALUTCOLOR}
+                                colors={[COLOR.DEFALUTCOLOR]}
+                                onRefresh={onRefresh} />
+                        }
+                    />
+                    :
+                    loading == false ?
+                        <View style={{ justifyContent: KEY.CENTER, alignItems: KEY.CENTER }}>
+                            <Image source={IMAGE.NODATA} style={{ height: 150, width: 200, marginTop: HEIGHT * 0.2 }} resizeMode={KEY.CONTAIN} />
+                            <Text style={{ fontSize: FONT.FONT_SIZE_16, color: COLOR.TAUPE_GRAY, marginTop: 10 }}>{languageConfig.norecordtext}</Text>
+                        </View>
+                        : <Loader />
+            }
         </SafeAreaView>
     )
 }

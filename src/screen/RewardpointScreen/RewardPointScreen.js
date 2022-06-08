@@ -8,8 +8,10 @@ import { RemoteServerController } from '../../services/LocalService/LocalService
 import { MemberLanguage } from '../../services/LocalService/LanguageService';
 import crashlytics, { firebase } from "@react-native-firebase/crashlytics";
 import languageConfig from '../../languages/languageConfig';
+import { WalletDetailService } from '../../services/BillService/BillService';
 import * as LocalService from '../../services/LocalService/LocalService';
 import * as SCREEN from '../../context/screen/screenName';
+import { OfferService } from '../../services/OfferService/OfferService';
 import Loader from '../../components/loader/index';
 import RenderHTML from 'react-native-render-html';
 import * as KEY from '../../context/actions/key';
@@ -47,7 +49,7 @@ const RewardPointScreen = (props) => {
     const getMemberDeatilsLocalStorage = async () => {
         var memberInfo = await LocalService.LocalStorageService();
         if (memberInfo) {
-            console.log("memberInfo", memberInfo)
+            //console.log("memberInfo", memberInfo)
             setMemberID(memberInfo?._id);
             getWallatBalance(memberInfo?._id);
         }
@@ -57,9 +59,8 @@ const RewardPointScreen = (props) => {
         setLoading(true);
         try {
             const response = await OfferService();
-
             if (response.data != null && response.data != 'undefind' && response.status == 200) {
-                console.log("response", response)
+                //console.log(`response`, response)
                 setrewardPointlist(response.data);
                 setLoading(false);
             }
@@ -77,10 +78,10 @@ const RewardPointScreen = (props) => {
                     {item.couponcode}
                 </Text>
                 {
-                    item?.property?.description &&
+                    item.appliedcouponper &&
                     <Text numberOfLines={4} style={styles.descripationText}>
                         <RenderHTML
-                            contentWidth={WIDTH / 3} source={{ html: item.property.description }}
+                            contentWidth={WIDTH / 3} source={{ html: item.appliedcouponper }}
                             baseStyle={styles.tagsStyles}
                         />
                     </Text>
@@ -107,13 +108,15 @@ const RewardPointScreen = (props) => {
 
     //GET WALLATE BALANCE API CALL
     const getWallatBalance = async (memberID) => {
+        console.log("getWallatBalance")
         try {
             const response = await WalletDetailService(memberID);
             if (response.data != null && response.data != undefined && response.status === 200) {
-
-                setwalletBalance(response.data[0].walletbalance);
+                console.log("response.data", response.data)
+                setwalletBalance(response.data[0].walletbalance.toFixed(2));
             }
         } catch (error) {
+            console.log(`error`, error)
             setLoading(false);
             firebase.crashlytics().recordError(error);
         }

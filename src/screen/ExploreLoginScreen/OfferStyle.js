@@ -13,8 +13,7 @@ const styles = StyleSheet.create({
     },
     viewSquareTwoColumn: {
         flex: 1,
-        //height: 150,
-        width: WIDTH / 2.2,
+        width: WIDTH / 2.22,
         margin: 7,
         borderRadius: 10,
         shadowColor: COLOR.BLACK,
@@ -29,37 +28,37 @@ const styles = StyleSheet.create({
         backgroundColor: COLOR.WHITE
     },
     titleText: {
-        flex: 1,
         textAlign: KEY.CENTER,
-        alignItems: KEY.CENTER,
-        justifyContent: KEY.CENTER,
         alignSelf: KEY.CENTER,
         fontSize: FONT.FONT_SIZE_16,
-        fontWeight: FONT.FONT_WEIGHT_BOLD,
+        fontWeight: FONT.FONT_BOLD,
         color: COLOR.BLACK,
-        textTransform: KEY.CAPITALIZE,
-        marginTop: -10
+        textTransform: KEY.LOWERCASE,
+        marginTop: 8
+    },
+    subtitleText: {
+        textAlign: KEY.CENTER,
+        fontSize: FONT.FONT_SIZE_14,
+        fontWeight: FONT.FONT_NORMAL,
+        color: COLOR.BLACK,
+        textTransform: KEY.LOWERCASE,
+        marginTop: 10
     },
     descripationText: {
-        flex: 1,
         textAlign: KEY.CENTER,
-        alignItems: KEY.CENTER,
-        justifyContent: KEY.CENTER,
         alignSelf: KEY.CENTER,
         fontSize: FONT.FONT_SIZE_14,
         marginBottom: 10,
-        marginTop: 0,
-        color: COLOR.LIGHT_BLACK,
-        margin: 10,
-        paddingVertical: 10
+        color: COLOR.BLACK,
+        width: WIDTH / 3,
+        marginTop: -5
+
     },
     tagsStyles: {
-        //flex: 1,
         textAlign: KEY.CENTER,
         fontSize: 14,
-        color: COLOR.LIGHT_BLACK,
+        color: COLOR.BLACK,
         marginBottom: 20,
-        marginTop: 10,
         width: WIDTH / 3
     }
 
