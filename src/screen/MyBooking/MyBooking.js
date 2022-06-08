@@ -188,13 +188,13 @@ const MyBooking = (props) => {
                             {moment(item.appointmentdate).format('MMM DD, yyyy')}
                         </Text>
                     </View>
-                    <View style={{ position: "absolute", bottom: -16, right: 0, alignSelf: KEY.FLEX_END, justifyContent: "flex-end", alignItems: "flex-end" }}>
-                        <TouchableOpacity style={styles.upgrade} onPress={() => onPressCancelBooking(item)} >
-                            <Text style={styles.textbutton}>
-                                {languageConfig.cancel}
-                            </Text>
-                        </TouchableOpacity>
-                    </View>
+                </View>
+                <View style={{ alignSelf: KEY.FLEX_END, marginTop: -14 }}>
+                    <TouchableOpacity style={styles.upgrade} onPress={() => onPressCancelBooking(item)} >
+                        <Text style={styles.textbutton}>
+                            {languageConfig.cancel}
+                        </Text>
+                    </TouchableOpacity>
                 </View>
             </View>
         </View>
