@@ -22,7 +22,6 @@ import Loader from '../../components/loader';
 import * as IMAGE from '../../styles/image';
 import styles from './OurSpecialistDetailsstyle';
 import moment from 'moment';
-
 const WIDTH = Dimensions.get('window').width;
 
 const OurSpecialistDtails = () => {

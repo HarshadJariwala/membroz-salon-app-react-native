@@ -755,7 +755,6 @@ const NavigationsDrawer = (props) => {
                     )
                 }}
             />
-
             <Drawer.Screen
                 name="DownPaymentScreen"
                 component={PaymentStackScreen}

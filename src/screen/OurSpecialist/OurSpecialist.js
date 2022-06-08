@@ -26,7 +26,7 @@ import moment from 'moment';
 
 const WIDTH = Dimensions.get('window').width;
 
-export default OurSpecialist = ({ navigation }) => {
+const OurSpecialist = ({ navigation }) => {
     const [loading, setLoading] = useState(false);
     const [teamList, setTeamList] = useState([]);
     const [refreshing, setrefreshing] = useState(false);
@@ -179,4 +179,4 @@ export default OurSpecialist = ({ navigation }) => {
     );
 }
 
-
+export default OurSpecialist;
