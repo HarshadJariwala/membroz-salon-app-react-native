@@ -163,10 +163,15 @@ const MyBooking = (props) => {
         <View style={styles.img_card}>
             <Image style={styles.img}
                 source={{ uri: item.refid && item.refid.gallery && item.refid.gallery[0] && item.refid.gallery[0].attachment ? item.refid.gallery[0].attachment : logo }} />
-            <View style={{ flexDirection: KEY.COLUMN, marginLeft: 10 }}>
-                <View style={{ width: WIDTH * 0.6, flexDirection: KEY.ROW, marginTop: 10, justifyContent: KEY.SPACEBETWEEN }}>
+            <View style={{ flexDirection: KEY.COLUMN, marginLeft: 10, width: WIDTH - 140 }}>
+                <View style={{ flexDirection: KEY.ROW, marginTop: 10, justifyContent: KEY.SPACEBETWEEN }}>
                     <Text numberOfLines={1} style={styles.text}>{item.refid.title}</Text>
-                    <Text style={styles.text}>{currencySymbol + item.charges}</Text>
+                    <Text style={{
+                        fontSize: FONT.FONT_SIZE_16,
+                        color: COLOR.BLACK,
+                        fontWeight: FONT.FONT_BOLD,
+                        marginRight: 10
+                    }}>{currencySymbol + item.charges}</Text>
                 </View>
                 <View style={{ flexDirection: KEY.ROW, marginTop: 5 }}>
                     <Ionicons name='location-outline' size={20} color={COLOR.DEFALUTCOLOR} />
@@ -183,7 +188,7 @@ const MyBooking = (props) => {
                             {moment(item.appointmentdate).format('MMM DD, yyyy')}
                         </Text>
                     </View>
-                    <View style={{ marginLeft: 12, marginTop: 12, alignSelf: KEY.FLEX_END }}>
+                    <View style={{ position: "absolute", bottom: -16, right: 0, alignSelf: KEY.FLEX_END, justifyContent: "flex-end", alignItems: "flex-end" }}>
                         <TouchableOpacity style={styles.upgrade} onPress={() => onPressCancelBooking(item)} >
                             <Text style={styles.textbutton}>
                                 {languageConfig.cancel}
@@ -201,7 +206,6 @@ const MyBooking = (props) => {
         let body = { status: "deleted" };
         try {
             const response = await patchAppointmentService(item._id, body);
-            console.log(`response.data`, response);
             if (response.data != null && response.data != 'undefind' && response.status == 200) {
                 Toast.show(languageConfig.bookingcancelsuccessmessage, Toast.SHORT);
                 await getHistoryList(memberInfo._id);
