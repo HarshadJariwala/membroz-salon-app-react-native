@@ -151,16 +151,11 @@ const AuthStackScreen = () => {
                 component={EXPOLORELOGINSCREEN}
                 options={{ headerShown: false }}
             />
-            <Stack.Screen
+            {/* <Stack.Screen
                 name="OfferScreen"
                 component={OFFERSCREEN}
-                options={{
-                    headerTitleAlign: KEY.CENTER,
-                    title: languageConfig.offer,
-                    headerTintColor: Platform.OS == 'android' ? COLOR.BLACK : COLOR.DEFALUTCOLOR,
-                    headerTransparent: true
-                }}
-            />
+                options={{ headerShown: false }}
+            /> */}
             <Stack.Screen
                 name="RegisterScreen"
                 component={REGISTERSCREEN}
@@ -649,6 +644,36 @@ const ExploreStackScreen = ({ navigation }) => {
                 }}
             />
 
+
+        </Stack.Navigator>
+    )
+}
+
+const OfferStackScreen = ({ navigation }) => {
+    return (
+        <Stack.Navigator initialRouteName='OfferScreen'
+            screenOptions={{ headerShadowVisible: false }}>
+            <Stack.Screen
+                name="OfferScreen"
+                component={OFFERSCREEN}
+                options={{
+                    title: 'Offers', //Set Header Title
+                    headerLeft: () =>
+                        <NavigationDrawerStructureLeft
+                            navigationProps={navigation}
+                        />,
+                    headerRight: () => <NavigationDrawerStructureRight navigationProps={navigation} />,
+                    headerStyle: {
+                        backgroundColor: COLOR.BACKGROUNDCOLOR, //Set Header color
+                    },
+                    headerTintColor: COLOR.BLACK, //Set Header text color
+                    headerTitleAlign: KEY.CENTER,
+                    headerTitleStyle: {
+                        fontWeight: FONT.FONT_WEIGHT_MEDIAM, //Set Header text style
+                    }
+                }}
+            />
+
         </Stack.Navigator>
     )
 }
@@ -722,6 +747,17 @@ const NavigationsDrawer = (props) => {
                     )
                 }}
             />
+            <Drawer.Screen
+                name="OfferScreen"
+                component={OfferStackScreen}
+                options={{
+                    drawerLabel: 'Offers', drawerIcon: ({ color }) => (
+                        <Image source={IMAGE.MYBOOKINGICON}
+                            style={{ width: 21, height: 21, tintColor: color }} />
+                    )
+                }}
+            />
+
             <Drawer.Screen
                 name="DownPaymentScreen"
                 component={PaymentStackScreen}

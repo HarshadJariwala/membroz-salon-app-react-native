@@ -1,4 +1,4 @@
-import { StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet, Dimensions, } from 'react-native';
 import * as KEY from '../../context/actions/key';
 import * as FONT from '../../styles/typography';
 import * as COLOR from '../../styles/colors';
@@ -130,22 +130,27 @@ const styles = StyleSheet.create({
         justifyContent: KEY.CENTER,
         margin: 10
     },
-    activeTextStyle: {
-        fontSize: FONT.FONT_SIZE_14,
-        color: COLOR.BLACK,
-        fontWeight: FONT.FONT_WEIGHT_BOLD,
-        color: COLOR.WHITE,
-        // marginLeft: 10,
-        // marginRight: 10
+    listTab: {
+        marginTop: 0,
+        borderRadius: 100,
+        flexDirection: KEY.ROW
     },
     deactiveTextStyle: {
         fontSize: FONT.FONT_SIZE_14,
         color: COLOR.BLACK,
-        fontWeight: FONT.FONT_WEIGHT_BOLD,
+        fontWeight: FONT.FONT_BOLD,
         color: COLOR.BLACK,
         // marginLeft: 10,
         // marginRight: 10
-    }
+    },
+    activeTextStyle: {
+        fontSize: FONT.FONT_SIZE_14,
+        color: COLOR.BLACK,
+        fontWeight: FONT.FONT_BOLD,
+        color: COLOR.WHITE,
+        // marginLeft: 10,
+        // marginRight: 10
+    },
 });
 
 export default styles;

@@ -160,7 +160,9 @@ const styles = StyleSheet.create({
         justifyContent: KEY.CENTER,
         alignSelf: KEY.CENTER,
         marginBottom: 10,
-        backgroundColor: COLOR.SKY_LIGHT_COLOR
+        backgroundColor: COLOR.SKY_LIGHT_COLOR,
+        position: 'absolute',
+        bottom: 0
     }
 });
 

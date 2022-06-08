@@ -22,6 +22,7 @@ import TRAININGICON from '../../src/assets/images/trainingicon.png';
 import HOMEICON from '../../src/assets/images/homeicon.png';
 import MENUICON from '../../src/assets/images/menuicon.png';
 import USERICON from '../../src/assets/images/usericon.png';
+
 import MEMBERSHIPICON from '../../src/assets/images/membershipicon.png';
 import MYBOOKINGICON from '../../src/assets/images/mybookingicon.png';
 import INVITEICON from '../../src/assets/images/inviteicon.png';

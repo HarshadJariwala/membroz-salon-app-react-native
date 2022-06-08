@@ -130,10 +130,15 @@ const styles = StyleSheet.create({
         justifyContent: KEY.CENTER,
         margin: 10
     },
+    listTab: {
+        marginTop: 0,
+        borderRadius: 100,
+        flexDirection: KEY.ROW
+    },
     activeTextStyle: {
         fontSize: FONT.FONT_SIZE_14,
         color: COLOR.BLACK,
-        fontWeight: FONT.FONT_WEIGHT_BOLD,
+        fontWeight: FONT.FONT_BOLD,
         color: COLOR.WHITE,
         // marginLeft: 10,
         // marginRight: 10
@@ -141,7 +146,7 @@ const styles = StyleSheet.create({
     deactiveTextStyle: {
         fontSize: FONT.FONT_SIZE_14,
         color: COLOR.BLACK,
-        fontWeight: FONT.FONT_WEIGHT_BOLD,
+        fontWeight: FONT.FONT_BOLD,
         color: COLOR.BLACK,
         // marginLeft: 10,
         // marginRight: 10
