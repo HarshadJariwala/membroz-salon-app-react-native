@@ -468,6 +468,9 @@ export default {
     pointhistory: "View Points History",
     firstnameerror: "First name is required!",
     currentbookingtext: "Current Booking",
+    recentbookingtext: "Recent Booking",
+    recenttransactionstext: "Recent Transactions",
+    membershipdetailstext: "Membership Details",
 
     //Invite A Friends Text
     mainTitel: "Invite your friends &",
