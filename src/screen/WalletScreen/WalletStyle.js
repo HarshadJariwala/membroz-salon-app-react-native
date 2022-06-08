@@ -35,16 +35,17 @@ const styles = StyleSheet.create({
         marginTop: 5,
     },
     btnStyle: {
-        marginTop: 0,
+        borderRadius: 5,
         alignItems: KEY.CENTER,
         justifyContent: KEY.CENTER,
-        borderRadius: 100,
         backgroundColor: COLOR.DEFALUTCOLOR,
         width: WIDTH - 60,
         height: 45,
         justifyContent: KEY.CENTER,
         alignItems: KEY.CENTER,
-        marginBottom: 20
+        marginBottom: 20,
+        borderTopLeftRadius: 20,
+        borderBottomRightRadius: 20,
     },
     imageLogo: {
         height: 150,
@@ -62,7 +63,7 @@ const styles = StyleSheet.create({
         alignItems: KEY.CENTER
     },
     inputTextView: {
-        borderRadius: 30,
+        borderRadius: 5,
         borderWidth: 1,
         alignItems: KEY.FLEX_START,
         marginBottom: 15,
@@ -71,7 +72,9 @@ const styles = StyleSheet.create({
         fontSize: FONT.FONT_SIZE_16,
         paddingLeft: 15,
         color: COLOR.BLACK,
-        borderColor: COLOR.PLACEHOLDER_COLOR
+        borderColor: COLOR.PLACEHOLDER_COLOR,
+        borderTopLeftRadius: 20,
+        borderBottomRightRadius: 20,
     },
     transactionView: {
         borderLeftWidth: 80,
@@ -83,8 +86,8 @@ const styles = StyleSheet.create({
         alignItems: KEY.CENTER,
         alignSelf: KEY.CENTER,
         flexDirection: KEY.ROW,
-        marginTop: HEIGHT / 3,
-        marginBottom: 5,
+        marginTop: HEIGHT * 0.3,
+        marginBottom: 15,
         shadowColor: COLOR.BLACK,
         shadowOffset: {
             width: 0,

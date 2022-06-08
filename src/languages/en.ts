@@ -196,6 +196,8 @@ export default {
     reasonempty: "reason can not be empty!",
     pleaserequirefield: "Please Require Field Filled Up!",
     bookingsuccessmessage: "Booking request submited",
+    bookingcancelsuccessmessage: "Booking cancel sucessfully",
+    bookingproblemmessage: "Booking cancel problem",
     location: "Location",
     selectlocation: "Select Location",
     reservationtypes: "Reservation Types",

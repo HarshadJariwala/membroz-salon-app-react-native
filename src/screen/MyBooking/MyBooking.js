@@ -7,7 +7,8 @@ import {
 } from 'react-native';
 import {
     getBookingHistoryListService,
-    getBookingRequestListService
+    getBookingRequestListService,
+    patchAppointmentService
 } from '../../services/AppointmentService/AppiontmentService';
 import { MemberLanguage } from '../../services/LocalService/LanguageService';
 import crashlytics, { firebase } from "@react-native-firebase/crashlytics";
@@ -21,9 +22,11 @@ import Feather from 'react-native-vector-icons/Feather';
 import Loader from '../../components/loader/index';
 import * as KEY from '../../context/actions/key';
 import * as FONT from "../../styles/typography";
+import Toast from 'react-native-simple-toast';
 import * as COLOR from "../../styles/colors";
 import * as IMAGE from "../../styles/image";
 import styles from './MyBookingstyle';
+import moment from 'moment';
 const WIDTH = Dimensions.get('window').width;
 const HEIGHT = Dimensions.get('window').height;
 
@@ -37,6 +40,7 @@ const ListTab = [
 ]
 
 const MyBooking = (props) => {
+    const [logo, setLogo] = useState(null);
     const [status, setStatus] = useState(languageConfig.currentbookingtext);
     const [loading, setLoading] = useState(false);
     const [historyList, setHistoryList] = useState([]);
@@ -44,7 +48,7 @@ const MyBooking = (props) => {
     const [memberID, setMemberID] = useState(null);
     const [currencySymbol, setCurrencySymbol] = useState(null);
     const [refreshing, setrefreshing] = useState(false);
-    const [memderInfo, setMemderInfo] = useState(null);
+    const [memberInfo, setMemberInfo] = useState(null);
 
     const setStatusFilter = (status, index) => {
         const tab = ListTab.map((item) => {
@@ -58,9 +62,19 @@ const MyBooking = (props) => {
     useEffect(() => {
         //LANGUAGE MANAGEMENT FUNCTION
         MemberLanguage();
+        RemoteController();
         setLoading(true);
         getMemberDeatilsLocalStorage();
     }, [])
+
+
+    //REMOTE DATA FATCH IN LOCAL STORAGE
+    async function RemoteController() {
+        var userData = await LocalService.RemoteServerController();
+        if (userData) {
+            setLogo(userData.applogo);
+        }
+    };
 
     //TIME OUT FUNCTION
     const wait = (timeout) => {
@@ -80,7 +94,6 @@ const MyBooking = (props) => {
     const getHistoryList = async (id) => {
         try {
             const response = await getBookingHistoryListService(id);
-            console.log(`response.data`, response.data);
             if (response.data != null && response.data != 'undefind' && response.status == 200) {
                 setLoading(false);
                 setHistoryList(response.data);
@@ -95,7 +108,7 @@ const MyBooking = (props) => {
     const getBookingList = async (id) => {
         try {
             const response = await getBookingRequestListService(id);
-
+            console.log(`response.data`, response.data);
             if (response.data != null && response.data != 'undefind' && response.status == 200) {
                 setLoading(false);
                 setBookingList(response.data);
@@ -112,7 +125,7 @@ const MyBooking = (props) => {
         const response = getCurrency(memberInfo.branchid.currency);
         setCurrencySymbol(response);
         setMemberID(memberInfo._id);
-        setMemderInfo(memberInfo);
+        setMemberInfo(memberInfo);
         await getHistoryList(memberInfo._id);
         await getBookingList(memberInfo._id);
     }
@@ -120,30 +133,26 @@ const MyBooking = (props) => {
     //RENDER HISTORY LIST USING FLATLIST
     const renderHistory = ({ item }) => (
         <View style={styles.img_card}>
-            <Image style={styles.img} source={IMAGE.NO_PHOTO} />
-            <View style={{ flexDirection: KEY.COLUMN }}>
-                <View style={{ marginTop: 10, marginLeft: 10 }}>
-                    <Text style={styles.text}>{"Hair Cut"}</Text>
+            <Image style={styles.img}
+                source={{ uri: item.refid && item.refid.gallery && item.refid.gallery[0] && item.refid.gallery[0].attachment ? item.refid.gallery[0].attachment : logo }} />
+            <View style={{ flexDirection: KEY.COLUMN, marginLeft: 10 }}>
+                <View style={{ width: WIDTH * 0.6, flexDirection: KEY.ROW, marginTop: 10, justifyContent: KEY.SPACEBETWEEN }}>
+                    <Text numberOfLines={1} style={styles.text}>{item.refid.title}</Text>
+                    <Text style={styles.text}>{currencySymbol + item.charges}</Text>
                 </View>
-                <View style={{ flexDirection: KEY.ROW, marginTop: 10 }}>
-                    <Ionicons name='location-outline' size={20} color={COLOR.DEFAULTLIGHT} style={{ marginLeft: 5 }} />
-                    <Text style={{ marginLeft: 8 }}>{"MPlace Mall"}</Text>
+                <View style={{ flexDirection: KEY.ROW, marginTop: 5 }}>
+                    <Ionicons name='location-outline' size={20} color={COLOR.DEFALUTCOLOR} />
+                    <Text numberOfLines={1}
+                        style={{ marginLeft: 5, fontSize: FONT.FONT_SIZE_14, color: COLOR.LIGHT_BLACK, width: WIDTH / 2 }}>
+                        {item.refid.title}
+                    </Text>
                 </View>
-                <View style={{ flexDirection: KEY.ROW, marginTop: 10 }}>
-                    <Feather name='calendar' size={20} color={COLOR.DEFAULTLIGHT} style={{ marginLeft: 6 }} />
-                    <Text style={{ marginLeft: 8 }}>{"Jan 08,2023 10 am"}</Text>
-                </View>
-            </View>
-            <View style={{ flexDirection: KEY.COLUMN, flex: 1, justifyContent: KEY.SPACEBETWEEN, marginLeft: 35 }}>
-                <View style={{ marginTop: 10, justifyContent: KEY.FLEX_END, alignItems: KEY.CENTER }}>
-                    <Text style={styles.text}>{"$25"}</Text>
-                </View>
-                <View style={{ justifyContent: KEY.FLEX_END, alignItems: KEY.CENTER }}>
-                    <TouchableOpacity style={styles.upgrade} >
-                        <Text style={styles.textbutton}>
-                            {'Cancle'}
-                        </Text>
-                    </TouchableOpacity>
+                <View style={{ flexDirection: KEY.ROW, marginTop: 5 }}>
+                    <Feather name='calendar' size={20} color={COLOR.DEFALUTCOLOR} />
+                    <Text numberOfLines={1}
+                        style={{ marginLeft: 5, fontSize: FONT.FONT_SIZE_14, color: COLOR.LIGHT_BLACK, width: WIDTH / 3 }}>
+                        {moment(item.appointmentdate).format('MMM DD, yyyy')}
+                    </Text>
                 </View>
             </View>
         </View>
@@ -152,188 +161,134 @@ const MyBooking = (props) => {
     //RENDER BOOKING LIST USING FLATLIST
     const renderBooking = ({ item }) => (
         <View style={styles.img_card}>
-            <Image style={styles.img} source={IMAGE.NO_PHOTO} />
-            <View style={{ flexDirection: KEY.COLUMN }}>
-                <View style={{ marginTop: 10, marginLeft: 10 }}>
-                    <Text style={styles.text}>{"Hair Cut"}</Text>
+            <Image style={styles.img}
+                source={{ uri: item.refid && item.refid.gallery && item.refid.gallery[0] && item.refid.gallery[0].attachment ? item.refid.gallery[0].attachment : logo }} />
+            <View style={{ flexDirection: KEY.COLUMN, marginLeft: 10 }}>
+                <View style={{ width: WIDTH * 0.6, flexDirection: KEY.ROW, marginTop: 10, justifyContent: KEY.SPACEBETWEEN }}>
+                    <Text numberOfLines={1} style={styles.text}>{item.refid.title}</Text>
+                    <Text style={styles.text}>{currencySymbol + item.charges}</Text>
                 </View>
-                <View style={{ flexDirection: KEY.ROW, marginTop: 10 }}>
-                    <Ionicons name='location-outline' size={20} color={COLOR.DEFAULTLIGHT} style={{ marginLeft: 5 }} />
-                    <Text style={{ marginLeft: 8 }}>{"MPlace Mall"}</Text>
+                <View style={{ flexDirection: KEY.ROW, marginTop: 5 }}>
+                    <Ionicons name='location-outline' size={20} color={COLOR.DEFALUTCOLOR} />
+                    <Text numberOfLines={1}
+                        style={{ marginLeft: 5, fontSize: FONT.FONT_SIZE_14, color: COLOR.LIGHT_BLACK, width: WIDTH / 3 }}>
+                        {item.refid.title}
+                    </Text>
                 </View>
-                <View style={{ flexDirection: KEY.ROW, marginTop: 10 }}>
-                    <Feather name='calendar' size={20} color={COLOR.DEFAULTLIGHT} style={{ marginLeft: 6 }} />
-                    <Text style={{ marginLeft: 8 }}>{"Jan 08,2023 10 am"}</Text>
-                </View>
-            </View>
-            <View style={{ flexDirection: KEY.COLUMN, flex: 1, justifyContent: KEY.SPACEBETWEEN, marginLeft: 35 }}>
-                <View style={{ marginTop: 10, justifyContent: KEY.FLEX_END, alignItems: KEY.CENTER }}>
-                    <Text style={styles.text}>{"$25"}</Text>
-                </View>
-                <View style={{ justifyContent: KEY.FLEX_END, alignItems: KEY.CENTER }}>
-                    <TouchableOpacity style={styles.upgrade} >
-                        <Text style={styles.textbutton}>
-                            {'Cancle'}
+                <View style={{ flexDirection: KEY.ROW }}>
+                    <View style={{ flexDirection: KEY.ROW, marginTop: 5 }}>
+                        <Feather name='calendar' size={20} color={COLOR.DEFALUTCOLOR} />
+                        <Text numberOfLines={1}
+                            style={{ marginLeft: 5, fontSize: FONT.FONT_SIZE_14, color: COLOR.LIGHT_BLACK, width: WIDTH / 3 }}>
+                            {moment(item.appointmentdate).format('MMM DD, yyyy')}
                         </Text>
-                    </TouchableOpacity>
+                    </View>
+                    <View style={{ marginLeft: 12, marginTop: 12, alignSelf: KEY.FLEX_END }}>
+                        <TouchableOpacity style={styles.upgrade} onPress={() => onPressCancelBooking(item)} >
+                            <Text style={styles.textbutton}>
+                                {languageConfig.cancel}
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
             </View>
         </View>
     )
 
+    //CANCEL BUTTON CLICK TO CALL THIS FUNCTION 
+    const onPressCancelBooking = async (item) => {
+        setLoading(true);
+        let body = { status: "deleted" };
+        try {
+            const response = await patchAppointmentService(item._id, body);
+            console.log(`response.data`, response);
+            if (response.data != null && response.data != 'undefind' && response.status == 200) {
+                Toast.show(languageConfig.bookingcancelsuccessmessage, Toast.SHORT);
+                await getHistoryList(memberInfo._id);
+                await getBookingList(memberInfo._id);
+            }
+        } catch (error) {
+            Toast.show(languageConfig.bookingproblemmessage, Toast.SHORT);
+            firebase.crashlytics().recordError(error);
+            setLoading(false);
+        }
+    }
+
     return (
         <SafeAreaView style={{ flex: 1, alignItems: KEY.CENTER, backgroundColor: COLOR.BACKGROUNDCOLOR }}>
             <StatusBar hidden={false} translucent={false} barStyle={KEY.DARK_CONTENT} backgroundColor={COLOR.STATUSBARCOLOR} />
             <ScrollView showsVerticalScrollIndicator={false}>
-                {(historyList && historyList.length > 0) || (historyList && historyList.length > 0)
-                    ?
-                    <>
-                        <View style={styles.listTab}>
-                            {
-                                ListTab.map((e, index) => (
-                                    <TouchableOpacity style={[styles.btnTab, status === e.status && styles.tabActive]} onPress={() => setStatusFilter(e.status, index)}>
-                                        <Text style={[styles.tabText, status === e.status && styles.tabTextActive]}>
-                                            {e.status}
-                                        </Text>
-                                    </TouchableOpacity>
-                                ))
+                <View style={styles.listTab}>
+                    {
+                        ListTab.map((e, index) => (
+                            <TouchableOpacity style={[styles.btnTab, status === e.status && styles.tabActive]} onPress={() => setStatusFilter(e.status, index)}>
+                                <Text style={[styles.tabText, status === e.status && styles.tabTextActive]}>
+                                    {e.status}
+                                </Text>
+                            </TouchableOpacity>
+                        ))
+                    }
+                </View>
+                {
+                    status == languageConfig.historytext &&
+                    <SafeAreaView>
+                        <FlatList
+                            style={{ marginTop: 5 }}
+                            data={historyList}
+                            showsVerticalScrollIndicator={false}
+                            renderItem={renderHistory}
+                            contentContainerStyle={{ paddingBottom: 20, justifyContent: "center", alignItems: "center" }}
+                            keyExtractor={item => item._id}
+                            refreshControl={
+                                <RefreshControl
+                                    refreshing={refreshing}
+                                    title={languageConfig.pullrefreshtext}
+                                    tintColor={COLOR.DEFALUTCOLOR}
+                                    titleColor={COLOR.DEFALUTCOLOR}
+                                    colors={[COLOR.DEFALUTCOLOR]}
+                                    onRefresh={onRefresh} />
                             }
-                        </View>
-                        {
-                            status == languageConfig.currentbookingtext &&
-                            <>
-                                <FlatList
-                                    style={{ marginTop: 5 }}
-                                    data={historyList}
-                                    showsVerticalScrollIndicator={false}
-                                    renderItem={renderHistory}
-                                    contentContainerStyle={{ paddingBottom: 20 }}
-                                    keyExtractor={item => item._id}
-                                    refreshControl={
-                                        <RefreshControl
-                                            refreshing={refreshing}
-                                            title={languageConfig.pullrefreshtext}
-                                            tintColor={COLOR.DEFALUTCOLOR}
-                                            titleColor={COLOR.DEFALUTCOLOR}
-                                            colors={[COLOR.DEFALUTCOLOR]}
-                                            onRefresh={onRefresh} />
-                                    }
-                                    ListFooterComponent={() => (
-                                        historyList && historyList.length > 0 ?
-                                            <></>
-                                            :
-                                            <View style={{ justifyContent: KEY.CENTER, alignItems: KEY.CENTER }}>
-                                                <Image source={IMAGE.NODATA} style={{ height: 150, width: 200, marginTop: HEIGHT * 0.2 }} resizeMode={KEY.CONTAIN} />
-                                                <Text style={{ fontSize: FONT.FONT_SIZE_16, color: COLOR.TAUPE_GRAY, marginTop: 10 }}>{languageConfig.norecordtext}</Text>
-                                            </View>
-                                    )}
-                                />
-                            </>
-                        }
-
-                        {status == languageConfig.historytext &&
-                            <>
-                                <FlatList
-                                    style={{ marginTop: 5 }}
-                                    data={bookingList}
-                                    showsVerticalScrollIndicator={false}
-                                    renderItem={renderBooking}
-                                    contentContainerStyle={{ paddingBottom: 20 }}
-                                    keyExtractor={item => item._id}
-                                    refreshControl={
-                                        <RefreshControl
-                                            refreshing={refreshing}
-                                            title={languageConfig.pullrefreshtext}
-                                            tintColor={COLOR.DEFALUTCOLOR}
-                                            titleColor={COLOR.DEFALUTCOLOR}
-                                            colors={[COLOR.DEFALUTCOLOR]}
-                                            onRefresh={onRefresh} />
-                                    }
-                                    ListFooterComponent={() => (
-                                        bookingList && bookingList.length > 0 ?
-                                            <></>
-                                            :
-                                            <View style={{ justifyContent: KEY.CENTER, alignItems: KEY.CENTER }}>
-                                                <Image source={IMAGE.NODATA} style={{ height: 150, width: 200, marginTop: HEIGHT * 0.2 }} resizeMode={KEY.CONTAIN} />
-                                                <Text style={{ fontSize: FONT.FONT_SIZE_16, color: COLOR.TAUPE_GRAY, marginTop: 10 }}>{languageConfig.norecordtext}</Text>
-                                            </View>
-                                    )}
-                                />
-                            </>
-                        }
-                    </>
-                    :
-                    loading == false ?
-                        <View style={{ justifyContent: KEY.CENTER, alignItems: KEY.CENTER }}>
-                            <Image source={IMAGE.NODATA} style={{ height: 150, width: 200, marginTop: HEIGHT * 0.2 }} resizeMode={KEY.CONTAIN} />
-                            <Text style={{ fontSize: FONT.FONT_SIZE_16, color: COLOR.TAUPE_GRAY, marginTop: 10 }}>{languageConfig.norecordtext}</Text>
-                        </View>
-                        : <Loader />
+                            ListFooterComponent={() => (
+                                historyList && historyList.length == 0 &&
+                                <View style={{ justifyContent: KEY.CENTER, alignItems: KEY.CENTER }}>
+                                    <Image source={IMAGE.NODATA} style={{ height: 150, width: 200, marginTop: HEIGHT * 0.2 }} resizeMode={KEY.CONTAIN} />
+                                    <Text style={{ fontSize: FONT.FONT_SIZE_16, color: COLOR.TAUPE_GRAY, marginTop: 10 }}>{languageConfig.norecordtext}</Text>
+                                </View>
+                            )}
+                        />
+                    </SafeAreaView>
                 }
 
-                {/* <View style={STYLE.styles.container}>
-                    <View style={STYLE.styles.img_card}>
-                        <Image style={STYLE.styles.img} source={IMAGE.NO_PHOTO} />
-
-                        <View style={{ flexDirection: KEY.COLUMN }}>
-                            <View style={{ marginTop: 10, marginLeft: 10 }}>
-                                <Text style={STYLE.styles.text}>{"Hair Cut"}</Text>
-                            </View>
-                            <View style={{ flexDirection: KEY.ROW, marginTop: 10 }}>
-                                <Ionicons name='location-outline' size={20} color={COLOR.DEFAULTLIGHT} style={{ marginLeft: 5 }} />
-                                <Text style={{ marginLeft: 8 }}>{"MPlace Mall"}</Text>
-                            </View>
-                            <View style={{ flexDirection: KEY.ROW, marginTop: 10 }}>
-                                <Feather name='calendar' size={20} color={COLOR.DEFAULTLIGHT} style={{ marginLeft: 6 }} />
-                                <Text style={{ marginLeft: 8 }}>{"Jan 08,2023 10 am"}</Text>
-                            </View>
-                        </View>
-                        <View style={{ flexDirection: KEY.COLUMN, flex: 1, justifyContent: KEY.SPACEBETWEEN, marginLeft: 35 }}>
-                            <View style={{ marginTop: 10, justifyContent: KEY.FLEX_END, alignItems: KEY.CENTER }}>
-                                <Text style={STYLE.styles.text}>{"$25"}</Text>
-                            </View>
-                            <View style={{ justifyContent: KEY.FLEX_END, alignItems: KEY.CENTER }}>
-                                <TouchableOpacity style={STYLE.styles.upgrade} >
-                                    <Text style={STYLE.styles.textbutton}>
-                                        {'Cancle'}
-                                    </Text>
-                                </TouchableOpacity>
-                            </View>
-                        </View>
-                    </View>
-                </View>
-                <View style={STYLE.styles.container}>
-                    <View style={STYLE.styles.img_card}>
-                        <Image style={STYLE.styles.img} source={IMAGE.NO_PHOTO} />
-
-                        <View style={{ flexDirection: KEY.COLUMN }}>
-                            <View style={{ marginTop: 10, marginLeft: 10 }}>
-                                <Text style={STYLE.styles.text}>{"Hair Colour"}</Text>
-                            </View>
-                            <View style={{ flexDirection: KEY.ROW, marginTop: 10 }}>
-                                <Ionicons name='location-outline' size={20} color={COLOR.DEFAULTLIGHT} style={{ marginLeft: 5 }} />
-                                <Text style={{ marginLeft: 8 }}>{"MPlace Mall"}</Text>
-                            </View>
-                            <View style={{ flexDirection: KEY.ROW, marginTop: 10 }}>
-                                <Feather name='calendar' size={20} color={COLOR.DEFAULTLIGHT} style={{ marginLeft: 6 }} />
-                                <Text style={{ marginLeft: 8 }}>{"Jan 08,2023 11 am"}</Text>
-                            </View>
-                        </View>
-                        <View style={{ flexDirection: KEY.COLUMN, flex: 1, justifyContent: KEY.SPACEBETWEEN, marginLeft: 35 }}>
-                            <View style={{ marginTop: 10, justifyContent: KEY.FLEX_END, alignItems: KEY.CENTER, }}>
-                                <Text style={STYLE.styles.text}>{"$25"}</Text>
-                            </View>
-                            <View style={{ justifyContent: KEY.FLEX_END, alignItems: KEY.CENTER, }}>
-                                <TouchableOpacity style={STYLE.styles.upgrade} >
-                                    <Text style={STYLE.styles.textbutton}>
-                                        {'Cancle'}
-                                    </Text>
-                                </TouchableOpacity>
-                            </View>
-                        </View>
-                    </View>
-                </View> */}
+                {status == languageConfig.currentbookingtext &&
+                    <SafeAreaView>
+                        <FlatList
+                            style={{ marginTop: 5 }}
+                            data={bookingList}
+                            showsVerticalScrollIndicator={false}
+                            renderItem={renderBooking}
+                            contentContainerStyle={{ paddingBottom: 20, justifyContent: "center", alignItems: "center" }}
+                            keyExtractor={item => item._id}
+                            refreshControl={
+                                <RefreshControl
+                                    refreshing={refreshing}
+                                    title={languageConfig.pullrefreshtext}
+                                    tintColor={COLOR.DEFALUTCOLOR}
+                                    titleColor={COLOR.DEFALUTCOLOR}
+                                    colors={[COLOR.DEFALUTCOLOR]}
+                                    onRefresh={onRefresh} />
+                            }
+                            ListFooterComponent={() => (
+                                bookingList && bookingList.length == 0 &&
+                                <View style={{ justifyContent: KEY.CENTER, alignItems: KEY.CENTER }}>
+                                    <Image source={IMAGE.NODATA} style={{ height: 150, width: 200, marginTop: HEIGHT * 0.2 }} resizeMode={KEY.CONTAIN} />
+                                    <Text style={{ fontSize: FONT.FONT_SIZE_16, color: COLOR.TAUPE_GRAY, marginTop: 10 }}>{languageConfig.norecordtext}</Text>
+                                </View>
+                            )}
+                        />
+                    </SafeAreaView>
+                }
             </ScrollView>
+            {loading ? <Loader /> : null}
         </SafeAreaView>
     )
 }

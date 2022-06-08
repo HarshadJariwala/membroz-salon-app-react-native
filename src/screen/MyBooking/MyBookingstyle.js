@@ -12,43 +12,46 @@ const styles = StyleSheet.create({
     },
     img_card: {
         width: WIDTH - 30,
-        height: WIDTH / 4,
+        height: 100,
+        marginTop: 10,
         borderRadius: 10,
+        backgroundColor: COLOR.WHITE,
         shadowColor: COLOR.BLACK,
         shadowOffset: {
             width: 0,
             height: 2,
         },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 2,
-        marginTop: 10,
+        shadowOpacity: 0.23,
+        shadowRadius: 2.62,
+        elevation: 4,
+        marginBottom: 5,
         flexDirection: KEY.ROW
     },
     img: {
-        width: WIDTH / 4,
-        height: WIDTH / 4,
+        width: 100,
+        height: 100,
         borderRadius: 10
     },
     upgrade: {
         justifyContent: KEY.CENTER,
         alignItems: KEY.CENTER,
-        width: 90,
-        height: WIDTH / 14,
-        backgroundColor: COLOR.DEFAULTLIGHT,
+        width: 80,
+        height: 30,
+        backgroundColor: COLOR.DEFALUTCOLOR,
         borderBottomRightRadius: 10,
         borderTopLeftRadius: 10,
-        borderBottomLeftRadius: 1,
-        borderTopRightRadius: 1,
+        borderRadius: 2
     },
     textbutton: {
-        fontWeight: FONT.FONT_WEIGHT_BOLD,
+        fontWeight: FONT.FONT_BOLD,
         color: COLOR.WHITE,
+        fontSize: FONT.FONT_SIZE_14
     },
     text: {
         fontSize: FONT.FONT_SIZE_16,
         color: COLOR.BLACK,
-        fontWeight: FONT.FONT_WEIGHT_BOLD
+        fontWeight: FONT.FONT_BOLD,
+        // width: WIDTH / 2
     },
     listTab: {
         marginTop: 0,

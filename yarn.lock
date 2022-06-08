@@ -6090,10 +6090,10 @@ react-native-codegen@^0.0.17:
     jscodeshift "^0.13.1"
     nullthrows "^1.1.1"
 
-react-native-device-info@^9.0.0:
-  version "9.0.0"
-  resolved "https://registry.yarnpkg.com/react-native-device-info/-/react-native-device-info-9.0.0.tgz#49f7266cc8013e0194e2bb6a66bf0209d58facc4"
-  integrity sha512-2tzUIYIEY7RQv8ZqqjR8sccRBIXRd2Nzmt+NRla767H6JdGSTNAetFxkhl6gVpRsAdRtqZ7GPCtq7zmWRKW1Vw==
+react-native-device-info@8.3.2:
+  version "8.3.2"
+  resolved "https://registry.yarnpkg.com/react-native-device-info/-/react-native-device-info-8.3.2.tgz#6039746adced97593b5b3b105c90f743bc1ce855"
+  integrity sha512-TgCrA2Pk+DC+IBhN8kH+x1wTFRSFW9q9UC70rAxf1Qe0q0Fwoxx8szYnGs+kD1TK3yn/5MIZnNNvzUl82INhZQ==
 
 react-native-elements@^3.4.2:
   version "3.4.2"
