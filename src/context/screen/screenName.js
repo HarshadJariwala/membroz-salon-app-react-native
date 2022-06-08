@@ -27,6 +27,8 @@ export const REWARDPOINTTRANSACTION = 'RewardPointTransaction';
 export const SUBMITQUERY = 'SubmitQuery';
 export const ACTIVITYCALENDERSCREEN = 'ActivityCalenderScreen';
 export const MYBOOKING = 'MyBooking';
+export const OURSPECIALIST = 'OurSpecialist';
+export const OURSPECIALISTDTAILS = 'OurSpecialistDtails';
 
 
 

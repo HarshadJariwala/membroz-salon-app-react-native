@@ -31,6 +31,8 @@ import INVITEFRIENDSCREEN from '../screen/InviteFriendScreen/InviteFriendScreen'
 import SUBMITQUERY from '../screen/ContactUsScreen/SubmitQuery';
 import ACTIVITYCALENDERSCREEN from '../screen/ActivityCalenderScreen/ActivityCalenderScreen';
 import MYBOOKING from '../screen/MyBooking/MyBooking';
+import OURSPECIALIST from '../screen/Our Specialist/OurSpecialist';
+import OURSPECIALISTDTAILS from '../screen/Our Specialist/OurSpecialistDtails';
 
 import { NotificationService } from '../services/NotificationService/NotificationService';
 import { MemberLanguage } from '../services/LocalService/LanguageService';
@@ -151,11 +153,7 @@ const AuthStackScreen = () => {
                 component={EXPOLORELOGINSCREEN}
                 options={{ headerShown: false }}
             />
-            {/* <Stack.Screen
-                name="OfferScreen"
-                component={OFFERSCREEN}
-                options={{ headerShown: false }}
-            /> */}
+
             <Stack.Screen
                 name="RegisterScreen"
                 component={REGISTERSCREEN}
@@ -309,15 +307,15 @@ const PaymentStackScreen = ({ navigation }) => {
     )
 }
 
-const TrainerStackScreen = ({ navigation }) => {
+const OurSpecialistStackScreen = ({ navigation }) => {
     return (
-        <Stack.Navigator initialRouteName='TrainerScreen'
+        <Stack.Navigator initialRouteName='OurSpecialist'
             screenOptions={{ headerShadowVisible: false }}>
             <Stack.Screen
-                name="TrainerScreen"
-                component={TRAINERSCREEN}
+                name="OurSpecialist"
+                component={OURSPECIALIST}
                 options={{
-                    title: 'Trainers', //Set Header Title
+                    title: 'OurSpecialist', //Set Header Title
                     headerLeft: () =>
                         <NavigationDrawerStructureLeft
                             navigationProps={navigation}
@@ -334,10 +332,10 @@ const TrainerStackScreen = ({ navigation }) => {
             />
 
             <Stack.Screen
-                name="TrainerDetailScreen"
-                component={TRAINERDETAILSCREEN}
+                name="OurSpecialistDtails"
+                component={OURSPECIALISTDTAILS}
                 options={{
-                    title: 'Trainers', //Set Header Title
+                    title: 'Our Specialist', //Set Header Title
                     headerStyle: {
                         backgroundColor: COLOR.BACKGROUNDCOLOR, //Set Header color
                     },
@@ -769,8 +767,8 @@ const NavigationsDrawer = (props) => {
                 }}
             />
             <Drawer.Screen
-                name="TrainerScreen"
-                component={TrainerStackScreen}
+                name="OurSpecialist"
+                component={OurSpecialistStackScreen}
                 options={{
                     drawerLabel: 'Our Specialist', drawerIcon: ({ color }) => (
                         <Image source={IMAGE.USERGROUPICON}
