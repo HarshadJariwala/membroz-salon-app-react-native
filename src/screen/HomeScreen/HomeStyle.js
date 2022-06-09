@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
     },
     viewRectangle: {
         width: WIDTH - 30,
-        marginTop: 20,
+        marginTop: 10,
         borderRadius: 10,
         backgroundColor: COLOR.WHITE,
         shadowColor: COLOR.BLACK,
@@ -71,13 +71,15 @@ const styles = StyleSheet.create({
         alignItems: KEY.CENTER
     },
     btnStyle: {
-        borderRadius: 30,
+        borderRadius: 5,
         backgroundColor: COLOR.DEFALUTCOLOR,
         width: WIDTH / 5,
-        height: 35,
+        height: 30,
         justifyContent: KEY.CENTER,
         alignItems: KEY.CENTER,
-        marginRight: 10
+        marginRight: 10,
+        borderBottomRightRadius: 10,
+        borderTopLeftRadius: 10,
     },
     scanBtnStyle: {
         flexDirection: KEY.ROW,
@@ -90,7 +92,68 @@ const styles = StyleSheet.create({
         position: KEY.ABSOLUTE, bottom: 20,
         elevation: 2,
         alignSelf: KEY.CENTER
-    }
+    },
+    img_card: {
+        width: WIDTH - 30,
+        height: 100,
+        marginTop: 10,
+        borderRadius: 10,
+        backgroundColor: COLOR.WHITE,
+        shadowColor: COLOR.BLACK,
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.23,
+        shadowRadius: 2.62,
+        elevation: 4,
+        marginBottom: 5,
+        flexDirection: KEY.ROW
+    },
+    img: {
+        width: 100,
+        height: 100,
+        borderRadius: 10
+    },
+    upgrade: {
+        justifyContent: KEY.CENTER,
+        alignItems: KEY.CENTER,
+        width: 80,
+        height: 30,
+        backgroundColor: COLOR.DEFALUTCOLOR,
+        borderBottomRightRadius: 10,
+        borderTopLeftRadius: 10,
+        borderRadius: 2
+    },
+    textbutton: {
+        fontWeight: FONT.FONT_BOLD,
+        color: COLOR.WHITE,
+        fontSize: FONT.FONT_SIZE_14
+    },
+    text: {
+        fontSize: FONT.FONT_SIZE_16,
+        color: COLOR.BLACK,
+        fontWeight: FONT.FONT_BOLD,
+    },
+    transactionView: {
+        borderRadius: 10,
+        backgroundColor: COLOR.WHITE,
+        height: 70,
+        width: WIDTH - 30,
+        marginLeft: 15,
+        marginRight: 15,
+        flexDirection: KEY.ROW,
+        marginBottom: 10,
+        shadowColor: COLOR.BLACK,
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.23,
+        shadowRadius: 2.62,
+        marginTop: 5,
+        elevation: 3
+    },
 });
 
 export default styles;

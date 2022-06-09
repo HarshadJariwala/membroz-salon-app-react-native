@@ -21,12 +21,27 @@ export const UserListService = () => {
             "datatype": "text"
         },
         {
-            "searchfield": "standardplan",
-            "searchvalue": false,
-            "criteria": "exists",
-            "datatype": "boolean"
+            "searchfield": "role",
+            "searchvalue": ["5eafcd42cf26f78f43ab6c71", "59c1fb20b985482b2c610ced"],
+            "criteria": "nin",
+            "datatype": "objectId"
         }
-        ], "sort": { "fullname": 1 },
+        ],
+        // "select": [
+        //     {
+        //         "fieldname": "property",
+        //         "value": "1"
+        //     },
+        //     {
+        //         "fieldname": "fullname",
+        //         "value": "1"
+        //     },
+        //     {
+        //         "fieldname": "profilepic",
+        //         "value": "1"
+        //     }
+        // ],
+        "sort": { "fullname": 1 },
         "formname": "user"
     }
     return Axios.post('users/filter', body);

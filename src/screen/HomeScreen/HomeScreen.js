@@ -6,18 +6,24 @@ import {
     SafeAreaView,
     ImageBackground,
     TextInput,
-    ScrollView,
+    ScrollView, FlatList,
     TouchableOpacity,
     StatusBar, Image, Linking, Platform, Alert
 } from 'react-native';
+import {
+    getLastBookingRequestListService,
+    patchAppointmentService
+} from '../../services/AppointmentService/AppiontmentService';
 import { REMOTEDATA, MESSAGINGSENDERID, CLOUD_URL, DEFAULTPROFILE } from '../../context/actions/type';
 import { getByIdMemberService, patchMemberService } from '../../services/MemberService/MemberService';
 import { NotificationService } from '../../services/NotificationService/NotificationService';
+import { getLastWallettxnsListService } from '../../services/BillService/BillService';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { RemoteServerController } from '../../services/LocalService/LocalService';
 import { MemberLanguage } from '../../services/LocalService/LanguageService';
 import crashlytics, { firebase } from "@react-native-firebase/crashlytics";
 import * as LocalService from '../../services/LocalService/LocalService';
+import getCurrency from '../../services/getCurrencyService/getCurrency';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import AsyncStorage from '@react-native-community/async-storage';
 import PushNotification from "react-native-push-notification";
@@ -26,6 +32,7 @@ import * as SCREEN from '../../context/screen/screenName';
 import { useFocusEffect } from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import messaging from '@react-native-firebase/messaging';
+import Feather from 'react-native-vector-icons/Feather';
 import axiosConfig from '../../helpers/axiosConfig';
 import Loader from '../../components/loader/index';
 import DeviceInfo from 'react-native-device-info';
@@ -37,13 +44,11 @@ import * as COLOR from '../../styles/colors';
 import * as IMAGE from '../../styles/image';
 import styles from './HomeStyle';
 import moment from 'moment';
-
 const HEIGHT = Dimensions.get('window').height;
 const WIDTH = Dimensions.get('window').width;
 
 const HomeScreen = (props) => {
     const [loading, setloading] = useState(true);
-    const [mobileapppermissions, setMobileAppperMissions] = useState(null);
     const [scanIconVisible, setScanIconVisible] = useState(false);
     const [notificationIconVisible, setNotificationIconVisible] = useState(false);
     const [notification, setNotification] = useState(0);
@@ -52,6 +57,9 @@ const HomeScreen = (props) => {
     const [memberID, setMemberID] = useState(null);
     const [memberProfilePic, setMemberProfilePic] = useState(null);
     const [memberInfo, setMemberInfo] = useState(null);
+    const [bookingList, setBookingList] = useState([]);
+    const [currencySymbol, setCurrencySymbol] = useState(null);
+    const [wallateHistory, setwallateHistory] = useState([]);
     let getmemberid, appVersionCode, androidUrl, iosUrl;
 
     useFocusEffect(
@@ -65,6 +73,8 @@ const HomeScreen = (props) => {
                     setMemberName(memberInfo?.fullname);
                     setMemberID(memberInfo._id);
                     getNotification(memberInfo?._id);
+                    getBookingList(memberInfo?._id);
+                    wallateBillList(memberInfo?._id);
                     setMemberProfilePic(memberInfo?.profilepic);
                     PushNotifications();
                 }
@@ -81,10 +91,9 @@ const HomeScreen = (props) => {
         getMemberDeatilsLocalStorage();
     }, []);
 
-
     useEffect(() => {
     }, [loading, scanIconVisible, notificationIconVisible,
-        mobileapppermissions, notification, membershipPlan,
+        notification, membershipPlan,
         memberName, memberID, memberProfilePic,
     ])
 
@@ -114,13 +123,18 @@ const HomeScreen = (props) => {
     //GET MEMBER DATA IN MOBILE LOCAL STORAGE
     const getMemberDeatilsLocalStorage = async () => {
         var memberInfo = await LocalService.LocalStorageService();
+        console.log(`memberInfo`, memberInfo);
+        const response = getCurrency(memberInfo.branchid.currency);
         if (memberInfo) {
             getmemberid = memberInfo?._id;
+            setCurrencySymbol(response);
             setMemberInfo(memberInfo);
             setMembershipPlan(memberInfo?.membershipid?.property?.membershipname);
             setMemberName(memberInfo?.fullname);
             setMemberID(memberInfo._id);
             getMemberDeatils(memberInfo?._id);
+            getBookingList(memberInfo._id);
+            wallateBillList(memberInfo?._id);
             getNotification(memberInfo?._id);
             setMemberProfilePic(memberInfo?.profilepic);
             PushNotifications();
@@ -128,6 +142,32 @@ const HomeScreen = (props) => {
             wait(1000).then(() => {
                 setloading(false);
             });
+        }
+    }
+
+    //get wallate history list
+    const wallateBillList = async (id) => {
+        try {
+            const response = await getLastWallettxnsListService(id);
+            if (response.data != null && response.data != 'undefind' && response.status === 200) {
+                setwallateHistory(response.data);
+            }
+        } catch (error) {
+            setloading(false);
+            firebase.crashlytics().recordError(error);
+        }
+    }
+
+    //GET PAYMENT SCHEDULE LIST USING API 
+    const getBookingList = async (id) => {
+        try {
+            const response = await getLastBookingRequestListService(id);
+            if (response.data != null && response.data != 'undefind' && response.status == 200) {
+                setBookingList(response.data);
+            }
+        } catch (error) {
+            firebase.crashlytics().recordError(error);
+            setloading(false);
         }
     }
 
@@ -308,70 +348,135 @@ const HomeScreen = (props) => {
         }
     }
 
-    //IMAGE CLICK TO VIEW IMAGE FUNCTION
-    const viewImage = () => {
-        let viewimage;
-        if (memberProfilePic != null) {
-            viewimage = memberProfilePic;
-        } else {
-            viewimage = DEFAULTPROFILE;
+    //RENDER BOOKING LIST USING FLATLIST
+    const renderBooking = ({ item }) => (
+        <View style={styles.img_card}>
+            <Image style={styles.img}
+                source={{ uri: item.refid && item.refid.gallery && item.refid.gallery[0] && item.refid.gallery[0].attachment ? item.refid.gallery[0].attachment : logo }} />
+            <View style={{ flexDirection: KEY.COLUMN, marginLeft: 10, width: WIDTH - 140 }}>
+                <View style={{ flexDirection: KEY.ROW, marginTop: 10, justifyContent: KEY.SPACEBETWEEN }}>
+                    <Text numberOfLines={1} style={styles.text}>{item.refid.title}</Text>
+                    <Text style={{
+                        fontSize: FONT.FONT_SIZE_16,
+                        color: COLOR.BLACK,
+                        fontWeight: FONT.FONT_BOLD,
+                        marginRight: 10
+                    }}>{currencySymbol + item.charges}</Text>
+                </View>
+                <View style={{ flexDirection: KEY.ROW, marginTop: 5 }}>
+                    <Ionicons name='location-outline' size={20} color={COLOR.DEFALUTCOLOR} />
+                    <Text numberOfLines={1}
+                        style={{ marginLeft: 5, fontSize: FONT.FONT_SIZE_14, color: COLOR.LIGHT_BLACK, width: WIDTH / 3 }}>
+                        {item.refid.title}
+                    </Text>
+                </View>
+                <View style={{ flexDirection: KEY.ROW }}>
+                    <View style={{ flexDirection: KEY.ROW, marginTop: 5 }}>
+                        <Feather name='calendar' size={20} color={COLOR.DEFALUTCOLOR} />
+                        <Text numberOfLines={1}
+                            style={{ marginLeft: 5, fontSize: FONT.FONT_SIZE_14, color: COLOR.LIGHT_BLACK, width: WIDTH / 3 }}>
+                            {moment(item.appointmentdate).format('MMM DD, yyyy')}
+                        </Text>
+                    </View>
+                </View>
+                <View style={{ alignSelf: KEY.FLEX_END, marginTop: -14 }}>
+                    <TouchableOpacity style={styles.upgrade} onPress={() => onPressCancelBooking(item)} >
+                        <Text style={styles.textbutton}>
+                            {languageConfig.cancel}
+                        </Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
+        </View>
+    )
+
+    //CANCEL BUTTON CLICK TO CALL THIS FUNCTION 
+    const onPressCancelBooking = async (item) => {
+        setloading(true);
+        let body = { status: "deleted" };
+        try {
+            const response = await patchAppointmentService(item._id, body);
+            if (response.data != null && response.data != 'undefind' && response.status == 200) {
+                Toast.show(languageConfig.bookingcancelsuccessmessage, Toast.SHORT);
+                await getBookingList(memberInfo._id);
+            }
+        } catch (error) {
+            Toast.show(languageConfig.bookingproblemmessage, Toast.SHORT);
+            firebase.crashlytics().recordError(error);
+            setloading(false);
         }
-        //props.navigation.navigate(SCREEN.VIEWIMAGE, { viewimage });
     }
+
+    //render recharge history in flatlist
+    const renderRechargeHistory = ({ item }) => (
+        item.txntype == 'Dr' ?
+            <View style={styles.transactionView}>
+                <View style={{
+                    flexDirection: KEY.COLUMN, justifyContent: KEY.CENTER, alignItems: KEY.CENTER,
+                    borderTopLeftRadius: 10, borderBottomLeftRadius: 10,
+                    backgroundColor: COLOR.DEFALUTCOLOR, height: 70, width: WIDTH * 0.2
+                }}>
+                    <View style={{ marginTop: 20, marginBottom: 5 }}>
+                        <Image source={IMAGE.WALLET} style={{ height: 35, width: 35, tintColor: COLOR.WHITE, }} />
+                    </View>
+                    <View style={{ height: 20, width: 20, borderRadius: 100, left: -15, top: -20, backgroundColor: COLOR.WHITE }} >
+                        <MaterialCommunityIcons name='minus' size={15} style={{ color: COLOR.RED, alignSelf: KEY.CENTER, margin: 2 }} />
+                    </View>
+                </View>
+                <View style={{ flexDirection: KEY.COLUMN, justifyContent: KEY.SPACEBETWEEN, marginTop: 10, marginBottom: 10 }}>
+                    <Text numberOfLines={1}
+                        style={{
+                            fontSize: FONT.FONT_SIZE_16, marginLeft: 10, width: WIDTH / 2,
+                            color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD, color: COLOR.RED
+                        }}>{item.txnref}</Text>
+                    <Text style={{ fontSize: FONT.FONT_SIZE_14, marginLeft: 10, color: COLOR.GRANITE_GRAY }}>{moment().format('DD MMM YYYY hh:mm a')}</Text>
+                </View>
+                <View style={{ flexDirection: KEY.COLUMN, justifyContent: KEY.SPACEBETWEEN, marginTop: 10, marginBottom: 10 }}>
+                    <Text style={{
+                        fontSize: FONT.FONT_SIZE_16, marginLeft: 10,
+                        color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD, color: COLOR.RED
+                    }}>{'- ' + currencySymbol + item.value}</Text>
+                </View>
+            </View>
+            :
+            <View style={styles.transactionView}>
+                <View style={{
+                    flexDirection: KEY.COLUMN, justifyContent: KEY.CENTER, alignItems: KEY.CENTER,
+                    borderTopLeftRadius: 10, borderBottomLeftRadius: 10,
+                    backgroundColor: COLOR.DEFALUTCOLOR, height: 70, width: WIDTH * 0.2
+                }}>
+                    <View style={{ marginTop: 20, marginBottom: 5 }}>
+                        <Image source={IMAGE.WALLET} style={{ height: 35, width: 35, tintColor: COLOR.WHITE, }} />
+                    </View>
+                    <View style={{ height: 20, width: 20, borderRadius: 100, left: -15, top: -20, backgroundColor: COLOR.WHITE }} >
+                        <MaterialCommunityIcons name='plus' size={15} style={{ color: COLOR.GREEN, alignSelf: KEY.CENTER, margin: 2 }} />
+                    </View>
+                </View>
+                <View style={{ flexDirection: KEY.COLUMN, justifyContent: KEY.SPACEBETWEEN, marginTop: 10, marginBottom: 10 }}>
+                    <Text numberOfLines={1}
+                        style={{
+                            fontSize: FONT.FONT_SIZE_16, marginLeft: 10, width: WIDTH / 2,
+                            color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD, color: COLOR.GREEN
+                        }}>{item.txnref}</Text>
+                    <Text style={{ fontSize: FONT.FONT_SIZE_14, marginLeft: 10, color: COLOR.GRANITE_GRAY }}>{moment().format('DD MMM YYYY hh:mm a')}</Text>
+                </View>
+                <View style={{ flexDirection: KEY.COLUMN, justifyContent: KEY.SPACEBETWEEN, marginTop: 10, marginBottom: 10 }}>
+                    <Text style={{
+                        fontSize: FONT.FONT_SIZE_16, marginLeft: 10,
+                        color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD, color: COLOR.GREEN
+                    }}>{'+ ' + currencySymbol + item.value}</Text>
+                </View>
+            </View>
+    )
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: COLOR.BACKGROUNDCOLOR }}>
             <StatusBar hidden={false} translucent={true} backgroundColor={COLOR.STATUSBARCOLOR} barStyle={KEY.DARK_CONTENT} />
             <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={KEY.ALWAYS}>
-                <View style={{ justifyContent: KEY.CENTER, alignItems: KEY.CENTER }}>
-                    <TouchableOpacity style={styles.viweRound} onPress={() => viewImage()}>
-                        <Image source={!memberProfilePic ? IMAGE.USERPROFILE : { uri: memberProfilePic }}
-                            style={{ height: 95, width: 95, borderRadius: 100 }} />
-                    </TouchableOpacity>
-                    <Text style={styles.text}>{memberName}</Text>
-                </View>
-
-                <View style={styles.viewMain}>
-                    <View style={styles.viewRectangle}>
-                        <View style={{ flexDirection: KEY.ROW, marginTop: 10 }}>
-                            <View style={styles.rounfIconStyle}>
-                                <MaterialCommunityIcons name='clock' size={24} color={COLOR.DEFALUTCOLOR} />
-                            </View>
-                            <View style={{ flexDirection: KEY.COLUMN, marginLeft: -2 }}>
-                                <View style={{ marginLeft: 15 }}>
-                                    <Text style={styles.rectangleText}>{languageConfig.checkintime}</Text>
-                                    <Text style={{
-                                        fontSize: FONT.FONT_SIZE_16, color: COLOR.BLACK, fontWeight: FONT.FONT_WEIGHT_BOLD
-                                    }}>{moment().format('DD MMMM YYYY,hh:mm:ss A')}</Text>
-                                </View>
-                            </View>
-                            <View style={{ flex: 1, alignItems: KEY.FLEX_END, marginTop: 5 }}>
-                                <TouchableOpacity style={styles.rectangleRound} >
-                                    <Ionicons name='ios-log-out-outline' size={40} color={COLOR.DEFALUTCOLOR} />
-                                </TouchableOpacity>
-                            </View>
-                        </View>
-                        <View style={{
-                            borderWidth: 0.2, marginTop: 10, borderColor: COLOR.LINE_COLOR,
-                            marginRight: 15, marginLeft: 15, width: WIDTH - 60
-                        }} />
-                        <View style={{ flexDirection: KEY.ROW, marginTop: 5, alignSelf: KEY.FLEX_START }}>
-                            <View style={styles.rounfIconStyle}>
-                                <MaterialCommunityIcons name='clock' size={24} color={COLOR.DEFALUTCOLOR} />
-                            </View>
-                            <View style={{ flexDirection: KEY.COLUMN, marginLeft: -2 }}>
-                                <View style={{ marginLeft: 15, marginBottom: 10 }}>
-                                    <Text style={styles.rectangleText}>{languageConfig.totaltimetext}</Text>
-                                    <Text style={{
-                                        fontSize: FONT.FONT_SIZE_16, textTransform: KEY.UPPERCASE, color: COLOR.BLACK,
-                                        fontWeight: FONT.FONT_WEIGHT_BOLD
-                                    }}>{'04:10:52'}</Text>
-                                </View>
-                            </View>
-                        </View>
-                    </View>
-                </View>
-
+                <Text style={{
+                    fontSize: FONT.FONT_SIZE_18, color: COLOR.BLACK,
+                    fontWeight: FONT.FONT_BOLD, marginLeft: 15, marginTop: 10
+                }}>{languageConfig.membershipdetailstext}</Text>
                 <View style={styles.viewMain}>
                     <View style={styles.viewRectangle}>
                         <View style={{ flexDirection: KEY.ROW, marginTop: 10 }}>
@@ -383,14 +488,14 @@ const HomeScreen = (props) => {
                                     <Text style={styles.rectangleText}>{languageConfig.membershiptext}</Text>
                                     <Text style={{
                                         fontSize: FONT.FONT_SIZE_16, textTransform: KEY.CAPITALIZE, color: COLOR.BLACK,
-                                        fontWeight: FONT.FONT_WEIGHT_BOLD, width: WIDTH / 2
+                                        fontWeight: FONT.FONT_BOLD, width: WIDTH / 2
                                     }} numberOfLines={1}>{'Gold Member Ship new plan'}</Text>
                                 </View>
                             </View>
                             <View style={{ flex: 1, alignItems: KEY.FLEX_END, marginTop: 10 }}>
                                 <TouchableOpacity style={styles.btnStyle} >
                                     <Text style={{
-                                        fontWeight: FONT.FONT_WEIGHT_BOLD, textTransform: KEY.CAPITALIZE,
+                                        fontWeight: FONT.FONT_BOLD, textTransform: KEY.CAPITALIZE,
                                         color: COLOR.WHITE, fontSize: FONT.FONT_SIZE_14
                                     }}>{languageConfig.renew}</Text>
                                 </TouchableOpacity>
@@ -402,21 +507,21 @@ const HomeScreen = (props) => {
                         }} />
                         <View style={{ flexDirection: KEY.ROW, marginTop: 10, marginBottom: 10 }}>
                             <View style={styles.rounfIconStyle}>
-                                <FontAwesome5 name='money-bill-wave-alt' size={20} color={COLOR.DEFALUTCOLOR} />
+                                <Image source={IMAGE.MONEYICON} style={{ height: 16, width: 20, tintColor: COLOR.DEFALUTCOLOR }} />
                             </View>
                             <View style={{ flexDirection: KEY.COLUMN, marginLeft: -2 }}>
                                 <View style={{ marginLeft: 15 }}>
                                     <Text style={styles.rectangleText}>{languageConfig.paymentduetext + moment().format('DD.MM.YYYY')}</Text>
                                     <Text style={{
                                         fontSize: FONT.FONT_SIZE_16, textTransform: KEY.CAPITALIZE, color: COLOR.BLACK,
-                                        fontWeight: FONT.FONT_WEIGHT_BOLD, width: WIDTH / 2
-                                    }} numberOfLines={1}>{'$520'}</Text>
+                                        fontWeight: FONT.FONT_BOLD, width: WIDTH / 2
+                                    }} numberOfLines={1}>{currencySymbol + '520'}</Text>
                                 </View>
                             </View>
                             <View style={{ flex: 1, alignItems: KEY.FLEX_END, marginTop: 10 }}>
                                 <TouchableOpacity style={styles.btnStyle} >
                                     <Text style={{
-                                        fontWeight: FONT.FONT_WEIGHT_BOLD, textTransform: KEY.CAPITALIZE,
+                                        fontWeight: FONT.FONT_BOLD, textTransform: KEY.CAPITALIZE,
                                         color: COLOR.WHITE, fontSize: FONT.FONT_SIZE_14
                                     }}>{languageConfig.paytext}</Text>
                                 </TouchableOpacity>
@@ -425,127 +530,41 @@ const HomeScreen = (props) => {
                     </View>
                 </View>
 
-                <View style={styles.viewMain}>
-                    <View style={styles.viewRectangle}>
-                        <View style={{
-                            flexDirection: KEY.ROW, marginTop: 10,
-                            alignSelf: KEY.FLEX_START, marginLeft: 20
-                        }}>
-                            <Text style={{
-                                fontSize: FONT.FONT_SIZE_18, textTransform: KEY.CAPITALIZE, color: COLOR.BLACK,
-                                fontWeight: FONT.FONT_WEIGHT_BOLD
-                            }}>{languageConfig.upcoming}</Text>
-                            <Text style={{
-                                fontSize: FONT.FONT_SIZE_18, textTransform: KEY.CAPITALIZE, color: COLOR.DEFALUTCOLOR,
-                                fontWeight: FONT.FONT_WEIGHT_BOLD, marginLeft: 5
-                            }}>{languageConfig.class}</Text>
-                        </View>
-
-                        <View style={{ marginTop: 10 }}>
-                            <View style={{ flexDirection: KEY.ROW, marginBottom: 10 }}>
-                                <TouchableOpacity
-                                    style={{ flexDirection: KEY.ROW, alignItems: KEY.CENTER, justifyContent: KEY.SPACEBETWEEN }}>
-                                    <Image source={IMAGE.NO_PHOTO} resizeMode={KEY.COVER} style={{ height: 70, width: 70, borderRadius: 20 }} />
-                                    <View style={{ marginLeft: 20 }}>
-                                        <Text style={{
-                                            fontSize: FONT.FONT_SIZE_16, textTransform: KEY.CAPITALIZE, color: COLOR.BLACK,
-                                            fontWeight: FONT.FONT_WEIGHT_BOLD, width: WIDTH / 2
-                                        }} >{'Fixed Wight'}</Text>
-                                        <Text style={{
-                                            fontSize: FONT.FONT_SIZE_14, textTransform: KEY.CAPITALIZE, color: COLOR.GRANITE_GRAY,
-                                            width: WIDTH / 2, marginTop: 5
-                                        }} >{'By simir patel'} </Text>
-                                        <Text style={{
-                                            fontSize: FONT.FONT_SIZE_14, color: COLOR.GRANITE_GRAY,
-                                            width: WIDTH / 2, marginTop: 5
-                                        }}> {moment().format('MMMM DD,YYYY hh:mm A')}</Text>
-                                    </View>
-                                </TouchableOpacity>
-                            </View>
-                            <View style={{ borderBottomColor: COLOR.LINE_COLOR, borderBottomWidth: 1, width: WIDTH - 60 }} />
-                        </View>
-
-                        <View style={{ marginTop: 10 }}>
-                            <View style={{ flexDirection: KEY.ROW, marginBottom: 10 }}>
-                                <TouchableOpacity
-                                    style={{ flexDirection: KEY.ROW, alignItems: KEY.CENTER, justifyContent: KEY.SPACEBETWEEN }}>
-                                    <Image source={IMAGE.NO_PHOTO} resizeMode={KEY.COVER} style={{ height: 70, width: 70, borderRadius: 20 }} />
-                                    <View style={{ marginLeft: 20 }}>
-                                        <Text style={{
-                                            fontSize: FONT.FONT_SIZE_16, textTransform: KEY.CAPITALIZE, color: COLOR.BLACK,
-                                            fontWeight: FONT.FONT_WEIGHT_BOLD, width: WIDTH / 2
-                                        }} >{'Fixed Wight'}</Text>
-                                        <Text style={{
-                                            fontSize: FONT.FONT_SIZE_14, textTransform: KEY.CAPITALIZE, color: COLOR.GRANITE_GRAY,
-                                            width: WIDTH / 2, marginTop: 5
-                                        }} >{'By simir patel'} </Text>
-                                        <Text style={{
-                                            fontSize: FONT.FONT_SIZE_14, color: COLOR.GRANITE_GRAY,
-                                            width: WIDTH / 2, marginTop: 5
-                                        }}> {moment().format('MMMM DD,YYYY hh:mm A')}</Text>
-                                    </View>
-                                </TouchableOpacity>
-                            </View>
-                            <View style={{ borderBottomColor: COLOR.LINE_COLOR, borderBottomWidth: 1, width: WIDTH - 60 }} />
-                        </View>
-
-                        <View style={{ marginTop: 10 }}>
-                            <View style={{ flexDirection: KEY.ROW, marginBottom: 10 }}>
-                                <TouchableOpacity
-                                    style={{ flexDirection: KEY.ROW, alignItems: KEY.CENTER, justifyContent: KEY.SPACEBETWEEN }}>
-                                    <Image source={IMAGE.NO_PHOTO} resizeMode={KEY.COVER} style={{ height: 70, width: 70, borderRadius: 20 }} />
-                                    <View style={{ marginLeft: 20 }}>
-                                        <Text style={{
-                                            fontSize: FONT.FONT_SIZE_16, textTransform: KEY.CAPITALIZE, color: COLOR.BLACK,
-                                            fontWeight: FONT.FONT_WEIGHT_BOLD, width: WIDTH / 2
-                                        }} >{'Fixed Wight'}</Text>
-                                        <Text style={{
-                                            fontSize: FONT.FONT_SIZE_14, textTransform: KEY.CAPITALIZE, color: COLOR.GRANITE_GRAY,
-                                            width: WIDTH / 2, marginTop: 5
-                                        }} >{'By simir patel'} </Text>
-                                        <Text style={{
-                                            fontSize: FONT.FONT_SIZE_14, color: COLOR.GRANITE_GRAY,
-                                            width: WIDTH / 2, marginTop: 5
-                                        }}> {moment().format('MMMM DD,YYYY hh:mm A')}</Text>
-                                    </View>
-                                </TouchableOpacity>
-                            </View>
-                            <View style={{ borderBottomColor: COLOR.LINE_COLOR, borderBottomWidth: 1, width: WIDTH - 60 }} />
-                        </View>
-
-                        <View style={{ marginTop: 10 }}>
-                            <View style={{ flexDirection: KEY.ROW, marginBottom: 10 }}>
-                                <TouchableOpacity
-                                    style={{ flexDirection: KEY.ROW, alignItems: KEY.CENTER, justifyContent: KEY.SPACEBETWEEN }}>
-                                    <Image source={IMAGE.NO_PHOTO} resizeMode={KEY.COVER} style={{ height: 70, width: 70, borderRadius: 20 }} />
-                                    <View style={{ marginLeft: 20 }}>
-                                        <Text style={{
-                                            fontSize: FONT.FONT_SIZE_16, textTransform: KEY.CAPITALIZE, color: COLOR.BLACK,
-                                            fontWeight: FONT.FONT_WEIGHT_BOLD, width: WIDTH / 2
-                                        }} >{'Fixed Wight'}</Text>
-                                        <Text style={{
-                                            fontSize: FONT.FONT_SIZE_14, textTransform: KEY.CAPITALIZE, color: COLOR.GRANITE_GRAY,
-                                            width: WIDTH / 2, marginTop: 5
-                                        }} >{'By simir patel'} </Text>
-                                        <Text style={{
-                                            fontSize: FONT.FONT_SIZE_14, color: COLOR.GRANITE_GRAY,
-                                            width: WIDTH / 2, marginTop: 5, marginLeft: -3
-                                        }}> {moment().format('MMMM DD,YYYY hh:mm A')}</Text>
-                                    </View>
-                                </TouchableOpacity>
-                            </View>
-                            <View style={{ width: WIDTH - 60 }} />
-                        </View>
-                    </View>
-                    <View style={{ marginBottom: 80 }} />
-                </View>
+                {bookingList && bookingList.length > 0 &&
+                    <SafeAreaView>
+                        <Text style={{
+                            fontSize: FONT.FONT_SIZE_18, color: COLOR.BLACK,
+                            fontWeight: FONT.FONT_BOLD, marginLeft: 15, marginTop: 10
+                        }}>{languageConfig.recentbookingtext}</Text>
+                        <FlatList
+                            style={{ marginTop: 5 }}
+                            data={bookingList}
+                            showsVerticalScrollIndicator={false}
+                            renderItem={renderBooking}
+                            contentContainerStyle={{ paddingBottom: 20, justifyContent: "center", alignItems: "center" }}
+                            keyExtractor={item => item._id}
+                        />
+                    </SafeAreaView>
+                }
+                {wallateHistory && wallateHistory.length > 0 &&
+                    <SafeAreaView>
+                        <Text style={{
+                            fontSize: FONT.FONT_SIZE_18, color: COLOR.BLACK,
+                            fontWeight: FONT.FONT_BOLD, marginLeft: 15, marginTop: 10
+                        }}>{languageConfig.recenettransactions}</Text>
+                        <FlatList
+                            style={{ marginTop: 10 }}
+                            data={wallateHistory}
+                            keyExtractor={(item, index) => index.toString()}
+                            keyboardShouldPersistTaps={KEY.ALWAYS}
+                            renderItem={renderRechargeHistory}
+                            contentContainerStyle={{ paddingBottom: 20, alignSelf: KEY.CENTER }}
+                            showsVerticalScrollIndicator={false}
+                        />
+                    </SafeAreaView>
+                }
             </ScrollView>
-            <TouchableOpacity
-                activeOpacity={0.7}
-                style={styles.scanBtnStyle}>
-                <MaterialCommunityIcons name='qrcode-scan' size={25} color={COLOR.WHITE} />
-                <Text style={{ fontSize: FONT.FONT_SIZE_14, fontWeight: FONT.FONT_WEIGHT_BOLD, color: COLOR.WHITE, marginLeft: 10 }}>Scan for Check-in</Text>
-            </TouchableOpacity>
+            {loading ? <Loader /> : null}
         </SafeAreaView>
     )
 }

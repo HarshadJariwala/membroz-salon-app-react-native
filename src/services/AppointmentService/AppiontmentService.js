@@ -20,6 +20,19 @@ export const addAppointmentService = (data) => {
     return Axios.post('appointments', body);
 }
 
+export const getLastBookingRequestListService = (id) => {
+    const body = {
+        "search": [
+            { "searchfield": "attendee", "searchvalue": id, "criteria": "eq", "datatype": "ObjectId" },
+            { "searchfield": "status", "searchvalue": "requested", "criteria": "eq", "datatype": "text" },
+        ],
+        "formname": "myappointment",
+        "sort": { "appointmentdate": -1 },
+        "size": 2
+    }
+    return Axios.post('appointments/filter', body);
+}
+
 export const getBookingRequestListService = (id) => {
     const body = {
         "search": [

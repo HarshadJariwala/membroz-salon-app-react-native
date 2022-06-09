@@ -46,6 +46,30 @@ function BillListService(id) {
     return Axios.post('bill/filter', body);
 }
 
+function getLastWallettxnsListService(id) {
+    let body =
+    {
+        "search": [
+            {
+                "searchfield": "status",
+                "searchvalue": "active",
+                "criteria": "eq",
+                "datatype": "text"
+            },
+            {
+                "searchfield": "customerid",
+                "searchvalue": id,
+                "criteria": "eq",
+                "datatype": "objectId"
+            }
+        ],
+        "formname": "wallettxn",
+        "sort": { "createdAt": -1 },
+        "size": 2
+    }
+    return Axios.post('wallettxns/filter', body);
+}
+
 function WallettxnsListService(id) {
     let body =
     {
@@ -133,5 +157,5 @@ function MySpendService(id) {
 export {
     BillService, BillListService, WalletDetailService, WalletUsageListService,
     BillPaymentService, WalletRechargeWithCouponService, WalletRefershService,
-    MySpendService, WallettxnsListService
+    MySpendService, WallettxnsListService, getLastWallettxnsListService
 };
