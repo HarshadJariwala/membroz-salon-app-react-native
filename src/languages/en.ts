@@ -498,7 +498,8 @@ export default {
     lastmonthtext: "last month",
 
     //submit query
-    HeppytoText: "Happy to help you",
+    HeppytoText: "Happy to",
+    helptext: "Help you",
     SelectCategoryText: "Select category",
     subjecttext: "Subject",
     contactnumberText: "Contact number",

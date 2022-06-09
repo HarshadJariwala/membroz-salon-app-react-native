@@ -317,8 +317,14 @@ const SubmitQuery = (props) => {
             <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={KEY.ALWAYS}>
                 <View style={styles.mainContainer}>
                     <View style={styles.mainCard}>
-                        <View style={{ marginLeft: 22, marginTop: 10, }}>
+                        <View style={{ marginLeft: 22, marginTop: 10, flexDirection: KEY.ROW }}>
                             <Text style={styles.headertext}>{languageConfig.HeppytoText}</Text>
+                            <Text style={{
+                                color: COLOR.DEFALUTCOLOR,
+                                marginLeft: 5,
+                                fontWeight: FONT.FONT_BOLD,
+                                fontSize: FONT.FONT_SIZE_18
+                            }}>{languageConfig.helptext}</Text>
                         </View>
                         <View>
                             <SelectDropdown
@@ -339,7 +345,7 @@ const SubmitQuery = (props) => {
 
                                     <View
                                         style={{
-                                            borderBottomColor: COLOR.X11_GRAY,
+                                            borderBottomColor: COLOR.BRIGHT_GRAY,
                                             borderBottomWidth: 1,
                                             alignSelf: KEY.CENTER,
                                             marginTop: 0,

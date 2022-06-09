@@ -29,25 +29,35 @@ const styles = StyleSheet.create({
         marginBottom: 10
     },
     inputTextView1: {
-        // fontSize: FONT.FONT_SIZE_16,
-        // color: COLOR.X11_GRAY,
-        borderBottomColor: COLOR.X11_GRAY,
-        borderBottomWidth: 1,
-        marginBottom: 15,
+        borderRadius: 5,
+        borderWidth: 2,
+        borderColor: COLOR.BRIGHT_GRAY,
+        //alignItems: KEY.FLEX_START,
+        marginBottom: 5,
         width: WIDTH - 60,
-        color: COLOR.BLACK,
+        height: 45,
+        color: COLOR.GRANITE_GRAY,
         fontSize: FONT.FONT_SIZE_16,
-        fontFamily: FONT.FONT_NORMAL
+        paddingLeft: 15,
+        backgroundColor: COLOR.WHITE,
+        borderBottomRightRadius: 20,
+        borderTopLeftRadius: 20
 
     },
     inputTextViewError1: {
-        borderBottomColor: COLOR.ERROR_LINE_COLOR,
-        borderBottomWidth: 1,
-        marginBottom: 15,
+        borderRadius: 5,
+        borderWidth: 2,
+        borderColor: COLOR.ERRORCOLOR,
+        //alignItems: KEY.FLEX_START,
+        marginBottom: 5,
         width: WIDTH - 60,
-        color: COLOR.BLACK,
+        height: 45,
+        color: COLOR.GRANITE_GRAY,
         fontSize: FONT.FONT_SIZE_16,
-        fontFamily: FONT.FONT_NORMAL
+        paddingLeft: 15,
+        backgroundColor: COLOR.WHITE,
+        borderBottomRightRadius: 20,
+        borderTopLeftRadius: 20
     },
     line: {
         borderBottomColor: COLOR.GRAY,
@@ -63,7 +73,9 @@ const styles = StyleSheet.create({
     },
     submitquery: {
         marginTop: 10,
-        borderRadius: 30,
+        borderRadius: 5,
+        borderBottomRightRadius: 20,
+        borderTopLeftRadius: 20,
         backgroundColor: COLOR.DEFALUTCOLOR,
         width: WIDTH - 60,
         height: 45,

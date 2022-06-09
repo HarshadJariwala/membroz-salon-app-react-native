@@ -315,11 +315,12 @@ const OurSpecialistStackScreen = ({ navigation }) => {
                 name="OurSpecialist"
                 component={OURSPECIALIST}
                 options={{
-                    title: 'OurSpecialist', //Set Header Title
+                    title: 'Our Specialist', //Set Header Title
                     headerLeft: () =>
                         <NavigationDrawerStructureLeft
                             navigationProps={navigation}
                         />,
+                    headerRight: () => <NavigationDrawerStructureRight navigationProps={navigation} />,
                     headerStyle: {
                         backgroundColor: COLOR.BACKGROUNDCOLOR, //Set Header color
                     },
@@ -750,7 +751,7 @@ const NavigationsDrawer = (props) => {
                 component={OfferStackScreen}
                 options={{
                     drawerLabel: 'Offers', drawerIcon: ({ color }) => (
-                        <Image source={IMAGE.MYBOOKINGICON}
+                        <Image source={IMAGE.OFFERS}
                             style={{ width: 21, height: 21, tintColor: color }} />
                     )
                 }}
