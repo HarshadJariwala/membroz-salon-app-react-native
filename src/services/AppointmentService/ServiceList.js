@@ -13,12 +13,21 @@ export const ServiceList = () => {
 
 export const ServiceTypeList = (id) => {
     let body
-    if (id != null) {
+    if (id != null && id != undefined) {
         body =
         {
             "search":
                 [
                     { "searchfield": "category", "searchvalue": id, "criteria": "eq", "datatype": "ObjectId" },
+                    { "searchfield": "status", "searchvalue": "active", "criteria": "eq" }
+                ]
+        }
+    }
+    else {
+        body =
+        {
+            "search":
+                [
                     { "searchfield": "status", "searchvalue": "active", "criteria": "eq" }
                 ]
         }

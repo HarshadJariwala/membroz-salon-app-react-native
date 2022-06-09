@@ -90,7 +90,7 @@ export const CHECKOUT_COLOR = '#47CCBF'
 
 //LINE COLOR
 export const LINE_COLOR = '#D6D6D6'
-
+export const TEXTINPUTCOLOR = '#CCCCCC'
 export const SKY_COLOR = '#3CA7FF'
 export const SKY_LIGHT_COLOR = '#F6FCFF'
 

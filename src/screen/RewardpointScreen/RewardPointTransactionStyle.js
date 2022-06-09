@@ -74,8 +74,8 @@ const styles = StyleSheet.create({
         borderColor: COLOR.PLACEHOLDER_COLOR
     },
     transactionView: {
-        //borderLeftWidth: 80,
-        //borderLeftColor: COLOR.DEFALUTCOLOR,
+        marginLeft: 15,
+        marginRight: 15,
         borderRadius: 10,
         backgroundColor: COLOR.WHITE,
         height: 70,

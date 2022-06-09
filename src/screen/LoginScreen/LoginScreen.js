@@ -149,6 +149,7 @@ export default LoginScreen = (props) => {
                                 returnKeyType={KEY.NEXT}
                                 style={!usernameError ? STYLES.inputTextView : STYLES.inputTextViewError}
                                 defaultValue={username}
+                                autoCapitalize={KEY.NONE}
                                 onSubmitEditing={() => secondTextInputRef.current.focus()}
                                 onChangeText={(username) => CheckUsername(username)}
                             />
@@ -161,6 +162,7 @@ export default LoginScreen = (props) => {
                                 style={!passwordError ? STYLES.inputTextView : STYLES.inputTextViewError}
                                 secureTextEntry={true}
                                 defaultValue={password}
+                                autoCapitalize={KEY.NONE}
                                 blurOnSubmit={false}
                                 ref={secondTextInputRef}
                                 onSubmitEditing={() => { Keyboard.dismiss(), onPressToLogin() }}

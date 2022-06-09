@@ -29,6 +29,9 @@ export const ACTIVITYCALENDERSCREEN = 'ActivityCalenderScreen';
 export const MYBOOKING = 'MyBooking';
 export const OURSPECIALIST = 'OurSpecialist';
 export const OURSPECIALISTDTAILS = 'OurSpecialistDtails';
+export const OURSERVICESCREEN = 'OurServiceScreen';
+export const OURSERVICEDETAILSCREEN = 'OurServiceDetailScreen';
+export const BOOKSERVICESCREEN = 'BookServiceScreen';
 
 
 
