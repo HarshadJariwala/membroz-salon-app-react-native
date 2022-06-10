@@ -5,7 +5,7 @@ import {
     Dimensions,
     SafeAreaView,
     ImageBackground,
-    TextInput,
+    TextInput, Modal,
     ScrollView, FlatList,
     TouchableOpacity,
     StatusBar, Image, Linking, Platform, Alert
@@ -14,7 +14,7 @@ import {
     getLastBookingRequestListService,
     patchAppointmentService
 } from '../../services/AppointmentService/AppiontmentService';
-import { REMOTEDATA, MESSAGINGSENDERID, CLOUD_URL, DEFAULTPROFILE } from '../../context/actions/type';
+import { MESSAGINGSENDERID } from '../../context/actions/type';
 import { getByIdMemberService, patchMemberService } from '../../services/MemberService/MemberService';
 import { NotificationService } from '../../services/NotificationService/NotificationService';
 import { getLastWallettxnsListService } from '../../services/BillService/BillService';
@@ -24,8 +24,6 @@ import { MemberLanguage } from '../../services/LocalService/LanguageService';
 import crashlytics, { firebase } from "@react-native-firebase/crashlytics";
 import * as LocalService from '../../services/LocalService/LocalService';
 import getCurrency from '../../services/getCurrencyService/getCurrency';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import AsyncStorage from '@react-native-community/async-storage';
 import PushNotification from "react-native-push-notification";
 import languageConfig from '../../languages/languageConfig';
 import * as SCREEN from '../../context/screen/screenName';
@@ -33,7 +31,6 @@ import { useFocusEffect } from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import messaging from '@react-native-firebase/messaging';
 import Feather from 'react-native-vector-icons/Feather';
-import axiosConfig from '../../helpers/axiosConfig';
 import Loader from '../../components/loader/index';
 import DeviceInfo from 'react-native-device-info';
 import * as KEY from '../../context/actions/key';
@@ -60,6 +57,8 @@ const HomeScreen = (props) => {
     const [bookingList, setBookingList] = useState([]);
     const [currencySymbol, setCurrencySymbol] = useState(null);
     const [wallateHistory, setwallateHistory] = useState([]);
+    const [selectedItem, setSelectItem] = useState(null);
+    const [showprofileModalVisible, setshowProfileModalVisible] = useState(false);
     let getmemberid, appVersionCode, androidUrl, iosUrl;
 
     useFocusEffect(
@@ -366,7 +365,7 @@ const HomeScreen = (props) => {
                     <Ionicons name='location-outline' size={20} color={COLOR.DEFALUTCOLOR} />
                     <Text numberOfLines={1}
                         style={{ marginLeft: 5, fontSize: FONT.FONT_SIZE_14, color: COLOR.LIGHT_BLACK, width: WIDTH / 3 }}>
-                        {item.refid.title}
+                        {item.attendee.branchid.branchname}
                     </Text>
                 </View>
                 <View style={{ flexDirection: KEY.ROW }}>
@@ -391,18 +390,27 @@ const HomeScreen = (props) => {
 
     //CANCEL BUTTON CLICK TO CALL THIS FUNCTION 
     const onPressCancelBooking = async (item) => {
-        setloading(true);
-        let body = { status: "deleted" };
-        try {
-            const response = await patchAppointmentService(item._id, body);
-            if (response.data != null && response.data != 'undefind' && response.status == 200) {
-                Toast.show(languageConfig.bookingcancelsuccessmessage, Toast.SHORT);
-                await getBookingList(memberInfo._id);
+        setshowProfileModalVisible(true);
+        setSelectItem(item);
+    }
+
+    //CANCEL BUTTON CLICK TO CALL THIS FUNCTION 
+    const onPressConfirmBooking = async () => {
+        setshowProfileModalVisible(false);
+        if (selectedItem) {
+            setloading(true);
+            let body = { status: "deleted" };
+            try {
+                const response = await patchAppointmentService(item._id, body);
+                if (response.data != null && response.data != 'undefind' && response.status == 200) {
+                    Toast.show(languageConfig.bookingcancelsuccessmessage, Toast.SHORT);
+                    await getBookingList(memberInfo._id);
+                }
+            } catch (error) {
+                Toast.show(languageConfig.bookingproblemmessage, Toast.SHORT);
+                firebase.crashlytics().recordError(error);
+                setloading(false);
             }
-        } catch (error) {
-            Toast.show(languageConfig.bookingproblemmessage, Toast.SHORT);
-            firebase.crashlytics().recordError(error);
-            setloading(false);
         }
     }
 
@@ -480,7 +488,13 @@ const HomeScreen = (props) => {
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: COLOR.BACKGROUNDCOLOR }}>
-            <StatusBar hidden={false} translucent={true} backgroundColor={COLOR.STATUSBARCOLOR} barStyle={KEY.DARK_CONTENT} />
+            {
+                showprofileModalVisible
+                    ?
+                    <StatusBar hidden={false} translucent={true} backgroundColor="rgba(0,0,0,0.5)" barStyle={Platform.OS === 'ios' ? KEY.DARK_CONTENT : KEY.DARK_CONTENT} />
+                    :
+                    <StatusBar hidden={false} translucent={true} backgroundColor={COLOR.STATUSBARCOLOR} barStyle={Platform.OS === 'ios' ? KEY.DARK_CONTENT : KEY.DARK_CONTENT} />
+            }
             <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={KEY.ALWAYS}>
                 <Text style={{
                     fontSize: FONT.FONT_SIZE_18, color: COLOR.BLACK,
@@ -538,7 +552,6 @@ const HomeScreen = (props) => {
                         </View>
                     </View>
                 </View>
-
                 {bookingList && bookingList.length > 0 &&
                     <SafeAreaView>
                         <Text style={{
@@ -550,7 +563,7 @@ const HomeScreen = (props) => {
                             data={bookingList}
                             showsVerticalScrollIndicator={false}
                             renderItem={renderBooking}
-                            contentContainerStyle={{ paddingBottom: 20, justifyContent: "center", alignItems: "center" }}
+                            contentContainerStyle={{ paddingBottom: 20, justifyContent: KEY.CENTER, alignItems: KEY.CENTER }}
                             keyExtractor={item => item._id}
                         />
                     </SafeAreaView>
@@ -573,6 +586,59 @@ const HomeScreen = (props) => {
                     </SafeAreaView>
                 }
             </ScrollView>
+            {selectedItem &&
+                <Modal
+                    animationType='slide'
+                    transparent={true}
+                    visible={showprofileModalVisible}
+                    onRequestClose={() => setshowProfileModalVisible(!showprofileModalVisible)}>
+                    <View style={{ backgroundColor: "rgba(0,0,0,0.5)", flex: 1 }}>
+                        <View style={styles.modal}>
+                            <View style={{ justifyContent: KEY.CENTER, alignItems: KEY.CENTER, }}>
+                                <View style={styles.modelcircle}>
+                                    <MaterialCommunityIcons name='close' size={30} color={COLOR.RED} />
+                                </View>
+                                <View style={{ marginTop: 10, marginBottom: 10 }}>
+                                    <Text style={[styles.modeltext, { fontSize: FONT.FONT_SIZE_16, color: COLOR.RED }]}>{languageConfig.areyousureyouwanttotext}</Text>
+                                    <Text style={[styles.modeltext, { fontSize: FONT.FONT_SIZE_16, color: COLOR.RED }]}>{languageConfig.cancelthisbookingtext}</Text>
+                                </View>
+                                <View style={{}}>
+                                    <Text style={[styles.modeltext, { fontSize: FONT.FONT_SIZE_14, color: COLOR.BLACK }]}>{selectedItem.refid.title}</Text>
+                                </View>
+                                <View style={{ flexDirection: KEY.ROW, marginTop: 5, }}>
+                                    <Ionicons name='location-outline' size={20} color={COLOR.DEFALUTCOLOR} />
+                                    <Text numberOfLines={1}
+                                        style={{ marginLeft: 5, fontSize: FONT.FONT_SIZE_14, color: COLOR.LIGHT_BLACK }}>
+                                        {selectedItem.attendee.branchid.branchname}
+                                    </Text>
+                                </View>
+                                <View style={{ flexDirection: KEY.ROW }}>
+                                    <View style={{ flexDirection: KEY.ROW, marginTop: 5 }}>
+                                        <Feather name='calendar' size={20} color={COLOR.DEFALUTCOLOR} />
+                                        <Text numberOfLines={1}
+                                            style={{ marginLeft: 5, fontSize: FONT.FONT_SIZE_14, color: COLOR.LIGHT_BLACK }}>
+                                            {moment(selectedItem.appointmentdate).format('MMM DD, yyyy')}
+                                        </Text>
+                                    </View>
+                                </View>
+
+                                <View style={{ flexDirection: KEY.ROW, marginTop: 30, marginBottom: 20 }}>
+                                    <TouchableOpacity style={[styles.modelbutton, { backgroundColor: COLOR.LIGHT_RED }]} onPress={() => onPressConfirmBooking()}  >
+                                        <Text style={styles.model_button}>
+                                            {languageConfig.yes}
+                                        </Text>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity style={[styles.modelbutton, { backgroundColor: COLOR.LIGHT_GREEN }]} onPress={() => setshowProfileModalVisible(false)}>
+                                        <Text style={styles.model_button}>
+                                            {languageConfig.no}
+                                        </Text>
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+                        </View>
+                    </View>
+                </Modal>
+            }
             {loading ? <Loader /> : null}
         </SafeAreaView>
     )

@@ -32,6 +32,8 @@ export const OURSPECIALISTDTAILS = 'OurSpecialistDtails';
 export const OURSERVICESCREEN = 'OurServiceScreen';
 export const OURSERVICEDETAILSCREEN = 'OurServiceDetailScreen';
 export const BOOKSERVICESCREEN = 'BookServiceScreen';
+export const BOOKINGPAYMENT = 'BookingPayment';
+export const WISHLISTSCREEN = 'WishlistScreen';
 
 
 
