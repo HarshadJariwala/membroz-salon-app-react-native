@@ -245,6 +245,7 @@ const MyBooking = (props) => {
     }
 
     return (
+
         <SafeAreaView style={{ flex: 1, alignItems: KEY.CENTER, backgroundColor: COLOR.WHITE }}>
             <StatusBar hidden={false} translucent={false} barStyle={KEY.DARK_CONTENT} backgroundColor={COLOR.STATUSBARCOLOR} />
             <ScrollView showsVerticalScrollIndicator={false}>
@@ -330,17 +331,17 @@ const MyBooking = (props) => {
                                         <MaterialCommunityIcons name='close' size={30} color={COLOR.RED} />
                                     </View>
                                     <View style={{ marginTop: 10, marginBottom: 10 }}>
-                                        <Text style={[styles.modeltext, { fontSize: FONT.FONT_SIZE_16, color: COLOR.RED }]}>{"Are you sure, you want to"}</Text>
-                                        <Text style={[styles.modeltext, { fontSize: FONT.FONT_SIZE_16, color: COLOR.RED }]}>{"cancel this booking?"}</Text>
+                                        <Text style={[styles.modeltext, { fontSize: FONT.FONT_SIZE_16, color: COLOR.RED }]}>{languageConfig.Areyousureyouwanttotext}</Text>
+                                        <Text style={[styles.modeltext, { fontSize: FONT.FONT_SIZE_16, color: COLOR.RED }]}>{languageConfig.cancelthisbookingtext}</Text>
                                     </View>
                                     <View style={{}}>
-                                        <Text style={[styles.modeltext, { fontSize: FONT.FONT_SIZE_14, color: COLOR.BLACK }]}>{"Hair Cut"}</Text>
+                                        <Text style={[styles.modeltext, { fontSize: FONT.FONT_SIZE_14, color: COLOR.BLACK }]}>{""}</Text>
                                     </View>
                                     <View style={{ flexDirection: KEY.ROW, marginTop: 5, }}>
                                         <Ionicons name='location-outline' size={20} color={COLOR.DEFALUTCOLOR} />
                                         <Text numberOfLines={1}
                                             style={{ marginLeft: 5, fontSize: FONT.FONT_SIZE_14, color: COLOR.LIGHT_BLACK }}>
-                                            {"Mplace"}
+                                            {""}
                                         </Text>
                                     </View>
                                     <View style={{ flexDirection: KEY.ROW }}>
@@ -348,7 +349,7 @@ const MyBooking = (props) => {
                                             <Feather name='calendar' size={20} color={COLOR.DEFALUTCOLOR} />
                                             <Text numberOfLines={1}
                                                 style={{ marginLeft: 5, fontSize: FONT.FONT_SIZE_14, color: COLOR.LIGHT_BLACK }}>
-                                                {"Jan 08 2022"}
+                                                {moment().format('MMM DD, yyyy')}
                                             </Text>
                                         </View>
                                     </View>
@@ -356,13 +357,13 @@ const MyBooking = (props) => {
                                     <View style={{ flexDirection: KEY.ROW, marginTop: 30 }}>
                                         <TouchableOpacity style={[styles.modelbutton, { backgroundColor: COLOR.LIGHT_RED }]} onPress={() => onPressConfirmBooking()}  >
                                             <Text style={styles.model_button}>
-                                                {"Yes"}
+                                                {languageConfig.yes}
                                             </Text>
                                             {/* <Button onPress={() => props.navigation.navigate('RegistrationScreen')} /> */}
                                         </TouchableOpacity >
                                         <TouchableOpacity style={[styles.modelbutton, { backgroundColor: COLOR.LIGHT_GREEN }]} onPress={() => setshowProfileModalVisible(false)}>
                                             <Text style={styles.model_button}>
-                                                {"No"}
+                                                {languageConfig.no}
                                             </Text>
                                             {/* <Button onPress={() => props.navigation.navigate('RegistrationScreen')} /> */}
                                         </TouchableOpacity >

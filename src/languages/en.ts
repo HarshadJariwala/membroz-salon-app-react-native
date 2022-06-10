@@ -97,6 +97,8 @@ export default {
     date: "Date",
     yes: "Yes",
     no: "No",
+    Areyousureyouwanttotext: "Are you sure, you want to",
+    cancelthisbookingtext: "cancel this booking?",
     passworderrormessage: "Enter Current Password",
     newpassworderrormessage: "Enter New Password",
     comfirmpassworderrormessage: "Enter Confirm New Password",
