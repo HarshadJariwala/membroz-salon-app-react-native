@@ -103,12 +103,12 @@ const OurSpecialist = ({ navigation }) => {
 
     //RENDER REFER FRIEND LIST USING FLATLIST
     const renderMyTeamList = ({ item }) => (
-        <TouchableOpacity style={styles.cardView} onPress={() => navigation.navigate(SCREEN.OURSPECIALISTDTAILS, { trainer: item })}>
+        <TouchableOpacity style={styles.cardView} onPress={() => navigation.navigate(SCREEN.OURSPECIALISTDTAILS, { item })}>
             <View style={{ flexDirection: KEY.ROW, width: WIDTH - 40, padding: 5, flex: 1, alignItems: KEY.CENTER }}>
                 <View style={{ flexDirection: KEY.COLUMN, alignItems: KEY.CENTER, margin: 10 }}>
                     <View style={styles.viewRound}>
                         <Image source={!item.profilepic ? IMAGE.USERPROFILE : { uri: item.profilepic }}
-                            style={{ height: 60, width: 60, borderRadius: 100 }} />
+                            style={!item.profilepic ? { height: 70, width: 70, borderRadius: 100 } : { height: 75, width: 75, borderRadius: 100 }} />
                     </View>
                 </View>
                 <View style={{ marginLeft: 10, flexDirection: KEY.COLUMN, alignItems: KEY.FLEX_START, width: WIDTH / 2 }}>

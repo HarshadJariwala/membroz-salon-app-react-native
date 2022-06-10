@@ -6,15 +6,20 @@ import {
     StatusBar,
     Dimensions, Image,
     TouchableOpacity,
-    Keyboard
+    Keyboard,
+    FlatList,
+    RefreshControl
 } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { MemberLanguage } from '../../services/LocalService/LanguageService';
 import { UserListService } from '../../services/UserService/UserService';
 import * as LocalService from '../../services/LocalService/LocalService';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import Feather from 'react-native-vector-icons/Feather';
 import languageConfig from '../../languages/languageConfig';
 import * as SCREEN from '../../context/screen/screenName';
+import RenderHTML from 'react-native-render-html';
+import Fontisto from 'react-native-vector-icons/Fontisto';
 import * as KEY from '../../context/actions/key';
 import * as FONT from '../../styles/typography';
 import * as COLOR from '../../styles/colors';
@@ -22,54 +27,74 @@ import Loader from '../../components/loader';
 import * as IMAGE from '../../styles/image';
 import styles from './OurSpecialistDetailsstyle';
 import moment from 'moment';
+import { firebase } from '@react-native-firebase/crashlytics';
 const WIDTH = Dimensions.get('window').width;
 
-const OurSpecialistDtails = () => {
-    const [loading, setLoading] = useState(false);
 
+const OurSpecialistDtails = (props) => {
+
+    const oursSpeacilistDetails = props.route.params.item;
+    const [profilepic, setProfilepic] = useState(null);
+
+    console.log("oursSpeacilistDetails", oursSpeacilistDetails)
     useEffect(() => {
         //LANGUAGE MANAGEMENT FUNCTION
         MemberLanguage();
+
     }, [])
-
-    useEffect(() => {
-    }, [loading])
-
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: COLOR.BACKGROUNDCOLOR }}>
             <StatusBar hidden={false} translucent={true} backgroundColor={COLOR.STATUSBARCOLOR} barStyle={KEY.DARK_CONTENT} />
-            <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={KEY.ALWAYS}>
+            <ScrollView>
                 <View style={styles.containerView}>
                     <View style={{ justifyContent: KEY.CENTER, alignItems: KEY.CENTER, marginTop: 20 }}>
                         <TouchableOpacity style={styles.viewRound}>
-                            <Image source={IMAGE.USERPROFILE}
-                                style={{ height: 95, width: 95, borderRadius: 100 }} />
+                            <Image source={!oursSpeacilistDetails && oursSpeacilistDetails.profilepic ? IMAGE.USERPROFILE : { uri: oursSpeacilistDetails.profilepic }}
+                                style={!profilepic ? { height: 70, width: 70, borderRadius: 100 } : { height: 75, width: 75, borderRadius: 100 }} />
                         </TouchableOpacity>
-                        <Text style={styles.text}>{'Krtya Member'}</Text>
-                        <Text style={styles.text1}>{'Mobile Developer Developer'}</Text>
+                        <Text style={styles.text}> {oursSpeacilistDetails.property.fullname}</Text>
+                        <Text style={styles.text1}> {oursSpeacilistDetails.designationid.title}</Text>
                     </View>
-
                     <View style={styles.cardView}>
-                        <View style={{ marginTop: 10, flexDirection: KEY.ROW }}>
+                        <View style={{ flexDirection: KEY.ROW }}>
                             <Text style={{
                                 fontSize: FONT.FONT_SIZE_16,
                                 fontWeight: FONT.FONT_WEIGHT_BOLD,
                                 color: COLOR.BLACK,
-                                marginLeft: 20
+                                marginLeft: 20,
+                                marginTop: 10
                             }}>{'About '}</Text>
                             <Text style={{
                                 fontSize: FONT.FONT_SIZE_16,
                                 fontWeight: FONT.FONT_WEIGHT_BOLD,
                                 color: COLOR.DEFALUTCOLOR,
-                                marginLeft: 0
+                                marginTop: 10
                             }}>{'Me'}</Text>
                         </View>
-
                         <Text style={styles.cardtext}>
-                            {`React Native Firebase provides native integration of Firebase Cloud Messaging (FCM) for both Android & iOS. FCM is a cost free service, allowing for server-device and device-device communication. The React Native Firebase Messaging module provides a simple JavaScript API to interact with FCM.`}
+                            <RenderHTML contentWidth={WIDTH - 60}
+                                source={{ html: oursSpeacilistDetails.property.discriptio_ge8h }}
+                                baseStyle={styles.tagsStyles}
+                            />
                         </Text>
-                    </View>
+                        <View style={{ flexDirection: KEY.ROW, alignItems: KEY.SPACEBETWEEN, marginLeft: 20, }}>
+                            <TouchableOpacity onPress={() => onPressCall(oursSpeacilistDetails)}
+                                style={{ alignItems: KEY.CENTER }}>
+                                <Feather size={18} name="phone-call" color={COLOR.DEFALUTCOLOR} style={{ marginRight: 5 }} />
+                            </TouchableOpacity>
+                            <Text style={{ fontSize: FONT.FONT_SIZE_14, color: COLOR.GRANITE_GRAY }}>
+                                {oursSpeacilistDetails.property.mobile}</Text>
+                        </View>
+                        <View style={{ flexDirection: KEY.ROW, alignItems: KEY.SPACEBETWEEN, marginLeft: 20, marginBottom: 10, marginTop: 10 }}>
+                            <TouchableOpacity onPress={() => onPressEmail(oursSpeacilistDetails)}
+                                style={{ alignItems: KEY.CENTER }}>
+                                <Fontisto size={18} name="email" color={COLOR.DEFALUTCOLOR} style={{ marginRight: 5 }} />
+                            </TouchableOpacity>
+                            <Text style={{ fontSize: FONT.FONT_SIZE_14, color: COLOR.GRANITE_GRAY }}>
+                                {oursSpeacilistDetails.property.primaryemail}</Text>
+                        </View>
 
+                    </View>
                     <View style={styles.viewRectangle}>
                         <View style={{ flexDirection: KEY.ROW, marginTop: 10, alignSelf: KEY.FLEX_START }}>
                             <View style={styles.rounfIconStyle}>
@@ -80,8 +105,8 @@ const OurSpecialistDtails = () => {
                                     <Text style={styles.rectangleText}>{languageConfig.workexperience}</Text>
                                     <Text style={{
                                         fontSize: FONT.FONT_SIZE_16, color: COLOR.BLACK,
-                                        fontWeight: FONT.FONT_WEIGHT_BOLD
-                                    }}>{'10 Years'}</Text>
+                                        fontWeight: FONT.FONT_BOLD
+                                    }}>{oursSpeacilistDetails.property.workexperience + ' ' + 'Years'}</Text>
                                 </View>
                             </View>
                         </View>
@@ -98,8 +123,8 @@ const OurSpecialistDtails = () => {
                                     <Text style={styles.rectangleText}>{languageConfig.ourgymjoinedsince}</Text>
                                     <Text style={{
                                         fontSize: FONT.FONT_SIZE_16, color: COLOR.BLACK,
-                                        fontWeight: FONT.FONT_WEIGHT_BOLD
-                                    }}>{moment().format('MMMM DD,YYYY')}</Text>
+                                        fontWeight: FONT.FONT_BOLD
+                                    }}>{moment(oursSpeacilistDetails.property.joiningdate).format('MMMM DD,YYYY')}</Text>
                                 </View>
                             </View>
                         </View>
@@ -116,8 +141,8 @@ const OurSpecialistDtails = () => {
                                     <Text style={styles.rectangleText}>{languageConfig.availabledays}</Text>
                                     <Text style={{
                                         fontSize: FONT.FONT_SIZE_16, textTransform: KEY.UPPERCASE, color: COLOR.BLACK,
-                                        fontWeight: FONT.FONT_WEIGHT_BOLD
-                                    }}>{'Monday - Friday'}</Text>
+                                        fontWeight: FONT.FONT_BOLD
+                                    }}>{oursSpeacilistDetails.branchid.workinghours.days[0] + ' - ' + oursSpeacilistDetails.branchid.workinghours.days[5]}</Text>
                                 </View>
                             </View>
                         </View>
@@ -134,15 +159,14 @@ const OurSpecialistDtails = () => {
                                     <Text style={styles.rectangleText}>{languageConfig.availabletime}</Text>
                                     <Text style={{
                                         fontSize: FONT.FONT_SIZE_16, textTransform: KEY.UPPERCASE, color: COLOR.BLACK,
-                                        fontWeight: FONT.FONT_WEIGHT_BOLD, flex: 1
-                                    }}>{'8.00 AM - 10.00 AM, 4.00 PM - 8.00 PM'}</Text>
+                                        fontWeight: FONT.FONT_BOLD, flex: 1
+                                    }}>{moment(oursSpeacilistDetails.branchid.workinghours.starttime, ["HH.mm"]).format("hh:mm ") + ' - ' + moment(oursSpeacilistDetails.branchid.workinghours.endtime, ["HH.mm"]).format("hh:mm ")}</Text>
                                 </View>
                             </View>
                         </View>
                     </View>
                 </View>
             </ScrollView>
-            {loading ? <Loader /> : null}
         </SafeAreaView>
     )
 }

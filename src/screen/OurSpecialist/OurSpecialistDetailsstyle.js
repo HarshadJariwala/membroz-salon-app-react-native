@@ -16,8 +16,8 @@ const styles = StyleSheet.create({
         justifyContent: KEY.CENTER
     },
     viewRound: {
-        height: 100,
-        width: 100,
+        height: 80,
+        width: 80,
         borderRadius: 100,
         borderColor: COLOR.DEFALUTCOLOR,
         borderWidth: 3,
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     text: {
         marginTop: 10,
         fontSize: FONT.FONT_SIZE_18,
-        fontWeight: FONT.FONT_WEIGHT_BOLD,
+        fontWeight: FONT.FONT_BOLD,
         color: COLOR.BLACK,
         textTransform: KEY.CAPITALIZE,
         justifyContent: KEY.CENTER,
@@ -44,12 +44,17 @@ const styles = StyleSheet.create({
         alignItems: KEY.CENTER
     },
     cardtext: {
-        marginTop: 3,
         fontSize: FONT.FONT_SIZE_16,
         color: COLOR.GRANITE_GRAY,
         marginLeft: 20,
         width: WIDTH - 60,
-        marginBottom: 10
+        marginTop: -10
+    },
+    tagsStyles: {
+        textAlign: KEY.LEFT,
+        fontSize: FONT.FONT_SIZE_16,
+        color: COLOR.BLACK,
+        width: WIDTH - 60,
     },
     cardView: {
         width: WIDTH - 30,

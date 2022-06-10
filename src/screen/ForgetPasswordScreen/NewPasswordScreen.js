@@ -33,7 +33,7 @@ const HEIGHT = Dimensions.get('window').height;
 
 const NewPasswordScreen = (props) => {
     const [backgroungImage, setBackgroungImage] = useState(null);
-    const memberName = props.route.params.userValue;
+    const memberName = props.route.userValue;
     const [newPassword, setNewPassword] = useState(null);
     const [newPassworderror, setNewPassworderror] = useState(null);
     const [rePassword, setRePassword] = useState(null);
