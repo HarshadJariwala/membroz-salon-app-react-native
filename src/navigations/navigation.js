@@ -11,13 +11,11 @@ import NEWPASSWORDSCREEN from '../screen/ForgetPasswordScreen/NewPasswordScreen'
 import NOTIFICATIONSCREEN from '../screen/NotificationScreen/NotificationScreen';
 import DOWNPAYMENTSCREEN from '../screen/PaymentDetailsScreen/DownPaymentScreen';
 import UPDATEPROFILESCREEN from '../screen/MyProfileScreen/UpdateProfileScreen';
-import TRAINERDETAILSCREEN from '../screen/TrainerScreen/TrainerDetailScreen';
 import MYPROFILESCREEN from '../screen/MyProfileScreen/MyProfileScreen';
 import EXPLORESCREEN from '../screen/ExploreLoginScreen/ExploreScreen';
 import EXPLORESTATUS from '../screen/ExploreLoginScreen/ExploreStatus';
 import REGISTERSCREEN from '../screen/RegisterScreen/RegisterScreen';
 import OFFERSCREEN from '../screen/ExploreLoginScreen/OfferScreen';
-import TRAINERSCREEN from '../screen/TrainerScreen/TrainerScreen';
 import SPLASHSCREEN from '../screen/SplashScreen/SplashScreen';
 import LOGINSCREEN from '../screen/LoginScreen/LoginScreen';
 import HOMESCREEN from '../screen/HomeScreen/HomeScreen';
@@ -33,12 +31,12 @@ import ACTIVITYCALENDERSCREEN from '../screen/ActivityCalenderScreen/ActivityCal
 import MYBOOKING from '../screen/MyBooking/MyBooking';
 import OURSPECIALIST from '../screen/OurSpecialist/OurSpecialist';
 import OURSPECIALISTDTAILS from '../screen/OurSpecialist/OurSpecialistDtails';
+import MENUSCREEN from '../screen/MenuScreen/MenuScreen';
+import OURSERVICESCREEN from '../screen/OurServiceScreen/OurServiceScreen';
 
 import { NotificationService } from '../services/NotificationService/NotificationService';
 import { MemberLanguage } from '../services/LocalService/LanguageService';
-import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import * as LocalService from '../services/LocalService/LocalService';
-import CustomDrawer from '../components/CustomDrawer/CustomDrawer';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import languageConfig from '../languages/languageConfig';
 import {
@@ -58,13 +56,36 @@ const Stack = createStackNavigator();
 
 //Structure for the navigatin Drawer
 const NavigationDrawerStructureLeft = (props) => {
-    const toggleDrawer = () => {
-        //Props to open/close the drawer
-        props.navigationProps.toggleDrawer();
-    };
+    const [memberProfilePic, setMemberProfilePic] = useState(null);
+
+    useEffect(() => {
+        getMemberDeatilsLocalStorage();
+    }, [])
+
+    //GET MEMBER DATA IN MOBILE LOCAL STORAGE
+    const getMemberDeatilsLocalStorage = async () => {
+        var memberInfo = await LocalService.LocalStorageService();
+        if (memberInfo) {
+            setMemberProfilePic(memberInfo?.profilepic);
+        }
+    }
+
+    useEffect(() => {
+    }, [memberProfilePic])
+
     return (
-        <TouchableOpacity onPress={() => toggleDrawer()} style={{}}>
-            {/*Donute Button Image */}
+        <TouchableOpacity onPress={() => props.navigationProps.navigate(SCREEN.MENUSCREEN)}>
+            {/* <Image
+                source={!memberProfilePic ? IMAGE.USERPROFILE : { uri: memberProfilePic }}
+                style={{
+                    width: 35,
+                    height: 35,
+                    borderRadius: 100,
+                    borderColor: COLOR.BLACK,
+                    borderWidth: 1,
+                    //marginLeft: 30
+                }}
+            /> */}
             <Image
                 source={IMAGE.MENUICON}
                 style={{
@@ -75,7 +96,7 @@ const NavigationDrawerStructureLeft = (props) => {
                 }}
             />
         </TouchableOpacity>
-    );
+    )
 }
 
 //Structure for the navigatin Drawer
@@ -199,14 +220,54 @@ const HomeStackScreen = ({ navigation }) => {
                     }
                 }}
             />
-        </Stack.Navigator>
-    )
-}
-
-const MyProfileStackScreen = ({ navigation }) => {
-    return (
-        <Stack.Navigator initialRouteName='MyProfileScreen'
-            screenOptions={{ headerShadowVisible: false }} >
+            <Stack.Screen
+                name="MenuScreen"
+                component={MENUSCREEN}
+                options={{
+                    title: '', //Set Header Title
+                    headerStyle: {
+                        backgroundColor: COLOR.BACKGROUNDCOLOR, //Set Header color
+                    },
+                    headerTintColor: COLOR.BLACK, //Set Header text color
+                    headerTitleAlign: KEY.CENTER,
+                    headerTitleStyle: {
+                        fontWeight: FONT.FONT_WEIGHT_MEDIAM, //Set Header text style
+                    }
+                }}
+            />
+            <Stack.Screen name="NotificationScreen"
+                component={NOTIFICATIONSCREEN}
+                options={{
+                    title: 'Notifications',
+                    headerStyle: {
+                        backgroundColor: COLOR.BACKGROUNDCOLOR, //Set Header color
+                    },
+                    headerTintColor: COLOR.BLACK, //Set Header text color
+                    headerTitleAlign: KEY.CENTER,
+                    headerTitleStyle: {
+                        fontWeight: FONT.FONT_WEIGHT_MEDIAM, //Set Header text style
+                    }
+                }} />
+            <Stack.Screen
+                name="OurServiceScreen"
+                component={OURSERVICESCREEN}
+                options={{
+                    title: 'Our Services', //Set Header Title
+                    headerLeft: () =>
+                        <NavigationDrawerStructureLeft
+                            navigationProps={navigation}
+                        />,
+                    headerRight: () => <NavigationDrawerStructureRight navigationProps={navigation} />,
+                    headerStyle: {
+                        backgroundColor: COLOR.BACKGROUNDCOLOR, //Set Header color
+                    },
+                    headerTintColor: COLOR.BLACK, //Set Header text color
+                    headerTitleAlign: KEY.CENTER,
+                    headerTitleStyle: {
+                        fontWeight: FONT.FONT_WEIGHT_MEDIAM, //Set Header text style
+                    }
+                }}
+            />
             <Stack.Screen
                 name="MyProfileScreen"
                 component={MYPROFILESCREEN}
@@ -227,7 +288,6 @@ const MyProfileStackScreen = ({ navigation }) => {
                     }
                 }}
             />
-
             <Stack.Screen
                 name="UpdateProfileScreen"
                 component={UPDATEPROFILESCREEN}
@@ -243,7 +303,6 @@ const MyProfileStackScreen = ({ navigation }) => {
                     }
                 }}
             />
-
             <Stack.Screen
                 name="PasswordChangeScreen"
                 component={PASSWORDCHANGESCREEN}
@@ -259,16 +318,8 @@ const MyProfileStackScreen = ({ navigation }) => {
                     }
                 }}
             />
-        </Stack.Navigator>
-    )
-}
-
-const PaymentStackScreen = ({ navigation }) => {
-    return (
-        <Stack.Navigator initialRouteName='PaymentDetailsScreen'
-            screenOptions={{ headerShadowVisible: false }}>
             <Stack.Screen
-                name="Payment"
+                name="PaymentDetailsScreen"
                 component={PAYMENTDETAILSSCREEN}
                 options={{
                     title: 'Payment', //Set Header Title
@@ -287,7 +338,6 @@ const PaymentStackScreen = ({ navigation }) => {
                     }
                 }}
             />
-
             <Stack.Screen
                 name="DownPaymentScreen"
                 component={DOWNPAYMENTSCREEN}
@@ -303,14 +353,6 @@ const PaymentStackScreen = ({ navigation }) => {
                     }
                 }}
             />
-        </Stack.Navigator>
-    )
-}
-
-const OurSpecialistStackScreen = ({ navigation }) => {
-    return (
-        <Stack.Navigator initialRouteName='OurSpecialist'
-            screenOptions={{ headerShadowVisible: false }}>
             <Stack.Screen
                 name="OurSpecialist"
                 component={OURSPECIALIST}
@@ -331,7 +373,6 @@ const OurSpecialistStackScreen = ({ navigation }) => {
                     }
                 }}
             />
-
             <Stack.Screen
                 name="OurSpecialistDtails"
                 component={OURSPECIALISTDTAILS}
@@ -347,14 +388,6 @@ const OurSpecialistStackScreen = ({ navigation }) => {
                     }
                 }}
             />
-        </Stack.Navigator>
-    )
-}
-
-const MemberShipStackScreen = ({ navigation }) => {
-    return (
-        <Stack.Navigator initialRouteName='MemberShipScreen'
-            screenOptions={{ headerShadowVisible: false }}>
             <Stack.Screen
                 name="MemberShipScreen"
                 component={MEMBERSHIPSCREEN}
@@ -375,14 +408,6 @@ const MemberShipStackScreen = ({ navigation }) => {
                     }
                 }}
             />
-        </Stack.Navigator>
-    )
-}
-
-const ContactUsStackScreen = ({ navigation }) => {
-    return (
-        <Stack.Navigator initialRouteName='ContactUsScreen'
-            screenOptions={{ headerShadowVisible: false }}>
             <Stack.Screen
                 name="ContactUsScreen"
                 component={CONTACTUSSCREEN}
@@ -419,15 +444,6 @@ const ContactUsStackScreen = ({ navigation }) => {
                     }
                 }}
             />
-
-        </Stack.Navigator>
-    )
-}
-
-const WalletStackScreen = ({ navigation }) => {
-    return (
-        <Stack.Navigator initialRouteName='WalletScreen'
-            screenOptions={{ headerShadowVisible: false }}>
             <Stack.Screen
                 name="WalletScreen"
                 component={WALLETSCREEN}
@@ -448,7 +464,6 @@ const WalletStackScreen = ({ navigation }) => {
                     }
                 }}
             />
-
             <Stack.Screen
                 name="WalletTransaction"
                 component={WALLETTRANSACTION}
@@ -469,14 +484,6 @@ const WalletStackScreen = ({ navigation }) => {
                     }
                 }}
             />
-        </Stack.Navigator>
-    )
-}
-
-const RewardPointStackScreen = ({ navigation }) => {
-    return (
-        <Stack.Navigator initialRouteName='RewardPointScreen'
-            screenOptions={{ headerShadowVisible: false }}>
             <Stack.Screen
                 name="RewardPointScreen"
                 component={REWARDPOINTSCREEN}
@@ -497,7 +504,6 @@ const RewardPointStackScreen = ({ navigation }) => {
                     }
                 }}
             />
-
             <Stack.Screen
                 name="RewardPointTransaction"
                 component={REWARDPOINTTRANSACTION}
@@ -514,14 +520,6 @@ const RewardPointStackScreen = ({ navigation }) => {
                     }
                 }}
             />
-        </Stack.Navigator>
-    )
-}
-
-const ActivityCalenderStackScreen = ({ navigation }) => {
-    return (
-        <Stack.Navigator initialRouteName='ActivityCalenderScreen'
-            screenOptions={{ headerShadowVisible: false }}>
             <Stack.Screen
                 name="ActivityCalenderScreen"
                 component={ACTIVITYCALENDERSCREEN}
@@ -542,14 +540,6 @@ const ActivityCalenderStackScreen = ({ navigation }) => {
                     }
                 }}
             />
-        </Stack.Navigator>
-    )
-}
-
-const InviteFriendStackScreen = ({ navigation }) => {
-    return (
-        <Stack.Navigator initialRouteName='InviteFriendScreen'
-            screenOptions={{ headerShadowVisible: false }}>
             <Stack.Screen
                 name="InviteFriendScreen"
                 component={INVITEFRIENDSCREEN}
@@ -570,14 +560,6 @@ const InviteFriendStackScreen = ({ navigation }) => {
                     }
                 }}
             />
-        </Stack.Navigator>
-    )
-}
-
-const MyBookingStackScreen = ({ navigation }) => {
-    return (
-        <Stack.Navigator initialRouteName='MyBooking'
-            screenOptions={{ headerShadowVisible: false }}>
             <Stack.Screen
                 name="MyBooking"
                 component={MYBOOKING}
@@ -598,14 +580,6 @@ const MyBookingStackScreen = ({ navigation }) => {
                     }
                 }}
             />
-        </Stack.Navigator>
-    )
-}
-
-const ExploreStackScreen = ({ navigation }) => {
-    return (
-        <Stack.Navigator initialRouteName='ExploreScreen'
-            screenOptions={{ headerShadowVisible: false }}>
             <Stack.Screen
                 name="ExploreScreen"
                 component={EXPLORESCREEN}
@@ -642,16 +616,6 @@ const ExploreStackScreen = ({ navigation }) => {
                     }
                 }}
             />
-
-
-        </Stack.Navigator>
-    )
-}
-
-const OfferStackScreen = ({ navigation }) => {
-    return (
-        <Stack.Navigator initialRouteName='OfferScreen'
-            screenOptions={{ headerShadowVisible: false }}>
             <Stack.Screen
                 name="OfferScreen"
                 component={OFFERSCREEN}
@@ -672,171 +636,7 @@ const OfferStackScreen = ({ navigation }) => {
                     }
                 }}
             />
-
         </Stack.Navigator>
-    )
-}
-
-const NavigationsDrawer = (props) => {
-    return (
-        <Drawer.Navigator initialRouteName="HomeScreen"
-            screenOptions={{
-                activeTintColor: COLOR.DEFALUTCOLOR,
-                drawerActiveTintColor: COLOR.DEFALUTCOLOR,
-                drawerActiveBackgroundColor: COLOR.WHITE,
-                drawerInactiveBackgroundColor: COLOR.WHITE,
-                drawerInactiveTintColor: COLOR.BLACK,
-                drawerLabelStyle: {
-                    fontWeight: FONT.FONT_NORMAL,
-                    fontSize: FONT.FONT_SIZE_16,
-                    margin: 0,
-                    marginLeft: -15
-                },
-                drawerItemStyle: { marginTop: -8 },
-                headerShown: false
-            }}
-            drawerContent={(props) => <CustomDrawer {...props} />}>
-            <Drawer.Screen
-                name="HomeScreen"
-                component={HomeStackScreen}
-                options={{
-                    drawerLabel: 'Home', drawerIcon: ({ color }) => (
-                        <Image source={IMAGE.HOMEICON}
-                            style={{ width: 20, height: 25, tintColor: color, marginBottom: -5 }} />
-                    )
-                }}
-            />
-            <Drawer.Screen
-                name="MyProfileScreen"
-                component={MyProfileStackScreen}
-                options={{
-                    drawerLabel: 'My Profile', drawerIcon: ({ color }) => (
-                        <Image source={IMAGE.USERICON}
-                            style={{ width: 20, height: 20, tintColor: color }} />
-                    )
-                }}
-            />
-            <Drawer.Screen
-                name="MemberShipStackScreen"
-                component={MemberShipStackScreen}
-                options={{
-                    drawerLabel: 'Membership', drawerIcon: ({ color }) => (
-                        <Image source={IMAGE.MEMBERSHIPICON}
-                            style={{ width: 20, height: 20, tintColor: color }} />
-                    )
-                }}
-            />
-            <Drawer.Screen
-                name="ourservices"
-                component={MemberShipStackScreen}
-                options={{
-                    drawerLabel: 'Our Services', drawerIcon: ({ color }) => (
-                        <Image source={IMAGE.TRAININGICON}
-                            style={{ width: 21, height: 21, tintColor: color }} />
-                    )
-                }}
-            />
-            <Drawer.Screen
-                name="mybooking"
-                component={MyBookingStackScreen}
-                options={{
-                    drawerLabel: 'My Booking', drawerIcon: ({ color }) => (
-                        <Image source={IMAGE.MYBOOKINGICON}
-                            style={{ width: 21, height: 21, tintColor: color }} />
-                    )
-                }}
-            />
-            <Drawer.Screen
-                name="OfferScreen"
-                component={OfferStackScreen}
-                options={{
-                    drawerLabel: 'Offers', drawerIcon: ({ color }) => (
-                        <Image source={IMAGE.OFFERS}
-                            style={{ width: 21, height: 21, tintColor: color }} />
-                    )
-                }}
-            />
-            <Drawer.Screen
-                name="DownPaymentScreen"
-                component={PaymentStackScreen}
-                options={{
-                    drawerLabel: 'Payment', drawerIcon: ({ color }) => (
-                        <Image source={IMAGE.MONEYICON}
-                            style={{ width: 24, height: 18, tintColor: color }} />
-                    )
-                }}
-            />
-            <Drawer.Screen
-                name="OurSpecialist"
-                component={OurSpecialistStackScreen}
-                options={{
-                    drawerLabel: 'Our Specialist', drawerIcon: ({ color }) => (
-                        <Image source={IMAGE.USERGROUPICON}
-                            style={{ width: 20, height: 20, tintColor: color }} />
-                    )
-                }}
-            />
-            <Drawer.Screen
-                name="exploresalon"
-                component={ExploreStackScreen}
-                options={{
-                    drawerLabel: 'Explore Salon', drawerIcon: ({ color }) => (
-                        <Image source={IMAGE.EXPLOREICON}
-                            style={{ width: 20, height: 20, tintColor: color }} />
-                    )
-                }}
-            />
-            <Drawer.Screen
-                name="WalletScreen"
-                component={WalletStackScreen}
-                options={{
-                    drawerLabel: 'Wallet', drawerIcon: ({ color }) => (
-                        <Image source={IMAGE.WALLET}
-                            style={{ width: 20, height: 20, tintColor: color }} />
-                    )
-                }}
-            />
-            <Drawer.Screen
-                name="RewardPointScreen"
-                component={RewardPointStackScreen}
-                options={{
-                    drawerLabel: 'Reward Points', drawerIcon: ({ color }) => (
-                        <Image source={IMAGE.REWARDPOINT}
-                            style={{ width: 20, height: 20, tintColor: color }} />
-                    )
-                }}
-            />
-            <Drawer.Screen
-                name="activitycalender"
-                component={ActivityCalenderStackScreen}
-                options={{
-                    drawerLabel: 'Activity Calender', drawerIcon: ({ color }) => (
-                        <Image source={IMAGE.ACTIVITYCALENDERICON}
-                            style={{ width: 21, height: 21, tintColor: color }} />
-                    )
-                }}
-            />
-            <Drawer.Screen
-                name="InviteFriendScreen"
-                component={InviteFriendStackScreen}
-                options={{
-                    drawerLabel: 'Invite a friend', drawerIcon: ({ color }) => (
-                        <Image source={IMAGE.INVITEICON}
-                            style={{ width: 22, height: 18, tintColor: color }} />
-                    )
-                }}
-            />
-            <Drawer.Screen
-                name="ContactUsScreen"
-                component={ContactUsStackScreen}
-                options={{
-                    drawerLabel: 'Contact Us', drawerIcon: ({ color }) => (
-                        <Image source={IMAGE.CONTACT}
-                            style={{ width: 20, height: 20, tintColor: color }} />
-                    )
-                }}
-            />
-        </Drawer.Navigator>
     )
 }
 
@@ -845,21 +645,8 @@ export default NavigationsApp = () => {
         <NavigationContainer>
             <Stack.Navigator initialRouteName="SplashScreen" screenOptions={{ headerShadowVisible: false }}>
                 <Stack.Screen name="SplashScreen" component={SPLASHSCREEN} options={{ headerShown: false }} />
-                <Stack.Screen name="NotificationScreen"
-                    component={NOTIFICATIONSCREEN}
-                    options={{
-                        title: 'Notifications',
-                        headerStyle: {
-                            backgroundColor: COLOR.BACKGROUNDCOLOR, //Set Header color
-                        },
-                        headerTintColor: COLOR.BLACK, //Set Header text color
-                        headerTitleAlign: KEY.CENTER,
-                        headerTitleStyle: {
-                            fontWeight: FONT.FONT_WEIGHT_MEDIAM, //Set Header text style
-                        }
-                    }} />
                 <Stack.Screen name="Auth" component={AuthStackScreen} options={{ headerShown: false }} />
-                <Stack.Screen name="NavigationsDrawer" component={NavigationsDrawer} options={{ headerShown: false }} />
+                <Stack.Screen name="MainScreen" component={HomeStackScreen} options={{ headerShown: false }} />
             </Stack.Navigator>
         </NavigationContainer>
     )

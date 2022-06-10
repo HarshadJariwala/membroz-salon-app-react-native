@@ -57,7 +57,6 @@ const OurServiceScreen = () => {
             setMemberID(memberInfo?._id);
             setMemberInfo(memberInfo?._id);
             getServiceCategoryList();
-            getServiceList();
         }
     }
 
@@ -66,7 +65,10 @@ const OurServiceScreen = () => {
         try {
             const response = await ServiceList();
             if (response.data != null && response.data != 'undefind' && response.status == 200) {
-                setServiceCategoryList(response.data);
+                let allOption = { _id: "12345678963", selected: true, property: { name: "all" } }
+                let temArry = [allOption, ...response.data];
+                setServiceCategoryList(temArry);
+                getServiceList();
             }
         } catch (error) {
             setLoading(false);
@@ -78,6 +80,7 @@ const OurServiceScreen = () => {
     const getServiceList = async (id) => {
         try {
             const response = await ServiceTypeList(id);
+            console.log(`response.data getServiceList`, response.data);
             if (response.data != null && response.data != 'undefind' && response.status == 200) {
                 setServiceList(response.data);
                 setLoading(false);
@@ -96,11 +99,48 @@ const OurServiceScreen = () => {
         wait(3000).then(() => setrefreshing(false));
     }
 
+    //THIS FUNCTION ONPRESS CATEGORY LIST ITEM
+    const onPressCategoryListItem = (item, index) => {
+        const categoryItem = serviceCategoryList.map((item, index) => {
+            item.selected = false;
+            return item;
+        });
+        categoryItem[index].selected = true;
+        setServiceCategoryList(categoryItem);
+        setSelectCategory(item._id);
+        getServiceList(item._id);
+    }
+
+    //RENDER CATAGORY LIST
+    const renderCategoryItem = ({ item, index }) => (
+        item.selected == true ?
+            <TouchableOpacity style={styles.activeTabStyle}
+                onPress={() => onPressCategoryListItem(item, index)}>
+                <Text style={styles.activeTextStyle}>
+                    {item.property.name}</Text>
+            </TouchableOpacity>
+            :
+            <TouchableOpacity style={styles.deactiveTabStyle}
+                onPress={() => onPressCategoryListItem(item, index)}>
+                <Text style={styles.deactiveTextStyle}>
+                    {item.property.name}</Text>
+            </TouchableOpacity>
+    )
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: COLOR.BACKGROUNDCOLOR }}>
             <StatusBar hidden={false} translucent={true} backgroundColor={COLOR.STATUSBARCOLOR} barStyle={KEY.DARK_CONTENT} />
-            <ScrollView showsVerticalScrollIndicator={false}>
+            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                <FlatList
+                    style={{ paddingBottom: 10 }}
+                    showsHorizontalScrollIndicator={false}
+                    numColumns={serviceCategoryList && serviceCategoryList.length}
+                    key={serviceCategoryList && serviceCategoryList.length}
+                    data={serviceCategoryList}
+                    renderItem={renderCategoryItem}
+                    keyExtractor={item => item._id}
+                    keyboardShouldPersistTaps={KEY.ALWAYS}
+                />
             </ScrollView>
             {loading ? <Loader /> : null}
         </SafeAreaView>

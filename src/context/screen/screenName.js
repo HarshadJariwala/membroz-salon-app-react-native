@@ -1,5 +1,5 @@
 export const AUTH = 'Auth';
-export const NAVIGATIONSDRAWER = 'NavigationsDrawer';
+export const MAINSCREEN = 'MainScreen';
 export const HOMESCREEN = 'HomeScreen';
 export const SPLASHSCREEN = 'SplashScreen';
 export const LOGINSCREEN = 'LoginScreen';
@@ -16,8 +16,6 @@ export const NOTIFICATIONSCREEN = 'NotificationScreen';
 export const DOWNPAYMENTSCREEN = 'DownPaymentScreen';
 export const PAYMENTDETAILSSCREEN = 'PaymentDetailsScreen';
 export const PASSWORDCHANGESCREEN = 'PasswordChangeScreen';
-export const TRAINERSCREEN = 'TrainerScreen';
-export const TRAINERDETAILSCREEN = 'TrainerDetailScreen';
 export const MEMBERSHIPSCREEN = 'MemberShipScreen';
 export const INVITEFRIENDSCREEN = 'InviteFriendScreen';
 export const WALLETSCREEN = 'WalletScreen';
@@ -34,6 +32,9 @@ export const OURSERVICEDETAILSCREEN = 'OurServiceDetailScreen';
 export const BOOKSERVICESCREEN = 'BookServiceScreen';
 export const BOOKINGPAYMENT = 'BookingPayment';
 export const WISHLISTSCREEN = 'WishlistScreen';
+export const MENUSCREEN = 'MenuScreen';
+export const CONTACTUSSCREEN = 'ContactUsScreen';
+
 
 
 

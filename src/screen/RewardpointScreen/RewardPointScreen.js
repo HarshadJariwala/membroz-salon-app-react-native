@@ -107,7 +107,11 @@ const RewardPointScreen = (props) => {
         try {
             const response = await WalletDetailService(memberID);
             if (response.data != null && response.data != undefined && response.status === 200) {
-                setwalletBalance(response.data[0].walletbalance.toFixed(2));
+                setwalletBalance(
+                    response.data && response.data[0] && response.data[0].walletbalance
+                        ? response.data[0].walletbalance.toFixed(2) :
+                        '0'
+                );
             }
         } catch (error) {
             setLoading(false);

@@ -109,7 +109,7 @@ export default LoginScreen = (props) => {
                 //set header auth user key
                 axiosConfig(token);
                 resetScreen();
-                props.navigation.replace(SCREEN.NAVIGATIONSDRAWER);
+                props.navigation.replace(SCREEN.MAINSCREEN);
                 Toast.show(languageConfig.loginsuccess, Toast.SHORT);
             }
         } catch (error) {

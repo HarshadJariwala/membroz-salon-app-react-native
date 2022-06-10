@@ -6,7 +6,14 @@ export const ServiceList = () => {
             [
                 { "searchfield": "status", "searchvalue": "active", "criteria": "eq", "datatype": "text" },
                 { "searchfield": "formid", "searchvalue": "5e426741d466f1115c2e7d50", "criteria": "eq", "datatype": "objectId" }
-            ], "formname": "treatment"
+            ],
+        "select": [
+            {
+                "fieldname": "property",
+                "value": "1"
+            }
+        ],
+        "formname": "treatment"
     }
     return Axios.post('formdatas/filter', body);
 }
