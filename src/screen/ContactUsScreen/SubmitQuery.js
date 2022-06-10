@@ -326,13 +326,29 @@ const SubmitQuery = (props) => {
                                 fontSize: FONT.FONT_SIZE_18
                             }}>{languageConfig.helptext}</Text>
                         </View>
-                        <View>
+                        <View style={{ justifyContent: KEY.CENTER, alignItems: KEY.CENTER }}>
                             <SelectDropdown
-                                buttonTextStyle={{ color: category ? COLOR.BLACK : COLOR.X11_GRAY, textAlign: KEY.LEFT, marginLeft: 20, fontSize: FONT.FONT_SIZE_16 }}
-                                defaultButtonText="Select category"
+                                buttonTextStyle={{
+                                    color: category ? COLOR.BLACK : COLOR.LIGHT_BLACK,
+                                    textAlign: KEY.LEFT, marginLeft: 10, fontSize: FONT.FONT_SIZE_16
+                                }}
+                                defaultButtonText={languageConfig.SelectCategoryText}
                                 data={data}
-                                dropdownStyle={{ color: COLOR.PLACEHOLDER_COLOR_2, marginBottom: 20, marginLeft: 5 }}
-                                buttonStyle={{ width: WIDTH - 30, backgroundColor: KEY.TRANSPARENT, color: COLOR.PLACEHOLDER_COLOR_2, marginBottom: 0 }}
+                                dropdownStyle={{ color: COLOR.GRANITE_GRAY, marginBottom: 20, marginLeft: 5 }}
+                                buttonStyle={{
+                                    marginTop: 15,
+                                    backgroundColor: COLOR.WHITE,
+                                    color: COLOR.LIGHT_BLACK,
+                                    marginBottom: 5,
+                                    borderRadius: 5,
+                                    borderWidth: 1,
+                                    borderColor: COLOR.TEXTINPUTCOLOR,
+                                    width: WIDTH - 60,
+                                    height: 45,
+                                    backgroundColor: COLOR.WHITE,
+                                    borderBottomRightRadius: 20,
+                                    borderTopLeftRadius: 20,
+                                }}
                                 renderDropdownIcon={() => <Ionicons name="chevron-down" size={20} color={COLOR.BLACK} />}
                                 dropdownIconPosition={"right"}
                                 onSelect={(selectedItem, index) => {
@@ -340,7 +356,7 @@ const SubmitQuery = (props) => {
                                 }}
                                 onChangeText={(category) => CheckCategory(category)}
                             />
-                            {
+                            {/* {
                                 !categoryError ?
 
                                     <View
@@ -364,14 +380,15 @@ const SubmitQuery = (props) => {
                                             color: COLOR.BLACK
                                         }}
                                     />
-                            }
+                            } */}
                         </View>
                         <View style={{ marginLeft: 20, marginTop: 10 }}>
                             <TextInput placeholder={languageConfig.subjecttext}
-                                placeholderTextColor={COLOR.X11_GRAY}
-                                selectionColor={COLOR.BLACK}
+                                placeholderTextColor={COLOR.LIGHT_BLACK}
+                                selectionColor={COLOR.DEFALUTCOLOR}
                                 returnKeyType={KEY.NEXT}
                                 defaultValue={subject}
+                                autoCapitalize={KEY.NONE}
                                 style={!subjectError ? styles.inputTextView1 : styles.inputTextViewError1}
                                 blurOnSubmit={false}
                                 onSubmitEditing={() => firstTextInputRef.current.focus()}
@@ -380,10 +397,11 @@ const SubmitQuery = (props) => {
                         </View>
                         <View style={{ marginLeft: 20, marginTop: 10 }}>
                             <TextInput placeholder={languageConfig.contactnumberText}
-                                placeholderTextColor={COLOR.X11_GRAY}
-                                selectionColor={COLOR.GRANITE_GRAY}
+                                placeholderTextColor={COLOR.LIGHT_BLACK}
+                                selectionColor={COLOR.DEFALUTCOLOR}
                                 keyboardType='number-pad'
                                 defaultValue={contactNo}
+                                autoCapitalize={KEY.NONE}
                                 returnKeyType={KEY.DONE}
                                 style={!contactNoError ? styles.inputTextView1 : styles.inputTextViewError1}
                                 blurOnSubmit={false}
@@ -394,10 +412,11 @@ const SubmitQuery = (props) => {
                         </View>
                         <View style={{ marginLeft: 20, marginTop: 10 }}>
                             <TextInput placeholder={languageConfig.emailtext}
-                                placeholderTextColor={COLOR.X11_GRAY}
-                                selectionColor={COLOR.GRANITE_GRAY}
+                                placeholderTextColor={COLOR.LIGHT_BLACK}
+                                selectionColor={COLOR.DEFALUTCOLOR}
                                 keyboardType='email-address'
                                 defaultValue={email}
+                                autoCapitalize={KEY.NONE}
                                 returnKeyType={KEY.NEXT}
                                 style={!emailError ? styles.inputTextView1 : styles.inputTextViewError1}
                                 blurOnSubmit={false}
@@ -408,10 +427,11 @@ const SubmitQuery = (props) => {
                         </View>
                         <View style={{ marginLeft: 20, marginTop: 10 }}>
                             <TextInput placeholder={languageConfig.meassgetext}
-                                placeholderTextColor={COLOR.X11_GRAY}
-                                selectionColor={COLOR.GRANITE_GRAY}
+                                placeholderTextColor={COLOR.LIGHT_BLACK}
+                                selectionColor={COLOR.DEFALUTCOLOR}
                                 returnKeyType={KEY.DONE}
                                 defaultValue={meassge}
+                                autoCapitalize={KEY.NONE}
                                 style={!meassgeError ? styles.inputTextView1 : styles.inputTextViewError1}
                                 blurOnSubmit={false}
                                 ref={thirdTextInputRef}

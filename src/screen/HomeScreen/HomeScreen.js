@@ -123,7 +123,6 @@ const HomeScreen = (props) => {
     //GET MEMBER DATA IN MOBILE LOCAL STORAGE
     const getMemberDeatilsLocalStorage = async () => {
         var memberInfo = await LocalService.LocalStorageService();
-        console.log(`memberInfo`, memberInfo);
         const response = getCurrency(memberInfo.branchid.currency);
         if (memberInfo) {
             getmemberid = memberInfo?._id;
@@ -469,6 +468,16 @@ const HomeScreen = (props) => {
             </View>
     )
 
+    //THIS FUNCTION USE TO RENEW MEMBERSHIP
+    const onPressRenewMemberShip = () => {
+        props.navigation.navigate(SCREEN.MEMBERSHIPSCREEN);
+    }
+
+    //THIS FUNCTION USE TO DUE PAYMENT
+    const onPressDuePayment = () => {
+        props.navigation.navigate(SCREEN.WALLETSCREEN);
+    }
+
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: COLOR.BACKGROUNDCOLOR }}>
             <StatusBar hidden={false} translucent={true} backgroundColor={COLOR.STATUSBARCOLOR} barStyle={KEY.DARK_CONTENT} />
@@ -493,7 +502,7 @@ const HomeScreen = (props) => {
                                 </View>
                             </View>
                             <View style={{ flex: 1, alignItems: KEY.FLEX_END, marginTop: 10 }}>
-                                <TouchableOpacity style={styles.btnStyle} >
+                                <TouchableOpacity style={styles.btnStyle} onPress={() => onPressRenewMemberShip()}>
                                     <Text style={{
                                         fontWeight: FONT.FONT_BOLD, textTransform: KEY.CAPITALIZE,
                                         color: COLOR.WHITE, fontSize: FONT.FONT_SIZE_14
@@ -519,7 +528,7 @@ const HomeScreen = (props) => {
                                 </View>
                             </View>
                             <View style={{ flex: 1, alignItems: KEY.FLEX_END, marginTop: 10 }}>
-                                <TouchableOpacity style={styles.btnStyle} >
+                                <TouchableOpacity style={styles.btnStyle} onPress={() => onPressDuePayment()}>
                                     <Text style={{
                                         fontWeight: FONT.FONT_BOLD, textTransform: KEY.CAPITALIZE,
                                         color: COLOR.WHITE, fontSize: FONT.FONT_SIZE_14

@@ -112,7 +112,6 @@ const WalletTransaction = () => {
     const wallateBillList = async (memberID) => {
         try {
             const response = await WallettxnsListService(memberID);
-            console.log(`response.data`, response.data);
             if (response.data != null && response.data != 'undefind' && response.status === 200) {
                 setLoading(false);
                 setwallateHistory(response.data);
@@ -202,17 +201,19 @@ const WalletTransaction = () => {
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: COLOR.BACKGROUNDCOLOR }}>
             <StatusBar hidden={false} translucent={true} backgroundColor={COLOR.STATUSBARCOLOR} barStyle={KEY.DARK_CONTENT} />
-            <View style={styles.listTab}>
-                {
-                    ListTab.map((g, item) => (
-                        <TouchableOpacity style={[styles.deactiveTabStyle, status === g.status && styles.activeTabStyle]} onPress={() => setStatusFilter(g.status, item)}>
-                            <Text style={[styles.deactiveTextStyle, status === g.status && styles.activeTextStyle]}>
-                                {g.status}
-                            </Text>
-                        </TouchableOpacity>
-                    ))
-                }
-            </View>
+            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                <View style={styles.listTab}>
+                    {
+                        ListTab.map((g, item) => (
+                            <TouchableOpacity style={[styles.deactiveTabStyle, status === g.status && styles.activeTabStyle]} onPress={() => setStatusFilter(g.status, item)}>
+                                <Text style={[styles.deactiveTextStyle, status === g.status && styles.activeTextStyle]}>
+                                    {g.status}
+                                </Text>
+                            </TouchableOpacity>
+                        ))
+                    }
+                </View>
+            </ScrollView>
             <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={KEY.ALWAYS}>
                 <View style={{ justifyContent: KEY.CENTER, alignItems: KEY.CENTER }}>
                     <FlatList

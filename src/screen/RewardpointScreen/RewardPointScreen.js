@@ -24,8 +24,6 @@ import styles from './RewardPointStyle';
 const HEIGHT = Dimensions.get('window').height;
 const WIDTH = Dimensions.get('window').width;
 
-
-
 const RewardPointScreen = (props) => {
     const [loading, setLoading] = useState(false);
     const [memberID, setMemberID] = useState(null);
@@ -38,8 +36,6 @@ const RewardPointScreen = (props) => {
         MemberLanguage();
         getrewardList();
         getMemberDeatilsLocalStorage();
-
-
     }, []);
 
     useEffect(() => {
@@ -49,27 +45,26 @@ const RewardPointScreen = (props) => {
     const getMemberDeatilsLocalStorage = async () => {
         var memberInfo = await LocalService.LocalStorageService();
         if (memberInfo) {
-            //console.log("memberInfo", memberInfo)
             setMemberID(memberInfo?._id);
             getWallatBalance(memberInfo?._id);
         }
     }
+
     //GET FETCH REWARD POINT DATA FROM API
     const getrewardList = async () => {
         setLoading(true);
         try {
             const response = await OfferService();
             if (response.data != null && response.data != 'undefind' && response.status == 200) {
-                //console.log(`response`, response)
                 setrewardPointlist(response.data);
                 setLoading(false);
             }
         } catch (error) {
-            console.log("error", error);
             setLoading(false);
             firebase, crashlytics().recordError(error);
         }
     }
+
     //OFFERS RENDER FUNCTION
     const renderRewardPoint = ({ item }) => (
         <TouchableOpacity style={{ marginBottom: 0 }}>
@@ -92,6 +87,7 @@ const RewardPointScreen = (props) => {
             </TouchableOpacity>
         </TouchableOpacity>
     )
+
     //TIME OUT FUNCTION
     const wait = (timeout) => {
         return new Promise(resolve => {
@@ -108,19 +104,17 @@ const RewardPointScreen = (props) => {
 
     //GET WALLATE BALANCE API CALL
     const getWallatBalance = async (memberID) => {
-        console.log("getWallatBalance")
         try {
             const response = await WalletDetailService(memberID);
             if (response.data != null && response.data != undefined && response.status === 200) {
-                console.log("response.data", response.data)
                 setwalletBalance(response.data[0].walletbalance.toFixed(2));
             }
         } catch (error) {
-            console.log(`error`, error)
             setLoading(false);
             firebase.crashlytics().recordError(error);
         }
     }
+
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: COLOR.BACKGROUNDCOLOR }}>
             <StatusBar hidden={false} translucent={true} backgroundColor={COLOR.STATUSBARCOLOR} barStyle={KEY.DARK_CONTENT} />

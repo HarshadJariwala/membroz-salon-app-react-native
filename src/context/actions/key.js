@@ -34,6 +34,9 @@ export const UPPERCASE = 'uppercase'
 export const SEARCH = 'Search'
 export const FLEXEND = 'flex-end'
 export const DASHED = 'dashed'
+export const NONE = 'none'
+export const LEFT = 'left'
+
 
 
 
