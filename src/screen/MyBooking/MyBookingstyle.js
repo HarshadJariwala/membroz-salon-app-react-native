@@ -76,7 +76,6 @@ const styles = StyleSheet.create({
         fontWeight: FONT.FONT_BOLD,
         textTransform: KEY.CAPITALIZE,
         color: COLOR.DEFALUTCOLOR
-
     },
     tabActive: {
         width: "50%",
@@ -84,8 +83,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: 2
     },
     modal: {
-        width: WIDTH - 50,
-        height: WIDTH * 0.7,
+        width: WIDTH - 30,
         borderRadius: 20,
         alignSelf: KEY.CENTER,
         alignItems: KEY.CENTER,
@@ -100,11 +98,11 @@ const styles = StyleSheet.create({
         height: 50,
         borderRadius: 100,
         borderColor: COLOR.RED,
-        borderWidth: 1,
-
+        borderWidth: 2,
+        marginTop: 20
     },
     modeltext: {
-        fontWeight: FONT.FONT_WEIGHT_MEDIAM,
+        fontWeight: FONT.FONT_BOLD,
         alignSelf: KEY.CENTER
     },
     modelbutton: {
@@ -115,15 +113,13 @@ const styles = StyleSheet.create({
         marginRight: 10,
         marginLeft: 10,
         borderBottomRightRadius: 20,
-        borderTopLeftRadius: 20,
-        borderRadius: 2
+        borderTopLeftRadius: 20
     },
     model_button: {
         fontSize: FONT.FONT_SIZE_18,
-        fontWeight: FONT.FONT_WEIGHT_MEDIAM,
+        fontWeight: FONT.FONT_BOLD,
         color: COLOR.WHITE
-
-    },
+    }
 })
 
 export default styles;
