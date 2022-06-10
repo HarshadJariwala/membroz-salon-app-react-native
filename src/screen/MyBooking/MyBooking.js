@@ -331,7 +331,7 @@ const MyBooking = (props) => {
                                         <MaterialCommunityIcons name='close' size={30} color={COLOR.RED} />
                                     </View>
                                     <View style={{ marginTop: 10, marginBottom: 10 }}>
-                                        <Text style={[styles.modeltext, { fontSize: FONT.FONT_SIZE_16, color: COLOR.RED }]}>{languageConfig.Areyousureyouwanttotext}</Text>
+                                        <Text style={[styles.modeltext, { fontSize: FONT.FONT_SIZE_16, color: COLOR.RED }]}>{languageConfig.areyousureyouwanttotext}</Text>
                                         <Text style={[styles.modeltext, { fontSize: FONT.FONT_SIZE_16, color: COLOR.RED }]}>{languageConfig.cancelthisbookingtext}</Text>
                                     </View>
                                     <View style={{}}>
