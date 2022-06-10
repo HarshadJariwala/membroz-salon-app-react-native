@@ -83,6 +83,47 @@ const styles = StyleSheet.create({
         borderBottomColor: COLOR.DEFALUTCOLOR,
         borderBottomWidth: 2
     },
+    modal: {
+        width: WIDTH - 50,
+        height: WIDTH * 0.7,
+        borderRadius: 20,
+        alignSelf: KEY.CENTER,
+        alignItems: KEY.CENTER,
+        justifyContent: KEY.CENTER,
+        backgroundColor: COLOR.WHITE,
+        marginTop: "50%",
+    },
+    modelcircle: {
+        justifyContent: KEY.CENTER,
+        alignItems: KEY.CENTER,
+        width: 50,
+        height: 50,
+        borderRadius: 100,
+        borderColor: COLOR.RED,
+        borderWidth: 1,
+
+    },
+    modeltext: {
+        fontWeight: FONT.FONT_WEIGHT_MEDIAM,
+        alignSelf: KEY.CENTER
+    },
+    modelbutton: {
+        justifyContent: KEY.CENTER,
+        alignItems: KEY.CENTER,
+        height: 45,
+        width: 150,
+        marginRight: 10,
+        marginLeft: 10,
+        borderBottomRightRadius: 20,
+        borderTopLeftRadius: 20,
+        borderRadius: 2
+    },
+    model_button: {
+        fontSize: FONT.FONT_SIZE_18,
+        fontWeight: FONT.FONT_WEIGHT_MEDIAM,
+        color: COLOR.WHITE
+
+    },
 })
 
 export default styles;

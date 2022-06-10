@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, isValidElement } from 'react';
 import {
     View, Text, SafeAreaView,
     ScrollView, StatusBar, FlatList,
     RefreshControl, Dimensions,
-    Image, TouchableOpacity,
+    Image, TouchableOpacity, Modal, Button
 } from 'react-native';
 import {
     getBookingHistoryListService,
@@ -14,12 +14,14 @@ import { MemberLanguage } from '../../services/LocalService/LanguageService';
 import crashlytics, { firebase } from "@react-native-firebase/crashlytics";
 import * as LocalService from '../../services/LocalService/LocalService';
 import getCurrency from '../../services/getCurrencyService/getCurrency';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import languageConfig from '../../languages/languageConfig';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import * as SCREEN from '../../context/screen/screenName';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather';
 import Loader from '../../components/loader/index';
+import Model from 'react-native-modal';
 import * as KEY from '../../context/actions/key';
 import * as FONT from "../../styles/typography";
 import Toast from 'react-native-simple-toast';
@@ -27,6 +29,7 @@ import * as COLOR from "../../styles/colors";
 import * as IMAGE from "../../styles/image";
 import styles from './MyBookingstyle';
 import moment from 'moment';
+import { Value } from 'react-native-reanimated';
 const WIDTH = Dimensions.get('window').width;
 const HEIGHT = Dimensions.get('window').height;
 
@@ -49,7 +52,18 @@ const MyBooking = (props) => {
     const [currencySymbol, setCurrencySymbol] = useState(null);
     const [refreshing, setrefreshing] = useState(false);
     const [memberInfo, setMemberInfo] = useState(null);
+    const [selectedItem, setSelectItem] = useState(null);
+    const [isModalVisible, setisModelVisible] = useState(false);
+    const [showprofileModalVisible, setshowProfileModalVisible] = useState(false);
 
+    // const changeModelVisible = (bool) => {
+    //     setisModelVisible(bool);
+    // }
+
+    // colseModal = (bool, data) => {
+    //     props.changeModelVisible(bool);
+    //     props.setData(data);
+    // }
     const setStatusFilter = (status, index) => {
         const tab = ListTab.map((item) => {
             item.selected = false;
@@ -190,36 +204,48 @@ const MyBooking = (props) => {
                     </View>
                 </View>
                 <View style={{ alignSelf: KEY.FLEX_END, marginTop: -14 }}>
-                    <TouchableOpacity style={styles.upgrade} onPress={() => onPressCancelBooking(item)} >
+                    <TouchableOpacity style={styles.upgrade} onPress={() => onPressCancelBooking(item)}>
                         <Text style={styles.textbutton}>
                             {languageConfig.cancel}
                         </Text>
                     </TouchableOpacity>
                 </View>
+
             </View>
         </View>
     )
 
     //CANCEL BUTTON CLICK TO CALL THIS FUNCTION 
     const onPressCancelBooking = async (item) => {
-        setLoading(true);
-        let body = { status: "deleted" };
-        try {
-            const response = await patchAppointmentService(item._id, body);
-            if (response.data != null && response.data != 'undefind' && response.status == 200) {
-                Toast.show(languageConfig.bookingcancelsuccessmessage, Toast.SHORT);
-                await getHistoryList(memberInfo._id);
-                await getBookingList(memberInfo._id);
+        setshowProfileModalVisible(true);
+        selectedItem(item);
+    }
+
+    //CANCEL BUTTON CLICK TO CALL THIS FUNCTION 
+    const onPressConfirmBooking = async () => {
+        if (selectedItem) {
+            setLoading(true);
+            let body = { status: "deleted" };
+            try {
+                const response = await patchAppointmentService(item._id, body);
+                if (response.data != null && response.data != 'undefind' && response.status == 200) {
+                    Toast.show(languageConfig.bookingcancelsuccessmessage, Toast.SHORT);
+                    setshowProfileModalVisible(false)
+                    await getHistoryList(memberInfo._id);
+                    await getBookingList(memberInfo._id);
+                }
+            } catch (error) {
+                console.log(`error`, error)
+                Toast.show(languageConfig.bookingproblemmessage, Toast.SHORT);
+                firebase.crashlytics().recordError(error);
+                setLoading(false);
             }
-        } catch (error) {
-            Toast.show(languageConfig.bookingproblemmessage, Toast.SHORT);
-            firebase.crashlytics().recordError(error);
-            setLoading(false);
         }
+
     }
 
     return (
-        <SafeAreaView style={{ flex: 1, alignItems: KEY.CENTER, backgroundColor: COLOR.BACKGROUNDCOLOR }}>
+        <SafeAreaView style={{ flex: 1, alignItems: KEY.CENTER, backgroundColor: COLOR.WHITE }}>
             <StatusBar hidden={false} translucent={false} barStyle={KEY.DARK_CONTENT} backgroundColor={COLOR.STATUSBARCOLOR} />
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View style={styles.listTab}>
@@ -291,9 +317,64 @@ const MyBooking = (props) => {
                         />
                     </SafeAreaView>
                 }
+                {
+                    <Modal
+                        animationType={'fade'}
+                        transparent={true}
+                        visible={showprofileModalVisible}
+                        onRequestClose={() => setshowProfileModalVisible(!showprofileModalVisible)}>
+                        <View style={{ backgroundColor: "rgba(0,0,0,0.5)", flex: 1 }}>
+                            <View style={styles.modal}>
+                                <View style={{ marginTop: -10, marginBottom: -10, justifyContent: KEY.CENTER, alignItems: KEY.CENTER, }}>
+                                    <View style={styles.modelcircle}>
+                                        <MaterialCommunityIcons name='close' size={30} color={COLOR.RED} />
+                                    </View>
+                                    <View style={{ marginTop: 10, marginBottom: 10 }}>
+                                        <Text style={[styles.modeltext, { fontSize: FONT.FONT_SIZE_16, color: COLOR.RED }]}>{"Are you sure, you want to"}</Text>
+                                        <Text style={[styles.modeltext, { fontSize: FONT.FONT_SIZE_16, color: COLOR.RED }]}>{"cancel this booking?"}</Text>
+                                    </View>
+                                    <View style={{}}>
+                                        <Text style={[styles.modeltext, { fontSize: FONT.FONT_SIZE_14, color: COLOR.BLACK }]}>{"Hair Cut"}</Text>
+                                    </View>
+                                    <View style={{ flexDirection: KEY.ROW, marginTop: 5, }}>
+                                        <Ionicons name='location-outline' size={20} color={COLOR.DEFALUTCOLOR} />
+                                        <Text numberOfLines={1}
+                                            style={{ marginLeft: 5, fontSize: FONT.FONT_SIZE_14, color: COLOR.LIGHT_BLACK }}>
+                                            {"Mplace"}
+                                        </Text>
+                                    </View>
+                                    <View style={{ flexDirection: KEY.ROW }}>
+                                        <View style={{ flexDirection: KEY.ROW, marginTop: 5 }}>
+                                            <Feather name='calendar' size={20} color={COLOR.DEFALUTCOLOR} />
+                                            <Text numberOfLines={1}
+                                                style={{ marginLeft: 5, fontSize: FONT.FONT_SIZE_14, color: COLOR.LIGHT_BLACK }}>
+                                                {"Jan 08 2022"}
+                                            </Text>
+                                        </View>
+                                    </View>
+
+                                    <View style={{ flexDirection: KEY.ROW, marginTop: 30 }}>
+                                        <TouchableOpacity style={[styles.modelbutton, { backgroundColor: COLOR.LIGHT_RED }]} onPress={() => onPressConfirmBooking()}  >
+                                            <Text style={styles.model_button}>
+                                                {"Yes"}
+                                            </Text>
+                                            {/* <Button onPress={() => props.navigation.navigate('RegistrationScreen')} /> */}
+                                        </TouchableOpacity >
+                                        <TouchableOpacity style={[styles.modelbutton, { backgroundColor: COLOR.LIGHT_GREEN }]} onPress={() => setshowProfileModalVisible(false)}>
+                                            <Text style={styles.model_button}>
+                                                {"No"}
+                                            </Text>
+                                            {/* <Button onPress={() => props.navigation.navigate('RegistrationScreen')} /> */}
+                                        </TouchableOpacity >
+                                    </View>
+                                </View>
+                            </View>
+                        </View>
+                    </Modal>
+                }
             </ScrollView>
             {loading ? <Loader /> : null}
-        </SafeAreaView>
+        </SafeAreaView >
     )
 }
 
