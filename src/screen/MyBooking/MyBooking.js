@@ -21,7 +21,7 @@ import * as SCREEN from '../../context/screen/screenName';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather';
 import Loader from '../../components/loader/index';
-import Model from 'react-native-modal';
+
 import * as KEY from '../../context/actions/key';
 import * as FONT from "../../styles/typography";
 import Toast from 'react-native-simple-toast';

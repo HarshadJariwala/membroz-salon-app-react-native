@@ -55,8 +55,8 @@ const styles = StyleSheet.create({
         borderRadius: 10
     },
     viewRound: {
-        height: 100,
-        width: 100,
+        height: 80,
+        width: 80,
         borderRadius: 100,
         borderColor: COLOR.DEFALUTCOLOR,
         borderWidth: 3,
