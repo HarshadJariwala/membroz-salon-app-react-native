@@ -104,12 +104,14 @@ const styles = StyleSheet.create({
     },
     inputView2: {
         backgroundColor: COLOR.DEFALUTCOLOR,
-        borderRadius: 30,
+        borderRadius: 5,
         height: 45,
-        width: WIDTH - 40,
+        width: WIDTH - 30,
         margin: 20,
         justifyContent: KEY.CENTER,
-        alignItems: KEY.CENTER
+        alignItems: KEY.CENTER,
+        borderBottomRightRadius: 20,
+        borderTopLeftRadius: 20,
 
     },
     Share_button: {

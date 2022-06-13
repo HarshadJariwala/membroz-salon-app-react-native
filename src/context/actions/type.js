@@ -2,6 +2,7 @@
 //AUTH USER KEY NAME
 export const AUTHUSER = '@authusermember'
 export const REMOTEDATA = '@remotedata'
+export const WISHLISTS = '@wishlist'
 export const AUTHUSERINFO = '@authmemberinfo'
 export const CLOUD_URL = 'https://api.cloudinary.com/v1_1/membroz/upload';
 export const UPLOAD_PRESET = 'egi2wepr';

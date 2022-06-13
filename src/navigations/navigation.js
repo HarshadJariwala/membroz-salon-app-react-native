@@ -33,6 +33,8 @@ import OURSPECIALIST from '../screen/OurSpecialist/OurSpecialist';
 import OURSPECIALISTDTAILS from '../screen/OurSpecialist/OurSpecialistDtails';
 import MENUSCREEN from '../screen/MenuScreen/MenuScreen';
 import OURSERVICESCREEN from '../screen/OurServiceScreen/OurServiceScreen';
+import WISHLISTSCREEN from '../screen/WishlistScreen/WishlistScreen';
+
 
 import { NotificationService } from '../services/NotificationService/NotificationService';
 import { MemberLanguage } from '../services/LocalService/LanguageService';
@@ -545,6 +547,26 @@ const HomeStackScreen = ({ navigation }) => {
                 component={INVITEFRIENDSCREEN}
                 options={{
                     title: 'Invite a friend', //Set Header Title
+                    headerLeft: () =>
+                        <NavigationDrawerStructureLeft
+                            navigationProps={navigation}
+                        />,
+                    headerRight: () => <NavigationDrawerStructureRight navigationProps={navigation} />,
+                    headerStyle: {
+                        backgroundColor: COLOR.BACKGROUNDCOLOR, //Set Header color
+                    },
+                    headerTintColor: COLOR.BLACK, //Set Header text color
+                    headerTitleAlign: KEY.CENTER,
+                    headerTitleStyle: {
+                        fontWeight: FONT.FONT_WEIGHT_MEDIAM, //Set Header text style
+                    }
+                }}
+            />
+            <Stack.Screen
+                name="WishlistScreen"
+                component={WISHLISTSCREEN}
+                options={{
+                    title: 'Wishlist', //Set Header Title
                     headerLeft: () =>
                         <NavigationDrawerStructureLeft
                             navigationProps={navigation}

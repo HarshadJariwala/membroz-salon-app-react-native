@@ -35,7 +35,7 @@ export const ServiceTypeList = (id) => {
         {
             "search":
                 [
-                    { "searchfield": "status", "searchvalue": "active", "criteria": "eq" }
+                    { "searchfield": "status", "searchvalue": "active", "criteria": "eq", "datatype": "text" }
                 ]
         }
     }

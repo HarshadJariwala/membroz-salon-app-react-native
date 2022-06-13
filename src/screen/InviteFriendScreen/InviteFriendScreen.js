@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
-    View, Text, Dimensions, SafeAreaView, FlatList,
+    View, Text, Dimensions, SafeAreaView, FlatList, Share,
     Image, TextInput, ScrollView, TouchableOpacity, StatusBar, Keyboard, Platform
 } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -36,6 +36,28 @@ const InviteFriendScreen = () => {
         if (memberInfo) {
             setMemberInfo(memberInfo);
             setMemberNumber(memberInfo?.membernumber);
+        }
+    }
+
+    //SHARE BUTTON CLICK
+    const onPressShare = async () => {
+        try {
+            const result = await Share.share({
+                title: 'Salon App',
+                message: `Please install this app and stay safe , AppLink :https://play.google.com/store/apps/developer?id=KRTYA+TECHNOLOGIES&hl=en_US&gl=US`,
+                url: `https://play.google.com/store/apps/developer?id=KRTYA+TECHNOLOGIES&hl=en_US&gl=US`
+            });
+            if (result.action === Share.sharedAction) {
+                if (result.activityType) {
+                    // shared with activity type of result.activityType
+                } else {
+                    // shared
+                }
+            } else if (result.action === Share.dismissedAction) {
+                // dismissed
+            }
+        } catch (error) {
+            //alert(error.message);
         }
     }
 
@@ -101,17 +123,15 @@ const InviteFriendScreen = () => {
                     </View>
                     <View style={{ flexDirection: KEY.COLUMN, marginTop: 10 }}>
                         <Text style={{ color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD, fontSize: FONT.FONT_SIZE_16, marginLeft: 2 }}>{languageConfig.Titletext}</Text>
-                        <Text style={{ fontSize: FONT.FONT_SIZE_14, }}>{languageConfig.onetext}</Text>
-                        <Text style={{ fontSize: FONT.FONT_SIZE_14 }}>{languageConfig.secondtext}</Text>
-                        <Text style={{ fontSize: FONT.FONT_SIZE_14 }}>{languageConfig.threetext}</Text>
+                        <Text style={{ fontSize: FONT.FONT_SIZE_14, color: COLOR.BLACK }}>{languageConfig.onetext}</Text>
+                        <Text style={{ fontSize: FONT.FONT_SIZE_14, color: COLOR.BLACK }}>{languageConfig.secondtext}</Text>
+                        <Text style={{ fontSize: FONT.FONT_SIZE_14, color: COLOR.BLACK }}>{languageConfig.threetext}</Text>
                     </View>
-                    <TouchableOpacity >
+                    <TouchableOpacity onPress={() => onPressShare()}>
                         <View style={styles.inputView2}  >
-
                             <Text style={styles.Share_button}>
-                                {languageConfig.sharenowtext}
+                                {"Share Now"}
                             </Text>
-                            {/* <Button onPress={() => props.navigation.navigate('RegistrationScreen')} /> */}
                         </View>
                     </TouchableOpacity>
                 </View>

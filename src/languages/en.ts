@@ -329,6 +329,7 @@ export default {
     leavestext: "Leaves",
     carryforwordtext: "Carry Forword Leave",
     exploresurge: "Explore Surge",
+    mintext: "min",
 
     //menu text
     updatenow: "Update Now",

@@ -61,7 +61,7 @@ const RewardPointScreen = (props) => {
             }
         } catch (error) {
             setLoading(false);
-            firebase, crashlytics().recordError(error);
+            firebase.crashlytics().recordError(error);
         }
     }
 

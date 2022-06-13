@@ -255,7 +255,7 @@ const MyProfileScreen = ({ navigation }) => {
                             borderWidth: 0.2, marginTop: 5, borderColor: COLOR.LINE_COLOR,
                             marginRight: 15, marginLeft: 15, width: WIDTH - 60
                         }} />
-                        <TouchableOpacity onPress={() => { navigation.navigate(SCREEN.PASSWORDCHANGESCREEN) }}>
+                        <TouchableOpacity onPress={() => navigation.navigate(SCREEN.PASSWORDCHANGESCREEN)}>
                             <View style={styles.viewCard}>
                                 <View style={styles.rounfIconStyle}>
                                     <AntDesign name='lock' size={20} color={COLOR.DEFALUTCOLOR} />
@@ -270,7 +270,7 @@ const MyProfileScreen = ({ navigation }) => {
                             borderWidth: 0.2, marginTop: 5, borderColor: COLOR.LINE_COLOR,
                             marginRight: 15, marginLeft: 15, width: WIDTH - 60
                         }} />
-                        <TouchableOpacity onPress={() => { }}>
+                        <TouchableOpacity onPress={() => navigation.navigate(SCREEN.WISHLISTSCREEN)}>
                             <View style={styles.viewCard}>
                                 <View style={styles.rounfIconStyle}>
                                     <AntDesign name='hearto' size={20} color={COLOR.DEFALUTCOLOR} />
