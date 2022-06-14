@@ -190,13 +190,13 @@ const MyProfileScreen = ({ navigation }) => {
                     <StatusBar hidden={false} translucent={true} backgroundColor={COLOR.STATUSBARCOLOR} barStyle={Platform.OS === 'ios' ? KEY.DARK_CONTENT : KEY.DARK_CONTENT} />
             }
             <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={KEY.ALWAYS}>
-                <View style={{ justifyContent: KEY.CENTER, alignItems: KEY.CENTER }}>
+                <View style={{ justifyContent: KEY.CENTER, alignItems: KEY.CENTER, marginTop: 20 }}>
                     <TouchableOpacity style={styles.viweRound}>
                         <Image source={!memberProfilePic ? IMAGE.USERPROFILE : { uri: memberProfilePic }}
                             style={{ height: 95, width: 95, borderRadius: 100 }} />
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.roundProfileStyle} onPress={() => setshowProfileModalVisible(true)}>
-                        <Ionicons name='camera-outline' size={20} color={COLOR.WHITE} />
+                        <Ionicons name='camera-outline' size={22} color={COLOR.WHITE} />
                     </TouchableOpacity>
                     <Text style={styles.text}>{memberName}</Text>
                 </View>
@@ -212,7 +212,7 @@ const MyProfileScreen = ({ navigation }) => {
                                     <Text style={styles.rectangleText}>{languageConfig.membersince}</Text>
                                     <Text style={{
                                         fontSize: FONT.FONT_SIZE_16, color: COLOR.BLACK,
-                                        fontWeight: FONT.FONT_WEIGHT_BOLD
+                                        fontWeight: FONT.FONT_BOLD
                                     }}>{moment(memberJoinDate).format('DD MMMM YYYY')}</Text>
                                 </View>
                             </View>
@@ -223,14 +223,14 @@ const MyProfileScreen = ({ navigation }) => {
                         }} />
                         <View style={{ flexDirection: KEY.ROW, marginTop: 5, alignSelf: KEY.FLEX_START }}>
                             <View style={styles.rounfIconStyle}>
-                                <Text style={{ color: COLOR.DEFALUTCOLOR, fontWeight: FONT.FONT_WEIGHT_BOLD, fontSize: FONT.FONT_SIZE_12 }}>{'123'}</Text>
+                                <Text style={{ color: COLOR.DEFALUTCOLOR, fontWeight: FONT.FONT_BOLD, fontSize: FONT.FONT_SIZE_12 }}>{'123'}</Text>
                             </View>
                             <View style={{ flexDirection: KEY.COLUMN, marginLeft: -2 }}>
                                 <View style={{ marginLeft: 15, marginBottom: 10 }}>
                                     <Text style={styles.rectangleText}>{languageConfig.memberid}</Text>
                                     <Text style={{
                                         fontSize: FONT.FONT_SIZE_16, textTransform: KEY.UPPERCASE, color: COLOR.BLACK,
-                                        fontWeight: FONT.FONT_WEIGHT_BOLD
+                                        fontWeight: FONT.FONT_BOLD
                                     }}>{memberNumber}</Text>
                                 </View>
                             </View>
