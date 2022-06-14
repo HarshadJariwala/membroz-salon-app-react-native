@@ -331,6 +331,7 @@ export default {
     exploresurge: "Explore Surge",
     mintext: "min",
     continuetext: "continue",
+    ordersummarytext: "Order Summary",
 
     //menu text
     updatenow: "Update Now",

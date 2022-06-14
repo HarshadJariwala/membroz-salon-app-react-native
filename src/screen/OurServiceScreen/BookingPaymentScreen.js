@@ -132,8 +132,8 @@ const BookingPaymentScreen = (props) => {
                                 <Feather name='check' size={18} color={COLOR.DEFALUTCOLOR} />
                             </TouchableOpacity>
                             <View style={{ flexDirection: KEY.COLUMN, marginLeft: 15, marginBottom: 10 }}>
-                                <Text style={{ fontSize: FONT.FONT_SIZE_18, color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD, }}>{"Wallet"}</Text>
-                                <Text style={{ color: COLOR.LIGHT_BLACK, fontSize: FONT.FONT_SIZE_16 }}>{"Your current balance $20"}</Text>
+                                <Text style={{ fontSize: FONT.FONT_SIZE_18, color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD }}>{"Wallet"}</Text>
+                                <Text style={{ color: COLOR.LIGHT_BLACK, fontSize: FONT.FONT_SIZE_14 }}>{"Your current balance $20"}</Text>
                             </View>
                         </View>
                     </View>
@@ -148,8 +148,8 @@ const BookingPaymentScreen = (props) => {
                             </TouchableOpacity>
                             <View style={{ flexDirection: KEY.COLUMN, marginBottom: 10, marginTop: 10, marginLeft: 15 }}>
                                 <Text style={{ fontSize: FONT.FONT_SIZE_16, color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD }}>{"Magpie"}</Text>
-                                <Text style={{ fontSize: FONT.FONT_SIZE_16, color: COLOR.LIGHT_BLACK }}>{'Instant payment via UPI/Debit/Credit Card '}</Text>
-                                <Text style={{ fontSize: FONT.FONT_SIZE_16, color: COLOR.LIGHT_BLACK }}>{'using any bank account'}</Text>
+                                <Text style={{ fontSize: FONT.FONT_SIZE_14, color: COLOR.LIGHT_BLACK }}>{'Instant payment via UPI/Debit/Credit Card '}</Text>
+                                <Text style={{ fontSize: FONT.FONT_SIZE_14, color: COLOR.LIGHT_BLACK }}>{'using any bank account'}</Text>
                             </View>
                         </View>
                     </View>
@@ -163,8 +163,8 @@ const BookingPaymentScreen = (props) => {
                             </TouchableOpacity>
                             <View style={{ flexDirection: KEY.COLUMN, marginBottom: 10, marginTop: 10, marginLeft: 15 }}>
                                 <Text style={{ fontSize: FONT.FONT_SIZE_16, color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD }}>{"Pay at Salon"}</Text>
-                                <Text style={{ fontSize: FONT.FONT_SIZE_16, color: COLOR.LIGHT_BLACK }}>{'You can pay your service bill at salon on'}</Text>
-                                <Text style={{ fontSize: FONT.FONT_SIZE_16, color: COLOR.LIGHT_BLACK }}>{'Arrival'}</Text>
+                                <Text style={{ fontSize: FONT.FONT_SIZE_14, color: COLOR.LIGHT_BLACK }}>{'You can pay your service bill at salon on'}</Text>
+                                <Text style={{ fontSize: FONT.FONT_SIZE_14, color: COLOR.LIGHT_BLACK }}>{'Arrival'}</Text>
                             </View>
                         </View>
                     </View>

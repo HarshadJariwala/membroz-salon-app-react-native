@@ -130,8 +130,7 @@ const styles = StyleSheet.create({
         borderTopRightRadius: 5,
     },
     login_button: {
-        fontSize: FONT.FONT_SIZE_18,
-        borderRadius: 30,
+        fontSize: FONT.FONT_SIZE_16,
         fontWeight: FONT.FONT_BOLD,
         color: COLOR.WHITE
     },
@@ -149,7 +148,8 @@ const styles = StyleSheet.create({
         marginBottom: 20,
     },
     text_line: {
-        color: COLOR.LIGHT_BLACK
+        color: COLOR.BLACK,
+        fontWeight: FONT.FONT_NORMAL
     }
 })
 
