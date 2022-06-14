@@ -36,10 +36,29 @@ const OurSpecialistDtails = (props) => {
     const oursSpeacilistDetails = props.route.params.item;
     const [profilepic, setProfilepic] = useState(null);
 
+    let days = oursSpeacilistDetails.branchid.workinghours.days;
+    let firstdays = days[0];
+    let lastdays = days[days.length - 1];
+
+    // getdays = async () => {
+    //     let days = ['mon', 'ths', 'wed', 'tue', 'fri', 'sat'];
+    //     let first = days[0];
+    //     let last = days[days.length - 1];
+    //     const alldays = getdays(oursSpeacilistDetails.branchid.workinghours.days)
+
+    // }
+
+
+
+
+
+
+
     console.log("oursSpeacilistDetails", oursSpeacilistDetails)
     useEffect(() => {
         //LANGUAGE MANAGEMENT FUNCTION
         MemberLanguage();
+
 
     }, [])
     return (
@@ -142,7 +161,7 @@ const OurSpecialistDtails = (props) => {
                                     <Text style={{
                                         fontSize: FONT.FONT_SIZE_16, textTransform: KEY.UPPERCASE, color: COLOR.BLACK,
                                         fontWeight: FONT.FONT_BOLD
-                                    }}>{oursSpeacilistDetails.branchid.workinghours.days[0] + ' - ' + oursSpeacilistDetails.branchid.workinghours.days[5]}</Text>
+                                    }}>{firstdays + ' - ' + lastdays}</Text>
                                 </View>
                             </View>
                         </View>

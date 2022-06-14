@@ -444,7 +444,7 @@ export default {
     membersince: "Member Since",
     memberid: "Member Id",
     myprofile: "My Profile",
-    mywishlist: "My Wish List",
+    mywishlist: "My Wishlist",
     paymentdue: "Payment Due",
     recenettransactions: "Recent Transactions",
     upcoming: "Upcoming",
