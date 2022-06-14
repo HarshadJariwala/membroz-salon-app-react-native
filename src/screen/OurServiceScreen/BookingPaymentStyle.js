@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
         margin: 10,
     },
     text: {
-        fontSize: FONT.FONT_SIZE_20,
+        fontSize: FONT.FONT_SIZE_18,
         color: COLOR.BLACK,
         fontWeight: FONT.FONT_BOLD,
     },
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
         color: COLOR.BLACK,
         fontWeight: FONT.FONT_BOLD,
         marginTop: 10,
-        marginBottom: 10,
+
         marginLeft: 10,
         marginRight: 10
     },
@@ -84,22 +84,24 @@ const styles = StyleSheet.create({
         justifyContent: KEY.CENTER,
         alignItems: KEY.CENTER,
         borderRadius: 6,
-        width: 24,
-        height: 24,
+        width: 20,
+        height: 20,
         borderColor: COLOR.DEFALUTCOLOR,
         borderWidth: 1,
         marginTop: 10,
         marginBottom: 10,
-        marginLeft: 10
+        marginLeft: 15
     },
     round: {
         justifyContent: KEY.CENTER,
         alignItems: KEY.CENTER,
         borderWidth: 1,
         borderRadius: 100,
-        width: 25,
-        height: 25,
+        width: 20,
+        height: 20,
         borderColor: COLOR.DEFALUTCOLOR,
+        marginLeft: 15
+
     },
     round1: {
         //borderWidth: 1,

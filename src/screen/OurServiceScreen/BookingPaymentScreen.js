@@ -37,7 +37,7 @@ const BookingPaymentScreen = (props) => {
                 </View>
                 <View style={{ justifyContent: KEY.CENTER, alignItems: KEY.CENTER, }}>
                     <View style={styles.cardview}>
-                        <View style={{ flexDirection: KEY.ROW, marginTop: 10 }}>
+                        <View style={{ flexDirection: KEY.ROW, marginTop: 15 }}>
                             <View style={styles.rounfIconStyle1}>
                                 <Image source={IMAGE.ACTIVITYCALENDERICON} style={{ tintColor: COLOR.DEFALUTCOLOR, height: 16, width: 16 }} />
                             </View>
@@ -63,9 +63,9 @@ const BookingPaymentScreen = (props) => {
                             </View>
                         </View>
                         <View style={styles.line} />
-                        <View style={{ flexDirection: KEY.ROW, marginTop: 8, marginBottom: 10 }}>
+                        <View style={{ flexDirection: KEY.ROW, marginTop: 8, marginBottom: 15 }}>
                             <View style={styles.rounfIconStyle1}>
-                                <Image source={IMAGE.TIME2ICON} style={{ tintColor: COLOR.DEFALUTCOLOR, height: 20, width: 16 }} />
+                                <Image source={IMAGE.STOPWATCHICON} style={{ tintColor: COLOR.DEFALUTCOLOR, height: 20, width: 16 }} />
                             </View>
                             <View style={{ flexDirection: KEY.COLUMN }}>
                                 <View style={{ marginLeft: 15 }}>
@@ -84,7 +84,7 @@ const BookingPaymentScreen = (props) => {
                 <View style={{ justifyContent: KEY.CENTER, alignItems: KEY.CENTER, marginTop: 10 }}>
                     <View style={styles.cardview}>
                         <View>
-                            <View style={{ flex: 1, flexDirection: KEY.ROW, justifyContent: KEY.SPACEBETWEEN, }}>
+                            <View style={{ flex: 1, flexDirection: KEY.ROW, justifyContent: KEY.SPACEBETWEEN, marginTop: 5 }}>
                                 <Text style={styles.text1}> {"Hair Cut"} </Text>
                                 <Text style={styles.text1}> {"$25"} </Text>
                             </View>
@@ -93,13 +93,7 @@ const BookingPaymentScreen = (props) => {
                                 <Text style={styles.text1}> {"$25"} </Text>
                             </View>
                         </View>
-                        <View style={{
-                            borderWidth: 0.2,
-                            borderColor: COLOR.BRIGHT_GRAY,
-                            marginRight: 15,
-                            marginLeft: 15,
-                            width: WIDTH - 60,
-                        }} />
+                        <View style={styles.line} />
                         <View style={{}}>
                             <View style={{ flex: 1, flexDirection: KEY.ROW, justifyContent: KEY.SPACEBETWEEN, }}>
                                 <Text style={styles.text1}> {"Sub Total"} </Text>
@@ -110,17 +104,10 @@ const BookingPaymentScreen = (props) => {
                                 <Text style={styles.text1}> {"-$10"} </Text>
                             </View>
                         </View>
-                        <View style={{
-                            borderWidth: 0.2,
-                            borderColor: COLOR.BRIGHT_GRAY,
-                            marginRight: 15,
-                            marginLeft: 15,
-                            width: WIDTH - 60,
-
-                        }} />
-                        <View style={{ flexDirection: KEY.ROW, justifyContent: KEY.SPACEBETWEEN, }}>
+                        <View style={styles.line} />
+                        <View style={{ flexDirection: KEY.ROW, justifyContent: KEY.SPACEBETWEEN, marginBottom: 5 }}>
                             <Text style={{
-                                fontSize: FONT.FONT_SIZE_18,
+                                fontSize: FONT.FONT_SIZE_20,
                                 color: COLOR.DEFALUTCOLOR,
                                 fontWeight: FONT.FONT_BOLD,
                                 marginTop: 10,
@@ -128,7 +115,7 @@ const BookingPaymentScreen = (props) => {
                                 marginLeft: 10
                             }}> {"Total"} </Text>
                             <Text style={{
-                                fontSize: FONT.FONT_SIZE_18,
+                                fontSize: FONT.FONT_SIZE_20,
                                 color: COLOR.DEFALUTCOLOR,
                                 fontWeight: FONT.FONT_BOLD,
                                 marginTop: 10,
@@ -142,9 +129,9 @@ const BookingPaymentScreen = (props) => {
                     <View style={styles.cardview}>
                         <View style={{ flexDirection: KEY.ROW, marginTop: 15, marginBottom: 10 }}>
                             <TouchableOpacity style={styles.checkbox}>
-                                <Feather name='check' size={18} color={COLOR.DEFALUTCOLOR} style={{}} />
+                                <Feather name='check' size={18} color={COLOR.DEFALUTCOLOR} />
                             </TouchableOpacity>
-                            <View style={{ flexDirection: KEY.COLUMN, marginLeft: 10, marginBottom: 10 }}>
+                            <View style={{ flexDirection: KEY.COLUMN, marginLeft: 15, marginBottom: 10 }}>
                                 <Text style={{ fontSize: FONT.FONT_SIZE_18, color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD, }}>{"Wallet"}</Text>
                                 <Text style={{}}>{"Your current balance $20"}</Text>
                             </View>
@@ -153,13 +140,13 @@ const BookingPaymentScreen = (props) => {
                 </View>
                 <View style={{ alignItems: KEY.CENTER, justifyContent: KEY.CENTER, flexDirection: KEY.ROW, marginTop: 15 }}>
                     <View style={styles.cardview}>
-                        <View style={{ flexDirection: KEY.ROW, }}>
-                            <TouchableOpacity style={{ justifyContent: KEY.CENTER, alignItems: KEY.CENTER, marginLeft: 10 }}>
+                        <View style={{ flexDirection: KEY.ROW, marginBottom: 5 }}>
+                            <TouchableOpacity style={{ justifyContent: KEY.CENTER, alignItems: KEY.CENTER }}>
                                 <View style={styles.round}>
-                                    <FontAwesome name="circle" size={22} color={COLOR.DEFALUTCOLOR} />
+                                    <FontAwesome name="circle" size={16} color={COLOR.DEFALUTCOLOR} />
                                 </View>
                             </TouchableOpacity>
-                            <View style={{ flexDirection: KEY.COLUMN, marginBottom: 10, marginTop: 10, marginLeft: 10 }}>
+                            <View style={{ flexDirection: KEY.COLUMN, marginBottom: 10, marginTop: 10, marginLeft: 15 }}>
                                 <Text style={{ fontSize: FONT.FONT_SIZE_16, color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD }}>{"Magpie"}</Text>
                                 <Text style={{ fontSize: FONT.FONT_SIZE_16, }}>{'Instant payment via UPI/Debit/Credit Card '}</Text>
                                 <Text style={{ fontSize: FONT.FONT_SIZE_16, }}>{'using any bank account'}</Text>
@@ -170,11 +157,11 @@ const BookingPaymentScreen = (props) => {
                 <View style={{ alignItems: KEY.CENTER, justifyContent: KEY.CENTER, flexDirection: KEY.ROW, marginTop: 15, }}>
                     <View style={styles.cardview}>
                         <View style={{ flexDirection: KEY.ROW, }}>
-                            <TouchableOpacity style={{ justifyContent: KEY.CENTER, alignItems: KEY.CENTER, marginLeft: 10 }}>
+                            <TouchableOpacity style={{ justifyContent: KEY.CENTER, alignItems: KEY.CENTER, }}>
                                 <View style={styles.round}>
                                 </View>
                             </TouchableOpacity>
-                            <View style={{ flexDirection: KEY.COLUMN, marginBottom: 10, marginTop: 10, marginLeft: 10 }}>
+                            <View style={{ flexDirection: KEY.COLUMN, marginBottom: 10, marginTop: 10, marginLeft: 15 }}>
                                 <Text style={{ fontSize: FONT.FONT_SIZE_16, color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD }}>{"Pay at Salon"}</Text>
                                 <Text style={{ fontSize: FONT.FONT_SIZE_16, }}>{'You can pay your service bill at salon on'}</Text>
                                 <Text style={{ fontSize: FONT.FONT_SIZE_16, }}>{'Arrival'}</Text>
