@@ -7,17 +7,20 @@ const WIDTH = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
     cardview: {
-        backgroundColor: COLOR.WHITE,
-        borderRadius: 10,
         width: WIDTH - 30,
+        borderRadius: 10,
+        backgroundColor: COLOR.WHITE,
         shadowColor: COLOR.BLACK,
         shadowOffset: {
             width: 0,
             height: 2,
         },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 5,
+        shadowOpacity: 0.23,
+        shadowRadius: 2.62,
+        elevation: 4,
+        marginLeft: 10,
+        marginRight: 10
+
     },
     rounfIconStyle: {
         justifyContent: KEY.CENTER,
@@ -25,16 +28,16 @@ const styles = StyleSheet.create({
         borderRadius: 100,
         width: 50,
         height: 50,
-        borderColor: COLOR.DEFALUTCOLOR,
+        borderColor: COLOR.LIGHT_GREEN,
         borderWidth: 2,
-        margin: 10
+        marginTop: 15,
     },
     text: {
         fontSize: FONT.FONT_SIZE_18,
         color: COLOR.BLACK,
         fontWeight: FONT.FONT_BOLD,
-        marginTop: 10,
-        marginLeft: 5,
+        marginTop: 15,
+        marginLeft: 15,
         marginBottom: 10
     },
     rounfIconStyle1: {
@@ -44,9 +47,9 @@ const styles = StyleSheet.create({
         width: 30,
         height: 30,
         borderColor: COLOR.DEFALUTCOLOR,
-        borderWidth: 2,
+        borderWidth: 1,
         marginTop: 10,
-        marginLeft: 10
+        marginLeft: 15
     },
     line: {
         borderBottomWidth: 1,
@@ -54,7 +57,7 @@ const styles = StyleSheet.create({
         marginRight: 15,
         marginLeft: 15,
         width: WIDTH - 60,
-        marginTop: 10
+        marginTop: 8,
     },
     text1: {
         fontSize: FONT.FONT_SIZE_16,

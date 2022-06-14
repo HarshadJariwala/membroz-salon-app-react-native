@@ -553,4 +553,9 @@ export default {
     sundaytext: "sunday",
     requestforsupporttext: "Request for support",
     systemenhancementstext: "System Enhancements",
+
+    // booking compelete
+    starttimetext: "Start Time",
+    datetext: "Date",
+    bookingdetails: "Booking Details",
 }

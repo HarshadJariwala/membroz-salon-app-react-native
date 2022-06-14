@@ -23,6 +23,7 @@ import HOMEICON from '../../src/assets/images/homeicon.png';
 import MENUICON from '../../src/assets/images/menuicon.png';
 import USERICON from '../../src/assets/images/usericon.png';
 import MEMBERICON from '../../src/assets/images/membericon.png';
+import TIME2ICON from '../../src/assets/images/time2icon.png';
 
 import MEMBERSHIPICON from '../../src/assets/images/membershipicon.png';
 import MYBOOKINGICON from '../../src/assets/images/mybookingicon.png';
@@ -38,5 +39,5 @@ export {
     NODATA, MONEYICON, WALLET, REWARDPOINT, ATTENDANCE, USERICON, MEMBERSHIPICON,
     PREFERENCE, OFFERS, TERMS, CONTACT, INVITEEARN, TIMEICON, RIGHTSIDE, LEFTSIDE,
     ASSESSMENTICON, WORKOUTICON, TRAININGICON, HOMEICON, MENUICON, MYBOOKINGICON,
-    ACTIVITYCALENDERICON, EXPLOREICON, LOGOUTICON, USERGROUPICON, MEMBERICON
+    ACTIVITYCALENDERICON, EXPLOREICON, LOGOUTICON, USERGROUPICON, MEMBERICON, TIME2ICON
 };
