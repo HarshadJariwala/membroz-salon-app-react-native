@@ -16,6 +16,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Entypo from 'react-native-vector-icons/Entypo';
+import * as IMAGE from '../../styles/image';
 import EvilIcons from 'react-native-vector-icons/EvilIcons'
 import languageConfig from '../../languages/languageConfig';
 const WIDTH = Dimensions.get('window').width;
@@ -36,38 +37,39 @@ const BookingPaymentScreen = (props) => {
                 </View>
                 <View style={{ justifyContent: KEY.CENTER, alignItems: KEY.CENTER, }}>
                     <View style={styles.cardview}>
-                        <View style={{ flexDirection: KEY.ROW, marginTop: 10, marginBottom: 10 }}>
-                            <View style={styles.rounfIconStyle}>
-                                <EvilIcons name='calendar' size={24} color={COLOR.DEFALUTCOLOR} />
+                        <View style={{ flexDirection: KEY.ROW, marginTop: 10 }}>
+                            <View style={styles.rounfIconStyle1}>
+                                <Image source={IMAGE.ACTIVITYCALENDERICON} style={{ tintColor: COLOR.DEFALUTCOLOR, height: 16, width: 16 }} />
                             </View>
-                            <View style={{ flexDirection: KEY.COLUMN, }}>
-                                <View style={{ marginLeft: 15 }}>
-                                    <Text >{"Date"}</Text>
-                                    <Text style={{
-                                        fontSize: 16, color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD
-                                    }}>{"January 08,2023"}</Text>
+                            <View style={{ marginLeft: 15, flexDirection: KEY.COLUMN }}>
+                                <Text >{languageConfig.date}</Text>
+                                <Text style={{
+                                    fontSize: 16, color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD
+                                }}>{"January 08,2023"}</Text>
+                            </View>
+
+                            <View style={{ marginLeft: 15, flexDirection: KEY.ROW }}>
+                                <View style={styles.rounfIconStyle1}>
+                                    <Image source={IMAGE.TIME2ICON} style={{ tintColor: COLOR.DEFALUTCOLOR, height: 18, width: 16 }} />
                                 </View>
-                            </View>
-                            <View style={styles.rounfIconStyle}>
-                                <Entypo name='stopwatch' size={20} color={COLOR.DEFALUTCOLOR} />
-                            </View>
-                            <View style={{ flexDirection: KEY.COLUMN, marginLeft: -2 }}>
-                                <View style={{ marginLeft: 15 }}>
-                                    <Text >{"Start Time"}</Text>
-                                    <Text style={{
-                                        fontSize: 16, color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD
-                                    }}>{"10 am"}</Text>
+                                <View style={{ flexDirection: KEY.COLUMN }}>
+                                    <View style={{ marginLeft: 15 }}>
+                                        <Text >{languageConfig.starttimetext}</Text>
+                                        <Text style={{
+                                            fontSize: 16, color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD
+                                        }}>{"10 am"}</Text>
+                                    </View>
                                 </View>
                             </View>
                         </View>
                         <View style={styles.line} />
-                        <View style={{ flexDirection: KEY.ROW, marginTop: 10, marginBottom: 10 }}>
-                            <View style={styles.rounfIconStyle}>
-                                <Entypo name='stopwatch' size={20} color={COLOR.DEFALUTCOLOR} />
+                        <View style={{ flexDirection: KEY.ROW, marginTop: 8, marginBottom: 10 }}>
+                            <View style={styles.rounfIconStyle1}>
+                                <Image source={IMAGE.TIME2ICON} style={{ tintColor: COLOR.DEFALUTCOLOR, height: 20, width: 16 }} />
                             </View>
-                            <View style={{ flexDirection: KEY.COLUMN, marginLeft: -2 }}>
+                            <View style={{ flexDirection: KEY.COLUMN }}>
                                 <View style={{ marginLeft: 15 }}>
-                                    <Text >{"Duration"}</Text>
+                                    <Text >{languageConfig.duration}</Text>
                                     <Text style={{
                                         fontSize: 16, color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD
                                     }}>{"1:30 hours"}</Text>

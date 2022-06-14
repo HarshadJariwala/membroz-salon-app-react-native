@@ -41,6 +41,17 @@ const styles = StyleSheet.create({
         shadowRadius: 3.84,
         elevation: 5,
     },
+    rounfIconStyle1: {
+        justifyContent: KEY.CENTER,
+        alignItems: KEY.CENTER,
+        borderRadius: 100,
+        width: 30,
+        height: 30,
+        borderColor: COLOR.DEFALUTCOLOR,
+        borderWidth: 1,
+        marginTop: 10,
+        marginLeft: 15
+    },
     rounfIconStyle: {
         justifyContent: KEY.CENTER,
         alignItems: KEY.CENTER,
@@ -54,6 +65,7 @@ const styles = StyleSheet.create({
     },
     line: {
         borderBottomColor: COLOR.BRIGHT_GRAY,
+        marginTop: 10,
         borderBottomWidth: 1,
         marginRight: 15,
         marginLeft: 15,
