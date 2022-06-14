@@ -18,15 +18,17 @@ const WIDTH = Dimensions.get('window').width;
 const HEIGHT = Dimensions.get('window').height;
 
 const BookingComplateScreen = props => {
+
     //Ok BUTTON CLICK TO CALL FUNCTION
-    const onPressHome = () => {
+    const onPressBookNow = () => {
         props.navigation.navigate(SCREEN.HOMESCREEN);
     }
+
     return (
         <SafeAreaView style={{ flex: 1, alignItems: KEY.CENTER, backgroundColor: COLOR.BACKGROUNDCOLOR }}>
             <ScrollView showsVerticalScrollIndicator={false}>
                 <StatusBar hidden={false} translucent={false} barStyle={KEY.DARK_CONTENT} backgroundColor={COLOR.STATUSBARCOLOR} />
-                <View style={{ marginTop: 10, justifyContent: KEY.CENTER, alignItems: KEY.CENTER }}>
+                <View style={{ marginTop: 30, justifyContent: KEY.CENTER, alignItems: KEY.CENTER }}>
                     <View style={styles.cardview}>
                         <View style={{ justifyContent: KEY.CENTER, alignItems: KEY.CENTER, flexDirection: KEY.COLUMN, }}>
                             <View style={styles.rounfIconStyle}>
@@ -34,7 +36,7 @@ const BookingComplateScreen = props => {
                             </View>
                             <View style={{ justifyContent: KEY.CENTER, alignItems: KEY.CENTER, }}>
                                 <Text style={{ marginTop: 10, color: COLOR.LIGHT_GREEN, fontSize: FONT.FONT_SIZE_20, fontWeight: FONT.FONT_BOLD }}>{"Booking Completed!"}</Text>
-                                <Text style={{ marginTop: 10, marginBottom: 20, fontSize: FONT.FONT_SIZE_16, color: COLOR.GRANITE_GRAY }}>{"Order Number #125420"}</Text>
+                                <Text style={{ marginTop: 10, marginBottom: 20, fontSize: FONT.FONT_SIZE_16, color: COLOR.BLACK }}>{"Order Number #125420"}</Text>
                             </View>
                         </View>
                     </View>
@@ -49,21 +51,20 @@ const BookingComplateScreen = props => {
                                 <Image source={IMAGE.ACTIVITYCALENDERICON} style={{ tintColor: COLOR.DEFALUTCOLOR, height: 16, width: 16 }} />
                             </View>
                             <View style={{ marginLeft: 15, flexDirection: KEY.COLUMN }}>
-                                <Text >{languageConfig.date}</Text>
+                                <Text style={{ fontSize: FONT.FONT_SIZE_16, color: COLOR.BLACK, fontWeight: FONT.FONT_NORMAL }}>{languageConfig.date}</Text>
                                 <Text style={{
-                                    fontSize: 16, color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD
+                                    fontSize: FONT.FONT_SIZE_16, color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD
                                 }}>{"January 08,2023"}</Text>
                             </View>
-
                             <View style={{ marginLeft: 15, flexDirection: KEY.ROW }}>
                                 <View style={styles.rounfIconStyle1}>
                                     <Image source={IMAGE.TIME2ICON} style={{ tintColor: COLOR.DEFALUTCOLOR, height: 18, width: 16 }} />
                                 </View>
                                 <View style={{ flexDirection: KEY.COLUMN }}>
                                     <View style={{ marginLeft: 15 }}>
-                                        <Text >{languageConfig.starttimetext}</Text>
+                                        <Text style={{ fontSize: FONT.FONT_SIZE_16, color: COLOR.BLACK, fontWeight: FONT.FONT_NORMAL }}>{languageConfig.starttimetext}</Text>
                                         <Text style={{
-                                            fontSize: 16, color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD
+                                            fontSize: FONT.FONT_SIZE_16, color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD
                                         }}>{"10 am"}</Text>
                                     </View>
                                 </View>
@@ -72,13 +73,13 @@ const BookingComplateScreen = props => {
                         <View style={styles.line} />
                         <View style={{ flexDirection: KEY.ROW, marginTop: 8, marginBottom: 10 }}>
                             <View style={styles.rounfIconStyle1}>
-                                <Image source={IMAGE.TIMEICON} style={{ tintColor: COLOR.DEFALUTCOLOR, height: 20, width: 16 }} />
+                                <Image source={IMAGE.STOPWATCHICON} style={{ tintColor: COLOR.DEFALUTCOLOR, height: 18, width: 16 }} />
                             </View>
                             <View style={{ flexDirection: KEY.COLUMN }}>
                                 <View style={{ marginLeft: 15 }}>
-                                    <Text >{languageConfig.duration}</Text>
+                                    <Text style={{ fontSize: FONT.FONT_SIZE_16, color: COLOR.BLACK, fontWeight: FONT.FONT_NORMAL }}>{languageConfig.duration}</Text>
                                     <Text style={{
-                                        fontSize: 16, color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD
+                                        fontSize: FONT.FONT_SIZE_16, color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD
                                     }}>{"1:30 hours"}</Text>
                                 </View>
                             </View>
@@ -132,7 +133,7 @@ const BookingComplateScreen = props => {
                     </View>
                 </View>
                 <View style={{ justifyContent: KEY.CENTER, alignItems: KEY.CENTER, marginTop: 60, marginBottom: 20 }}>
-                    <TouchableOpacity style={styles.loginbutton} onPress={() => onPressHome()}>
+                    <TouchableOpacity style={styles.loginbutton} onPress={() => onPressBookNow()}>
                         <Text style={styles.login_button} >
                             {"Ok"}
                         </Text>

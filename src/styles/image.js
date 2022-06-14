@@ -24,7 +24,6 @@ import MENUICON from '../../src/assets/images/menuicon.png';
 import USERICON from '../../src/assets/images/usericon.png';
 import MEMBERICON from '../../src/assets/images/membericon.png';
 import TIME2ICON from '../../src/assets/images/time2icon.png';
-
 import MEMBERSHIPICON from '../../src/assets/images/membershipicon.png';
 import MYBOOKINGICON from '../../src/assets/images/mybookingicon.png';
 import INVITEICON from '../../src/assets/images/inviteicon.png';
@@ -32,6 +31,7 @@ import ACTIVITYCALENDERICON from '../../src/assets/images/activitycalendericon.p
 import EXPLOREICON from '../../src/assets/images/exploreicon.png';
 import LOGOUTICON from '../../src/assets/images/logouticon.png';
 import USERGROUPICON from '../../src/assets/images/usergroupicon.png';
+import STOPWATCHICON from '../../src/assets/images/stopwatchicon.png';
 
 
 export {
@@ -39,5 +39,6 @@ export {
     NODATA, MONEYICON, WALLET, REWARDPOINT, ATTENDANCE, USERICON, MEMBERSHIPICON,
     PREFERENCE, OFFERS, TERMS, CONTACT, INVITEEARN, TIMEICON, RIGHTSIDE, LEFTSIDE,
     ASSESSMENTICON, WORKOUTICON, TRAININGICON, HOMEICON, MENUICON, MYBOOKINGICON,
-    ACTIVITYCALENDERICON, EXPLOREICON, LOGOUTICON, USERGROUPICON, MEMBERICON, TIME2ICON
+    ACTIVITYCALENDERICON, EXPLOREICON, LOGOUTICON, USERGROUPICON, MEMBERICON, TIME2ICON,
+    STOPWATCHICON
 };
