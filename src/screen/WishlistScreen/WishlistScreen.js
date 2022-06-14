@@ -26,7 +26,7 @@ const WishlistScreen = () => {
     const [logo, setLogo] = useState(null);
     const [loading, setLoading] = useState(false);
     const [serviceList, setServiceList] = useState([]);
-    const [selectCategory, setSelectCategory] = useState(null);
+    const [selectCategory, setCategory] = useState(null);
     const [currencySymbol, setCurrencySymbol] = useState(null);
     const [serviceCategoryList, setServiceCategoryList] = useState([]);
 

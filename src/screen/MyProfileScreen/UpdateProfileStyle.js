@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
     text: {
         marginTop: 10,
         fontSize: FONT.FONT_SIZE_18,
-        fontWeight: FONT.FONT_WEIGHT_BOLD,
+        fontWeight: FONT.FONT_BOLD,
         color: COLOR.BLACK,
         textTransform: KEY.CAPITALIZE,
         justifyContent: KEY.CENTER,
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     },
     cardView: {
         width: WIDTH - 20,
-        marginTop: 30,
+        marginTop: 20,
         borderRadius: 10,
         backgroundColor: COLOR.WHITE,
         shadowColor: COLOR.BLACK,

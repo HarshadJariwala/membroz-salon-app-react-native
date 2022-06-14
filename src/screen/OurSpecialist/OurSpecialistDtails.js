@@ -78,14 +78,14 @@ const OurSpecialistDtails = (props) => {
                         <View style={{ flexDirection: KEY.ROW }}>
                             <Text style={{
                                 fontSize: FONT.FONT_SIZE_16,
-                                fontWeight: FONT.FONT_WEIGHT_BOLD,
+                                fontWeight: FONT.FONT_BOLD,
                                 color: COLOR.BLACK,
                                 marginLeft: 20,
                                 marginTop: 10
                             }}>{'About '}</Text>
                             <Text style={{
                                 fontSize: FONT.FONT_SIZE_16,
-                                fontWeight: FONT.FONT_WEIGHT_BOLD,
+                                fontWeight: FONT.FONT_BOLD,
                                 color: COLOR.DEFALUTCOLOR,
                                 marginTop: 10
                             }}>{'Me'}</Text>
@@ -101,18 +101,18 @@ const OurSpecialistDtails = (props) => {
                                 style={{ alignItems: KEY.CENTER }}>
                                 <Feather size={18} name="phone-call" color={COLOR.DEFALUTCOLOR} style={{ marginRight: 5 }} />
                             </TouchableOpacity>
-                            <Text style={{ fontSize: FONT.FONT_SIZE_14, color: COLOR.GRANITE_GRAY }}>
+                            <Text style={{ fontSize: FONT.FONT_SIZE_16, color: COLOR.GRANITE_GRAY }}>
                                 {oursSpeacilistDetails.property.mobile}</Text>
                         </View>
-                        <View style={{ flexDirection: KEY.ROW, alignItems: KEY.SPACEBETWEEN, marginLeft: 20, marginBottom: 10, marginTop: 10 }}>
+                        <View style={{ flexDirection: KEY.ROW, alignItems: KEY.SPACEBETWEEN, marginLeft: 20, marginBottom: 10 }}>
                             <TouchableOpacity onPress={() => onPressEmail(oursSpeacilistDetails)}
                                 style={{ alignItems: KEY.CENTER }}>
-                                <Fontisto size={18} name="email" color={COLOR.DEFALUTCOLOR} style={{ marginRight: 5 }} />
+                                <Fontisto size={18} name="email" color={COLOR.DEFALUTCOLOR} style={{ marginRight: 5, }} />
                             </TouchableOpacity>
-                            <Text style={{ fontSize: FONT.FONT_SIZE_14, color: COLOR.GRANITE_GRAY }}>
+                            <Text numberOfLines={1}
+                                style={{ fontSize: FONT.FONT_SIZE_16, color: COLOR.GRANITE_GRAY }} >
                                 {oursSpeacilistDetails.property.primaryemail}</Text>
                         </View>
-
                     </View>
                     <View style={styles.viewRectangle}>
                         <View style={{ flexDirection: KEY.ROW, marginTop: 10, alignSelf: KEY.FLEX_START }}>

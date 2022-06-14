@@ -53,7 +53,7 @@ const MemberShipScreen = (props) => {
                     console.log(`memberInfo`)
                     getmemberid = memberInfo?._id;
                     setMembershipPlan(memberInfo?.membershipid?.property?.membershipname);
-                    setMembershipcost(memberInfo.membershipid.property.cost);
+                    setMembershipcost(memberInfo?.membershipid?.property?.cost);
                     setMembershipstart(memberInfo.membershipstart);
                     setMembershipend(memberInfo.membershipend);
                     setBranchname(memberInfo.branchid.branchname);
@@ -120,14 +120,14 @@ const MemberShipScreen = (props) => {
                                     <Text style={styles.rectangleText}>{languageConfig.membershipplan}</Text>
                                     <Text style={{
                                         fontSize: FONT.FONT_SIZE_16, textTransform: KEY.CAPITALIZE, color: COLOR.BLACK,
-                                        fontWeight: FONT.FONT_WEIGHT_BOLD, width: WIDTH / 2
+                                        fontWeight: FONT.FONT_BOLD, width: WIDTH / 2
                                     }} numberOfLines={1}>{membershipPlan}</Text>
                                 </View>
                             </View>
                             <View style={{ flex: 1, alignItems: KEY.FLEX_END, marginTop: 10 }}>
                                 <TouchableOpacity style={styles.btnStyle} >
                                     <Text style={{
-                                        fontWeight: FONT.FONT_WEIGHT_BOLD, textTransform: KEY.CAPITALIZE,
+                                        fontWeight: FONT.FONT_BOLD, textTransform: KEY.CAPITALIZE,
                                         color: COLOR.WHITE, fontSize: FONT.FONT_SIZE_14
                                     }}>{languageConfig.renew}</Text>
                                 </TouchableOpacity>
@@ -139,14 +139,14 @@ const MemberShipScreen = (props) => {
                         }} />
                         <View style={{ flexDirection: KEY.ROW, marginTop: 5, alignSelf: KEY.FLEX_START }}>
                             <View style={styles.rounfIconStyle}>
-                                <FontAwesome5 name='money-bill-wave-alt' size={15} color={COLOR.DEFALUTCOLOR} />
+                                <Image style={{ width: 20, height: 15, tintColor: COLOR.DEFALUTCOLOR, }} source={IMAGE.MONEYICON} />
                             </View>
                             <View style={{ flexDirection: KEY.COLUMN, marginLeft: -2 }}>
                                 <View style={{ marginLeft: 15, marginBottom: 10 }}>
                                     <Text style={styles.rectangleText}>{languageConfig.amounttext}</Text>
                                     <Text style={{
                                         fontSize: FONT.FONT_SIZE_16, textTransform: KEY.UPPERCASE, color: COLOR.BLACK,
-                                        fontWeight: FONT.FONT_WEIGHT_BOLD
+                                        fontWeight: FONT.FONT_BOLD
                                     }}>{currencySymbol + membershipcost}</Text>
                                 </View>
                             </View>
@@ -164,7 +164,7 @@ const MemberShipScreen = (props) => {
                                     <Text style={styles.rectangleText}>{languageConfig.membershipstartdate}</Text>
                                     <Text style={{
                                         fontSize: FONT.FONT_SIZE_16, textTransform: KEY.UPPERCASE, color: COLOR.BLACK,
-                                        fontWeight: FONT.FONT_WEIGHT_BOLD
+                                        fontWeight: FONT.FONT_BOLD
                                     }}>{moment(membershipstart).format('MMMM DD,YYYY')}</Text>
                                 </View>
                             </View>
@@ -182,7 +182,7 @@ const MemberShipScreen = (props) => {
                                     <Text style={styles.rectangleText}>{languageConfig.membershipenddate}</Text>
                                     <Text style={{
                                         fontSize: FONT.FONT_SIZE_16, textTransform: KEY.UPPERCASE, color: COLOR.BLACK,
-                                        fontWeight: FONT.FONT_WEIGHT_BOLD
+                                        fontWeight: FONT.FONT_BOLD
                                     }}>{moment(membershipend).format('MMMM DD,YYYY')}</Text>
                                 </View>
                             </View>
@@ -198,7 +198,7 @@ const MemberShipScreen = (props) => {
                         }}>
                             <Text style={{
                                 fontSize: FONT.FONT_SIZE_18, textTransform: KEY.CAPITALIZE, color: COLOR.BLACK,
-                                fontWeight: FONT.FONT_WEIGHT_BOLD
+                                fontWeight: FONT.FONT_BOLD
                             }}>{languageConfig.packagetext}</Text>
                         </View>
 
@@ -208,11 +208,11 @@ const MemberShipScreen = (props) => {
                                     style={{ flexDirection: KEY.ROW, alignItems: KEY.CENTER, justifyContent: KEY.SPACEBETWEEN }}>
                                     <Text style={{
                                         fontSize: FONT.FONT_SIZE_16, textTransform: KEY.CAPITALIZE, color: COLOR.BLACK,
-                                        fontWeight: FONT.FONT_WEIGHT_BOLD, width: WIDTH / 2
+                                        fontWeight: FONT.FONT_BOLD, width: WIDTH / 2
                                     }} >{'Yoga Class'}</Text>
                                     <Text style={{
                                         fontSize: FONT.FONT_SIZE_16, textTransform: KEY.CAPITALIZE, color: COLOR.BLACK,
-                                        fontWeight: FONT.FONT_WEIGHT_BOLD
+                                        fontWeight: FONT.FONT_BOLD
                                     }} >{'$500'}</Text>
                                 </TouchableOpacity>
                                 <Text style={{
@@ -229,11 +229,11 @@ const MemberShipScreen = (props) => {
                                     style={{ flexDirection: KEY.ROW, alignItems: KEY.CENTER, justifyContent: KEY.SPACEBETWEEN }}>
                                     <Text style={{
                                         fontSize: FONT.FONT_SIZE_16, textTransform: KEY.CAPITALIZE, color: COLOR.BLACK,
-                                        fontWeight: FONT.FONT_WEIGHT_BOLD, width: WIDTH / 2
+                                        fontWeight: FONT.FONT_BOLD, width: WIDTH / 2
                                     }} >{'Yoga Class'}</Text>
                                     <Text style={{
                                         fontSize: FONT.FONT_SIZE_16, textTransform: KEY.CAPITALIZE, color: COLOR.BLACK,
-                                        fontWeight: FONT.FONT_WEIGHT_BOLD
+                                        fontWeight: FONT.FONT_BOLD
                                     }} >{'$500'}</Text>
                                 </TouchableOpacity>
                                 <Text style={{
@@ -250,11 +250,11 @@ const MemberShipScreen = (props) => {
                                     style={{ flexDirection: KEY.ROW, alignItems: KEY.CENTER, justifyContent: KEY.SPACEBETWEEN }}>
                                     <Text style={{
                                         fontSize: FONT.FONT_SIZE_16, textTransform: KEY.CAPITALIZE, color: COLOR.BLACK,
-                                        fontWeight: FONT.FONT_WEIGHT_BOLD, width: WIDTH / 2
+                                        fontWeight: FONT.FONT_BOLD, width: WIDTH / 2
                                     }} >{'Yoga Class'}</Text>
                                     <Text style={{
                                         fontSize: FONT.FONT_SIZE_16, textTransform: KEY.CAPITALIZE, color: COLOR.BLACK,
-                                        fontWeight: FONT.FONT_WEIGHT_BOLD
+                                        fontWeight: FONT.FONT_BOLD
                                     }} >{'$500'}</Text>
                                 </TouchableOpacity>
                                 <Text style={{
@@ -271,11 +271,11 @@ const MemberShipScreen = (props) => {
                                     style={{ flexDirection: KEY.ROW, alignItems: KEY.CENTER, justifyContent: KEY.SPACEBETWEEN }}>
                                     <Text style={{
                                         fontSize: FONT.FONT_SIZE_16, textTransform: KEY.CAPITALIZE, color: COLOR.BLACK,
-                                        fontWeight: FONT.FONT_WEIGHT_BOLD, width: WIDTH / 2
+                                        fontWeight: FONT.FONT_BOLD, width: WIDTH / 2
                                     }} >{'Yoga Class'}</Text>
                                     <Text style={{
                                         fontSize: FONT.FONT_SIZE_16, textTransform: KEY.CAPITALIZE, color: COLOR.BLACK,
-                                        fontWeight: FONT.FONT_WEIGHT_BOLD
+                                        fontWeight: FONT.FONT_BOLD
                                     }} >{'$500'}</Text>
                                 </TouchableOpacity>
                                 <Text style={{

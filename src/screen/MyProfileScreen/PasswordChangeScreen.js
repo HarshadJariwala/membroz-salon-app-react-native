@@ -213,7 +213,7 @@ const PasswordChangeScreen = (props) => {
                         </View>
 
                         <TouchableOpacity style={styles.forgotButton} onPress={() => onPressChangePassword()}>
-                            <Text style={{ fontWeight: FONT.FONT_WEIGHT_BOLD, color: COLOR.WHITE, fontSize: FONT.FONT_SIZE_16 }}>{languageConfig.updatepassword}</Text>
+                            <Text style={{ fontWeight: FONT.FONT_BOLD, color: COLOR.WHITE, fontSize: FONT.FONT_SIZE_16 }}>{languageConfig.updatepassword}</Text>
                         </TouchableOpacity>
                     </View>
                 </View>

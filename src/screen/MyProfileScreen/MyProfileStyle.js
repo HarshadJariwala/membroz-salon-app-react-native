@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
         shadowRadius: 2.62,
         elevation: 4,
         alignItems: KEY.CENTER,
-        marginBottom: 10
+        marginBottom: 5
     },
     rectangleText: {
         fontSize: FONT.FONT_SIZE_14,

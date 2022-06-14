@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     text: {
         marginTop: 10,
         fontSize: FONT.FONT_SIZE_18,
-        fontWeight: FONT.FONT_WEIGHT_BOLD,
+        fontWeight: FONT.FONT_BOLD,
         color: COLOR.BLACK,
         textTransform: KEY.CAPITALIZE,
         justifyContent: KEY.CENTER,
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
         marginTop: 10,
         marginLeft: -WIDTH / 2 - 40,
         fontSize: FONT.FONT_SIZE_18,
-        fontWeight: FONT.FONT_WEIGHT_BOLD,
+        fontWeight: FONT.FONT_BOLD,
         color: COLOR.BLACK,
         textTransform: KEY.CAPITALIZE,
         justifyContent: KEY.FLEX_START,
@@ -81,15 +81,14 @@ const styles = StyleSheet.create({
         alignItems: KEY.CENTER
     },
     btnStyle: {
-        borderBottomRightRadius: 20,
-        borderTopLeftRadius: 20,
-        borderRadius: 5,
+        borderBottomRightRadius: 10,
+        borderTopLeftRadius: 10,
         backgroundColor: COLOR.DEFALUTCOLOR,
-        width: WIDTH / 5,
-        height: 35,
+        width: WIDTH / 4,
+        height: 30,
         justifyContent: KEY.CENTER,
         alignItems: KEY.CENTER,
-        marginRight: 10
+        marginRight: 15
     },
     scanBtnStyle: {
         flexDirection: KEY.ROW,

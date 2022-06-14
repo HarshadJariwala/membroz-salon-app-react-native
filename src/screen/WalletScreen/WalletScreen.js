@@ -71,7 +71,7 @@ const WalletScreen = (props) => {
                         }}>{languageConfig.yourwalletbalance}</Text>
                         <Text style={{
                             fontSize: FONT.FONT_SIZE_22, textTransform: KEY.CAPITALIZE, color: COLOR.BLACK,
-                            fontWeight: FONT.FONT_BOLD, marginTop: 5, marginBottom: 10
+                            fontWeight: FONT.FONT_BOLD, marginTop: 8, marginBottom: 20
                         }}>{walletBalance}</Text>
                     </View>
                 </View>

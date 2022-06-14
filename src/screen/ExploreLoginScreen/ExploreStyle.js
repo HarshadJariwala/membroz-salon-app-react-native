@@ -42,10 +42,10 @@ const styles = StyleSheet.create({
         alignItems: KEY.CENTER,
         height: 200,
         width: WIDTH,
-        borderRadius: 10,
         resizeMode: KEY.STRETCH,
         borderTopLeftRadius: 20,
-        borderTopRightRadius: 20
+        borderTopRightRadius: 20,
+
     }
 });
 

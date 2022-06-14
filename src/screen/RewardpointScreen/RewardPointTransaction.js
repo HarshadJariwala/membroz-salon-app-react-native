@@ -135,7 +135,7 @@ const RewardPointTransaction = () => {
                     <Text style={{
                         fontSize: FONT.FONT_SIZE_16, marginLeft: 10,
                         color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD, color: COLOR.RED
-                    }}>{'-' + item.value + ' ' + 'pts'}</Text>
+                    }}>{'-' + item.value.toFixed(0) + ' ' + 'pts'}</Text>
                 </View>
             </View>
             :
@@ -164,7 +164,7 @@ const RewardPointTransaction = () => {
                     <Text style={{
                         fontSize: FONT.FONT_SIZE_16, marginLeft: 10,
                         color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD, color: COLOR.GREEN
-                    }}>{'+' + item.value + ' ' + 'pts'}</Text>
+                    }}>{'+' + item.value.toFixed(0) + ' ' + 'pts'}</Text>
                 </View>
             </View>
     )

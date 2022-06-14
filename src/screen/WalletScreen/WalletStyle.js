@@ -52,7 +52,8 @@ const styles = StyleSheet.create({
         width: 150
     },
     rounfIconStyle: {
-        marginTop: 30,
+        marginTop: 20,
+        marginBottom: 10,
         marginLeft: 15,
         height: 50,
         width: 50,
