@@ -243,7 +243,7 @@ const MyProfileScreen = ({ navigation }) => {
                         <TouchableOpacity onPress={() => { navigation.navigate(SCREEN.UPDATEPROFILESCREEN) }}>
                             <View style={styles.viewCard}>
                                 <View style={styles.rounfIconStyle}>
-                                    <FontAwesome name='user' size={24} color={COLOR.DEFALUTCOLOR} />
+                                    <Image style={{ width: 20, height: 18, tintColor: COLOR.DEFALUTCOLOR, }} source={IMAGE.MEMBERICON} />
                                 </View>
                                 <Text style={{ marginTop: 10, fontSize: FONT.FONT_SIZE_16, color: COLOR.BLACK_OLIVE, marginLeft: 10 }}>{languageConfig.myprofile}</Text>
                                 <View style={{ alignItems: KEY.FLEX_END, flex: 1, marginRight: 12 }}>

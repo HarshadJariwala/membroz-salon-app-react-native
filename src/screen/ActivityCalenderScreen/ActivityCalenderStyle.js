@@ -108,9 +108,8 @@ const styles = StyleSheet.create({
         elevation: 3,
     },
     filledBox: {
-        width: 80,
-        borderTopLeftRadius: 15,
-        borderBottomLeftRadius: 15,
+        width: 70,
+        borderRadius: 10,
         backgroundColor: COLOR.DEFALUTCOLOR,
         justifyContent: KEY.CENTER,
         alignItems: KEY.CENTER,

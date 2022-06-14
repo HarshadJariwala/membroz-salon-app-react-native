@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
         width: 150
     },
     rounfIconStyle: {
-        marginTop: 30,
+        marginTop: 20,
         marginLeft: 15,
         height: 50,
         width: 50,
@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
         justifyContent: KEY.CENTER,
         alignSelf: KEY.CENTER,
         fontSize: FONT.FONT_SIZE_16,
-        fontWeight: FONT.FONT_WEIGHT_BOLD,
+        fontWeight: FONT.FONT_BOLD,
         color: COLOR.BLACK,
         textTransform: KEY.CAPITALIZE,
         marginTop: 10
@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
     rewardpointtext: {
         alignSelf: KEY.CENTER,
         fontSize: FONT.FONT_SIZE_16,
-        fontWeight: FONT.FONT_WEIGHT_BOLD,
+        fontWeight: FONT.FONT_BOLD,
         color: COLOR.BLACK,
         textTransform: KEY.CAPITALIZE
     },

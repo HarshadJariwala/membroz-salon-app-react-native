@@ -279,7 +279,7 @@ const UpdateProfileScreen = (props) => {
                             />
                         </View>
                         <TouchableOpacity style={styles.forgotButton} onPress={() => UpdateProfileService()}>
-                            <Text style={{ fontWeight: FONT.FONT_WEIGHT_BOLD, color: COLOR.WHITE, fontSize: FONT.FONT_SIZE_16 }}>{languageConfig.updatetext}</Text>
+                            <Text style={{ fontWeight: FONT.FONT_BOLD, color: COLOR.WHITE, fontSize: FONT.FONT_SIZE_16 }}>{languageConfig.updatetext}</Text>
                         </TouchableOpacity>
                     </View>
                 </View>

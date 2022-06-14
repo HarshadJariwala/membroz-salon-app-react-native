@@ -139,7 +139,7 @@ const RewardPointScreen = (props) => {
                         <TouchableOpacity onPress={() => props.navigation.navigate(SCREEN.REWARDPOINTTRANSACTION)}>
                             <Text style={{
                                 fontSize: FONT.FONT_SIZE_16, textTransform: KEY.CAPITALIZE,
-                                color: COLOR.DEFALUTCOLOR, marginBottom: 15
+                                color: COLOR.DEFALUTCOLOR, marginBottom: 15, fontWeight: FONT.FONT_BOLD
                             }}>{languageConfig.pointhistory}</Text>
                         </TouchableOpacity>
                     </View>
