@@ -225,7 +225,7 @@ const OurServiceDetailScreen = (props) => {
     //BOOK NOW BUTTON CLICK TO CALL FUNCTION
     const onPressBooking = (item) => {
         item = serviceDetails;
-        props.navigation.navigate(SCREEN.OURSERVICEDETAILSCREEN, { item });
+        props.navigation.navigate(SCREEN.BOOKSERVICESCREEN, { item });
     }
 
     return (
@@ -317,7 +317,6 @@ const OurServiceDetailScreen = (props) => {
                         />
                     </>
                 }
-
                 <TouchableOpacity style={styles.bookButton} onPress={() => onPressBooking()}>
                     <Text style={{
                         fontWeight: FONT.FONT_BOLD, color: COLOR.WHITE,

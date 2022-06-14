@@ -330,6 +330,7 @@ export default {
     carryforwordtext: "Carry Forword Leave",
     exploresurge: "Explore Surge",
     mintext: "min",
+    continuetext: "continue",
 
     //menu text
     updatenow: "Update Now",
