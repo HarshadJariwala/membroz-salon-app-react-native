@@ -42,7 +42,7 @@ const BookingPaymentScreen = (props) => {
                                 <Image source={IMAGE.ACTIVITYCALENDERICON} style={{ tintColor: COLOR.DEFALUTCOLOR, height: 16, width: 16 }} />
                             </View>
                             <View style={{ marginLeft: 15, flexDirection: KEY.COLUMN }}>
-                                <Text >{languageConfig.date}</Text>
+                                <Text style={styles.text_line}>{languageConfig.date}</Text>
                                 <Text style={{
                                     fontSize: 16, color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD
                                 }}>{"January 08,2023"}</Text>
@@ -54,7 +54,7 @@ const BookingPaymentScreen = (props) => {
                                 </View>
                                 <View style={{ flexDirection: KEY.COLUMN }}>
                                     <View style={{ marginLeft: 15 }}>
-                                        <Text >{languageConfig.starttimetext}</Text>
+                                        <Text style={styles.text_line}>{languageConfig.starttimetext}</Text>
                                         <Text style={{
                                             fontSize: 16, color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD
                                         }}>{"10 am"}</Text>
@@ -69,7 +69,7 @@ const BookingPaymentScreen = (props) => {
                             </View>
                             <View style={{ flexDirection: KEY.COLUMN }}>
                                 <View style={{ marginLeft: 15 }}>
-                                    <Text >{languageConfig.duration}</Text>
+                                    <Text style={styles.text_line}>{languageConfig.duration}</Text>
                                     <Text style={{
                                         fontSize: 16, color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD
                                     }}>{"1:30 hours"}</Text>
@@ -133,7 +133,7 @@ const BookingPaymentScreen = (props) => {
                             </TouchableOpacity>
                             <View style={{ flexDirection: KEY.COLUMN, marginLeft: 15, marginBottom: 10 }}>
                                 <Text style={{ fontSize: FONT.FONT_SIZE_18, color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD, }}>{"Wallet"}</Text>
-                                <Text style={{}}>{"Your current balance $20"}</Text>
+                                <Text style={{ color: COLOR.LIGHT_BLACK, fontSize: FONT.FONT_SIZE_16 }}>{"Your current balance $20"}</Text>
                             </View>
                         </View>
                     </View>
@@ -148,8 +148,8 @@ const BookingPaymentScreen = (props) => {
                             </TouchableOpacity>
                             <View style={{ flexDirection: KEY.COLUMN, marginBottom: 10, marginTop: 10, marginLeft: 15 }}>
                                 <Text style={{ fontSize: FONT.FONT_SIZE_16, color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD }}>{"Magpie"}</Text>
-                                <Text style={{ fontSize: FONT.FONT_SIZE_16, }}>{'Instant payment via UPI/Debit/Credit Card '}</Text>
-                                <Text style={{ fontSize: FONT.FONT_SIZE_16, }}>{'using any bank account'}</Text>
+                                <Text style={{ fontSize: FONT.FONT_SIZE_16, color: COLOR.LIGHT_BLACK }}>{'Instant payment via UPI/Debit/Credit Card '}</Text>
+                                <Text style={{ fontSize: FONT.FONT_SIZE_16, color: COLOR.LIGHT_BLACK }}>{'using any bank account'}</Text>
                             </View>
                         </View>
                     </View>
@@ -163,8 +163,8 @@ const BookingPaymentScreen = (props) => {
                             </TouchableOpacity>
                             <View style={{ flexDirection: KEY.COLUMN, marginBottom: 10, marginTop: 10, marginLeft: 15 }}>
                                 <Text style={{ fontSize: FONT.FONT_SIZE_16, color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD }}>{"Pay at Salon"}</Text>
-                                <Text style={{ fontSize: FONT.FONT_SIZE_16, }}>{'You can pay your service bill at salon on'}</Text>
-                                <Text style={{ fontSize: FONT.FONT_SIZE_16, }}>{'Arrival'}</Text>
+                                <Text style={{ fontSize: FONT.FONT_SIZE_16, color: COLOR.LIGHT_BLACK }}>{'You can pay your service bill at salon on'}</Text>
+                                <Text style={{ fontSize: FONT.FONT_SIZE_16, color: COLOR.LIGHT_BLACK }}>{'Arrival'}</Text>
                             </View>
                         </View>
                     </View>

@@ -148,6 +148,9 @@ const styles = StyleSheet.create({
         alignItems: KEY.CENTER,
         marginBottom: 20,
     },
+    text_line: {
+        color: COLOR.LIGHT_BLACK
+    }
 })
 
 export default styles;
