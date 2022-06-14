@@ -19,6 +19,39 @@ const styles = StyleSheet.create({
         alignItems: KEY.CENTER,
         marginBottom: 20,
     },
+    dateNumberStyle: {
+        color: COLOR.BLACK,
+        fontSize: FONT.FONT_SIZE_16,
+        textTransform: KEY.LOWERCASE
+    },
+    dateNameStyle: {
+        color: COLOR.BLACK,
+        fontSize: FONT.FONT_SIZE_14,
+        textTransform: KEY.LOWERCASE
+    },
+    iconleftStyle: {
+        width: 10,
+        height: 10,
+        marginLeft: 20,
+    },
+    iconrightStyle: {
+        width: 10,
+        height: 10,
+        marginRight: 20,
+    },
+    dateNumberStyle: {
+        color: COLOR.BLACK,
+        fontSize: FONT.FONT_SIZE_16,
+        textTransform: KEY.LOWERCASE
+    },
+    dateNameStyle: {
+        color: COLOR.BLACK,
+        fontSize: FONT.FONT_SIZE_14,
+        textTransform: KEY.LOWERCASE
+    },
+    iconStyle: {
+        marginTop: -40,
+    },
 });
 
 export default styles;
