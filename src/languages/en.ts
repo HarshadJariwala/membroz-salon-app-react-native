@@ -330,6 +330,7 @@ export default {
     carryforwordtext: "Carry Forword Leave",
     exploresurge: "Explore Surge",
     mintext: "min",
+    continuetext: "continue",
 
     //menu text
     updatenow: "Update Now",
@@ -447,6 +448,7 @@ export default {
     mywishlist: "My Wishlist",
     paymentdue: "Payment Due",
     recenettransactions: "Recent Transactions",
+    suggestedservicestext: "Suggested Services",
     upcoming: "Upcoming",
     class: "Class",
     updatepassword: "Update Password",

@@ -34,7 +34,10 @@ import OURSPECIALISTDTAILS from '../screen/OurSpecialist/OurSpecialistDtails';
 import MENUSCREEN from '../screen/MenuScreen/MenuScreen';
 import OURSERVICESCREEN from '../screen/OurServiceScreen/OurServiceScreen';
 import WISHLISTSCREEN from '../screen/WishlistScreen/WishlistScreen';
-
+import OURSERVICEDETAILSCREEN from '../screen/OurServiceScreen/OurServiceDetailScreen';
+import BOOKINGCOMPLATESCREEN from '../screen/OurServiceScreen/BookingComplateScreen';
+import BOOKSERVICESCREEN from '../screen/OurServiceScreen/BookServiceScreen';
+import BOOKINGPAYMENTSCREEN from '../screen/OurServiceScreen/BookingPaymentScreen';
 
 import { NotificationService } from '../services/NotificationService/NotificationService';
 import { MemberLanguage } from '../services/LocalService/LanguageService';
@@ -52,7 +55,6 @@ import * as IMAGE from '../styles/image';
 import * as SCREEN from '../context/screen/screenName';
 import { firebase } from '@react-native-firebase/crashlytics';
 import AsyncStorage from '@react-native-community/async-storage';
-
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 
@@ -237,6 +239,43 @@ const HomeStackScreen = ({ navigation }) => {
                     }
                 }}
             />
+            <Stack.Screen
+                name="OurServiceDetailScreen"
+                component={OURSERVICEDETAILSCREEN}
+                options={{ headerShown: false }}
+            />
+            <Stack.Screen
+                name="BookingComplateScreen"
+                component={BOOKINGCOMPLATESCREEN}
+                options={{ headerShown: false }}
+            />
+            <Stack.Screen name="BookServiceScreen"
+                component={BOOKSERVICESCREEN}
+                options={{
+                    title: 'Book Service',
+                    headerStyle: {
+                        backgroundColor: COLOR.BACKGROUNDCOLOR, //Set Header color
+                    },
+                    headerTintColor: COLOR.BLACK, //Set Header text color
+                    headerTitleAlign: KEY.CENTER,
+                    headerTitleStyle: {
+                        fontWeight: FONT.FONT_WEIGHT_MEDIAM, //Set Header text style
+                    }
+                }} />
+            <Stack.Screen name="BookingPaymentScreen"
+                component={BOOKINGPAYMENTSCREEN}
+                options={{
+                    title: 'Payment',
+                    headerStyle: {
+                        backgroundColor: COLOR.BACKGROUNDCOLOR, //Set Header color
+                    },
+                    headerTintColor: COLOR.BLACK, //Set Header text color
+                    headerTitleAlign: KEY.CENTER,
+                    headerTitleStyle: {
+                        fontWeight: FONT.FONT_WEIGHT_MEDIAM, //Set Header text style
+                    }
+                }} />
+
             <Stack.Screen name="NotificationScreen"
                 component={NOTIFICATIONSCREEN}
                 options={{

@@ -30,10 +30,11 @@ export const OURSPECIALISTDTAILS = 'OurSpecialistDtails';
 export const OURSERVICESCREEN = 'OurServiceScreen';
 export const OURSERVICEDETAILSCREEN = 'OurServiceDetailScreen';
 export const BOOKSERVICESCREEN = 'BookServiceScreen';
-export const BOOKINGPAYMENT = 'BookingPayment';
+export const BOOKINGPAYMENTSCREEN = 'BookingPaymentScreen';
 export const WISHLISTSCREEN = 'WishlistScreen';
 export const MENUSCREEN = 'MenuScreen';
 export const CONTACTUSSCREEN = 'ContactUsScreen';
+export const BOOKINGCOMPLATESCREEN = 'BookingComplateScreen';
 
 
 
