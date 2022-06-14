@@ -31,7 +31,7 @@ const BookingPaymentScreen = (props) => {
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: COLOR.BACKGROUNDCOLOR }}>
-            <ScrollView>
+            <ScrollView showsVerticalScrollIndicator={false}>
                 <View style={{ marginTop: 0, marginLeft: 15, marginBottom: 10 }}>
                     <Text style={styles.text}>{"Booking Details"}</Text>
                 </View>
