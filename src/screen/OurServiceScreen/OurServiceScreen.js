@@ -26,7 +26,7 @@ import {
 const HEIGHT = Dimensions.get('window').height;
 const WIDTH = Dimensions.get('window').width;
 
-const OurServiceScreen = () => {
+const OurServiceScreen = (props) => {
     const [logo, setLogo] = useState(null);
     const [loading, setLoading] = useState(false);
     const [memberID, setMemberID] = useState(null);
@@ -45,7 +45,7 @@ const OurServiceScreen = () => {
     }, []);
 
     useEffect(() => {
-    }, [loading, memberID]);
+    }, [logo, loading, memberID, memberInfo, refreshing, selectCategory, currencySymbol, serviceCategoryList]);
 
     //REMOTE DATA FATCH IN LOCAL STORAGE
     const RemoteController = async () => {
@@ -158,7 +158,6 @@ const OurServiceScreen = () => {
         setServiceList(tempArry);
         Toast.show("Remove Successfully", Toast.SHORT);
         await removeLocalWishList(item);
-        await getLocalWishListService();
     }
 
     //RENDER SERVICE LIST USING FLATLIST
@@ -255,8 +254,8 @@ const OurServiceScreen = () => {
     }
 
     //BOOK NOW BUTTON CLICK TO CALL FUNCTION
-    const onPressBooking = () => {
-
+    const onPressBooking = (item) => {
+        props.navigation.navigate(SCREEN.OURSERVICEDETAILSCREEN, { item });
     }
 
     return (

@@ -447,6 +447,7 @@ export default {
     mywishlist: "My Wishlist",
     paymentdue: "Payment Due",
     recenettransactions: "Recent Transactions",
+    suggestedservicestext: "Suggested Services",
     upcoming: "Upcoming",
     class: "Class",
     updatepassword: "Update Password",

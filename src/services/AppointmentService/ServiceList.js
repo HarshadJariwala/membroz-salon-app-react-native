@@ -41,3 +41,27 @@ export const ServiceTypeList = (id) => {
     }
     return Axios.post('services/filter', body);
 }
+
+export const SuggestedServiceList = (id) => {
+    let body
+    if (id != null && id != undefined) {
+        body =
+        {
+            "search":
+                [
+                    { "searchfield": "category", "searchvalue": id, "criteria": "eq", "datatype": "ObjectId" },
+                    { "searchfield": "status", "searchvalue": "active", "criteria": "eq" }
+                ], "size": 2
+        }
+    }
+    else {
+        body =
+        {
+            "search":
+                [
+                    { "searchfield": "status", "searchvalue": "active", "criteria": "eq", "datatype": "text" }
+                ], "size": 2
+        }
+    }
+    return Axios.post('services/filter', body);
+}

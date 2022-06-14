@@ -34,7 +34,7 @@ import OURSPECIALISTDTAILS from '../screen/OurSpecialist/OurSpecialistDtails';
 import MENUSCREEN from '../screen/MenuScreen/MenuScreen';
 import OURSERVICESCREEN from '../screen/OurServiceScreen/OurServiceScreen';
 import WISHLISTSCREEN from '../screen/WishlistScreen/WishlistScreen';
-
+import OURSERVICEDETAILSCREEN from '../screen/OurServiceScreen/OurServiceDetailScreen';
 
 import { NotificationService } from '../services/NotificationService/NotificationService';
 import { MemberLanguage } from '../services/LocalService/LanguageService';
@@ -236,6 +236,11 @@ const HomeStackScreen = ({ navigation }) => {
                         fontWeight: FONT.FONT_WEIGHT_MEDIAM, //Set Header text style
                     }
                 }}
+            />
+            <Stack.Screen
+                name="OurServiceDetailScreen"
+                component={OURSERVICEDETAILSCREEN}
+                options={{ headerShown: false }}
             />
             <Stack.Screen name="NotificationScreen"
                 component={NOTIFICATIONSCREEN}
