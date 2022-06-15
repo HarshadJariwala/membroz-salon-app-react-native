@@ -50,7 +50,7 @@ const ExpoloreLoginScreen = (props) => {
                     <TouchableOpacity
                         onPress={() => props.navigation.navigate(SCREEN.LOGINSCREEN)}
                         style={styles.loginBtn}>
-                        <Text style={{ fontWeight: FONT.FONT_WEIGHT_BOLD, color: COLOR.WHITE, fontSize: FONT.FONT_SIZE_18 }}>{languageConfig.memberlogin}</Text>
+                        <Text style={{ fontWeight: FONT.FONT_BOLD, color: COLOR.WHITE, fontSize: FONT.FONT_SIZE_18 }}>{languageConfig.memberlogin}</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                         onPress={() => props.navigation.navigate(SCREEN.EXPLORESCREEN)}

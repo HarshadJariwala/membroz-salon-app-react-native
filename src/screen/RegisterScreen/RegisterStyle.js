@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         fontSize: FONT.FONT_SIZE_24,
         color: COLOR.WHITE,
-        fontWeight: FONT.FONT_WEIGHT_BOLD
+        fontWeight: FONT.FONT_BOLD
     },
     inputTextView: {
         borderRadius: 5,

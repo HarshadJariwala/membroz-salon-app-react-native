@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     welcomeText: {
         fontSize: 30,
         color: COLOR.WHITE,
-        fontWeight: FONT.FONT_WEIGHT_BOLD,
+        fontWeight: FONT.FONT_BOLD,
         alignSelf: KEY.CENTER,
         marginBottom: 60,
         fontSize: FONT.FONT_SIZE_28
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
         marginBottom: 15,
     },
     textExploreStyle: {
-        fontWeight: FONT.FONT_WEIGHT_BOLD,
+        fontWeight: FONT.FONT_BOLD,
         color: COLOR.DEFALUTCOLOR,
         fontSize: FONT.FONT_SIZE_18
     },

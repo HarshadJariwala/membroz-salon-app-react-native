@@ -166,7 +166,7 @@ const NewPasswordScreen = (props) => {
                         </View>
                         <TouchableOpacity style={styles.forgotButton} onPress={() => onPressSubmit()}>
                             <Text style={{
-                                fontWeight: FONT.FONT_WEIGHT_BOLD, color: COLOR.WHITE,
+                                fontWeight: FONT.FONT_BOLD, color: COLOR.WHITE,
                                 fontSize: FONT.FONT_SIZE_18, textTransform: KEY.CAPITALIZE
                             }}>{languageConfig.updatetext}</Text>
                         </TouchableOpacity>

@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     text: {
         marginTop: 10,
         fontSize: FONT.FONT_SIZE_18,
-        fontWeight: FONT.FONT_WEIGHT_BOLD,
+        fontWeight: FONT.FONT_BOLD,
         color: COLOR.BLACK,
         textTransform: KEY.CAPITALIZE,
         justifyContent: KEY.CENTER,

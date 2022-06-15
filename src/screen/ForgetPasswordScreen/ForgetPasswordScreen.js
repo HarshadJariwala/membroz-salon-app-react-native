@@ -232,7 +232,7 @@ const ForgotPasswordScreen = (props) => {
                                     <View style={{ justifyContent: KEY.CENTER, alignItems: KEY.CENTER }}>
                                         <TouchableOpacity style={styles.forgotButton}
                                             onPress={() => otpVerify()}>
-                                            <Text style={{ fontWeight: FONT.FONT_WEIGHT_BOLD, color: COLOR.WHITE, fontSize: FONT.FONT_SIZE_18 }}>{languageConfig.verifyotp}</Text>
+                                            <Text style={{ fontWeight: FONT.FONT_BOLD, color: COLOR.WHITE, fontSize: FONT.FONT_SIZE_18 }}>{languageConfig.verifyotp}</Text>
                                         </TouchableOpacity>
                                     </View>
                                 </View>
@@ -253,7 +253,7 @@ const ForgotPasswordScreen = (props) => {
                                     <View style={{ justifyContent: KEY.CENTER, alignItems: KEY.CENTER }}>
                                         <TouchableOpacity style={styles.forgotButton} onPress={() => createOtp()}>
                                             <Text style={{
-                                                fontWeight: FONT.FONT_WEIGHT_BOLD, color: COLOR.WHITE, fontSize: FONT.FONT_SIZE_18,
+                                                fontWeight: FONT.FONT_BOLD, color: COLOR.WHITE, fontSize: FONT.FONT_SIZE_18,
                                                 textTransform: KEY.CAPITALIZE
                                             }}>{languageConfig.resetpasswordbtn}</Text>
                                         </TouchableOpacity>

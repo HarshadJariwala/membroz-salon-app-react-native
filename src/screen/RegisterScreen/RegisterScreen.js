@@ -193,14 +193,14 @@ const RegisterScreen = (props) => {
                         </View>
                         <TouchableOpacity style={styles.loginBtn} onPress={() => onPressToRegister()}>
                             <Text style={{
-                                fontWeight: FONT.FONT_WEIGHT_BOLD, color: COLOR.WHITE,
+                                fontWeight: FONT.FONT_BOLD, color: COLOR.WHITE,
                                 fontSize: FONT.FONT_SIZE_18, textTransform: KEY.CAPITALIZE
                             }}>{languageConfig.register}</Text>
                         </TouchableOpacity>
                         <View style={styles.joinBtn}>
-                            <Text style={{ fontWeight: FONT.FONT_WEIGHT_NORMAL, color: COLOR.WHITE, fontSize: FONT.FONT_SIZE_16 }}>{languageConfig.createaccount}</Text>
+                            <Text style={{ fontWeight: FONT.FONT_NORMAL, color: COLOR.WHITE, fontSize: FONT.FONT_SIZE_16 }}>{languageConfig.createaccount}</Text>
                             <TouchableOpacity style={{ marginLeft: 10 }} onPress={() => { resetScreen(), props.navigation.navigate(SCREEN.LOGINSCREEN) }} >
-                                <Text style={{ fontWeight: FONT.FONT_WEIGHT_NORMAL, color: COLOR.DEFALUTCOLOR, fontSize: FONT.FONT_SIZE_16 }}>{languageConfig.loginbtn}</Text>
+                                <Text style={{ fontWeight: FONT.FONT_NORMAL, color: COLOR.DEFALUTCOLOR, fontSize: FONT.FONT_SIZE_16 }}>{languageConfig.loginbtn}</Text>
                             </TouchableOpacity>
                         </View>
                     </View>

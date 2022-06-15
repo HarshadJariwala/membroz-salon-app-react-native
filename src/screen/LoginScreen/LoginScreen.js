@@ -174,12 +174,12 @@ export default LoginScreen = (props) => {
                             <Text style={{ color: COLOR.WHITE, fontSize: FONT.FONT_SIZE_16 }}>{languageConfig.forgetpasswordtext}</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={STYLES.loginBtn} onPress={() => onPressToLogin()}>
-                            <Text style={{ fontWeight: FONT.FONT_WEIGHT_BOLD, color: COLOR.WHITE, fontSize: FONT.FONT_SIZE_18 }}>{languageConfig.loginbtn}</Text>
+                            <Text style={{ fontWeight: FONT.FONT_BOLD, color: COLOR.WHITE, fontSize: FONT.FONT_SIZE_18 }}>{languageConfig.loginbtn}</Text>
                         </TouchableOpacity>
                         <View style={STYLES.joinBtn}>
-                            <Text style={{ fontWeight: FONT.FONT_WEIGHT_NORMAL, color: COLOR.WHITE, fontSize: FONT.FONT_SIZE_16 }}>{languageConfig.dontaccount}</Text>
+                            <Text style={{ fontWeight: FONT.FONT_NORMAL, color: COLOR.WHITE, fontSize: FONT.FONT_SIZE_16 }}>{languageConfig.dontaccount}</Text>
                             <TouchableOpacity style={{ marginLeft: 5 }} onPress={() => { resetScreen(), props.navigation.navigate(SCREEN.REGISTERSCREEN) }} >
-                                <Text style={{ fontWeight: FONT.FONT_WEIGHT_NORMAL, color: COLOR.DEFALUTCOLOR, fontSize: FONT.FONT_SIZE_16 }}>{languageConfig.register}</Text>
+                                <Text style={{ fontWeight: FONT.FONT_NORMAL, color: COLOR.DEFALUTCOLOR, fontSize: FONT.FONT_SIZE_16 }}>{languageConfig.register}</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
