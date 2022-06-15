@@ -76,7 +76,15 @@ const styles = StyleSheet.create({
         color: COLOR.BLACK,
         fontWeight: FONT.FONT_BOLD,
         marginTop: 10,
-
+        width: WIDTH / 2,
+        marginLeft: 10,
+        marginRight: 10
+    },
+    text2: {
+        fontSize: FONT.FONT_SIZE_16,
+        color: COLOR.BLACK,
+        fontWeight: FONT.FONT_BOLD,
+        marginTop: 10,
         marginLeft: 10,
         marginRight: 10
     },

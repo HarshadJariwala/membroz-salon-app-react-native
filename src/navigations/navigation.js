@@ -254,9 +254,9 @@ const HomeStackScreen = ({ navigation }) => {
                 options={{
                     title: 'Book Service',
                     headerStyle: {
-                        backgroundColor: COLOR.BACKGROUNDCOLOR, //Set Header color
+                        backgroundColor: COLOR.DEFALUTCOLOR, //Set Header color
                     },
-                    headerTintColor: COLOR.BLACK, //Set Header text color
+                    headerTintColor: COLOR.WHITE, //Set Header text color
                     headerTitleAlign: KEY.CENTER,
                     headerTitleStyle: {
                         fontWeight: FONT.FONT_WEIGHT_MEDIAM, //Set Header text style

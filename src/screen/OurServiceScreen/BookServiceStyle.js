@@ -31,27 +31,29 @@ const styles = StyleSheet.create({
         textTransform: KEY.LOWERCASE
     },
     iconleftStyle: {
-        width: 10,
-        height: 10,
-        marginLeft: 20
+        width: 12,
+        height: 12,
+        marginLeft: 20,
+        tintColor: COLOR.WHITE,
     },
     iconrightStyle: {
-        width: 10,
-        height: 10,
-        marginRight: 20
+        width: 12,
+        height: 12,
+        marginRight: 20,
+        tintColor: COLOR.WHITE,
     },
     dateNumberStyle: {
-        color: COLOR.BLACK,
+        color: COLOR.WHITE,
         fontSize: FONT.FONT_SIZE_16,
-        textTransform: KEY.LOWERCASE
+        textTransform: KEY.CAPITALIZE,
     },
     dateNameStyle: {
-        color: COLOR.BLACK,
+        color: COLOR.WHITE,
         fontSize: FONT.FONT_SIZE_14,
-        textTransform: KEY.LOWERCASE
+        textTransform: KEY.CAPITALIZE
     },
     iconStyle: {
-        marginTop: -40,
+        marginTop: -65
     },
     img_card: {
         width: WIDTH - 30,
@@ -82,9 +84,28 @@ const styles = StyleSheet.create({
         color: COLOR.BLACK,
         fontWeight: FONT.FONT_BOLD,
     },
+    slotstyle: {
+        width: 150,
+        height: 45,
+        borderColor: COLOR.LIGHT_BLACK,
+        borderRadius: 10,
+        justifyContent: KEY.CENTER,
+        alignItems: KEY.CENTER,
+        borderWidth: 1,
+        margin: 15
+    },
+    slotSelectStyle: {
+        width: 150,
+        height: 45,
+        borderColor: COLOR.DEFALUTCOLOR,
+        borderRadius: 10,
+        justifyContent: KEY.CENTER,
+        alignItems: KEY.CENTER,
+        borderWidth: 2,
+        margin: 15
+    },
     cardView: {
         width: WIDTH - 30,
-        height: 100,
         marginTop: 10,
         borderRadius: 10,
         backgroundColor: COLOR.WHITE,
@@ -96,10 +117,10 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.23,
         shadowRadius: 2.62,
         elevation: 4,
-        marginBottom: 5,
-        flexDirection: KEY.ROW,
         marginLeft: 15,
-        marginRight: 15
+        marginRight: 15,
+        justifyContent: KEY.CENTER,
+        alignContent: KEY.CENTER
     },
 });
 

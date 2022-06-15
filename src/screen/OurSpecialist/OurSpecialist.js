@@ -12,9 +12,9 @@ import { MemberLanguage } from '../../services/LocalService/LanguageService';
 import { UserListService } from '../../services/UserService/UserService';
 import * as LocalService from '../../services/LocalService/LocalService';
 import languageConfig from '../../languages/languageConfig';
-import Feather from 'react-native-vector-icons/Feather';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import * as SCREEN from '../../context/screen/screenName';
+import Feather from 'react-native-vector-icons/Feather';
 import * as KEY from '../../context/actions/key';
 import * as FONT from '../../styles/typography';
 import Toast from 'react-native-simple-toast';
@@ -23,7 +23,7 @@ import Loader from '../../components/loader';
 import * as IMAGE from '../../styles/image';
 import styles from './OurSpecialistStyle';
 import moment from 'moment';
-
+const HEIGHT = Dimensions.get('window').height;
 const WIDTH = Dimensions.get('window').width;
 
 const OurSpecialist = ({ navigation }) => {
@@ -113,10 +113,10 @@ const OurSpecialist = ({ navigation }) => {
                 </View>
                 <View style={{ marginLeft: 10, flexDirection: KEY.COLUMN, alignItems: KEY.FLEX_START, width: WIDTH / 2 }}>
                     {item.property && item.property.fullname &&
-                        <Text style={{ fontSize: FONT.FONT_SIZE_16, color: COLOR.BLACK, fontWeight: FONT.FONT_WEIGHT_BOLD, textTransform: KEY.CAPITALIZE }}>
+                        <Text style={{ fontSize: FONT.FONT_SIZE_16, color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD, textTransform: KEY.CAPITALIZE }}>
                             {item.property.fullname}</Text>}
                     {item.designationid && item.designationid.title &&
-                        <Text style={{ marginTop: 2, fontSize: FONT.FONT_SIZE_14, color: COLOR.GRANITE_GRAY, textTransform: KEY.CAPITALIZE }}>
+                        <Text style={{ marginTop: 2, fontSize: FONT.FONT_SIZE_14, color: COLOR.BLACK, textTransform: KEY.CAPITALIZE }}>
                             {item.designationid.title}</Text>}
                     {
                         item.property && item.property.mobile &&
@@ -125,7 +125,7 @@ const OurSpecialist = ({ navigation }) => {
                                 style={{ alignItems: KEY.CENTER }}>
                                 <Feather size={18} name="phone-call" color={COLOR.DEFALUTCOLOR} style={{ marginRight: 5 }} />
                             </TouchableOpacity>
-                            <Text style={{ marginTop: 2, fontSize: FONT.FONT_SIZE_14, color: COLOR.GRANITE_GRAY }}>
+                            <Text style={{ marginTop: 2, fontSize: FONT.FONT_SIZE_14, color: COLOR.BLACK }}>
                                 {item.property.mobile}</Text>
                         </View>
                     }
@@ -135,7 +135,7 @@ const OurSpecialist = ({ navigation }) => {
                                 style={{ alignItems: KEY.CENTER }}>
                                 <Fontisto size={18} name="email" color={COLOR.DEFALUTCOLOR} style={{ marginRight: 5 }} />
                             </TouchableOpacity>
-                            <Text style={{ marginTop: 2, fontSize: FONT.FONT_SIZE_14, color: COLOR.GRANITE_GRAY }}>
+                            <Text style={{ marginTop: 2, fontSize: FONT.FONT_SIZE_14, color: COLOR.BLACK }}>
                                 {item.property.primaryemail}</Text>
                         </View>
                     }
@@ -165,12 +165,11 @@ const OurSpecialist = ({ navigation }) => {
                     }
                     keyExtractor={item => item._id}
                     ListFooterComponent={() => (
-                        teamList && teamList.length > 0 ?
-                            <></>
-                            :
-                            <View style={{ justifyContent: KEY.CENTER, alignItems: KEY.CENTER }}>
-                                <Text style={{ fontSize: FONT.FONT_SIZE_16, color: COLOR.TAUPE_GRAY, marginTop: 10 }}>{languageConfig.norecordtext}</Text>
-                            </View>
+                        teamList && teamList.length === 0 &&
+                        <View style={{ justifyContent: KEY.CENTER, alignItems: KEY.CENTER }}>
+                            <Image source={IMAGE.NODATA} style={{ height: 150, width: 200, marginTop: HEIGHT * 0.2 }} resizeMode={KEY.CONTAIN} />
+                            <Text style={{ fontSize: FONT.FONT_SIZE_16, color: COLOR.TAUPE_GRAY, marginTop: 10 }}>{languageConfig.norecordtext}</Text>
+                        </View>
                     )}
                 />
             }

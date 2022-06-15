@@ -1,39 +1,114 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     View, Text, SafeAreaView, ScrollView,
     StatusBar, ImageBackground, Dimensions,
     Image, TextInput, TouchableOpacity,
 } from 'react-native';
-import * as COLOR from "../../styles/colors";
-import styles from './BookingPaymentStyle';
-import * as FONT from "../../styles/typography";
-import * as KEY from '../../context/actions/key';
-import Feather from 'react-native-vector-icons/Feather';
-import * as SCREEN from '../../context/screen/screenName';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import { addAppointmentService } from '../../services/AppointmentService/AppiontmentService';
+import { MemberLanguage } from '../../services/LocalService/LanguageService';
+import crashlytics, { firebase } from "@react-native-firebase/crashlytics";
+import * as LocalService from '../../services/LocalService/LocalService';
+import getCurrency from '../../services/getCurrencyService/getCurrency';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import Entypo from 'react-native-vector-icons/Entypo';
-import * as IMAGE from '../../styles/image';
-import EvilIcons from 'react-native-vector-icons/EvilIcons'
 import languageConfig from '../../languages/languageConfig';
-const WIDTH = Dimensions.get('window').width;
+import * as SCREEN from '../../context/screen/screenName';
+import Feather from 'react-native-vector-icons/Feather';
+import Loader from '../../components/loader/index';
+import * as KEY from '../../context/actions/key';
+import * as FONT from "../../styles/typography";
+import Toast from 'react-native-simple-toast';
+import * as COLOR from "../../styles/colors";
+import * as IMAGE from '../../styles/image';
+import styles from './BookingPaymentStyle';
+import moment from 'moment';
 const HEIGHT = Dimensions.get('window').height;
+const WIDTH = Dimensions.get('window').width;
 
 const BookingPaymentScreen = (props) => {
+    const ServiceDetails = props.route.params.item;
+    const [loading, setLoading] = useState(false);
+    const [memberInfo, setMemberInfo] = useState(null);
+    const [memberID, setMemberID] = useState(null);
+    const [currencySymbol, setCurrencySymbol] = useState(null);
+    const [razorPayKey, setRazorPayKey] = useState(null);
+
+    useEffect(() => {
+        setLoading(true);
+        RemoteController();
+        //LANGUAGE MANAGEMENT FUNCTION
+        MemberLanguage();
+        getMemberDeatilsLocalStorage();
+    }, [])
+
+    useEffect(() => {
+    }, [loading, memberInfo, memberID, memberID])
+
+    //REMOTE DATA FATCH IN LOCAL STORAGE
+    const RemoteController = async () => {
+        var userData = await LocalService.RemoteServerController();
+        if (userData) {
+            setRazorPayKey(userData.razorpaykey);
+        }
+    };
+
+    //GET MEMBER DATA IN MOBILE LOCAL STORAGE
+    const getMemberDeatilsLocalStorage = async () => {
+        try {
+            var memberInfo = await LocalService.LocalStorageService();
+            const response = getCurrency(memberInfo.branchid.currency);
+            if (memberInfo) {
+                setCurrencySymbol(response);
+                setMemberID(memberInfo._id);
+                setMemberInfo(memberInfo);
+                setLoading(false);
+            } else {
+                setLoading(false);
+            }
+        } catch (error) {
+            console.log(`error`, error);
+        }
+    }
 
     //BOOK NOW BUTTON CLICK TO CALL FUNCTION
-    const onPressBooking = () => {
-        props.navigation.navigate(SCREEN.BOOKINGCOMPLATESCREEN);
+    const onPressBooking = async () => {
+        let appointmentDetail = {
+            'appointmentdate': moment(ServiceDetails.currentbookingdate).format(),
+            'attendee': memberID,
+            'onModel': 'Member',
+            //"host" : serviceDetails.addedby, 
+            'duration': ServiceDetails.duration,
+            'refid': ServiceDetails._id,
+            'timeslot': {
+                'day': moment(ServiceDetails.currentbookingdate).format('dddd'),
+                'starttime': ServiceDetails.currentbookingtime.starttime,
+                'endtime': ServiceDetails.currentbookingtime.endtime
+            },
+            'charges': ServiceDetails.charges,
+        }
+        console.log(`appointmentDetail`, appointmentDetail);
+        setLoading(true);
+        try {
+            const response = await addAppointmentService(appointmentDetail);
+            console.log(`response.data`, response.data);
+            if (response.data != null && response.data != 'undefind' && response.status == 200) {
+                setLoading(false);
+                Toast.show(languageConfig.appoimentsuccessmessage, Toast.LONG);
+                props.navigation.navigate(SCREEN.BOOKINGCOMPLATESCREEN, { item: response.data });
+            }
+        }
+        catch (error) {
+            console.log(`error`, error);
+            firebase.crashlytics().recordError(error);
+            setLoading(false);
+            Toast.show(languageConfig.appoimenterror, Toast.LONG);
+        }
     }
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: COLOR.BACKGROUNDCOLOR }}>
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View style={{ marginTop: 0, marginLeft: 15, marginBottom: 10 }}>
-                    <Text style={styles.text}>{"Booking Details"}</Text>
+                    <Text style={styles.text}>{languageConfig.bookingdetails}</Text>
                 </View>
                 <View style={{ justifyContent: KEY.CENTER, alignItems: KEY.CENTER, }}>
                     <View style={styles.cardview}>
@@ -45,7 +120,7 @@ const BookingPaymentScreen = (props) => {
                                 <Text style={styles.text_line}>{languageConfig.date}</Text>
                                 <Text style={{
                                     fontSize: 16, color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD
-                                }}>{"January 08,2023"}</Text>
+                                }}>{ServiceDetails && moment(ServiceDetails.currentbookingdate).format("MMMM DD,YYYY")}</Text>
                             </View>
 
                             <View style={{ marginLeft: 15, flexDirection: KEY.ROW }}>
@@ -57,7 +132,7 @@ const BookingPaymentScreen = (props) => {
                                         <Text style={styles.text_line}>{languageConfig.starttimetext}</Text>
                                         <Text style={{
                                             fontSize: 16, color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD
-                                        }}>{"10 am"}</Text>
+                                        }}>{ServiceDetails && ServiceDetails.currentbookingtime.starttime}</Text>
                                     </View>
                                 </View>
                             </View>
@@ -72,36 +147,32 @@ const BookingPaymentScreen = (props) => {
                                     <Text style={styles.text_line}>{languageConfig.duration}</Text>
                                     <Text style={{
                                         fontSize: 16, color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD
-                                    }}>{"1:30 hours"}</Text>
+                                    }}>{ServiceDetails && ServiceDetails.duration + ' min'}</Text>
                                 </View>
                             </View>
                         </View>
                     </View>
                 </View>
                 <View style={{ marginTop: 10, marginLeft: 10 }}>
-                    <Text style={styles.text}> {"Service"}</Text>
+                    <Text style={styles.text}> {languageConfig.servicetext}</Text>
                 </View>
                 <View style={{ justifyContent: KEY.CENTER, alignItems: KEY.CENTER, marginTop: 10 }}>
                     <View style={styles.cardview}>
                         <View>
                             <View style={{ flex: 1, flexDirection: KEY.ROW, justifyContent: KEY.SPACEBETWEEN, marginTop: 5 }}>
-                                <Text style={styles.text1}> {"Hair Cut"} </Text>
-                                <Text style={styles.text1}> {"$25"} </Text>
-                            </View>
-                            <View style={{ flexDirection: KEY.ROW, justifyContent: KEY.SPACEBETWEEN, }}>
-                                <Text style={styles.text1}> {"Hair Colour"} </Text>
-                                <Text style={styles.text1}> {"$25"} </Text>
+                                <Text style={styles.text1}> {ServiceDetails && ServiceDetails.title} </Text>
+                                <Text style={styles.text2}> {ServiceDetails && (currencySymbol + ServiceDetails.charges)} </Text>
                             </View>
                         </View>
                         <View style={styles.line} />
                         <View style={{}}>
                             <View style={{ flex: 1, flexDirection: KEY.ROW, justifyContent: KEY.SPACEBETWEEN, }}>
-                                <Text style={styles.text1}> {"Sub Total"} </Text>
-                                <Text style={styles.text1}> {"$50"} </Text>
+                                <Text style={styles.text1}> {languageConfig.subtotaltext} </Text>
+                                <Text style={styles.text2}> {currencySymbol + "0"} </Text>
                             </View>
                             <View style={{ flexDirection: KEY.ROW, justifyContent: KEY.SPACEBETWEEN, }}>
-                                <Text style={styles.text1}> {"Discount"} </Text>
-                                <Text style={styles.text1}> {"-$10"} </Text>
+                                <Text style={styles.text1}> {languageConfig.discounttext} </Text>
+                                <Text style={styles.text2}> {currencySymbol + "0"} </Text>
                             </View>
                         </View>
                         <View style={styles.line} />
@@ -113,7 +184,7 @@ const BookingPaymentScreen = (props) => {
                                 marginTop: 10,
                                 marginBottom: 10,
                                 marginLeft: 10
-                            }}> {"Total"} </Text>
+                            }}> {languageConfig.totaltext} </Text>
                             <Text style={{
                                 fontSize: FONT.FONT_SIZE_20,
                                 color: COLOR.DEFALUTCOLOR,
@@ -121,7 +192,7 @@ const BookingPaymentScreen = (props) => {
                                 marginTop: 10,
                                 marginBottom: 10,
                                 marginRight: 10
-                            }}> {"$40"} </Text>
+                            }}> {ServiceDetails && (currencySymbol + ServiceDetails.charges)} </Text>
                         </View>
                     </View>
                 </View>
@@ -132,8 +203,8 @@ const BookingPaymentScreen = (props) => {
                                 <Feather name='check' size={18} color={COLOR.DEFALUTCOLOR} />
                             </TouchableOpacity>
                             <View style={{ flexDirection: KEY.COLUMN, marginLeft: 15, marginBottom: 10 }}>
-                                <Text style={{ fontSize: FONT.FONT_SIZE_18, color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD }}>{"Wallet"}</Text>
-                                <Text style={{ color: COLOR.LIGHT_BLACK, fontSize: FONT.FONT_SIZE_14 }}>{"Your current balance $20"}</Text>
+                                <Text style={{ fontSize: FONT.FONT_SIZE_18, color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD }}>{languageConfig.wallet}</Text>
+                                <Text style={{ color: COLOR.LIGHT_BLACK, fontSize: FONT.FONT_SIZE_14 }}>{languageConfig.walletcurrentblancetext + ' ' + currencySymbol + "0"}</Text>
                             </View>
                         </View>
                     </View>
@@ -143,13 +214,13 @@ const BookingPaymentScreen = (props) => {
                         <View style={{ flexDirection: KEY.ROW, marginBottom: 5 }}>
                             <TouchableOpacity style={{ justifyContent: KEY.CENTER, alignItems: KEY.CENTER }}>
                                 <View style={styles.round}>
-                                    <FontAwesome name="circle" size={16} color={COLOR.DEFALUTCOLOR} />
+
                                 </View>
                             </TouchableOpacity>
                             <View style={{ flexDirection: KEY.COLUMN, marginBottom: 10, marginTop: 10, marginLeft: 15 }}>
-                                <Text style={{ fontSize: FONT.FONT_SIZE_16, color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD }}>{"Magpie"}</Text>
-                                <Text style={{ fontSize: FONT.FONT_SIZE_14, color: COLOR.LIGHT_BLACK }}>{'Instant payment via UPI/Debit/Credit Card '}</Text>
-                                <Text style={{ fontSize: FONT.FONT_SIZE_14, color: COLOR.LIGHT_BLACK }}>{'using any bank account'}</Text>
+                                <Text style={{ fontSize: FONT.FONT_SIZE_16, color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD }}>{languageConfig.magpietext}</Text>
+                                <Text style={{ fontSize: FONT.FONT_SIZE_14, color: COLOR.LIGHT_BLACK }}>{languageConfig.paymentmethodtext}</Text>
+                                <Text style={{ fontSize: FONT.FONT_SIZE_14, color: COLOR.LIGHT_BLACK }}>{languageConfig.paymentmethod2text}</Text>
                             </View>
                         </View>
                     </View>
@@ -159,12 +230,13 @@ const BookingPaymentScreen = (props) => {
                         <View style={{ flexDirection: KEY.ROW, }}>
                             <TouchableOpacity style={{ justifyContent: KEY.CENTER, alignItems: KEY.CENTER, }}>
                                 <View style={styles.round}>
+                                    <FontAwesome name="circle" size={16} color={COLOR.DEFALUTCOLOR} />
                                 </View>
                             </TouchableOpacity>
                             <View style={{ flexDirection: KEY.COLUMN, marginBottom: 10, marginTop: 10, marginLeft: 15 }}>
-                                <Text style={{ fontSize: FONT.FONT_SIZE_16, color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD }}>{"Pay at Salon"}</Text>
-                                <Text style={{ fontSize: FONT.FONT_SIZE_14, color: COLOR.LIGHT_BLACK }}>{'You can pay your service bill at salon on'}</Text>
-                                <Text style={{ fontSize: FONT.FONT_SIZE_14, color: COLOR.LIGHT_BLACK }}>{'Arrival'}</Text>
+                                <Text style={{ fontSize: FONT.FONT_SIZE_16, color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD }}>{languageConfig.paymentmethod3text}</Text>
+                                <Text style={{ fontSize: FONT.FONT_SIZE_14, color: COLOR.LIGHT_BLACK }}>{languageConfig.paymentmethod4text}</Text>
+                                <Text style={{ fontSize: FONT.FONT_SIZE_14, color: COLOR.LIGHT_BLACK }}>{languageConfig.paymentmethod5text}</Text>
                             </View>
                         </View>
                     </View>
@@ -172,12 +244,12 @@ const BookingPaymentScreen = (props) => {
                 <View style={{ justifyContent: KEY.CENTER, alignItems: KEY.CENTER, marginTop: 20, marginBottom: 10 }}>
                     <TouchableOpacity style={styles.loginbutton} onPress={() => onPressBooking()} >
                         <Text style={styles.login_button}>
-                            {"You Pay $20"}
+                            {languageConfig.youpaytext + ' ' + (ServiceDetails && (currencySymbol + ServiceDetails.charges))}
                         </Text>
                     </TouchableOpacity>
                 </View>
-
             </ScrollView>
+            {loading ? <Loader /> : null}
         </SafeAreaView>
     )
 }

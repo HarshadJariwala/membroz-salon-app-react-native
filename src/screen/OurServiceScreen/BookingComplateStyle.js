@@ -68,6 +68,15 @@ const styles = StyleSheet.create({
         marginBottom: 5,
         marginRight: 10
     },
+    text2: {
+        fontSize: FONT.FONT_SIZE_16,
+        color: COLOR.BLACK,
+        fontWeight: FONT.FONT_BOLD,
+        marginTop: 10,
+        marginLeft: 10,
+        marginBottom: 5,
+        marginRight: 10
+    },
     loginbutton: {
         justifyContent: KEY.CENTER,
         alignItems: KEY.CENTER,

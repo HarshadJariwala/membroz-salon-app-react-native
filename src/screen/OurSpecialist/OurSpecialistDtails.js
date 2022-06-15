@@ -30,37 +30,20 @@ import moment from 'moment';
 import { firebase } from '@react-native-firebase/crashlytics';
 const WIDTH = Dimensions.get('window').width;
 
-
 const OurSpecialistDtails = (props) => {
-
     const oursSpeacilistDetails = props.route.params.item;
     const [profilepic, setProfilepic] = useState(null);
-
-    let days = oursSpeacilistDetails.branchid.workinghours.days;
+    let starttime = oursSpeacilistDetails && oursSpeacilistDetails.branchid && oursSpeacilistDetails.branchid.workinghours && moment(oursSpeacilistDetails.branchid.workinghours.starttime, ["HH.mm"]).format("hh:mm ");
+    let endtime = oursSpeacilistDetails && oursSpeacilistDetails.branchid && oursSpeacilistDetails.branchid.workinghours && moment(oursSpeacilistDetails.branchid.workinghours.endtime, ["HH.mm"]).format("hh:mm ");
+    let days = oursSpeacilistDetails && oursSpeacilistDetails.branchid && oursSpeacilistDetails.branchid.workinghours && oursSpeacilistDetails.branchid.workinghours.days;
     let firstdays = days[0];
     let lastdays = days[days.length - 1];
 
-    // getdays = async () => {
-    //     let days = ['mon', 'ths', 'wed', 'tue', 'fri', 'sat'];
-    //     let first = days[0];
-    //     let last = days[days.length - 1];
-    //     const alldays = getdays(oursSpeacilistDetails.branchid.workinghours.days)
-
-    // }
-
-
-
-
-
-
-
-    console.log("oursSpeacilistDetails", oursSpeacilistDetails)
     useEffect(() => {
         //LANGUAGE MANAGEMENT FUNCTION
         MemberLanguage();
-
-
     }, [])
+
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: COLOR.BACKGROUNDCOLOR }}>
             <StatusBar hidden={false} translucent={true} backgroundColor={COLOR.STATUSBARCOLOR} barStyle={KEY.DARK_CONTENT} />
@@ -71,8 +54,8 @@ const OurSpecialistDtails = (props) => {
                             <Image source={!oursSpeacilistDetails && oursSpeacilistDetails.profilepic ? IMAGE.USERPROFILE : { uri: oursSpeacilistDetails.profilepic }}
                                 style={!profilepic ? { height: 70, width: 70, borderRadius: 100 } : { height: 75, width: 75, borderRadius: 100 }} />
                         </TouchableOpacity>
-                        <Text style={styles.text}> {oursSpeacilistDetails.property.fullname}</Text>
-                        <Text style={styles.text1}> {oursSpeacilistDetails.designationid.title}</Text>
+                        <Text style={styles.text}> {oursSpeacilistDetails && oursSpeacilistDetails.property && oursSpeacilistDetails.property.fullname}</Text>
+                        <Text style={styles.text1}> {oursSpeacilistDetails && oursSpeacilistDetails.designationid && oursSpeacilistDetails.designationid.title}</Text>
                     </View>
                     <View style={styles.cardView}>
                         <View style={{ flexDirection: KEY.ROW }}>
@@ -82,27 +65,30 @@ const OurSpecialistDtails = (props) => {
                                 color: COLOR.BLACK,
                                 marginLeft: 20,
                                 marginTop: 10
-                            }}>{'About '}</Text>
+                            }}>{languageConfig.abouttext}</Text>
                             <Text style={{
                                 fontSize: FONT.FONT_SIZE_16,
                                 fontWeight: FONT.FONT_BOLD,
                                 color: COLOR.DEFALUTCOLOR,
-                                marginTop: 10
-                            }}>{'Me'}</Text>
+                                marginTop: 10,
+                                marginLeft: 5
+                            }}>{languageConfig.metext}</Text>
                         </View>
-                        <Text style={styles.cardtext}>
-                            <RenderHTML contentWidth={WIDTH - 60}
-                                source={{ html: oursSpeacilistDetails.property.discriptio_ge8h }}
-                                baseStyle={styles.tagsStyles}
-                            />
-                        </Text>
+                        {oursSpeacilistDetails && oursSpeacilistDetails.property && oursSpeacilistDetails.property.discriptio_ge8h &&
+                            <Text style={styles.cardtext}>
+                                <RenderHTML contentWidth={WIDTH - 60}
+                                    source={{ html: oursSpeacilistDetails.property.discriptio_ge8h }}
+                                    baseStyle={styles.tagsStyles}
+                                />
+                            </Text>
+                        }
                         <View style={{ flexDirection: KEY.ROW, alignItems: KEY.SPACEBETWEEN, marginLeft: 20, }}>
                             <TouchableOpacity onPress={() => onPressCall(oursSpeacilistDetails)}
                                 style={{ alignItems: KEY.CENTER }}>
                                 <Feather size={18} name="phone-call" color={COLOR.DEFALUTCOLOR} style={{ marginRight: 5 }} />
                             </TouchableOpacity>
-                            <Text style={{ fontSize: FONT.FONT_SIZE_16, color: COLOR.GRANITE_GRAY }}>
-                                {oursSpeacilistDetails.property.mobile}</Text>
+                            <Text style={{ fontSize: FONT.FONT_SIZE_16, color: COLOR.BLACK }}>
+                                {oursSpeacilistDetails && oursSpeacilistDetails.property && oursSpeacilistDetails.property.mobile}</Text>
                         </View>
                         <View style={{ flexDirection: KEY.ROW, alignItems: KEY.SPACEBETWEEN, marginLeft: 20, marginBottom: 10 }}>
                             <TouchableOpacity onPress={() => onPressEmail(oursSpeacilistDetails)}
@@ -110,8 +96,8 @@ const OurSpecialistDtails = (props) => {
                                 <Fontisto size={18} name="email" color={COLOR.DEFALUTCOLOR} style={{ marginRight: 5, }} />
                             </TouchableOpacity>
                             <Text numberOfLines={1}
-                                style={{ fontSize: FONT.FONT_SIZE_16, color: COLOR.GRANITE_GRAY }} >
-                                {oursSpeacilistDetails.property.primaryemail}</Text>
+                                style={{ fontSize: FONT.FONT_SIZE_16, color: COLOR.BLACK }} >
+                                {oursSpeacilistDetails && oursSpeacilistDetails.property && oursSpeacilistDetails.property.primaryemail}</Text>
                         </View>
                     </View>
                     <View style={styles.viewRectangle}>
@@ -125,7 +111,7 @@ const OurSpecialistDtails = (props) => {
                                     <Text style={{
                                         fontSize: FONT.FONT_SIZE_16, color: COLOR.BLACK,
                                         fontWeight: FONT.FONT_BOLD
-                                    }}>{oursSpeacilistDetails.property.workexperience + ' ' + 'Years'}</Text>
+                                    }}>{oursSpeacilistDetails && oursSpeacilistDetails.property && oursSpeacilistDetails.property.workexperience + ' ' + languageConfig.yearstext}</Text>
                                 </View>
                             </View>
                         </View>
@@ -143,7 +129,7 @@ const OurSpecialistDtails = (props) => {
                                     <Text style={{
                                         fontSize: FONT.FONT_SIZE_16, color: COLOR.BLACK,
                                         fontWeight: FONT.FONT_BOLD
-                                    }}>{moment(oursSpeacilistDetails.property.joiningdate).format('MMMM DD,YYYY')}</Text>
+                                    }}>{moment(oursSpeacilistDetails && oursSpeacilistDetails.property && oursSpeacilistDetails.property.joiningdate).format('MMMM DD,YYYY')}</Text>
                                 </View>
                             </View>
                         </View>
@@ -161,7 +147,7 @@ const OurSpecialistDtails = (props) => {
                                     <Text style={{
                                         fontSize: FONT.FONT_SIZE_16, textTransform: KEY.UPPERCASE, color: COLOR.BLACK,
                                         fontWeight: FONT.FONT_BOLD
-                                    }}>{firstdays + ' - ' + lastdays}</Text>
+                                    }}>{(firstdays && firstdays) + ' - ' + (lastdays && lastdays)}</Text>
                                 </View>
                             </View>
                         </View>
@@ -179,7 +165,7 @@ const OurSpecialistDtails = (props) => {
                                     <Text style={{
                                         fontSize: FONT.FONT_SIZE_16, textTransform: KEY.UPPERCASE, color: COLOR.BLACK,
                                         fontWeight: FONT.FONT_BOLD, flex: 1
-                                    }}>{moment(oursSpeacilistDetails.branchid.workinghours.starttime, ["HH.mm"]).format("hh:mm ") + ' - ' + moment(oursSpeacilistDetails.branchid.workinghours.endtime, ["HH.mm"]).format("hh:mm ")}</Text>
+                                    }}>{starttime + ' - ' + endtime}</Text>
                                 </View>
                             </View>
                         </View>

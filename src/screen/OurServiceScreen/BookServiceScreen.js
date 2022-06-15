@@ -34,15 +34,13 @@ const BookServiceScreen = (props) => {
     const [memberID, setMemberID] = useState(null);
     const [selectionDate, setSelectionDate] = useState(null);
     const [currencySymbol, setCurrencySymbol] = useState(null);
-
-    //BOOK NOW BUTTON CLICK TO CALL FUNCTION
-    const onPressBooking = () => {
-        props.navigation.navigate(SCREEN.BOOKINGPAYMENTSCREEN);
-    }
+    const [timeSlots, setTimeSlots] = useState([]);
+    const [time, setTime] = useState(null);
 
     useEffect(() => {
         setLoading(true);
         setSelectionDate(today);
+        generatingTS(ServiceDetails);
         RemoteController();
         //LANGUAGE MANAGEMENT FUNCTION
         MemberLanguage();
@@ -59,6 +57,70 @@ const BookServiceScreen = (props) => {
             setLogo(userData.applogo);
         }
     };
+
+    const generatingTS = (service) => {
+        if (service) {
+            var timeslotList = [];
+            var starttime = service['availability'].starttime; // 06:00
+            var endtime = service['availability'].endtime;     // 14:00
+            var duration = service['duration'];
+
+            var startmin = starttime.split(":");      // 06:00
+            var timehr = parseInt(startmin[0]);       // 06
+            var timemin = parseInt(startmin[1]);      // 00
+            var totalstartmin = timehr * 60 + timemin;// 360 + 00
+
+            var endmin = endtime.split(":");            // 14:00
+            var endtimehr = parseInt(endmin[0]);        // 14
+            var endtimemin = parseInt(endmin[1]);       // 00
+            var totalendmin = endtimehr * 60 + endtimemin;// 840 + 00
+
+            for (var time = totalstartmin; time < totalendmin;) { //360
+                timemin = Number(timemin);            //00
+                var start;
+                start = setdigit(timehr) + ":" + setdigit(timemin)
+                var end;
+                if (duration <= 60) {
+                    timemin += parseInt(duration);        //60
+                    if (timemin >= 60) {
+                        timehr += 1;                        //07
+                        timemin -= 60;                      //00
+                    }
+                    end = setdigit(timehr) + ":" + setdigit(timemin)
+                } else {
+                    end = moment(timehr + ':' + timemin, 'HH:mm');
+                    end.add(duration, 'm');
+                    end = end.format("HH:mm");
+                    var tempstartmin = end.split(":");
+                    timehr = parseInt(tempstartmin[0]);
+                    timemin = parseInt(tempstartmin[1]);
+                }
+                var obj;
+                obj = {
+                    "day": moment().format('dddd'),
+                    "starttime": start,
+                    "endtime": end,
+                    "displaytext": start + " - " + end,
+                    "disable": false,
+                }
+                timeslotList.push(obj);
+                time += parseInt(duration);
+            }
+            setTimeSlots(timeslotList);
+            console.log(`timeslotList`, timeslotList);
+            return timeslotList;
+        }
+    }
+
+    const setdigit = (val) => {
+        var ret;
+        if (val <= 9) {
+            ret = `0${val}`;
+        } else {
+            ret = `${val}`;
+        }
+        return ret;
+    }
 
     //GET MEMBER DATA IN MOBILE LOCAL STORAGE
     const getMemberDeatilsLocalStorage = async () => {
@@ -79,6 +141,43 @@ const BookServiceScreen = (props) => {
 
     }
 
+    //THIS FUNCTION ONPRESS SELECT TIME
+    const onPressTimeSlotListItem = (item, index) => {
+        const newTimeSlot = timeSlots.map((item, index) => {
+            item.selected = false;
+            return item;
+        });
+        timeSlots[index].selected = true;
+        setTimeSlots(newTimeSlot);
+        setTime(item);
+    }
+
+    //BOOK NOW BUTTON CLICK TO CALL FUNCTION
+    const onPressBooking = () => {
+        if (!selectionDate) {
+            return Toast.show('Please select booking date', Toast.SHORT);
+        }
+        if (!time) {
+            return Toast.show('Please select booking time', Toast.SHORT);
+        }
+        let item = ServiceDetails;
+        item.currentbookingdate = selectionDate;
+        item.currentbookingtime = time;
+        props.navigation.navigate(SCREEN.BOOKINGPAYMENTSCREEN, { item });
+    }
+
+    //render time slot 
+    const renderTimeSlot = ({ item, index }) => (
+        item.selected ?
+            <TouchableOpacity style={styles.slotSelectStyle} onPress={() => onPressTimeSlotListItem(item, index)}>
+                <Text style={{ color: COLOR.DEFALUTCOLOR, fontWeight: FONT.FONT_BOLD }}>{item.displaytext}</Text>
+            </TouchableOpacity>
+            :
+            <TouchableOpacity style={styles.slotstyle} onPress={() => onPressTimeSlotListItem(item, index)}>
+                <Text style={{ color: COLOR.LIGHT_BLACK }}>{item.displaytext}</Text>
+            </TouchableOpacity>
+    )
+
     //SELECTDATETOGETCLASSLIST USING API
     const selectDateToGetClassList = (selectDate) => {
         selectDate = moment(selectDate).format();
@@ -87,7 +186,38 @@ const BookServiceScreen = (props) => {
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: COLOR.BACKGROUNDCOLOR }}>
-            <StatusBar hidden={false} translucent={true} backgroundColor={COLOR.STATUSBARCOLOR} barStyle={KEY.DARK_CONTENT} />
+            <StatusBar hidden={false} translucent={true} backgroundColor={COLOR.DEFALUTCOLOR} barStyle={KEY.DARK_CONTENT} />
+            <CalendarStrip
+                scrollable
+                style={{
+                    height: 120,
+                    paddingTop: 20,
+                    paddingBottom: 10,
+                    marginTop: 0,
+                    marginBottom: 0,
+                }}
+                daySelectionAnimation={{
+                    type: 'background',
+                    duration: 200,
+                    borderWidth: 1,
+                    highlightColor: COLOR.WHITE,
+                    textTransform: KEY.CAPITALIZE
+                }}
+                calendarColor={COLOR.DEFALUTCOLOR}
+                calendarHeaderStyle={{
+                    color: COLOR.WHITE, fontSize: FONT.FONT_SIZE_16,
+                    textTransform: KEY.CAPITALIZE, marginTop: -15, marginBottom: 10
+                }} //Header Text
+                dateNumberStyle={styles.dateNumberStyle} //date Number
+                dateNameStyle={styles.dateNameStyle} // date Name                                        
+                highlightDateNumberStyle={{ color: COLOR.DEFALUTCOLOR, fontSize: FONT.FONT_SIZE_14, textTransform: KEY.CAPITALIZE }} //hightlight date Number
+                highlightDateNameStyle={{ color: COLOR.DEFALUTCOLOR, fontSize: FONT.FONT_SIZE_12, textTransform: KEY.CAPITALIZE, fontWeight: FONT.BOLD }} // hightlight  date Name
+                selectedDate={Date(selectionDate ? selectionDate : today)}
+                iconLeftStyle={styles.iconleftStyle}
+                iconRightStyle={styles.iconrightStyle}
+                onDateSelected={(date) => selectDateToGetClassList(date)}
+                iconStyle={styles.iconStyle}
+            />
             <ScrollView showsVerticalScrollIndicator={false}>
                 <Text style={{
                     fontSize: FONT.FONT_SIZE_18, color: COLOR.BLACK,
@@ -123,39 +253,28 @@ const BookServiceScreen = (props) => {
                         </View>
                     </View>
                 </View>
-                <View style={styles.cardView}>
-                    <CalendarStrip
-                        scrollable
-                        style={{
-                            height: 90,
-                            paddingTop: 20,
-                            paddingBottom: 10,
-                            marginTop: 5,
-                            marginBottom: 5,
-                            width: WIDTH - 30
-                        }}
-                        daySelectionAnimation={{
-                            type: 'background', duration: 200,
-                            borderWidth: 1,
-                            highlightColor: COLOR.DEFALUTCOLOR,
-                            textTransform: KEY.LOWERCASE
-                        }}
-                        calendarColor={COLOR.WHITE}
-                        calendarHeaderStyle={{ color: COLOR.BLACK, fontSize: FONT.FONT_SIZE_16, textTransform: KEY.LOWERCASE, marginTop: -15, marginBottom: 15 }} //Header Text
-                        dateNumberStyle={styles.dateNumberStyle} //date Number
-                        dateNameStyle={styles.dateNameStyle} // date Name                                        
-                        highlightDateNumberStyle={{ color: COLOR.WHITE, fontSize: FONT.FONT_SIZE_16, textTransform: KEY.LOWERCASE }} //hightlight date Number
-                        highlightDateNameStyle={{ color: COLOR.WHITE, fontSize: FONT.FONT_SIZE_14, textTransform: KEY.LOWERCASE, fontWeight: FONT.BOLD }} // hightlight  date Name
-                        selectedDate={Date(selectionDate ? selectionDate : today)}
-                        iconLeft={IMAGE.LEFTSIDE}
-                        iconRight={IMAGE.RIGHTSIDE}
-                        iconLeftStyle={styles.iconleftStyle}
-                        iconRightStyle={styles.iconrightStyle}
-                        onDateSelected={(date) => selectDateToGetClassList(date)}
-                        iconStyle={styles.iconStyle}
-                    />
-                </View>
 
+                <Text style={{
+                    fontSize: FONT.FONT_SIZE_18, color: COLOR.BLACK,
+                    fontWeight: FONT.FONT_BOLD, marginLeft: 15, marginTop: 15
+                }}>{languageConfig.availableslottext}</Text>
+                {
+                    timeSlots &&
+                    <View style={styles.cardView}>
+                        <FlatList
+                            style={{ paddingBottom: 10, marginTop: 10 }}
+                            numColumns={2}
+                            key={timeSlots && timeSlots.length}
+                            data={timeSlots}
+                            contentContainerStyle={{
+                                alignSelf: KEY.CENTER
+                            }}
+                            renderItem={renderTimeSlot}
+                            keyExtractor={item => item._id}
+                            keyboardShouldPersistTaps={KEY.ALWAYS}
+                        />
+                    </View>
+                }
                 <TouchableOpacity style={styles.bookButton} onPress={() => onPressBooking()}>
                     <Text style={{
                         fontWeight: FONT.FONT_BOLD, color: COLOR.WHITE,
