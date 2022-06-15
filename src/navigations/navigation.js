@@ -58,7 +58,6 @@ import * as SCREEN from '../context/screen/screenName';
 import { firebase } from '@react-native-firebase/crashlytics';
 import AsyncStorage from '@react-native-community/async-storage';
 
-
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -706,6 +705,7 @@ const HomeStackScreen = ({ navigation }) => {
         </Stack.Navigator>
     )
 }
+
 const OurServiceStackScreen = ({ navigation }) => {
     return (
         <Stack.Navigator initialRouteName='OurServiceScreen'
@@ -761,6 +761,7 @@ const MyBookingStackScreen = ({ navigation }) => {
         </Stack.Navigator>
     )
 }
+
 const packagesStackScreen = ({ navigation }) => {
     return (
         <Stack.Navigator initialRouteName='Package'
@@ -865,9 +866,10 @@ const TabNavigation = () => {
                     borderTopRightRadius: 0, //10
                     borderTopLeftRadius: 0, //10
                     backgroundColor: COLOR.WHITE,
+                    //height: 60
                 },
 
-                tabBarLabelStyle: { fontSize: 14, textTransform: KEY.CAPITALIZE },
+                tabBarLabelStyle: { fontSize: 12, textTransform: KEY.CAPITALIZE },
                 tabBarHideOnKeyboard: true,
                 headerTintColor: COLOR.BLACK
             })}
