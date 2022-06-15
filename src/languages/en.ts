@@ -404,6 +404,7 @@ export default {
     membershipoffers: "Membership Offers",
     offer: "Offers",
     ourservicestext: "Our Services",
+    ourservicestext1: "OurServices",
     ourspecialisttext: "Our Specialist",
     subscriptionpaymentstext: "Subscription & Payments",
     wallet: "Wallet",

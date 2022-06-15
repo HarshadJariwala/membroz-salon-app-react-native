@@ -27,6 +27,7 @@ import Loader from '../../components/loader';
 import * as IMAGE from '../../styles/image';
 import styles from './OurSpecialistDetailsstyle';
 import moment from 'moment';
+
 import { firebase } from '@react-native-firebase/crashlytics';
 const WIDTH = Dimensions.get('window').width;
 
@@ -119,6 +120,7 @@ const OurSpecialistDtails = (props) => {
                             borderWidth: 0.2, marginTop: 0, borderColor: COLOR.LINE_COLOR,
                             marginRight: 15, marginLeft: 15, width: WIDTH - 60
                         }} />
+
                         <View style={{ flexDirection: KEY.ROW, marginTop: 5, alignSelf: KEY.FLEX_START }}>
                             <View style={styles.rounfIconStyle}>
                                 <MaterialCommunityIcons name='calendar-outline' size={20} color={COLOR.DEFALUTCOLOR} />
@@ -133,6 +135,7 @@ const OurSpecialistDtails = (props) => {
                                 </View>
                             </View>
                         </View>
+
                         <View style={{
                             borderWidth: 0.2, marginTop: 0, borderColor: COLOR.LINE_COLOR,
                             marginRight: 15, marginLeft: 15, width: WIDTH - 60
@@ -145,7 +148,7 @@ const OurSpecialistDtails = (props) => {
                                 <View style={{ marginLeft: 15, marginBottom: 10 }}>
                                     <Text style={styles.rectangleText}>{languageConfig.availabledays}</Text>
                                     <Text style={{
-                                        fontSize: FONT.FONT_SIZE_16, textTransform: KEY.UPPERCASE, color: COLOR.BLACK,
+                                        fontSize: FONT.FONT_SIZE_16, color: COLOR.BLACK,
                                         fontWeight: FONT.FONT_BOLD
                                     }}>{(firstdays && firstdays) + ' - ' + (lastdays && lastdays)}</Text>
                                 </View>
