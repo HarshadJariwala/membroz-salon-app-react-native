@@ -155,14 +155,14 @@ const RewardPointTransaction = () => {
                 <View style={{ flexDirection: KEY.COLUMN, justifyContent: KEY.SPACEBETWEEN, marginTop: 10, marginBottom: 10 }}>
                     <Text numberOfLines={1}
                         style={{
-                            fontSize: FONT.FONT_SIZE_16, marginLeft: 10, width: WIDTH / 2,
+                            fontSize: FONT.FONT_SIZE_14, marginLeft: 10, width: WIDTH / 2,
                             color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD, color: COLOR.GREEN
                         }}>{item.txnref}</Text>
                     <Text style={{ fontSize: FONT.FONT_SIZE_14, marginLeft: 10, color: COLOR.GRANITE_GRAY }}>{moment().format('DD MMM YYYY hh:mm a')}</Text>
                 </View>
                 <View style={{ flexDirection: KEY.COLUMN, justifyContent: KEY.SPACEBETWEEN, marginTop: 10, marginBottom: 10 }}>
                     <Text style={{
-                        fontSize: FONT.FONT_SIZE_16, marginLeft: 10,
+                        fontSize: FONT.FONT_SIZE_14, marginLeft: 10,
                         color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD, color: COLOR.GREEN
                     }}>{'+' + item.value.toFixed(0) + ' ' + 'pts'}</Text>
                 </View>
@@ -221,7 +221,7 @@ const RewardPointTransaction = () => {
                             wallateRedeem && wallateRedeem.length == 0 &&
                             <View style={{ justifyContent: KEY.CENTER, alignItems: KEY.CENTER }}>
                                 <Image source={IMAGE.NODATA} style={{ height: 150, width: 200, marginTop: HEIGHT * 0.2 }} resizeMode={KEY.CONTAIN} />
-                                <Text style={{ fontSize: FONT.FONT_SIZE_16, color: COLOR.TAUPE_GRAY, marginTop: 10 }}>{languageConfig.norecordtext}</Text>
+                                <Text style={{ fontSize: FONT.FONT_SIZE_14, color: COLOR.TAUPE_GRAY, marginTop: 10 }}>{languageConfig.norecordtext}</Text>
                             </View>
                         )}
                     />
