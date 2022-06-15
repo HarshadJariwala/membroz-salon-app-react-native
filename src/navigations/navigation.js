@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import FORGETPASSWORDSCREEN from '../screen/ForgetPasswordScreen/ForgetPasswordScreen';
 import PAYMENTDETAILSSCREEN from '../screen/PaymentDetailsScreen/PaymentDetailsScreen';
@@ -38,7 +39,7 @@ import OURSERVICEDETAILSCREEN from '../screen/OurServiceScreen/OurServiceDetailS
 import BOOKINGCOMPLATESCREEN from '../screen/OurServiceScreen/BookingComplateScreen';
 import BOOKSERVICESCREEN from '../screen/OurServiceScreen/BookServiceScreen';
 import BOOKINGPAYMENTSCREEN from '../screen/OurServiceScreen/BookingPaymentScreen';
-
+import PACKAGE from '../screen/PackageScreen/Package';
 import { NotificationService } from '../services/NotificationService/NotificationService';
 import { MemberLanguage } from '../services/LocalService/LanguageService';
 import * as LocalService from '../services/LocalService/LocalService';
@@ -55,8 +56,11 @@ import * as IMAGE from '../styles/image';
 import * as SCREEN from '../context/screen/screenName';
 import { firebase } from '@react-native-firebase/crashlytics';
 import AsyncStorage from '@react-native-community/async-storage';
+
+
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
 
 //Structure for the navigatin Drawer
 const NavigationDrawerStructureLeft = (props) => {
@@ -79,6 +83,7 @@ const NavigationDrawerStructureLeft = (props) => {
 
     return (
         <TouchableOpacity onPress={() => props.navigationProps.navigate(SCREEN.MENUSCREEN)}>
+            <TouchableOpacity onPress={() => props.navigationProps.navigate(SCREEN.MAINSCREEN)}></TouchableOpacity>
             {/* <Image
                 source={!memberProfilePic ? IMAGE.USERPROFILE : { uri: memberProfilePic }}
                 style={{
@@ -700,14 +705,188 @@ const HomeStackScreen = ({ navigation }) => {
         </Stack.Navigator>
     )
 }
+const OurServiceStackScreen = ({ navigation }) => {
+    return (
+        <Stack.Navigator initialRouteName='OurServiceScreen'
+            screenOptions={{ headerShadowVisible: false }}>
+            <Stack.Screen
+                name="OurServiceScreen"
+                component={OURSERVICESCREEN}
+                options={{
+                    title: "ourservice",
+                    headerLeft: () =>
+                        <NavigationDrawerStructureLeft
+                            navigationProps={navigation}
+                        />,
+                    headerRight: () => <NavigationDrawerStructureRight navigationProps={navigation} />,
+                    headerStyle: {
+                        backgroundColor: COLOR.BACKGROUNDCOLOR, //Set Header color
+                    },
+                    headerTintColor: COLOR.BLACK, //Set Header text color
+                    headerTitleAlign: KEY.CENTER,
+                    headerTitleStyle: {
+                        fontWeight: FONT.FONT_WEIGHT_MEDIAM, //Set Header text style
+                    }
+                }}
+            />
+        </Stack.Navigator>
+    )
+}
 
+const MyBookingStackScreen = ({ navigation }) => {
+    return (
+        <Stack.Navigator initialRouteName='MyBooking'
+            screenOptions={{ headerShadowVisible: false }}>
+            <Stack.Screen
+                name="MyBooking"
+                component={MYBOOKING}
+                options={{
+                    title: "MyBooking",
+                    headerLeft: () =>
+                        <NavigationDrawerStructureLeft
+                            navigationProps={navigation}
+                        />,
+                    headerRight: () => <NavigationDrawerStructureRight navigationProps={navigation} />,
+                    headerStyle: {
+                        backgroundColor: COLOR.BACKGROUNDCOLOR, //Set Header color
+                    },
+                    headerTintColor: COLOR.BLACK, //Set Header text color
+                    headerTitleAlign: KEY.CENTER,
+                    headerTitleStyle: {
+                        fontWeight: FONT.FONT_WEIGHT_MEDIAM, //Set Header text style
+                    }
+                }}
+            />
+        </Stack.Navigator>
+    )
+}
+const packagesStackScreen = ({ navigation }) => {
+    return (
+        <Stack.Navigator initialRouteName='Package'
+            screenOptions={{ headerShadowVisible: false }}>
+            <Stack.Screen
+                name="Package"
+                component={PACKAGE}
+                options={{
+                    title: "Package",
+                    headerLeft: () =>
+                        <NavigationDrawerStructureLeft
+                            navigationProps={navigation}
+                        />,
+                    headerRight: () => <NavigationDrawerStructureRight navigationProps={navigation} />,
+                    headerStyle: {
+                        backgroundColor: COLOR.BACKGROUNDCOLOR, //Set Header color
+                    },
+                    headerTintColor: COLOR.BLACK, //Set Header text color
+                    headerTitleAlign: KEY.CENTER,
+                    headerTitleStyle: {
+                        fontWeight: FONT.FONT_WEIGHT_MEDIAM, //Set Header text style
+                    }
+                }}
+            />
+        </Stack.Navigator>
+    )
+}
+
+const MyProfileStackScreen = ({ navigation }) => {
+    return (
+        <Stack.Navigator initialRouteName='MyProfile'
+            screenOptions={{ headerShadowVisible: false }}>
+            <Stack.Screen
+                name="MyProfile"
+                component={MYPROFILESCREEN}
+                options={{
+                    title: "Profile",
+                    headerLeft: () =>
+                        <NavigationDrawerStructureLeft
+                            navigationProps={navigation}
+                        />,
+                    headerRight: () => <NavigationDrawerStructureRight navigationProps={navigation} />,
+                    headerStyle: {
+                        backgroundColor: COLOR.BACKGROUNDCOLOR, //Set Header color
+                    },
+                    headerTintColor: COLOR.BLACK, //Set Header text color
+                    headerTitleAlign: KEY.CENTER,
+                    headerTitleStyle: {
+                        fontWeight: FONT.FONT_WEIGHT_MEDIAM, //Set Header text style
+                    }
+                }}
+            />
+        </Stack.Navigator>
+    )
+}
+
+const TabNavigation = () => {
+    return (
+        <Tab.Navigator
+            screenOptions={({ route }) => ({
+                tabBarIcon: ({ focused, color, size }) => {
+                    if (route.name === 'Home') {
+                        return (
+                            <Image
+                                source={IMAGE.HOMEICON}
+                                style={{ width: 25, height: 32, marginTop: 5, tintColor: color }}
+                            />
+                        )
+                    } else if (route.name === 'ourservice') {
+                        return (
+                            <Image
+                                source={IMAGE.TRAININGICON}
+                                style={{ width: 25, height: 25, tintColor: color }}
+                            />
+                        );
+                    } else if (route.name === 'MyBooking') {
+                        return (
+                            <Image
+                                source={IMAGE.MYBOOKINGICON}
+                                style={{ width: 25, height: 25, tintColor: color }}
+                            />
+                        );
+                    } else if (route.name === 'Package') {
+                        return (
+                            <Image
+                                source={IMAGE.MEMBERSHIPICON}
+                                style={{ width: 25, height: 25, tintColor: color }}
+                            />
+                        );
+                    } else if (route.name === 'Profile') {
+                        return (
+                            <Image
+                                source={IMAGE.USERICON}
+                                style={{ width: 25, height: 25, tintColor: color }}
+                            />
+                        );
+                    }
+                },
+                tabBarActiveTintColor: COLOR.DEFALUTCOLOR,
+                tabBarInactiveTintColor: COLOR.BLACK,
+                tabBarStyle: {
+                    borderTopRightRadius: 0, //10
+                    borderTopLeftRadius: 0, //10
+                    backgroundColor: COLOR.WHITE,
+                },
+
+                tabBarLabelStyle: { fontSize: 14, textTransform: KEY.CAPITALIZE },
+                tabBarHideOnKeyboard: true,
+                headerTintColor: COLOR.BLACK
+            })}
+            backBehavior="initialRoute" >
+            <Tab.Screen name="Home" component={HomeStackScreen} options={{ headerShown: false, title: languageConfig.home }} />
+            <Tab.Screen name="ourservice" component={OurServiceStackScreen} options={{ headerShown: false, title: languageConfig.ourservicestext1 }} />
+            <Tab.Screen name="MyBooking" component={MyBookingStackScreen} options={{ headerShown: false, title: languageConfig.mybooking }} />
+            <Tab.Screen name="Package" component={packagesStackScreen} options={{ headerShown: false, title: languageConfig.packages }} />
+            <Tab.Screen name="Profile" component={MyProfileStackScreen} options={{ headerShown: false, title: languageConfig.myprofile }} />
+        </Tab.Navigator>
+    )
+}
 export default NavigationsApp = () => {
     return (
         <NavigationContainer>
             <Stack.Navigator initialRouteName="SplashScreen" screenOptions={{ headerShadowVisible: false }}>
                 <Stack.Screen name="SplashScreen" component={SPLASHSCREEN} options={{ headerShown: false }} />
+                <Stack.Screen name="TabNavigation" component={TabNavigation} options={{ headerShown: false }} />
                 <Stack.Screen name="Auth" component={AuthStackScreen} options={{ headerShown: false }} />
-                <Stack.Screen name="MainScreen" component={HomeStackScreen} options={{ headerShown: false }} />
+                {/* <Stack.Screen name="MainScreen" component={HomeStackScreen} options={{ headerShown: false }} /> */}
             </Stack.Navigator>
         </NavigationContainer>
     )

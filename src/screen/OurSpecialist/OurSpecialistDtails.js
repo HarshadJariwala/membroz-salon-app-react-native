@@ -27,6 +27,7 @@ import Loader from '../../components/loader';
 import * as IMAGE from '../../styles/image';
 import styles from './OurSpecialistDetailsstyle';
 import moment from 'moment';
+
 import { firebase } from '@react-native-firebase/crashlytics';
 const WIDTH = Dimensions.get('window').width;
 
@@ -40,26 +41,11 @@ const OurSpecialistDtails = (props) => {
     let firstdays = days[0];
     let lastdays = days[days.length - 1];
 
-    // getdays = async () => {
-    //     let days = ['mon', 'ths', 'wed', 'tue', 'fri', 'sat'];
-    //     let first = days[0];
-    //     let last = days[days.length - 1];
-    //     const alldays = getdays(oursSpeacilistDetails.branchid.workinghours.days)
-
-    // }
-
-
-
-
-
-
 
     console.log("oursSpeacilistDetails", oursSpeacilistDetails)
     useEffect(() => {
         //LANGUAGE MANAGEMENT FUNCTION
         MemberLanguage();
-
-
     }, [])
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: COLOR.BACKGROUNDCOLOR }}>
@@ -82,7 +68,7 @@ const OurSpecialistDtails = (props) => {
                                 color: COLOR.BLACK,
                                 marginLeft: 20,
                                 marginTop: 10
-                            }}>{'About '}</Text>
+                            }}>{'About'}</Text>
                             <Text style={{
                                 fontSize: FONT.FONT_SIZE_16,
                                 fontWeight: FONT.FONT_BOLD,
@@ -133,6 +119,7 @@ const OurSpecialistDtails = (props) => {
                             borderWidth: 0.2, marginTop: 0, borderColor: COLOR.LINE_COLOR,
                             marginRight: 15, marginLeft: 15, width: WIDTH - 60
                         }} />
+
                         <View style={{ flexDirection: KEY.ROW, marginTop: 5, alignSelf: KEY.FLEX_START }}>
                             <View style={styles.rounfIconStyle}>
                                 <MaterialCommunityIcons name='calendar-outline' size={20} color={COLOR.DEFALUTCOLOR} />
@@ -143,10 +130,11 @@ const OurSpecialistDtails = (props) => {
                                     <Text style={{
                                         fontSize: FONT.FONT_SIZE_16, color: COLOR.BLACK,
                                         fontWeight: FONT.FONT_BOLD
-                                    }}>{moment(oursSpeacilistDetails.property.joiningdate).format('MMMM DD,YYYY')}</Text>
+                                    }}>{oursSpeacilistDetails && oursSpeacilistDetails.property.joiningdate ? moment(oursSpeacilistDetails.property.joiningdate).format('MMMM DD,YYYY') : " --- "}</Text>
                                 </View>
                             </View>
                         </View>
+
                         <View style={{
                             borderWidth: 0.2, marginTop: 0, borderColor: COLOR.LINE_COLOR,
                             marginRight: 15, marginLeft: 15, width: WIDTH - 60
@@ -159,7 +147,7 @@ const OurSpecialistDtails = (props) => {
                                 <View style={{ marginLeft: 15, marginBottom: 10 }}>
                                     <Text style={styles.rectangleText}>{languageConfig.availabledays}</Text>
                                     <Text style={{
-                                        fontSize: FONT.FONT_SIZE_16, textTransform: KEY.UPPERCASE, color: COLOR.BLACK,
+                                        fontSize: FONT.FONT_SIZE_16, color: COLOR.BLACK,
                                         fontWeight: FONT.FONT_BOLD
                                     }}>{firstdays + ' - ' + lastdays}</Text>
                                 </View>

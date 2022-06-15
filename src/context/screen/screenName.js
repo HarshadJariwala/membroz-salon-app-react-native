@@ -1,5 +1,6 @@
 export const AUTH = 'Auth';
-export const MAINSCREEN = 'MainScreen';
+//export const MAINSCREEN = 'MainScreen';
+export const MAINSCREEN = 'TabNavigation';
 export const HOMESCREEN = 'HomeScreen';
 export const SPLASHSCREEN = 'SplashScreen';
 export const LOGINSCREEN = 'LoginScreen';
@@ -35,6 +36,7 @@ export const WISHLISTSCREEN = 'WishlistScreen';
 export const MENUSCREEN = 'MenuScreen';
 export const CONTACTUSSCREEN = 'ContactUsScreen';
 export const BOOKINGCOMPLATESCREEN = 'BookingComplateScreen';
+export const PACKAGE = "Package";
 
 
 
