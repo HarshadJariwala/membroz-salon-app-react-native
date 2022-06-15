@@ -142,14 +142,14 @@ const WalletTransaction = () => {
                 <View style={{ flexDirection: KEY.COLUMN, justifyContent: KEY.SPACEBETWEEN, marginTop: 10, marginBottom: 10 }}>
                     <Text numberOfLines={1}
                         style={{
-                            fontSize: FONT.FONT_SIZE_16, marginLeft: 10, width: WIDTH / 2,
+                            fontSize: FONT.FONT_SIZE_14, marginLeft: 10, width: WIDTH / 2,
                             color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD, color: COLOR.RED
                         }}>{item.txnref}</Text>
                     <Text style={{ fontSize: FONT.FONT_SIZE_14, marginLeft: 10, color: COLOR.GRANITE_GRAY }}>{moment().format('DD MMM YYYY hh:mm a')}</Text>
                 </View>
                 <View style={{ flexDirection: KEY.COLUMN, justifyContent: KEY.SPACEBETWEEN, marginTop: 10, marginBottom: 10 }}>
                     <Text style={{
-                        fontSize: FONT.FONT_SIZE_16, marginLeft: 10,
+                        fontSize: FONT.FONT_SIZE_14, marginLeft: 10,
                         color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD, color: COLOR.RED
                     }}>{'-' + item.value.toFixed(0) + ' ' + 'pts'}</Text>
                 </View>
