@@ -387,7 +387,7 @@ const HomeScreen = (props) => {
 
     //RENDER CATEGORY SERVICE FLATLIST
     const renderCategory = ({ item }) => (
-        <TouchableOpacity style={{ flexDirection: KEY.COLUMN, paddingHorizontal: 10 }}
+        <TouchableOpacity style={{ flexDirection: KEY.COLUMN, justifyContent: KEY.CENTER, alignItems: KEY.CENTER, width: WIDTH / 3, }}
             onPress={() => viewCategoryScreen(item)}>
             <View style={{ margin: 10, justifyContent: KEY.CENTER, alignItems: KEY.CENTER, width: 80, height: 80, borderRadius: 100, borderWidth: 1, borderColor: COLOR.BLACK }}>
                 <Image style={styles.dotImage}
