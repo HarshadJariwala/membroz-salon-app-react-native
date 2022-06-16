@@ -764,11 +764,6 @@ const MyProfileStackScreen = ({ navigation }) => {
                     }
                 }}
             />
-            <Stack.Screen
-                name="Auth"
-                component={AuthStackScreen}
-                options={{ headerShown: false }}
-            />
         </Stack.Navigator>
     )
 }

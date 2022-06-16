@@ -55,6 +55,7 @@ const SubmitQuery = (props) => {
     const thirdTextInputRef = React.createRef();
 
     useEffect(() => {
+        setLoading(true);
         //LANGUAGE MANAGEMENT FUNCTION 
         MemberLanguage();
         checkPermission();
@@ -80,16 +81,24 @@ const SubmitQuery = (props) => {
         );
     }
 
+    //TIME OUT FUNCTION
+    const wait = (timeout) => {
+        return new Promise(resolve => {
+            setTimeout(resolve, timeout);
+        });
+    }
+
     //GET MEMBER DATA IN MOBILE LOCAL STORAGE
     const getMemberDeatilsLocalStorage = async () => {
         var memberInfo = await LocalService.LocalStorageService();
         if (memberInfo) {
             setMemberID(memberInfo?._id);
             setMemberInfo(memberInfo);
+            wait(1000).then(() => setLoading(false));
         } else {
             var publicUserInfo = await LocalService.LocalBranchDetails();
             setMemberID(publicUserInfo?._id);
-            setLoading(false);
+            wait(1000).then(() => setLoading(false));
         }
     }
 

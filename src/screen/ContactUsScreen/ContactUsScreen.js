@@ -26,6 +26,7 @@ const WIDTH = Dimensions.get('window').width;
 const daylist = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 
 const ContactUsScreen = (props) => {
+    const [loading, setLoading] = useState(false);
     const [contactNumber, setContactNumber] = useState(null);
     const [availableDays, setAvailableDays] = useState(null);
     const [availableTime, setAvailableTime] = useState(null);
@@ -37,6 +38,7 @@ const ContactUsScreen = (props) => {
     const [endTime, setEndTime] = useState(null);
 
     useEffect(() => {
+        setLoading(true);
         //LANGUAGE MANAGEMENT FUNCTION
         MemberLanguage();
         // CHECK AUTHCONTROLLER USE TO LOGIN OR NOT LOGIN        
@@ -44,6 +46,13 @@ const ContactUsScreen = (props) => {
         //LOCAL STORAGE FETCH DETAILS
         getMemberDeatilsLocalStorage();
     }, []);
+
+    //TIME OUT FUNCTION
+    const wait = (timeout) => {
+        return new Promise(resolve => {
+            setTimeout(resolve, timeout);
+        });
+    }
 
     //REMOTE DATA FATCH IN LOCAL STORAGE
     async function RemoteController() {
@@ -81,6 +90,7 @@ const ContactUsScreen = (props) => {
             setEmail(memberInfo?.branchid?.supportemail);
             setStartTime(memberInfo?.branchid?.workinghours?.starttime);
             setEndTime(memberInfo?.branchid?.workinghours?.endtime);
+            wait(1000).then(() => setLoading(false));
         } else {
             var publicUserInfo = await LocalService.LocalBranchDetails();
             starttime = publicUserInfo?.branchid?.workinghours?.starttime;
@@ -100,6 +110,7 @@ const ContactUsScreen = (props) => {
             setEmail(publicUserInfo?.branchid?.supportemail);
             setStartTime(publicUserInfo?.branchid?.workinghours?.starttime);
             setEndTime(publicUserInfo?.branchid?.workinghours?.endtime);
+            wait(1000).then(() => setLoading(false));
         }
     }
 
@@ -206,6 +217,7 @@ const ContactUsScreen = (props) => {
                     <View style={{ marginBottom: 50 }} />
                 </View>
             </ScrollView>
+            {loading ? <Loader /> : null}
         </SafeAreaView>
     )
 }

@@ -74,7 +74,7 @@ const MyProfileScreen = ({ navigation }) => {
             setMemberName(memberInfo?.fullname);
             setMemberJoinDate(memberInfo?.property?.joining_date);
         } else {
-            navigation.navigate(SCREEN.AUTH);
+            navigation.replace(SCREEN.AUTH);
         }
     }
 

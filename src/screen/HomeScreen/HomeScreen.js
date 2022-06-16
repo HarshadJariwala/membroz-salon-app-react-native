@@ -43,6 +43,7 @@ import * as IMAGE from '../../styles/image';
 import styles from './HomeStyle';
 import moment from 'moment';
 import axiosConfig from '../../helpers/axiosConfig';
+import { UserListService } from '../../services/UserService/UserService';
 const HEIGHT = Dimensions.get('window').height;
 const WIDTH = Dimensions.get('window').width;
 
@@ -57,7 +58,7 @@ const HomeScreen = (props) => {
     const [memberID, setMemberID] = useState(null);
     const [memberProfilePic, setMemberProfilePic] = useState(null);
     const [memberInfo, setMemberInfo] = useState(null);
-    const [currencySymbol, setCurrencySymbol] = useState(null);
+    const [teamList, setTeamList] = useState([]);
     let getmemberid, appVersionCode, androidUrl, iosUrl, publicAuthkey;
 
     useFocusEffect(
@@ -73,6 +74,7 @@ const HomeScreen = (props) => {
                     getNotification(memberInfo?._id);
                     getBookingList(memberInfo?._id);
                     wallateBillList(memberInfo?._id);
+                    getMyTeamList();
                     setMemberProfilePic(memberInfo?.profilepic);
                     PushNotifications();
                 }
@@ -91,7 +93,7 @@ const HomeScreen = (props) => {
 
     useEffect(() => {
     }, [loading, scanIconVisible, notificationIconVisible,
-        notification, membershipPlan, logo,
+        notification, membershipPlan, logo, teamList,
         memberName, memberID, memberProfilePic,
     ])
 
@@ -125,9 +127,7 @@ const HomeScreen = (props) => {
     const getMemberDeatilsLocalStorage = async () => {
         var memberInfo = await LocalService.LocalStorageService();
         if (memberInfo) {
-            const response = getCurrency(memberInfo.branchid.currency);
             getmemberid = memberInfo?._id;
-            setCurrencySymbol(response);
             setMemberInfo(memberInfo);
             setMembershipPlan(memberInfo?.membershipid?.property?.membershipname);
             setMemberName(memberInfo?.fullname);
@@ -138,13 +138,14 @@ const HomeScreen = (props) => {
             getNotification(memberInfo?._id);
             setMemberProfilePic(memberInfo?.profilepic);
             PushNotifications();
+            getMyTeamList();
             await getAppVersion(appVersionCode);
             wait(1000).then(() => {
                 setloading(false);
             });
         } else {
-            console.log(`publicAuthkey`, publicAuthkey);
             getPublicUserDeatils(publicAuthkey);
+            getMyTeamList();
             await getAppVersion(appVersionCode);
             wait(1000).then(() => {
                 setloading(false);
@@ -177,7 +178,6 @@ const HomeScreen = (props) => {
     const getPublicUserDeatils = async (id) => {
         try {
             const response = await getByIdUserService(id);
-            console.log(`response.data`, response.data);
             if (response.data != null && response.data != 'undefind' && response.status == 200) {
                 Toast.show(languageConfig.welcometext, Toast.SHORT);
                 LocalService.AuthenticatePublicUser(response.data);
@@ -345,6 +345,32 @@ const HomeScreen = (props) => {
         }
     }
 
+    //GET MYTEAM API THROUGH FETCH DATA
+    const getMyTeamList = async () => {
+        try {
+            const response = await UserListService();
+            if (response.data != null && response.data != 'undefind' && response.status === 200) {
+                const slice = response.data.slice(0, 5)
+                setTeamList(slice);
+            }
+        } catch (error) {
+            console.log(`error`, error)
+            firebase.crashlytics().recordError(error);
+            setLoading(false);
+        }
+    }
+
+    //RENDER SPECIALIST INTO FLATLIST
+    const renderMyTeamList = ({ item }) => (
+        <View style={{ flexDirection: KEY.COLUMN, paddingHorizontal: 10 }}>
+            <View style={{ margin: 5, justifyContent: KEY.CENTER, alignItems: KEY.CENTER }}>
+                <Image style={!item.profilepic ? styles.noimagestyle : styles.dotImage1}
+                    source={!item.profilepic ? IMAGE.USERPROFILE : { uri: item.profilepic }} />
+            </View>
+            <Text style={{ textAlign: KEY.CENTER, color: COLOR.BLACK, width: 100 }}>{item.property && item.property.fullname}</Text>
+        </View>
+    )
+
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: COLOR.BACKGROUNDCOLOR }}>
             <StatusBar hidden={false} translucent={true} backgroundColor={COLOR.STATUSBARCOLOR} barStyle={Platform.OS === 'ios' ? KEY.DARK_CONTENT : KEY.DARK_CONTENT} />
@@ -448,59 +474,30 @@ const HomeScreen = (props) => {
 
                     </View>
 
-                    <View style={{ width: WIDTH, flexDirection: KEY.ROW, justifyContent: KEY.SPACEBETWEEN, alignItems: KEY.CENTER, marginTop: 10, marginBottom: 0 }}>
-                        <Text style={{ marginRight: 15, marginLeft: 15, fontSize: FONT.FONT_SIZE_20, color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD }}>{"Our Specialist"}</Text>
-                        <TouchableOpacity>
-                            <Text style={{ marginRight: 15, marginLeft: 15, fontSize: FONT.FONT_SIZE_16, color: COLOR.DEFALUTCOLOR }}>{"View All"}</Text>
-                        </TouchableOpacity>
-                    </View>
-
-
-                    <View style={{ flexDirection: KEY.ROW, marginTop: 10, marginBottom: 10 }}>
-                        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-                            <View style={{ flexDirection: KEY.COLUMN, }}>
-                                <View style={{ margin: 10, justifyContent: KEY.CENTER, alignItems: KEY.CENTER }}>
-                                    <Image style={styles.dotImage1}
-                                        source={{ uri: "https://media.istockphoto.com/photos/beauty-treatment-items-for-spa-procedures-on-white-wooden-table-picture-id1286682876?s=612x612" }} />
-
-                                </View>
-                                <Text style={{ textAlign: KEY.CENTER, color: COLOR.BLACK }}>{"Hair spa"}</Text>
+                    {teamList &&
+                        <>
+                            <View style={{ width: WIDTH, flexDirection: KEY.ROW, justifyContent: KEY.SPACEBETWEEN, alignItems: KEY.CENTER, marginTop: 10, marginBottom: 0 }}>
+                                <Text style={{ marginRight: 15, marginLeft: 15, fontSize: FONT.FONT_SIZE_20, color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD }}>{"Our Specialist"}</Text>
+                                <TouchableOpacity>
+                                    <Text style={{ marginRight: 15, marginLeft: 15, fontSize: FONT.FONT_SIZE_16, color: COLOR.DEFALUTCOLOR }}>{"View All"}</Text>
+                                </TouchableOpacity>
                             </View>
-                            <View style={{ flexDirection: KEY.COLUMN, }}>
-                                <View style={{ margin: 10, justifyContent: KEY.CENTER, alignItems: KEY.CENTER }}>
-                                    <Image style={styles.dotImage1}
-                                        source={{ uri: "https://thumbs.dreamstime.com/b/hairdresser-protective-mask-cutting-hair-curly-african-american-client-beauty-salon-free-space-195792989.jpg" }} />
-
-                                </View>
-                                <Text style={{ textAlign: KEY.CENTER, color: COLOR.BLACK }}>{"Coloring"}</Text>
+                            <View style={{ flexDirection: KEY.ROW, marginTop: 10, marginBottom: 10 }}>
+                                <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+                                    <FlatList
+                                        showsHorizontalScrollIndicator={false}
+                                        numColumns={5}
+                                        style={{ flexDirection: KEY.ROW }}
+                                        keyboardShouldPersistTaps={KEY.ALWAYS}
+                                        data={teamList}
+                                        renderItem={renderMyTeamList}
+                                        keyboardShouldPersistTaps={KEY.ALWAYS}
+                                        keyExtractor={item => item._id}
+                                    />
+                                </ScrollView>
                             </View>
-                            <View style={{ flexDirection: KEY.COLUMN, }}>
-                                <View style={{ margin: 10, justifyContent: KEY.CENTER, alignItems: KEY.CENTER }}>
-                                    <Image style={styles.dotImage1}
-                                        source={{ uri: "https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80" }} />
-
-                                </View>
-                                <Text style={{ textAlign: KEY.CENTER, color: COLOR.BLACK }}>{"shaving"}</Text>
-                            </View>
-                            <View style={{ flexDirection: KEY.COLUMN, }}>
-                                <View style={{ margin: 10, justifyContent: KEY.CENTER, alignItems: KEY.CENTER }}>
-                                    <Image style={styles.dotImage1}
-                                        source={{ uri: "https://www.nerdwallet.com/assets/blog/wp-content/uploads/2017/10/GettyImages-947995974-1440x864.jpg" }} />
-
-                                </View>
-                                <Text style={{ textAlign: KEY.CENTER, color: COLOR.BLACK }}>{"Strenghning"}</Text>
-                            </View>
-                            <View style={{ flexDirection: KEY.COLUMN, }}>
-                                <View style={{ margin: 10, justifyContent: KEY.CENTER, alignItems: KEY.CENTER }}>
-                                    <Image style={styles.dotImage1}
-                                        source={{ uri: "https://www.nerdwallet.com/assets/blog/wp-content/uploads/2017/10/GettyImages-947995974-1440x864.jpg" }} />
-
-                                </View>
-                                <Text style={{ textAlign: KEY.CENTER, color: COLOR.BLACK }}>{"Hair Cut"}</Text>
-                            </View>
-                        </ScrollView>
-                    </View>
-
+                        </>
+                    }
                 </View>
             </ScrollView>
         </SafeAreaView>
