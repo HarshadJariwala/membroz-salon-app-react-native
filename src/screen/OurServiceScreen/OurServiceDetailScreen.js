@@ -59,15 +59,19 @@ const OurServiceDetailScreen = (props) => {
     //GET MEMBER DATA IN MOBILE LOCAL STORAGE
     const getMemberDeatilsLocalStorage = async () => {
         var memberInfo = await LocalService.LocalStorageService();
-        const response = getCurrency(memberInfo.branchid.currency);
         setLoading(true);
         if (memberInfo) {
+            const response = getCurrency(memberInfo.branchid.currency);
             setCurrencySymbol(response);
             setMemberID(memberInfo?._id);
             setMemberInfo(memberInfo?._id);
             getServiceList();
         } else {
-            setLoading(false);
+            var publicUserInfo = await LocalService.LocalBranchDetails();
+            const response = getCurrency(publicUserInfo.branchid.currency);
+            setCurrencySymbol(response);
+            getServiceList();
+            //setLoading(false);
         }
     }
 

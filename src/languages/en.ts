@@ -21,6 +21,7 @@ export default {
     memberlogin: "Member Login",
     explorenow: "Explore Now",
     dontaccount: "Don't have an account?",
+    backtotext: "Back to",
     createaccount: "Already have an account?",
     registernow: "Register Now",
     registerinvaiderror: "Something went wrong. Unable to Register. Please try again latter",

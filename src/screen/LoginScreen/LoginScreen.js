@@ -10,6 +10,7 @@ import { LoginService } from '../../services/LoginService/LoginService';
 import AsyncStorage from '@react-native-community/async-storage';
 import languageConfig from '../../languages/languageConfig';
 import * as SCREEN from '../../context/screen/screenName';
+import Feather from 'react-native-vector-icons/Feather';
 import axiosConfig from '../../helpers/axiosConfig';
 import Loader from '../../components/loader/index';
 import * as KEY from '../../context/actions/key';
@@ -135,6 +136,11 @@ export default LoginScreen = (props) => {
             <StatusBar hidden={false} translucent={true} backgroundColor={KEY.TRANSPARENT} barStyle={Platform.OS === KEY.IOS ? KEY.DARK_CONTENT : KEY.LIGHT_CONTENT} />
             <ImageBackground source={backgroungImage ? { uri: backgroungImage } : IMAGE.BACKGROUND_IMAGE} style={STYLES.backgroundImage} >
                 <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={KEY.ALWAYS}>
+                    <View style={{ position: KEY.ABSOLUTE, marginTop: 50, marginLeft: 15 }} >
+                        <TouchableOpacity onPress={() => props.navigation.replace(SCREEN.MAINSCREEN)}>
+                            <Feather name='arrow-left' size={25} color={COLOR.WHITE} />
+                        </TouchableOpacity>
+                    </View>
                     <View style={STYLES.containerView}>
                         {appLogoVisible ?
                             <Image source={logo ? { uri: logo } : IMAGE.MEMBROZ_LOGO} resizeMode={KEY.COVER}
@@ -182,6 +188,12 @@ export default LoginScreen = (props) => {
                                 <Text style={{ fontWeight: FONT.FONT_NORMAL, color: COLOR.DEFALUTCOLOR, fontSize: FONT.FONT_SIZE_16 }}>{languageConfig.register}</Text>
                             </TouchableOpacity>
                         </View>
+                        {/* <View style={STYLES.backBtn}>
+                            <Text style={{ fontWeight: FONT.FONT_NORMAL, color: COLOR.WHITE, fontSize: FONT.FONT_SIZE_16 }}>{languageConfig.backtotext}</Text>
+                            <TouchableOpacity style={{ marginLeft: 5 }} onPress={() => { resetScreen(), props.navigation.navigate(SCREEN.MAINSCREEN) }} >
+                                <Text style={{ fontWeight: FONT.FONT_NORMAL, color: COLOR.DEFALUTCOLOR, fontSize: FONT.FONT_SIZE_16 }}>{languageConfig.home}</Text>
+                            </TouchableOpacity>
+                        </View> */}
                     </View>
                 </ScrollView>
             </ImageBackground>

@@ -86,8 +86,9 @@ const SubmitQuery = (props) => {
         if (memberInfo) {
             setMemberID(memberInfo?._id);
             setMemberInfo(memberInfo);
-            setBranchName(memberInfo.branchid.branchname);
         } else {
+            var publicUserInfo = await LocalService.LocalBranchDetails();
+            setMemberID(publicUserInfo?._id);
             setLoading(false);
         }
     }

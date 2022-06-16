@@ -9,6 +9,7 @@ import { MemberLanguage } from '../../services/LocalService/LanguageService';
 import crashlytics, { firebase } from "@react-native-firebase/crashlytics";
 import languageConfig from '../../languages/languageConfig';
 import * as SCREEN from '../../context/screen/screenName';
+import Feather from 'react-native-vector-icons/Feather';
 import axiosConfig from '../../helpers/axiosConfig';
 import Loader from '../../components/loader/index';
 import * as KEY from '../../context/actions/key';
@@ -148,6 +149,11 @@ const RegisterScreen = (props) => {
             <StatusBar hidden={false} translucent={true} backgroundColor={KEY.TRANSPARENT} barStyle={Platform.OS === 'ios' ? KEY.DARK_CONTENT : KEY.LIGHT_CONTENT} />
             <ImageBackground source={backgroungImage ? { uri: backgroungImage } : IMAGE.BACKGROUND_IMAGE} style={styles.backgroundImage} >
                 <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={KEY.ALWAYS}>
+                    <View style={{ position: KEY.ABSOLUTE, marginTop: 50, marginLeft: 15 }} >
+                        <TouchableOpacity onPress={() => props.navigation.goBack(null)}>
+                            <Feather name='arrow-left' size={25} color={COLOR.WHITE} />
+                        </TouchableOpacity>
+                    </View>
                     <View style={styles.containerView}>
                         <Image source={logo ? { uri: logo } : IMAGE.MEMBROZ_LOGO} resizeMode={KEY.COVER}
                             style={styles.imageLogo} />

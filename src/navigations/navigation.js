@@ -42,8 +42,10 @@ import BOOKINGPAYMENTSCREEN from '../screen/OurServiceScreen/BookingPaymentScree
 import PACKAGE from '../screen/PackageScreen/Package';
 
 import { NotificationService } from '../services/NotificationService/NotificationService';
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { MemberLanguage } from '../services/LocalService/LanguageService';
 import * as LocalService from '../services/LocalService/LocalService';
+import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import languageConfig from '../languages/languageConfig';
 import {
@@ -64,37 +66,9 @@ const Tab = createBottomTabNavigator();
 
 //Structure for the navigatin Drawer
 const NavigationDrawerStructureLeft = (props) => {
-    const [memberProfilePic, setMemberProfilePic] = useState(null);
-
-    useEffect(() => {
-        getMemberDeatilsLocalStorage();
-    }, [])
-
-    //GET MEMBER DATA IN MOBILE LOCAL STORAGE
-    const getMemberDeatilsLocalStorage = async () => {
-        var memberInfo = await LocalService.LocalStorageService();
-        if (memberInfo) {
-            setMemberProfilePic(memberInfo?.profilepic);
-        }
-    }
-
-    useEffect(() => {
-    }, [memberProfilePic])
-
     return (
         <TouchableOpacity onPress={() => props.navigationProps.navigate(SCREEN.MENUSCREEN)}>
             <TouchableOpacity onPress={() => props.navigationProps.navigate(SCREEN.MAINSCREEN)}></TouchableOpacity>
-            {/* <Image
-                source={!memberProfilePic ? IMAGE.USERPROFILE : { uri: memberProfilePic }}
-                style={{
-                    width: 35,
-                    height: 35,
-                    borderRadius: 100,
-                    borderColor: COLOR.BLACK,
-                    borderWidth: 1,
-                    //marginLeft: 30
-                }}
-            /> */}
             <Image
                 source={IMAGE.MENUICON}
                 style={{
@@ -115,9 +89,11 @@ const NavigationDrawerStructureRight = (props) => {
 
     useEffect(() => {
         AsyncStorage.getItem(KEY.AUTHUSER).then((res) => {
-            let userid = JSON.parse(res)._id;
-            setUserID(userid);
-            getNotification(userid);
+            if (res) {
+                let userid = JSON.parse(res)._id;
+                setUserID(userid);
+                getNotification(userid);
+            }
         });
     }, [])
 
@@ -158,32 +134,6 @@ const AuthStackScreen = () => {
                 component={LOGINSCREEN}
                 options={{ headerShown: false }}
             />
-            <Stack.Screen
-                name="ExploreScreen"
-                component={EXPLORESCREEN}
-                options={{
-                    headerTitleAlign: KEY.CENTER,
-                    title: languageConfig.exploresurge,
-                    headerTintColor: Platform.OS == 'android' ? COLOR.BLACK : COLOR.DEFALUTCOLOR,
-                    headerTransparent: true
-                }}
-            />
-            <Stack.Screen
-                name="ExploreStatus"
-                component={EXPLORESTATUS}
-                options={{
-                    headerTitleAlign: KEY.CENTER,
-                    title: languageConfig.exploresurge,
-                    headerTintColor: Platform.OS == 'android' ? COLOR.BLACK : COLOR.DEFALUTCOLOR,
-                    headerTransparent: true
-                }}
-            />
-            <Stack.Screen
-                name="ExpoloreLoginScreen"
-                component={EXPOLORELOGINSCREEN}
-                options={{ headerShown: false }}
-            />
-
             <Stack.Screen
                 name="RegisterScreen"
                 component={REGISTERSCREEN}
@@ -814,11 +764,77 @@ const MyProfileStackScreen = ({ navigation }) => {
                     }
                 }}
             />
+            <Stack.Screen
+                name="Auth"
+                component={AuthStackScreen}
+                options={{ headerShown: false }}
+            />
+        </Stack.Navigator>
+    )
+}
+
+const SupportStackScreen = ({ navigation }) => {
+    return (
+        <Stack.Navigator initialRouteName='ContactUsScreen'
+            screenOptions={{ headerShadowVisible: false }}>
+            <Stack.Screen
+                name="ContactUsScreen"
+                component={CONTACTUSSCREEN}
+                options={{
+                    title: 'Contact Us', //Set Header Title
+                    headerLeft: () =>
+                        <NavigationDrawerStructureLeft
+                            navigationProps={navigation}
+                        />,
+                    headerRight: () => <NavigationDrawerStructureRight navigationProps={navigation} />,
+                    headerStyle: {
+                        backgroundColor: COLOR.BACKGROUNDCOLOR, //Set Header color
+                    },
+                    headerTintColor: COLOR.BLACK, //Set Header text color
+                    headerTitleAlign: KEY.CENTER,
+                    headerTitleStyle: {
+                        fontWeight: FONT.FONT_WEIGHT_MEDIAM, //Set Header text style
+                    }
+                }}
+            />
+            <Stack.Screen
+                name="SubmitQuery"
+                component={SUBMITQUERY}
+                options={{
+                    title: 'Submit Query', //Set Header Title
+                    headerRight: () => <NavigationDrawerStructureRight navigationProps={navigation} />,
+                    headerStyle: {
+                        backgroundColor: COLOR.BACKGROUNDCOLOR, //Set Header color
+                    },
+                    headerTintColor: COLOR.BLACK, //Set Header text color
+                    headerTitleAlign: KEY.CENTER,
+                    headerTitleStyle: {
+                        fontWeight: FONT.FONT_WEIGHT_MEDIAM, //Set Header text style
+                    }
+                }}
+            />
         </Stack.Navigator>
     )
 }
 
 const TabNavigation = () => {
+    const [memberInfo, setMemberInfo] = useState(null);
+
+    useEffect(() => {
+        getMemberDeatilsLocalStorage();
+    }, [])
+
+    //GET MEMBER DATA IN MOBILE LOCAL STORAGE
+    const getMemberDeatilsLocalStorage = async () => {
+        var memberInfo = await LocalService.LocalStorageService();
+        if (memberInfo) {
+            setMemberInfo(memberInfo);
+        }
+    }
+
+    useEffect(() => {
+    }, [memberInfo])
+
     return (
         <Tab.Navigator
             screenOptions={({ route }) => ({
@@ -858,6 +874,14 @@ const TabNavigation = () => {
                                 style={{ width: 25, height: 25, tintColor: color }}
                             />
                         );
+                    } else if (route.name === 'Support') {
+                        return (
+                            <MaterialCommunityIcons
+                                name={focused ? 'face-agent' : 'face-agent'}
+                                size={30}
+                                color={color}
+                            />
+                        );
                     }
                 },
                 tabBarActiveTintColor: COLOR.DEFALUTCOLOR,
@@ -875,13 +899,19 @@ const TabNavigation = () => {
             })}
             backBehavior="initialRoute" >
             <Tab.Screen name="Home" component={HomeStackScreen} options={{ headerShown: false, title: languageConfig.home }} />
-            <Tab.Screen name="ourservice" component={OurServiceStackScreen} options={{ headerShown: false, title: languageConfig.ourservicestext1 }} />
-            <Tab.Screen name="MyBooking" component={MyBookingStackScreen} options={{ headerShown: false, title: languageConfig.mybooking }} />
+            {memberInfo &&
+                <Tab.Screen name="MyBooking" component={MyBookingStackScreen} options={{ headerShown: false, title: languageConfig.mybooking }} />
+            }
             <Tab.Screen name="Package" component={packagesStackScreen} options={{ headerShown: false, title: languageConfig.packages }} />
+            <Tab.Screen name="ourservice" component={OurServiceStackScreen} options={{ headerShown: false, title: languageConfig.services }} />
+            {!memberInfo &&
+                <Tab.Screen name="Support" component={SupportStackScreen} options={{ headerShown: false, title: languageConfig.support }} />
+            }
             <Tab.Screen name="Profile" component={MyProfileStackScreen} options={{ headerShown: false, title: languageConfig.myprofile }} />
         </Tab.Navigator>
     )
 }
+
 export default NavigationsApp = () => {
     return (
         <NavigationContainer>

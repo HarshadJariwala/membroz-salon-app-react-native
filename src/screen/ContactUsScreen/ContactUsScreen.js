@@ -73,15 +73,34 @@ const ContactUsScreen = (props) => {
                     tempDays.push(element + ' ' + `(${starttime + ' - ' + endtime})`)
                 });
             }
+            setContactNumber(memberInfo?.branchid?.supportnumber);
+            setAvailableDays(tempDays);
+            setCloseDays(closeDays);
+            setAddress(memberInfo?.branchid?.property?.address);
+            setAvailableTime(starttime + ' - ' + endtime);
+            setEmail(memberInfo?.branchid?.supportemail);
+            setStartTime(memberInfo?.branchid?.workinghours?.starttime);
+            setEndTime(memberInfo?.branchid?.workinghours?.endtime);
+        } else {
+            var publicUserInfo = await LocalService.LocalBranchDetails();
+            starttime = publicUserInfo?.branchid?.workinghours?.starttime;
+            endtime = publicUserInfo?.branchid?.workinghours?.endtime;
+            workingday = publicUserInfo?.branchid?.workinghours?.days;
+            if (workingday.length > 0) {
+                closeDays = daylist.filter(x => !workingday.includes(x));
+                workingday.forEach(element => {
+                    tempDays.push(element + ' ' + `(${starttime + ' - ' + endtime})`)
+                });
+            }
+            setContactNumber(publicUserInfo?.branchid?.supportnumber);
+            setAvailableDays(tempDays);
+            setCloseDays(closeDays);
+            setAddress(publicUserInfo?.branchid?.property?.address);
+            setAvailableTime(starttime + ' - ' + endtime);
+            setEmail(publicUserInfo?.branchid?.supportemail);
+            setStartTime(publicUserInfo?.branchid?.workinghours?.starttime);
+            setEndTime(publicUserInfo?.branchid?.workinghours?.endtime);
         }
-        setContactNumber(memberInfo?.branchid?.supportnumber);
-        setAvailableDays(tempDays);
-        setCloseDays(closeDays);
-        setAddress(memberInfo?.branchid?.property?.address);
-        setAvailableTime(starttime + ' - ' + endtime);
-        setEmail(memberInfo?.branchid?.supportemail);
-        setStartTime(memberInfo?.branchid?.workinghours?.starttime);
-        setEndTime(memberInfo?.branchid?.workinghours?.endtime);
     }
 
     useEffect(() => {
@@ -151,7 +170,7 @@ const ContactUsScreen = (props) => {
                             <View style={{
                                 flexDirection: KEY.ROW, alignItems: KEY.CENTER, alignSelf: KEY.FLEX_START, marginTop: 5, marginLeft: 10
                             }}>
-                                <Image source={(IMAGE.TIMEICON)} style={{ height: 18, width: 18, tintColor: COLOR.DEFALUTCOLOR }} />
+                                <Image source={(IMAGE.TIMEICON)} style={{ height: 20, width: 16, tintColor: COLOR.DEFALUTCOLOR }} />
                                 <Text style={{
                                     alignItems: KEY.FLEX_START, fontSize: FONT.FONT_SIZE_16,
                                     color: COLOR.BLACK, marginLeft: 5, width: WIDTH / 2, textTransform: KEY.LOWERCASE

@@ -15,7 +15,7 @@ import {
     patchAppointmentService
 } from '../../services/AppointmentService/AppiontmentService';
 import { MESSAGINGSENDERID } from '../../context/actions/type';
-import { getByIdMemberService, patchMemberService } from '../../services/MemberService/MemberService';
+import { getByIdMemberService, getByIdUserService, patchMemberService } from '../../services/MemberService/MemberService';
 import { NotificationService } from '../../services/NotificationService/NotificationService';
 import { getLastWallettxnsListService } from '../../services/BillService/BillService';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -41,11 +41,13 @@ import * as COLOR from '../../styles/colors';
 import * as IMAGE from '../../styles/image';
 import styles from './HomeStyle';
 import moment from 'moment';
+import axiosConfig from '../../helpers/axiosConfig';
 const HEIGHT = Dimensions.get('window').height;
 const WIDTH = Dimensions.get('window').width;
 
 const HomeScreen = (props) => {
     const [loading, setloading] = useState(true);
+    const [logo, setLogo] = useState(null);
     const [scanIconVisible, setScanIconVisible] = useState(false);
     const [notificationIconVisible, setNotificationIconVisible] = useState(false);
     const [notification, setNotification] = useState(0);
@@ -54,12 +56,8 @@ const HomeScreen = (props) => {
     const [memberID, setMemberID] = useState(null);
     const [memberProfilePic, setMemberProfilePic] = useState(null);
     const [memberInfo, setMemberInfo] = useState(null);
-    const [bookingList, setBookingList] = useState([]);
     const [currencySymbol, setCurrencySymbol] = useState(null);
-    const [wallateHistory, setwallateHistory] = useState([]);
-    const [selectedItem, setSelectItem] = useState(null);
-    const [showprofileModalVisible, setshowProfileModalVisible] = useState(false);
-    let getmemberid, appVersionCode, androidUrl, iosUrl;
+    let getmemberid, appVersionCode, androidUrl, iosUrl, publicAuthkey;
 
     useFocusEffect(
         React.useCallback(() => {
@@ -92,7 +90,7 @@ const HomeScreen = (props) => {
 
     useEffect(() => {
     }, [loading, scanIconVisible, notificationIconVisible,
-        notification, membershipPlan,
+        notification, membershipPlan, logo,
         memberName, memberID, memberProfilePic,
     ])
 
@@ -109,6 +107,9 @@ const HomeScreen = (props) => {
         if (userData) {
             setScanIconVisible(userData.scanicon);
             setNotificationIconVisible(userData.notificationicon);
+            axiosConfig(userData.authkey);
+            setLogo(userData.applogo);
+            publicAuthkey = userData.authkey;
             if (Platform.OS === KEY.IOS) {
                 appVersionCode = userData.appstoreversioncode;
             } else {
@@ -122,8 +123,8 @@ const HomeScreen = (props) => {
     //GET MEMBER DATA IN MOBILE LOCAL STORAGE
     const getMemberDeatilsLocalStorage = async () => {
         var memberInfo = await LocalService.LocalStorageService();
-        const response = getCurrency(memberInfo.branchid.currency);
         if (memberInfo) {
+            const response = getCurrency(memberInfo.branchid.currency);
             getmemberid = memberInfo?._id;
             setCurrencySymbol(response);
             setMemberInfo(memberInfo);
@@ -140,32 +141,13 @@ const HomeScreen = (props) => {
             wait(1000).then(() => {
                 setloading(false);
             });
-        }
-    }
-
-    //get wallate history list
-    const wallateBillList = async (id) => {
-        try {
-            const response = await getLastWallettxnsListService(id);
-            if (response.data != null && response.data != 'undefind' && response.status === 200) {
-                setwallateHistory(response.data);
-            }
-        } catch (error) {
-            setloading(false);
-            firebase.crashlytics().recordError(error);
-        }
-    }
-
-    //GET PAYMENT SCHEDULE LIST USING API 
-    const getBookingList = async (id) => {
-        try {
-            const response = await getLastBookingRequestListService(id);
-            if (response.data != null && response.data != 'undefind' && response.status == 200) {
-                setBookingList(response.data);
-            }
-        } catch (error) {
-            firebase.crashlytics().recordError(error);
-            setloading(false);
+        } else {
+            console.log(`publicAuthkey`, publicAuthkey);
+            getPublicUserDeatils(publicAuthkey);
+            await getAppVersion(appVersionCode);
+            wait(1000).then(() => {
+                setloading(false);
+            });
         }
     }
 
@@ -182,6 +164,22 @@ const HomeScreen = (props) => {
                     Toast.show(languageConfig.welcometext, Toast.SHORT);
                     LocalService.AuthenticateMember(response.data);
                 }
+            }
+        } catch (error) {
+            console.log(`error`, error);
+            firebase.crashlytics().recordError(error);
+            setloading(false);
+        }
+    }
+
+    //GET PUBLIC USER DATA USEING API CALL
+    const getPublicUserDeatils = async (id) => {
+        try {
+            const response = await getByIdUserService(id);
+            console.log(`response.data`, response.data);
+            if (response.data != null && response.data != 'undefind' && response.status == 200) {
+                Toast.show(languageConfig.welcometext, Toast.SHORT);
+                LocalService.AuthenticatePublicUser(response.data);
             }
         } catch (error) {
             console.log(`error`, error);
@@ -346,299 +344,12 @@ const HomeScreen = (props) => {
         }
     }
 
-    //RENDER BOOKING LIST USING FLATLIST
-    const renderBooking = ({ item }) => (
-        <View style={styles.img_card}>
-            <Image style={styles.img}
-                source={{ uri: item.refid && item.refid.gallery && item.refid.gallery[0] && item.refid.gallery[0].attachment ? item.refid.gallery[0].attachment : logo }} />
-            <View style={{ flexDirection: KEY.COLUMN, marginLeft: 10, width: WIDTH - 140 }}>
-                <View style={{ flexDirection: KEY.ROW, marginTop: 10, justifyContent: KEY.SPACEBETWEEN }}>
-                    <Text numberOfLines={1} style={styles.text}>{item.refid.title}</Text>
-                    <Text style={{
-                        fontSize: FONT.FONT_SIZE_16,
-                        color: COLOR.BLACK,
-                        fontWeight: FONT.FONT_BOLD,
-                        marginRight: 10
-                    }}>{currencySymbol + item.charges}</Text>
-                </View>
-                <View style={{ flexDirection: KEY.ROW, marginTop: 5 }}>
-                    <Ionicons name='location-outline' size={20} color={COLOR.DEFALUTCOLOR} />
-                    <Text numberOfLines={1}
-                        style={{ marginLeft: 5, fontSize: FONT.FONT_SIZE_14, color: COLOR.LIGHT_BLACK, width: WIDTH / 3 }}>
-                        {item.attendee.branchid.branchname}
-                    </Text>
-                </View>
-                <View style={{ flexDirection: KEY.ROW }}>
-                    <View style={{ flexDirection: KEY.ROW, marginTop: 5 }}>
-                        <Feather name='calendar' size={20} color={COLOR.DEFALUTCOLOR} />
-                        <Text numberOfLines={1}
-                            style={{ marginLeft: 5, fontSize: FONT.FONT_SIZE_14, color: COLOR.LIGHT_BLACK, width: WIDTH / 3 }}>
-                            {moment(item.appointmentdate).format('MMM DD, yyyy')}
-                        </Text>
-                    </View>
-                </View>
-                <View style={{ alignSelf: KEY.FLEX_END, marginTop: -14 }}>
-                    <TouchableOpacity style={styles.upgrade} onPress={() => onPressCancelBooking(item)} >
-                        <Text style={styles.textbutton}>
-                            {languageConfig.cancel}
-                        </Text>
-                    </TouchableOpacity>
-                </View>
-            </View>
-        </View>
-    )
-
-    //CANCEL BUTTON CLICK TO CALL THIS FUNCTION 
-    const onPressCancelBooking = async (item) => {
-        setshowProfileModalVisible(true);
-        setSelectItem(item);
-    }
-
-    //CANCEL BUTTON CLICK TO CALL THIS FUNCTION 
-    const onPressConfirmBooking = async () => {
-        setshowProfileModalVisible(false);
-        if (selectedItem) {
-            setloading(true);
-            let body = { status: "deleted" };
-            try {
-                const response = await patchAppointmentService(item._id, body);
-                if (response.data != null && response.data != 'undefind' && response.status == 200) {
-                    Toast.show(languageConfig.bookingcancelsuccessmessage, Toast.SHORT);
-                    await getBookingList(memberInfo._id);
-                }
-            } catch (error) {
-                Toast.show(languageConfig.bookingproblemmessage, Toast.SHORT);
-                firebase.crashlytics().recordError(error);
-                setloading(false);
-            }
-        }
-    }
-
-    //render recharge history in flatlist
-    const renderRechargeHistory = ({ item }) => (
-        item.txntype == 'Dr' ?
-            <View style={styles.transactionView}>
-                <View style={{
-                    flexDirection: KEY.COLUMN, justifyContent: KEY.CENTER, alignItems: KEY.CENTER,
-                    borderTopLeftRadius: 10, borderBottomLeftRadius: 10,
-                    backgroundColor: COLOR.DEFALUTCOLOR, height: 70, width: WIDTH * 0.2
-                }}>
-                    <View style={{ marginTop: 20, marginBottom: 5 }}>
-                        <Image source={IMAGE.WALLET} style={{ height: 35, width: 35, tintColor: COLOR.WHITE, }} />
-                    </View>
-                    <View style={{ height: 20, width: 20, borderRadius: 100, left: -15, top: -20, backgroundColor: COLOR.WHITE }} >
-                        <MaterialCommunityIcons name='minus' size={15} style={{ color: COLOR.RED, alignSelf: KEY.CENTER, margin: 2 }} />
-                    </View>
-                </View>
-                <View style={{ flexDirection: KEY.COLUMN, justifyContent: KEY.SPACEBETWEEN, marginTop: 10, marginBottom: 10 }}>
-                    <Text numberOfLines={1}
-                        style={{
-                            fontSize: FONT.FONT_SIZE_16, marginLeft: 10, width: WIDTH / 2,
-                            color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD, color: COLOR.RED
-                        }}>{item.txnref}</Text>
-                    <Text style={{ fontSize: FONT.FONT_SIZE_14, marginLeft: 10, color: COLOR.GRANITE_GRAY }}>{moment().format('DD MMM YYYY hh:mm a')}</Text>
-                </View>
-                <View style={{ flexDirection: KEY.COLUMN, justifyContent: KEY.SPACEBETWEEN, marginTop: 10, marginBottom: 10 }}>
-                    <Text style={{
-                        fontSize: FONT.FONT_SIZE_16, marginLeft: 10,
-                        color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD, color: COLOR.RED
-                    }}>{'- ' + currencySymbol + item.value}</Text>
-                </View>
-            </View>
-            :
-            <View style={styles.transactionView}>
-                <View style={{
-                    flexDirection: KEY.COLUMN, justifyContent: KEY.CENTER, alignItems: KEY.CENTER,
-                    borderTopLeftRadius: 10, borderBottomLeftRadius: 10,
-                    backgroundColor: COLOR.DEFALUTCOLOR, height: 70, width: WIDTH * 0.2
-                }}>
-                    <View style={{ marginTop: 20, marginBottom: 5 }}>
-                        <Image source={IMAGE.WALLET} style={{ height: 35, width: 35, tintColor: COLOR.WHITE, }} />
-                    </View>
-                    <View style={{ height: 20, width: 20, borderRadius: 100, left: -15, top: -20, backgroundColor: COLOR.WHITE }} >
-                        <MaterialCommunityIcons name='plus' size={15} style={{ color: COLOR.GREEN, alignSelf: KEY.CENTER, margin: 2 }} />
-                    </View>
-                </View>
-                <View style={{ flexDirection: KEY.COLUMN, justifyContent: KEY.SPACEBETWEEN, marginTop: 10, marginBottom: 10 }}>
-                    <Text numberOfLines={1}
-                        style={{
-                            fontSize: FONT.FONT_SIZE_16, marginLeft: 10, width: WIDTH / 2,
-                            color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD, color: COLOR.GREEN
-                        }}>{item.txnref}</Text>
-                    <Text style={{ fontSize: FONT.FONT_SIZE_14, marginLeft: 10, color: COLOR.GRANITE_GRAY }}>{moment().format('DD MMM YYYY hh:mm a')}</Text>
-                </View>
-                <View style={{ flexDirection: KEY.COLUMN, justifyContent: KEY.SPACEBETWEEN, marginTop: 10, marginBottom: 10 }}>
-                    <Text style={{
-                        fontSize: FONT.FONT_SIZE_16, marginLeft: 10,
-                        color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD, color: COLOR.GREEN
-                    }}>{'+ ' + currencySymbol + item.value}</Text>
-                </View>
-            </View>
-    )
-
-    //THIS FUNCTION USE TO RENEW MEMBERSHIP
-    const onPressRenewMemberShip = () => {
-        props.navigation.navigate(SCREEN.MEMBERSHIPSCREEN);
-    }
-
-    //THIS FUNCTION USE TO DUE PAYMENT
-    const onPressDuePayment = () => {
-        props.navigation.navigate(SCREEN.WALLETSCREEN);
-    }
-
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: COLOR.BACKGROUNDCOLOR }}>
-            {
-                showprofileModalVisible
-                    ?
-                    <StatusBar hidden={false} translucent={true} backgroundColor="rgba(0,0,0,0.5)" barStyle={Platform.OS === 'ios' ? KEY.DARK_CONTENT : KEY.DARK_CONTENT} />
-                    :
-                    <StatusBar hidden={false} translucent={true} backgroundColor={COLOR.STATUSBARCOLOR} barStyle={Platform.OS === 'ios' ? KEY.DARK_CONTENT : KEY.DARK_CONTENT} />
-            }
+            <StatusBar hidden={false} translucent={true} backgroundColor={COLOR.STATUSBARCOLOR} barStyle={Platform.OS === 'ios' ? KEY.DARK_CONTENT : KEY.DARK_CONTENT} />
             <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={KEY.ALWAYS}>
-                <Text style={{
-                    fontSize: FONT.FONT_SIZE_18, color: COLOR.BLACK,
-                    fontWeight: FONT.FONT_BOLD, marginLeft: 15, marginTop: 10
-                }}>{languageConfig.membershipdetailstext}</Text>
-                <View style={styles.viewMain}>
-                    <View style={styles.viewRectangle}>
-                        <View style={{ flexDirection: KEY.ROW, marginTop: 10 }}>
-                            <View style={styles.rounfIconStyle}>
-                                <MaterialCommunityIcons name='wallet-membership' size={20} color={COLOR.DEFALUTCOLOR} />
-                            </View>
-                            <View style={{ flexDirection: KEY.COLUMN, marginLeft: -2 }}>
-                                <View style={{ marginLeft: 15 }}>
-                                    <Text style={styles.rectangleText}>{languageConfig.membershiptext}</Text>
-                                    <Text style={{
-                                        fontSize: FONT.FONT_SIZE_16, textTransform: KEY.CAPITALIZE, color: COLOR.BLACK,
-                                        fontWeight: FONT.FONT_BOLD, width: WIDTH / 2
-                                    }} numberOfLines={1}>{'Gold Member Ship new plan'}</Text>
-                                </View>
-                            </View>
-                            <View style={{ flex: 1, alignItems: KEY.FLEX_END, marginTop: 10 }}>
-                                <TouchableOpacity style={styles.btnStyle} onPress={() => onPressRenewMemberShip()}>
-                                    <Text style={{
-                                        fontWeight: FONT.FONT_BOLD, textTransform: KEY.CAPITALIZE,
-                                        color: COLOR.WHITE, fontSize: FONT.FONT_SIZE_14
-                                    }}>{languageConfig.renew}</Text>
-                                </TouchableOpacity>
-                            </View>
-                        </View>
-                        <View style={{
-                            borderWidth: 0.2, marginTop: 10, borderColor: COLOR.LINE_COLOR,
-                            marginRight: 15, marginLeft: 15, width: WIDTH - 60
-                        }} />
-                        <View style={{ flexDirection: KEY.ROW, marginTop: 10, marginBottom: 10 }}>
-                            <View style={styles.rounfIconStyle}>
-                                <Image source={IMAGE.MONEYICON} style={{ height: 16, width: 20, tintColor: COLOR.DEFALUTCOLOR }} />
-                            </View>
-                            <View style={{ flexDirection: KEY.COLUMN, marginLeft: -2 }}>
-                                <View style={{ marginLeft: 15 }}>
-                                    <Text style={styles.rectangleText}>{languageConfig.paymentduetext + moment().format('DD.MM.YYYY')}</Text>
-                                    <Text style={{
-                                        fontSize: FONT.FONT_SIZE_16, textTransform: KEY.CAPITALIZE, color: COLOR.BLACK,
-                                        fontWeight: FONT.FONT_BOLD, width: WIDTH / 2
-                                    }} numberOfLines={1}>{currencySymbol + '520'}</Text>
-                                </View>
-                            </View>
-                            <View style={{ flex: 1, alignItems: KEY.FLEX_END, marginTop: 10 }}>
-                                <TouchableOpacity style={styles.btnStyle} onPress={() => onPressDuePayment()}>
-                                    <Text style={{
-                                        fontWeight: FONT.FONT_BOLD, textTransform: KEY.CAPITALIZE,
-                                        color: COLOR.WHITE, fontSize: FONT.FONT_SIZE_14
-                                    }}>{languageConfig.paytext}</Text>
-                                </TouchableOpacity>
-                            </View>
-                        </View>
-                    </View>
-                </View>
-                {bookingList && bookingList.length > 0 &&
-                    <SafeAreaView>
-                        <Text style={{
-                            fontSize: FONT.FONT_SIZE_18, color: COLOR.BLACK,
-                            fontWeight: FONT.FONT_BOLD, marginLeft: 15, marginTop: 10
-                        }}>{languageConfig.recentbookingtext}</Text>
-                        <FlatList
-                            style={{ marginTop: 5 }}
-                            data={bookingList}
-                            showsVerticalScrollIndicator={false}
-                            renderItem={renderBooking}
-                            contentContainerStyle={{ paddingBottom: 20, justifyContent: KEY.CENTER, alignItems: KEY.CENTER }}
-                            keyExtractor={item => item._id}
-                        />
-                    </SafeAreaView>
-                }
-                {wallateHistory && wallateHistory.length > 0 &&
-                    <SafeAreaView>
-                        <Text style={{
-                            fontSize: FONT.FONT_SIZE_18, color: COLOR.BLACK,
-                            fontWeight: FONT.FONT_BOLD, marginLeft: 15, marginTop: 10
-                        }}>{languageConfig.recenettransactions}</Text>
-                        <FlatList
-                            style={{ marginTop: 10 }}
-                            data={wallateHistory}
-                            keyExtractor={(item, index) => index.toString()}
-                            keyboardShouldPersistTaps={KEY.ALWAYS}
-                            renderItem={renderRechargeHistory}
-                            contentContainerStyle={{ paddingBottom: 20, alignSelf: KEY.CENTER }}
-                            showsVerticalScrollIndicator={false}
-                        />
-                    </SafeAreaView>
-                }
-            </ScrollView>
-            {selectedItem &&
-                <Modal
-                    animationType='slide'
-                    transparent={true}
-                    visible={showprofileModalVisible}
-                    onRequestClose={() => setshowProfileModalVisible(!showprofileModalVisible)}>
-                    <View style={{ backgroundColor: "rgba(0,0,0,0.5)", flex: 1 }}>
-                        <View style={styles.modal}>
-                            <View style={{ justifyContent: KEY.CENTER, alignItems: KEY.CENTER, }}>
-                                <View style={styles.modelcircle}>
-                                    <MaterialCommunityIcons name='close' size={30} color={COLOR.RED} />
-                                </View>
-                                <View style={{ marginTop: 10, marginBottom: 10 }}>
-                                    <Text style={[styles.modeltext, { fontSize: FONT.FONT_SIZE_16, color: COLOR.RED }]}>{languageConfig.areyousureyouwanttotext}</Text>
-                                    <Text style={[styles.modeltext, { fontSize: FONT.FONT_SIZE_16, color: COLOR.RED }]}>{languageConfig.cancelthisbookingtext}</Text>
-                                </View>
-                                <View style={{}}>
-                                    <Text style={[styles.modeltext, { fontSize: FONT.FONT_SIZE_14, color: COLOR.BLACK }]}>{selectedItem.refid.title}</Text>
-                                </View>
-                                <View style={{ flexDirection: KEY.ROW, marginTop: 5, }}>
-                                    <Ionicons name='location-outline' size={20} color={COLOR.DEFALUTCOLOR} />
-                                    <Text numberOfLines={1}
-                                        style={{ marginLeft: 5, fontSize: FONT.FONT_SIZE_14, color: COLOR.LIGHT_BLACK }}>
-                                        {selectedItem.attendee.branchid.branchname}
-                                    </Text>
-                                </View>
-                                <View style={{ flexDirection: KEY.ROW }}>
-                                    <View style={{ flexDirection: KEY.ROW, marginTop: 5 }}>
-                                        <Feather name='calendar' size={20} color={COLOR.DEFALUTCOLOR} />
-                                        <Text numberOfLines={1}
-                                            style={{ marginLeft: 5, fontSize: FONT.FONT_SIZE_14, color: COLOR.LIGHT_BLACK }}>
-                                            {moment(selectedItem.appointmentdate).format('MMM DD, yyyy')}
-                                        </Text>
-                                    </View>
-                                </View>
 
-                                <View style={{ flexDirection: KEY.ROW, marginTop: 30, marginBottom: 20 }}>
-                                    <TouchableOpacity style={[styles.modelbutton, { backgroundColor: COLOR.LIGHT_RED }]} onPress={() => onPressConfirmBooking()}  >
-                                        <Text style={styles.model_button}>
-                                            {languageConfig.yes}
-                                        </Text>
-                                    </TouchableOpacity>
-                                    <TouchableOpacity style={[styles.modelbutton, { backgroundColor: COLOR.LIGHT_GREEN }]} onPress={() => setshowProfileModalVisible(false)}>
-                                        <Text style={styles.model_button}>
-                                            {languageConfig.no}
-                                        </Text>
-                                    </TouchableOpacity>
-                                </View>
-                            </View>
-                        </View>
-                    </View>
-                </Modal>
-            }
+            </ScrollView>
             {loading ? <Loader /> : null}
         </SafeAreaView>
     )
