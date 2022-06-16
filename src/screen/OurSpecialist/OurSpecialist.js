@@ -111,9 +111,12 @@ const OurSpecialist = ({ navigation }) => {
                             style={!item.profilepic ? { height: 70, width: 70, borderRadius: 100 } : { height: 75, width: 75, borderRadius: 100 }} />
                     </View>
                 </View>
-                <View style={{ marginLeft: 10, flexDirection: KEY.COLUMN, alignItems: KEY.FLEX_START, width: WIDTH / 2 }}>
+                <View style={{ marginLeft: 10, flexDirection: KEY.COLUMN, alignItems: KEY.FLEX_START }}>
                     {item.property && item.property.fullname &&
-                        <Text style={{ fontSize: FONT.FONT_SIZE_16, color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD, textTransform: KEY.CAPITALIZE }}>
+                        <Text style={{
+                            fontSize: FONT.FONT_SIZE_16, color: COLOR.BLACK,
+                            fontWeight: FONT.FONT_BOLD, textTransform: KEY.CAPITALIZE, width: WIDTH / 2
+                        }}>
                             {item.property.fullname}</Text>}
                     {item.designationid && item.designationid.title &&
                         <Text style={{ marginTop: 2, fontSize: FONT.FONT_SIZE_14, color: COLOR.BLACK, textTransform: KEY.CAPITALIZE }}>
@@ -130,12 +133,12 @@ const OurSpecialist = ({ navigation }) => {
                         </View>
                     }
                     {item.property && item.property.primaryemail &&
-                        <View style={{ marginTop: 2, flexDirection: KEY.ROW, alignItems: KEY.SPACEBETWEEN }}>
+                        <View style={{ marginTop: 2, flexDirection: KEY.ROW, justifyContent: KEY.FLEX_START, alignItems: KEY.FLEX_START }}>
                             <TouchableOpacity onPress={() => onPressEmail(item)}
                                 style={{ alignItems: KEY.CENTER }}>
-                                <Fontisto size={18} name="email" color={COLOR.DEFALUTCOLOR} style={{ marginRight: 5 }} />
+                                <Fontisto size={18} name="email" color={COLOR.DEFALUTCOLOR} style={{ marginRight: 5, marginTop: 5 }} />
                             </TouchableOpacity>
-                            <Text style={{ marginTop: 2, fontSize: FONT.FONT_SIZE_14, color: COLOR.BLACK }}>
+                            <Text style={{ marginTop: 2, fontSize: FONT.FONT_SIZE_14, color: COLOR.BLACK, width: WIDTH * 0.5 }}>
                                 {item.property.primaryemail}</Text>
                         </View>
                     }
