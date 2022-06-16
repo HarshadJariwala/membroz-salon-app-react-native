@@ -60,7 +60,7 @@ const HomeScreen = (props) => {
                     <StatusBar hidden={false} translucent={true} backgroundColor={COLOR.STATUSBARCOLOR} barStyle={Platform.OS === 'ios' ? KEY.DARK_CONTENT : KEY.DARK_CONTENT} />
             }
             <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={KEY.ALWAYS}>
-                <View style={{ justifyContent: KEY.CENTER, alignItems: KEY.CENTER }}>
+                <View style={{ justifyContent: KEY.CENTER, alignItems: KEY.CENTER,marginTop:10 }}>
                     <Swiper height={200} showsPagination={false}>
                         <View style={{justifyContent:KEY.CENTER,alignItems:KEY.CENTER}}>
                             <Image 
@@ -82,7 +82,7 @@ const HomeScreen = (props) => {
                         </View>
                     </Swiper>
                     <View style={{width:WIDTH,flexDirection:KEY.ROW,justifyContent:KEY.SPACEBETWEEN,alignItems:KEY.CENTER,marginTop:0,marginBottom:5}}>
-                        <Text style={{marginRight:15,marginLeft:15,fontSize:FONT.FONT_SIZE_20,color:COLOR.BLACK,fontWeight:FONT.FONT_BOLD}}>{"Our Services"}</Text>
+                    <Text style={{marginRight:15,marginLeft:15,fontSize:FONT.FONT_SIZE_20,color:COLOR.BLACK,fontWeight:FONT.FONT_BOLD}}>{"Our Services"}</Text>
                         <TouchableOpacity>
                         <Text  style={{marginRight:15,marginLeft:15,fontSize:FONT.FONT_SIZE_16,color:COLOR.DEFALUTCOLOR}}>{"View All"}</Text>
                         </TouchableOpacity>
@@ -121,8 +121,7 @@ const HomeScreen = (props) => {
                         </View>
                         <Text style={{textAlign:KEY.CENTER,color:COLOR.BLACK}}>{"Smoothing"}</Text>
                         </View>
-                       
-                    </View>
+                        </View>
                     <View style={{flexDirection:KEY.ROW,}}>
                         <View style={{flexDirection:KEY.COLUMN,}}>
                         <View style={{margin:10,justifyContent:KEY.CENTER,alignItems:KEY.CENTER,width:80,height:80,borderRadius:100,borderWidth:1,borderColor:COLOR.BLACK }}>
@@ -153,7 +152,7 @@ const HomeScreen = (props) => {
                                 <Image style={styles.dotImage} 
                                  source={{uri:"https://thumbs.dreamstime.com/b/hairdresser-protective-mask-cutting-hair-curly-african-american-client-beauty-salon-free-space-195792989.jpg"}} />
                                
-                        </View>
+                    </View>
                         <Text style={{textAlign:KEY.CENTER,color:COLOR.BLACK}}>{"Hair setting"}</Text>
                         </View>
                        
