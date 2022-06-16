@@ -44,7 +44,8 @@ function SplashScreen(props) {
             axiosConfig(token);
             return props.navigation.replace(SCREEN.MAINSCREEN);
         } else {
-            return props.navigation.replace(SCREEN.AUTH);
+            //return props.navigation.replace(SCREEN.AUTH);
+            return props.navigation.replace(SCREEN.MAINSCREEN);
         }
     }
 

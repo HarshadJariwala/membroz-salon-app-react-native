@@ -26,6 +26,7 @@ const WIDTH = Dimensions.get('window').width;
 const daylist = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 
 const ContactUsScreen = (props) => {
+    const [loading, setLoading] = useState(false);
     const [contactNumber, setContactNumber] = useState(null);
     const [availableDays, setAvailableDays] = useState(null);
     const [availableTime, setAvailableTime] = useState(null);
@@ -37,6 +38,7 @@ const ContactUsScreen = (props) => {
     const [endTime, setEndTime] = useState(null);
 
     useEffect(() => {
+        setLoading(true);
         //LANGUAGE MANAGEMENT FUNCTION
         MemberLanguage();
         // CHECK AUTHCONTROLLER USE TO LOGIN OR NOT LOGIN        
@@ -44,6 +46,13 @@ const ContactUsScreen = (props) => {
         //LOCAL STORAGE FETCH DETAILS
         getMemberDeatilsLocalStorage();
     }, []);
+
+    //TIME OUT FUNCTION
+    const wait = (timeout) => {
+        return new Promise(resolve => {
+            setTimeout(resolve, timeout);
+        });
+    }
 
     //REMOTE DATA FATCH IN LOCAL STORAGE
     async function RemoteController() {
@@ -73,15 +82,36 @@ const ContactUsScreen = (props) => {
                     tempDays.push(element + ' ' + `(${starttime + ' - ' + endtime})`)
                 });
             }
+            setContactNumber(memberInfo?.branchid?.supportnumber);
+            setAvailableDays(tempDays);
+            setCloseDays(closeDays);
+            setAddress(memberInfo?.branchid?.property?.address);
+            setAvailableTime(starttime + ' - ' + endtime);
+            setEmail(memberInfo?.branchid?.supportemail);
+            setStartTime(memberInfo?.branchid?.workinghours?.starttime);
+            setEndTime(memberInfo?.branchid?.workinghours?.endtime);
+            wait(1000).then(() => setLoading(false));
+        } else {
+            var publicUserInfo = await LocalService.LocalBranchDetails();
+            starttime = publicUserInfo?.branchid?.workinghours?.starttime;
+            endtime = publicUserInfo?.branchid?.workinghours?.endtime;
+            workingday = publicUserInfo?.branchid?.workinghours?.days;
+            if (workingday.length > 0) {
+                closeDays = daylist.filter(x => !workingday.includes(x));
+                workingday.forEach(element => {
+                    tempDays.push(element + ' ' + `(${starttime + ' - ' + endtime})`)
+                });
+            }
+            setContactNumber(publicUserInfo?.branchid?.supportnumber);
+            setAvailableDays(tempDays);
+            setCloseDays(closeDays);
+            setAddress(publicUserInfo?.branchid?.property?.address);
+            setAvailableTime(starttime + ' - ' + endtime);
+            setEmail(publicUserInfo?.branchid?.supportemail);
+            setStartTime(publicUserInfo?.branchid?.workinghours?.starttime);
+            setEndTime(publicUserInfo?.branchid?.workinghours?.endtime);
+            wait(1000).then(() => setLoading(false));
         }
-        setContactNumber(memberInfo?.branchid?.supportnumber);
-        setAvailableDays(tempDays);
-        setCloseDays(closeDays);
-        setAddress(memberInfo?.branchid?.property?.address);
-        setAvailableTime(starttime + ' - ' + endtime);
-        setEmail(memberInfo?.branchid?.supportemail);
-        setStartTime(memberInfo?.branchid?.workinghours?.starttime);
-        setEndTime(memberInfo?.branchid?.workinghours?.endtime);
     }
 
     useEffect(() => {
@@ -151,7 +181,7 @@ const ContactUsScreen = (props) => {
                             <View style={{
                                 flexDirection: KEY.ROW, alignItems: KEY.CENTER, alignSelf: KEY.FLEX_START, marginTop: 5, marginLeft: 10
                             }}>
-                                <Image source={(IMAGE.TIMEICON)} style={{ height: 18, width: 18, tintColor: COLOR.DEFALUTCOLOR }} />
+                                <Image source={(IMAGE.TIMEICON)} style={{ height: 20, width: 16, tintColor: COLOR.DEFALUTCOLOR }} />
                                 <Text style={{
                                     alignItems: KEY.FLEX_START, fontSize: FONT.FONT_SIZE_16,
                                     color: COLOR.BLACK, marginLeft: 5, width: WIDTH / 2, textTransform: KEY.LOWERCASE
@@ -187,6 +217,7 @@ const ContactUsScreen = (props) => {
                     <View style={{ marginBottom: 50 }} />
                 </View>
             </ScrollView>
+            {loading ? <Loader /> : null}
         </SafeAreaView>
     )
 }

@@ -4,6 +4,10 @@ export const getByIdMemberService = (id) => {
     return Axios.get('members/' + id);
 }
 
+export const getByIdUserService = (id) => {
+    return Axios.get('users/' + id);
+}
+
 export const getByMembershipService = (id) => {
     const body = {
         "search": [

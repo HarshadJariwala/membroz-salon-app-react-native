@@ -1,5 +1,8 @@
 import AsyncStorage from "@react-native-community/async-storage";
-import { AUTHREMBERUSERINFO, AUTHUSER, AUTHUSERINFO, REMOTEDATA } from "../../context/actions/type";
+import {
+    AUTHREMBERUSERINFO, AUTHUSER, AUTHUSERBRANCH,
+    AUTHUSERINFO, REMOTEDATA
+} from "../../context/actions/type";
 
 // REMOTECONTROLLER USE TO AUTOCONFIG APP
 export const LocalStorageService = async () => {
@@ -11,6 +14,11 @@ export const LocalStorageService = async () => {
 //add local storage Records
 export const AuthenticateMember = (user) => (
     AsyncStorage.setItem(AUTHUSER, JSON.stringify(user))
+)
+
+//add local storage Records Public user
+export const AuthenticatePublicUser = (user) => (
+    AsyncStorage.setItem(AUTHUSERBRANCH, JSON.stringify(user))
 )
 
 //add local storage Records
@@ -43,3 +51,9 @@ export const RemoteServerController = async () => {
     var userData = JSON.parse(getUser);
     return userData;
 };
+
+export const LocalBranchDetails = async () => {
+    var getUserBranch = await AsyncStorage.getItem(AUTHUSERBRANCH);
+    var BranchData = JSON.parse(getUserBranch);
+    return BranchData;
+}

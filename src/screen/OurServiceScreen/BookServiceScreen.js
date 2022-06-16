@@ -126,13 +126,16 @@ const BookServiceScreen = (props) => {
     const getMemberDeatilsLocalStorage = async () => {
         try {
             var memberInfo = await LocalService.LocalStorageService();
-            const response = getCurrency(memberInfo.branchid.currency);
             if (memberInfo) {
+                const response = getCurrency(memberInfo.branchid.currency);
                 setCurrencySymbol(response);
                 setMemberID(memberInfo._id);
                 setMemberInfo(memberInfo);
                 setLoading(false);
             } else {
+                var publicUserInfo = await LocalService.LocalBranchDetails();
+                const response = getCurrency(publicUserInfo.branchid.currency);
+                setCurrencySymbol(response);
                 setLoading(false);
             }
         } catch (error) {

@@ -81,6 +81,12 @@ const styles = StyleSheet.create({
         justifyContent: KEY.CENTER,
         alignItems: KEY.CENTER,
         marginTop: 50
+    },
+    backBtn: {
+        flexDirection: KEY.ROW,
+        justifyContent: KEY.CENTER,
+        alignItems: KEY.CENTER,
+        marginTop: 10
     }
 });
 

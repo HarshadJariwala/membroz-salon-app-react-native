@@ -55,13 +55,16 @@ const BookingPaymentScreen = (props) => {
     const getMemberDeatilsLocalStorage = async () => {
         try {
             var memberInfo = await LocalService.LocalStorageService();
-            const response = getCurrency(memberInfo.branchid.currency);
             if (memberInfo) {
+                const response = getCurrency(memberInfo.branchid.currency);
                 setCurrencySymbol(response);
                 setMemberID(memberInfo._id);
                 setMemberInfo(memberInfo);
                 setLoading(false);
             } else {
+                var publicUserInfo = await LocalService.LocalBranchDetails();
+                const response = getCurrency(publicUserInfo.branchid.currency);
+                setCurrencySymbol(response);
                 setLoading(false);
             }
         } catch (error) {
@@ -71,36 +74,38 @@ const BookingPaymentScreen = (props) => {
 
     //BOOK NOW BUTTON CLICK TO CALL FUNCTION
     const onPressBooking = async () => {
-        let appointmentDetail = {
-            'appointmentdate': moment(ServiceDetails.currentbookingdate).format(),
-            'attendee': memberID,
-            'onModel': 'Member',
-            //"host" : serviceDetails.addedby, 
-            'duration': ServiceDetails.duration,
-            'refid': ServiceDetails._id,
-            'timeslot': {
-                'day': moment(ServiceDetails.currentbookingdate).format('dddd'),
-                'starttime': ServiceDetails.currentbookingtime.starttime,
-                'endtime': ServiceDetails.currentbookingtime.endtime
-            },
-            'charges': ServiceDetails.charges,
-        }
-        console.log(`appointmentDetail`, appointmentDetail);
-        setLoading(true);
-        try {
-            const response = await addAppointmentService(appointmentDetail);
-            console.log(`response.data`, response.data);
-            if (response.data != null && response.data != 'undefind' && response.status == 200) {
-                setLoading(false);
-                Toast.show(languageConfig.appoimentsuccessmessage, Toast.LONG);
-                props.navigation.navigate(SCREEN.BOOKINGCOMPLATESCREEN, { item: response.data });
+        if (memberInfo) {
+            let appointmentDetail = {
+                'appointmentdate': moment(ServiceDetails.currentbookingdate).format(),
+                'attendee': memberID,
+                'onModel': 'Member',
+                //"host" : serviceDetails.addedby, 
+                'duration': ServiceDetails.duration,
+                'refid': ServiceDetails._id,
+                'timeslot': {
+                    'day': moment(ServiceDetails.currentbookingdate).format('dddd'),
+                    'starttime': ServiceDetails.currentbookingtime.starttime,
+                    'endtime': ServiceDetails.currentbookingtime.endtime
+                },
+                'charges': ServiceDetails.charges,
             }
-        }
-        catch (error) {
-            console.log(`error`, error);
-            firebase.crashlytics().recordError(error);
-            setLoading(false);
-            Toast.show(languageConfig.appoimenterror, Toast.LONG);
+            setLoading(true);
+            try {
+                const response = await addAppointmentService(appointmentDetail);
+                if (response.data != null && response.data != 'undefind' && response.status == 200) {
+                    setLoading(false);
+                    Toast.show(languageConfig.appoimentsuccessmessage, Toast.LONG);
+                    props.navigation.navigate(SCREEN.BOOKINGCOMPLATESCREEN, { item: response.data });
+                }
+            }
+            catch (error) {
+                console.log(`error`, error);
+                firebase.crashlytics().recordError(error);
+                setLoading(false);
+                Toast.show(languageConfig.appoimenterror, Toast.LONG);
+            }
+        } else {
+            props.navigation.replace(SCREEN.AUTH);
         }
     }
 

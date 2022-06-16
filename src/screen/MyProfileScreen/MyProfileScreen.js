@@ -49,6 +49,8 @@ const MyProfileScreen = ({ navigation }) => {
                     setMemberNumber(memberInfo?.membernumber);
                     setMemberName(memberInfo?.fullname);
                     setMemberJoinDate(memberInfo?.property?.joining_date);
+                } else {
+                    navigation.navigate(SCREEN.AUTH);
                 }
             }
             getCallBackScreen();
@@ -71,6 +73,8 @@ const MyProfileScreen = ({ navigation }) => {
             setMemberNumber(memberInfo?.membernumber);
             setMemberName(memberInfo?.fullname);
             setMemberJoinDate(memberInfo?.property?.joining_date);
+        } else {
+            navigation.replace(SCREEN.AUTH);
         }
     }
 
