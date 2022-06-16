@@ -5,21 +5,16 @@ import {
     Dimensions,
     SafeAreaView,
     ImageBackground,
-    TextInput, Modal,
+    TextInput, Modal, RefreshControl,
     ScrollView, FlatList,
     TouchableOpacity,
-    StatusBar, Image, Linking, Platform, Alert, ImageBackgroundBase
+    StatusBar, Image, Linking, Platform, Alert
 } from 'react-native';
-import {
-    getLastBookingRequestListService,
-    patchAppointmentService
-} from '../../services/AppointmentService/AppiontmentService';
 import Swiper from 'react-native-swiper'
 import { MESSAGINGSENDERID } from '../../context/actions/type';
 import { getByIdMemberService, getByIdUserService, patchMemberService } from '../../services/MemberService/MemberService';
 import { NotificationService } from '../../services/NotificationService/NotificationService';
 import { getLastWallettxnsListService } from '../../services/BillService/BillService';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { RemoteServerController } from '../../services/LocalService/LocalService';
 import { MemberLanguage } from '../../services/LocalService/LanguageService';
 import crashlytics, { firebase } from "@react-native-firebase/crashlytics";
@@ -29,9 +24,7 @@ import PushNotification from "react-native-push-notification";
 import languageConfig from '../../languages/languageConfig';
 import * as SCREEN from '../../context/screen/screenName';
 import { useFocusEffect } from '@react-navigation/native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import messaging from '@react-native-firebase/messaging';
-import Feather from 'react-native-vector-icons/Feather';
 import Loader from '../../components/loader/index';
 import DeviceInfo from 'react-native-device-info';
 import * as KEY from '../../context/actions/key';
@@ -63,6 +56,7 @@ const HomeScreen = (props) => {
     const [teamList, setTeamList] = useState([]);
     const [serviceCategoryList, setServiceCategoryList] = useState([]);
     const [sliderData, setsliderData] = useState([]);
+    const [refreshing, setrefreshing] = useState(false);
     let getmemberid, appVersionCode, androidUrl, iosUrl, publicAuthkey;
 
     useFocusEffect(
@@ -76,8 +70,6 @@ const HomeScreen = (props) => {
                     setMemberName(memberInfo?.fullname);
                     setMemberID(memberInfo._id);
                     getNotification(memberInfo?._id);
-                    getBookingList(memberInfo?._id);
-                    wallateBillList(memberInfo?._id);
                     sliderService();
                     getServiceCategoryList();
                     getMyTeamList();
@@ -139,8 +131,6 @@ const HomeScreen = (props) => {
             setMemberName(memberInfo?.fullname);
             setMemberID(memberInfo._id);
             getMemberDeatils(memberInfo?._id);
-            getBookingList(memberInfo._id);
-            wallateBillList(memberInfo?._id);
             getNotification(memberInfo?._id);
             setMemberProfilePic(memberInfo?.profilepic);
             PushNotifications();
@@ -372,7 +362,7 @@ const HomeScreen = (props) => {
 
     //RENDER SPECIALIST INTO FLATLIST
     const renderMyTeamList = ({ item }) => (
-        <View style={{ flexDirection: KEY.COLUMN, paddingHorizontal: 10 }}>
+        <View style={{ flexDirection: KEY.COLUMN, paddingHorizontal: 5 }}>
             <View style={{ margin: 5, justifyContent: KEY.CENTER, alignItems: KEY.CENTER }}>
                 <Image style={!item.profilepic ? styles.noimagestyle : styles.dotImage1}
                     source={!item.profilepic ? IMAGE.USERPROFILE : { uri: item.profilepic }} />
@@ -429,6 +419,15 @@ const HomeScreen = (props) => {
         }
     }
 
+    //GET PULL TO REFRESH FUNCTION
+    const onRefresh = () => {
+        setrefreshing(true);
+        sliderService();
+        getServiceCategoryList();
+        getMyTeamList();
+        wait(3000).then(() => setrefreshing(false));
+    }
+
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: COLOR.BACKGROUNDCOLOR }}>
             <StatusBar hidden={false} translucent={true} backgroundColor={COLOR.STATUSBARCOLOR} barStyle={Platform.OS === 'ios' ? KEY.DARK_CONTENT : KEY.DARK_CONTENT} />
@@ -467,6 +466,15 @@ const HomeScreen = (props) => {
                                     data={serviceCategoryList}
                                     renderItem={renderCategory}
                                     keyExtractor={item => item._id}
+                                    refreshControl={
+                                        <RefreshControl
+                                            refreshing={refreshing}
+                                            title={languageConfig.pullrefreshtext}
+                                            tintColor={COLOR.DEFALUTCOLOR}
+                                            titleColor={COLOR.DEFALUTCOLOR}
+                                            colors={[COLOR.DEFALUTCOLOR]}
+                                            onRefresh={onRefresh} />
+                                    }
                                 />
                             </View>
                         </SafeAreaView>
@@ -494,6 +502,7 @@ const HomeScreen = (props) => {
                     }
                 </View>
             </ScrollView>
+            {loading ? <Loader /> : null}
         </SafeAreaView>
     )
 }
