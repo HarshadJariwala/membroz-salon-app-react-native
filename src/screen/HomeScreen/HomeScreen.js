@@ -44,6 +44,8 @@ import styles from './HomeStyle';
 import moment from 'moment';
 import axiosConfig from '../../helpers/axiosConfig';
 import { UserListService } from '../../services/UserService/UserService';
+import { ServiceList } from '../../services/AppointmentService/ServiceList';
+import SliderService from '../../services/SliderService/SliderService';
 const HEIGHT = Dimensions.get('window').height;
 const WIDTH = Dimensions.get('window').width;
 
@@ -59,6 +61,8 @@ const HomeScreen = (props) => {
     const [memberProfilePic, setMemberProfilePic] = useState(null);
     const [memberInfo, setMemberInfo] = useState(null);
     const [teamList, setTeamList] = useState([]);
+    const [serviceCategoryList, setServiceCategoryList] = useState([]);
+    const [sliderData, setsliderData] = useState([]);
     let getmemberid, appVersionCode, androidUrl, iosUrl, publicAuthkey;
 
     useFocusEffect(
@@ -74,6 +78,8 @@ const HomeScreen = (props) => {
                     getNotification(memberInfo?._id);
                     getBookingList(memberInfo?._id);
                     wallateBillList(memberInfo?._id);
+                    sliderService();
+                    getServiceCategoryList();
                     getMyTeamList();
                     setMemberProfilePic(memberInfo?.profilepic);
                     PushNotifications();
@@ -93,8 +99,8 @@ const HomeScreen = (props) => {
 
     useEffect(() => {
     }, [loading, scanIconVisible, notificationIconVisible,
-        notification, membershipPlan, logo, teamList,
-        memberName, memberID, memberProfilePic,
+        notification, membershipPlan, logo, teamList, serviceCategoryList,
+        memberName, memberID, memberProfilePic, sliderData
     ])
 
     //TIME OUT FUNCTION
@@ -138,6 +144,8 @@ const HomeScreen = (props) => {
             getNotification(memberInfo?._id);
             setMemberProfilePic(memberInfo?.profilepic);
             PushNotifications();
+            sliderService();
+            getServiceCategoryList();
             getMyTeamList();
             await getAppVersion(appVersionCode);
             wait(1000).then(() => {
@@ -145,6 +153,8 @@ const HomeScreen = (props) => {
             });
         } else {
             getPublicUserDeatils(publicAuthkey);
+            sliderService();
+            getServiceCategoryList();
             getMyTeamList();
             await getAppVersion(appVersionCode);
             wait(1000).then(() => {
@@ -356,7 +366,7 @@ const HomeScreen = (props) => {
         } catch (error) {
             console.log(`error`, error)
             firebase.crashlytics().recordError(error);
-            setLoading(false);
+            setloading(false);
         }
     }
 
@@ -371,117 +381,101 @@ const HomeScreen = (props) => {
         </View>
     )
 
+    //GET FETCH REWARD POINT DATA FROM API
+    const getServiceCategoryList = async () => {
+        try {
+            const response = await ServiceList();
+            if (response.data != null && response.data != 'undefind' && response.status == 200) {
+                const slice = response.data.slice(0, 8);
+                setServiceCategoryList(slice);
+            }
+        } catch (error) {
+            setloading(false);
+            firebase.crashlytics().recordError(error);
+        }
+    }
+
+    //RENDER CATEGORY SERVICE FLATLIST
+    const renderCategory = ({ item }) => (
+        <TouchableOpacity style={{ flexDirection: KEY.COLUMN, paddingHorizontal: 10 }}
+            onPress={() => viewCategoryScreen(item)}>
+            <View style={{ margin: 10, justifyContent: KEY.CENTER, alignItems: KEY.CENTER, width: 80, height: 80, borderRadius: 100, borderWidth: 1, borderColor: COLOR.BLACK }}>
+                <Image style={styles.dotImage}
+                    source={{ uri: item.property && item.property.img && item.property.img[0] && item.property.img[0].attachment ? item.property.img[0].attachment : logo }} />
+            </View>
+            <Text style={{ textAlign: KEY.CENTER, alignSelf: KEY.CENTER, color: COLOR.BLACK, width: 80, marginTop: -7, marginBottom: 5 }}>{item.property && item.property.name}</Text>
+        </TouchableOpacity>
+    )
+
+    //SILDER IMAGE MANAGE FUNCTION
+    const sliderService = async () => {
+        try {
+            const response = await SliderService();
+            if (response.data != null && response.data != 'undefind' && response.status == 200) {
+                setsliderData(response.data);
+            }
+        } catch (error) {
+            setloading(false);
+            firebase.crashlytics().recordError(error);
+        }
+    }
+
+    //ONCLICK TO VIEW CATEGORY SCREEN 
+    const viewCategoryScreen = (item) => {
+        if (item) {
+            props.navigation.navigate(SCREEN.OURSERVICESCREEN, { item: item._id });
+        } else {
+            props.navigation.navigate(SCREEN.OURSERVICESCREEN);
+        }
+    }
+
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: COLOR.BACKGROUNDCOLOR }}>
             <StatusBar hidden={false} translucent={true} backgroundColor={COLOR.STATUSBARCOLOR} barStyle={Platform.OS === 'ios' ? KEY.DARK_CONTENT : KEY.DARK_CONTENT} />
             <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={KEY.ALWAYS}>
                 <View style={{ justifyContent: KEY.CENTER, alignItems: KEY.CENTER, marginTop: 10 }}>
-                    <Swiper height={200} showsPagination={false}>
-                        <View style={{ justifyContent: KEY.CENTER, alignItems: KEY.CENTER }}>
-                            <Image
-                                resizeMode='stretch'
-                                style={styles.image}
-                                source={{ uri: "https://img.freepik.com/free-photo/beautician-with-brush-applies-white-moisturizing-mask-face-young-girl-client-spa-beauty-salon_343596-4247.jpg?t=st=1655360090~exp=1655360690~hmac=a9fd85bbd2ce91cc81aa5c47e5168d2d42edef3db47f2d5abd3f3c60e565875a&w=826" }} />
-                        </View>
-                        <View style={{ justifyContent: KEY.CENTER, alignItems: KEY.CENTER }}>
-                            <Image
-                                resizeMode='stretch'
-                                style={styles.image}
-                                source={{ uri: "https://www.globalcosmeticsnews.com/wp-content/uploads/2020/04/Elliot-Steel-hair-salon-design-comfortel-2.jpg" }} />
-                        </View>
-                        <View style={{ justifyContent: KEY.CENTER, alignItems: KEY.CENTER }}>
-                            <Image
-                                resizeMode='stretch'
-                                style={styles.image}
-                                source={{ uri: "https://st.depositphotos.com/1021014/2737/i/950/depositphotos_27377291-stock-photo-modern-hair-salon.jpg" }} />
-                        </View>
-                    </Swiper>
-                    <View style={{ width: WIDTH, flexDirection: KEY.ROW, justifyContent: KEY.SPACEBETWEEN, alignItems: KEY.CENTER, marginTop: 0, marginBottom: 5 }}>
-                        <Text style={{ marginRight: 15, marginLeft: 15, fontSize: FONT.FONT_SIZE_20, color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD }}>{"Our Services"}</Text>
-                        <TouchableOpacity>
-                            <Text style={{ marginRight: 15, marginLeft: 15, fontSize: FONT.FONT_SIZE_16, color: COLOR.DEFALUTCOLOR }}>{"View All"}</Text>
-                        </TouchableOpacity>
-                    </View>
-
-                    <View style={{ flexDirection: KEY.ROW, }}>
-                        <View style={{ flexDirection: KEY.COLUMN, }}>
-                            <View style={{ margin: 10, justifyContent: KEY.CENTER, alignItems: KEY.CENTER, width: 80, height: 80, borderRadius: 100, borderWidth: 1, borderColor: COLOR.BLACK }}>
-                                <Image style={styles.dotImage}
-                                    source={{ uri: "https://media.istockphoto.com/photos/beauty-treatment-items-for-spa-procedures-on-white-wooden-table-picture-id1286682876?s=612x612" }} />
-
+                    {(sliderData != null) || (sliderData && sliderData.length < 0) ?
+                        <Swiper height={200} showsPagination={false}>
+                            {sliderData.map((item, index) => (
+                                <View style={{ justifyContent: KEY.CENTER, alignItems: KEY.CENTER }}>
+                                    <Image
+                                        resizeMode={KEY.COVER}
+                                        style={styles.image}
+                                        source={{ uri: item.property && item.property.image && item.property.image[0] && item.property.image[0].attachment ? item.property.image[0].attachment : logo }} />
+                                </View>
+                            ))}
+                        </Swiper>
+                        : null
+                    }
+                    {
+                        serviceCategoryList &&
+                        <SafeAreaView>
+                            <View style={{ width: WIDTH, flexDirection: KEY.ROW, justifyContent: KEY.SPACEBETWEEN, alignItems: KEY.CENTER, marginTop: 0, marginBottom: 5 }}>
+                                <Text style={{ marginRight: 15, marginLeft: 15, fontSize: FONT.FONT_SIZE_20, color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD }}>{"Our Services"}</Text>
+                                <TouchableOpacity onPress={() => viewCategoryScreen()}>
+                                    <Text style={{ marginRight: 15, marginLeft: 15, fontSize: FONT.FONT_SIZE_16, color: COLOR.DEFALUTCOLOR }}>{"View All"}</Text>
+                                </TouchableOpacity>
                             </View>
-                            <Text style={{ textAlign: KEY.CENTER, color: COLOR.BLACK }}>{"Hair Cut"}</Text>
-                        </View>
-                        <View style={{ flexDirection: KEY.COLUMN, }}>
-                            <View style={{ margin: 10, justifyContent: KEY.CENTER, alignItems: KEY.CENTER, width: 80, height: 80, borderRadius: 100, borderWidth: 1, borderColor: COLOR.BLACK }}>
-                                <Image style={styles.dotImage}
-                                    source={{ uri: "https://thumbs.dreamstime.com/b/hairdresser-protective-mask-cutting-hair-curly-african-american-client-beauty-salon-free-space-195792989.jpg" }} />
 
+                            <View style={{ flexDirection: KEY.ROW }}>
+                                <FlatList
+                                    showsVerticalScrollIndicator={false}
+                                    numColumns={3}
+                                    contentContainerStyle={{ alignSelf: KEY.CENTER }}
+                                    style={{ flexDirection: KEY.ROW }}
+                                    keyboardShouldPersistTaps={KEY.ALWAYS}
+                                    data={serviceCategoryList}
+                                    renderItem={renderCategory}
+                                    keyExtractor={item => item._id}
+                                />
                             </View>
-                            <Text style={{ textAlign: KEY.CENTER, color: COLOR.BLACK }}>{"Hair Color"}</Text>
-                        </View>
-                        <View style={{ flexDirection: KEY.COLUMN, }}>
-                            <View style={{ margin: 10, justifyContent: KEY.CENTER, alignItems: KEY.CENTER, width: 80, height: 80, borderRadius: 100, borderWidth: 1, borderColor: COLOR.BLACK }}>
-                                <Image style={styles.dotImage}
-                                    source={{ uri: "https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80" }} />
-
-                            </View>
-                            <Text style={{ textAlign: KEY.CENTER, color: COLOR.BLACK }}>{"Facial"}</Text>
-                        </View>
-                        <View style={{ flexDirection: KEY.COLUMN, }}>
-                            <View style={{ margin: 10, justifyContent: KEY.CENTER, alignItems: KEY.CENTER, width: 80, height: 80, borderRadius: 100, borderWidth: 1, borderColor: COLOR.BLACK }}>
-                                <Image style={styles.dotImage}
-                                    source={{ uri: "https://www.nerdwallet.com/assets/blog/wp-content/uploads/2017/10/GettyImages-947995974-1440x864.jpg" }} />
-
-                            </View>
-                            <Text style={{ textAlign: KEY.CENTER, color: COLOR.BLACK }}>{"Smoothing"}</Text>
-                        </View>
-
-                    </View>
-                    <View style={{ flexDirection: KEY.ROW, }}>
-                        <View style={{ flexDirection: KEY.COLUMN, }}>
-                            <View style={{ margin: 10, justifyContent: KEY.CENTER, alignItems: KEY.CENTER, width: 80, height: 80, borderRadius: 100, borderWidth: 1, borderColor: COLOR.BLACK }}>
-                                <Image style={styles.dotImage}
-                                    source={{ uri: "https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1011&q=80" }} />
-
-                            </View>
-                            <Text style={{ textAlign: KEY.CENTER, color: COLOR.BLACK }}>{"Hair Spa"}</Text>
-                        </View>
-                        <View style={{ flexDirection: KEY.COLUMN, }}>
-                            <View style={{ margin: 10, justifyContent: KEY.CENTER, alignItems: KEY.CENTER, width: 80, height: 80, borderRadius: 100, borderWidth: 1, borderColor: COLOR.BLACK }}>
-                                <Image style={styles.dotImage}
-                                    source={{ uri: "https://images.unsplash.com/photo-1600948836101-f9ffda59d250?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=836&q=80" }} />
-
-                            </View>
-                            <Text style={{ textAlign: KEY.CENTER, color: COLOR.BLACK }}>{"Shaving"}</Text>
-                        </View>
-                        <View style={{ flexDirection: KEY.COLUMN, }}>
-                            <View style={{ margin: 10, justifyContent: KEY.CENTER, alignItems: KEY.CENTER, width: 80, height: 80, borderRadius: 100, borderWidth: 1, borderColor: COLOR.BLACK }}>
-                                <Image style={styles.dotImage}
-                                    source={{ uri: "https://images.unsplash.com/photo-1556233464-7bf5fce10c7b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" }} />
-
-                            </View>
-                            <Text style={{ textAlign: KEY.CENTER, color: COLOR.BLACK }}>{"strenghing"}</Text>
-                        </View>
-                        <View style={{ flexDirection: KEY.COLUMN, }}>
-                            <View style={{ margin: 10, justifyContent: KEY.CENTER, alignItems: KEY.CENTER, width: 80, height: 80, borderRadius: 100, borderWidth: 1, borderColor: COLOR.BLACK }}>
-                                <Image style={styles.dotImage}
-                                    source={{ uri: "https://thumbs.dreamstime.com/b/hairdresser-protective-mask-cutting-hair-curly-african-american-client-beauty-salon-free-space-195792989.jpg" }} />
-
-                            </View>
-                            <Text style={{ textAlign: KEY.CENTER, color: COLOR.BLACK }}>{"Hair setting"}</Text>
-                        </View>
-
-                    </View>
-
+                        </SafeAreaView>
+                    }
                     {
                         teamList &&
                         <>
                             <View style={{ width: WIDTH, flexDirection: KEY.ROW, justifyContent: KEY.SPACEBETWEEN, alignItems: KEY.CENTER, marginTop: 10, marginBottom: 0 }}>
                                 <Text style={{ marginRight: 15, marginLeft: 15, fontSize: FONT.FONT_SIZE_20, color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD }}>{"Our Specialist"}</Text>
-                                <TouchableOpacity>
-                                    <Text style={{ marginRight: 15, marginLeft: 15, fontSize: FONT.FONT_SIZE_16, color: COLOR.DEFALUTCOLOR }}>{"View All"}</Text>
-                                </TouchableOpacity>
                             </View>
                             <View style={{ flexDirection: KEY.ROW, marginTop: 10, marginBottom: 10 }}>
                                 <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
@@ -498,9 +492,9 @@ const HomeScreen = (props) => {
                             </View>
                         </>
                     }
-                </View >
-            </ScrollView >
-        </SafeAreaView >
+                </View>
+            </ScrollView>
+        </SafeAreaView>
     )
 }
 

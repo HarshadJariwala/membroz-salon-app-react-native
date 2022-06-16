@@ -27,12 +27,12 @@ const HEIGHT = Dimensions.get('window').height;
 const WIDTH = Dimensions.get('window').width;
 
 const OurServiceScreen = (props) => {
+    const selectedCategory = props.route.params == undefined ? null : props.route.params.item;
     const [logo, setLogo] = useState(null);
     const [loading, setLoading] = useState(false);
     const [memberID, setMemberID] = useState(null);
     const [memberInfo, setMemberInfo] = useState(null);
     const [serviceList, setServiceList] = useState([]);
-    const [refreshing, setrefreshing] = useState(false);
     const [selectCategory, setSelectCategory] = useState(null);
     const [currencySymbol, setCurrencySymbol] = useState(null);
     const [serviceCategoryList, setServiceCategoryList] = useState([]);
@@ -45,7 +45,7 @@ const OurServiceScreen = (props) => {
     }, []);
 
     useEffect(() => {
-    }, [logo, loading, memberID, memberInfo, refreshing, selectCategory, currencySymbol, serviceCategoryList]);
+    }, [logo, loading, memberID, memberInfo, selectCategory, currencySymbol, serviceCategoryList]);
 
     //REMOTE DATA FATCH IN LOCAL STORAGE
     const RemoteController = async () => {
@@ -79,10 +79,22 @@ const OurServiceScreen = (props) => {
         try {
             const response = await ServiceList();
             if (response.data != null && response.data != 'undefind' && response.status == 200) {
-                let allOption = { _id: "12345678963", selected: true, property: { name: languageConfig.alltext } }
-                let temArry = [allOption, ...response.data];
-                setServiceCategoryList(temArry);
-                getServiceList();
+                if (selectedCategory) {
+                    response.data.forEach(element => {
+                        if (selectedCategory === element._id) {
+                            element.selected = true;
+                        }
+                    });
+                    let allOption = { _id: "12345678963", selected: false, property: { name: languageConfig.alltext } }
+                    let temArry = [allOption, ...response.data];
+                    setServiceCategoryList(temArry);
+                    getServiceList(selectedCategory);
+                } else {
+                    let allOption = { _id: "12345678963", selected: true, property: { name: languageConfig.alltext } }
+                    let temArry = [allOption, ...response.data];
+                    setServiceCategoryList(temArry);
+                    getServiceList();
+                }
             }
         } catch (error) {
             setLoading(false);
