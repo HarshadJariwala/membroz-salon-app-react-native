@@ -396,185 +396,108 @@ const HomeScreen = (props) => {
                                 source={{ uri: "https://st.depositphotos.com/1021014/2737/i/950/depositphotos_27377291-stock-photo-modern-hair-salon.jpg" }} />
                         </View>
                     </Swiper>
-<<<<<<< HEAD
-    <View style={{ width: WIDTH, flexDirection: KEY.ROW, justifyContent: KEY.SPACEBETWEEN, alignItems: KEY.CENTER, marginTop: 0, marginBottom: 5 }}>
-        <Text style={{ marginRight: 15, marginLeft: 15, fontSize: FONT.FONT_SIZE_20, color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD }}>{"Our Services"}</Text>
-=======
                     <View style={{ width: WIDTH, flexDirection: KEY.ROW, justifyContent: KEY.SPACEBETWEEN, alignItems: KEY.CENTER, marginTop: 0, marginBottom: 5 }}>
-            <Text style={{ marginRight: 15, marginLeft: 15, fontSize: FONT.FONT_SIZE_20, color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD }}>{"Our Services"}</Text>
->>>>>>> 9e5b1457e8ea9c4b84fab063afb017f0ef69b0b9
-            <TouchableOpacity>
-                <Text style={{ marginRight: 15, marginLeft: 15, fontSize: FONT.FONT_SIZE_16, color: COLOR.DEFALUTCOLOR }}>{"View All"}</Text>
-            </TouchableOpacity>
-<<<<<<< HEAD
-                   </View >
-                    
-                    <View style={{flexDirection:KEY.ROW,}}>
-                        <View style={{flexDirection:KEY.COLUMN,}}>
-                        <View style={{margin:10,justifyContent:KEY.CENTER,alignItems:KEY.CENTER,width:80,height:80,borderRadius:100,borderWidth:1,borderColor:COLOR.BLACK }}>
-                                <Image style={styles.dotImage} 
-                                source={{uri:"https://media.istockphoto.com/photos/beauty-treatment-items-for-spa-procedures-on-white-wooden-table-picture-id1286682876?s=612x612"}} />
-                               
-                        </View>
-                        <Text style={{textAlign:KEY.CENTER,color:COLOR.BLACK}}>{"Hair Cut"}</Text>
-                        </View>
-                        <View style={{flexDirection:KEY.COLUMN,}}>
-                        <View style={{margin:10,justifyContent:KEY.CENTER,alignItems:KEY.CENTER,width:80,height:80,borderRadius:100,borderWidth:1,borderColor:COLOR.BLACK }}>
-                                <Image style={styles.dotImage} 
-                                source={{uri:"https://thumbs.dreamstime.com/b/hairdresser-protective-mask-cutting-hair-curly-african-american-client-beauty-salon-free-space-195792989.jpg"}} />
-                               
-                        </View>
-                        <Text style={{textAlign:KEY.CENTER,color:COLOR.BLACK}}>{"Hair Color"}</Text>
-                        </View>
-                        <View style={{flexDirection:KEY.COLUMN,}}>
-                        <View style={{margin:10,justifyContent:KEY.CENTER,alignItems:KEY.CENTER,width:80,height:80,borderRadius:100,borderWidth:1,borderColor:COLOR.BLACK }}>
-                                <Image style={styles.dotImage} 
-                                source={{uri:"https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"}} />
-                               
-                        </View>
-                        <Text style={{textAlign:KEY.CENTER,color:COLOR.BLACK}}>{"Facial"}</Text>
-                        </View>
-                        <View style={{flexDirection:KEY.COLUMN,}}>
-                        <View style={{margin:10,justifyContent:KEY.CENTER,alignItems:KEY.CENTER,width:80,height:80,borderRadius:100,borderWidth:1,borderColor:COLOR.BLACK }}>
-                                <Image style={styles.dotImage} 
-                                 source={{uri:"https://www.nerdwallet.com/assets/blog/wp-content/uploads/2017/10/GettyImages-947995974-1440x864.jpg"}} />
-                               
-                        </View>
-                        <Text style={{textAlign:KEY.CENTER,color:COLOR.BLACK}}>{"Smoothing"}</Text>
-                        </View>
-                        </View>
-                    <View style={{flexDirection:KEY.ROW,}}>
-                        <View style={{flexDirection:KEY.COLUMN,}}>
-                        <View style={{margin:10,justifyContent:KEY.CENTER,alignItems:KEY.CENTER,width:80,height:80,borderRadius:100,borderWidth:1,borderColor:COLOR.BLACK }}>
-                                <Image style={styles.dotImage} 
-                                 source={{uri:"https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1011&q=80"}} />
-                               
-                        </View>
-                        <Text style={{textAlign:KEY.CENTER,color:COLOR.BLACK}}>{"Hair Spa"}</Text>
-                        </View>
-                        <View style={{flexDirection:KEY.COLUMN,}}>
-                        <View style={{margin:10,justifyContent:KEY.CENTER,alignItems:KEY.CENTER,width:80,height:80,borderRadius:100,borderWidth:1,borderColor:COLOR.BLACK }}>
-                                <Image style={styles.dotImage} 
-                                 source={{uri:"https://images.unsplash.com/photo-1600948836101-f9ffda59d250?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=836&q=80"}} />
-                               
-                        </View>
-                        <Text style={{textAlign:KEY.CENTER,color:COLOR.BLACK}}>{"Shaving"}</Text>
-                        </View>
-                        <View style={{flexDirection:KEY.COLUMN,}}>
-                        <View style={{margin:10,justifyContent:KEY.CENTER,alignItems:KEY.CENTER,width:80,height:80,borderRadius:100,borderWidth:1,borderColor:COLOR.BLACK }}>
-                                <Image style={styles.dotImage} 
-                                 source={{uri:"https://images.unsplash.com/photo-1556233464-7bf5fce10c7b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"}} />
-
-=======
+                        <Text style={{ marginRight: 15, marginLeft: 15, fontSize: FONT.FONT_SIZE_20, color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD }}>{"Our Services"}</Text>
+                        <TouchableOpacity>
+                            <Text style={{ marginRight: 15, marginLeft: 15, fontSize: FONT.FONT_SIZE_16, color: COLOR.DEFALUTCOLOR }}>{"View All"}</Text>
+                        </TouchableOpacity>
                     </View>
 
-            <View style={{ flexDirection: KEY.ROW, }}>
-                <View style={{ flexDirection: KEY.COLUMN, }}>
-                    <View style={{ margin: 10, justifyContent: KEY.CENTER, alignItems: KEY.CENTER, width: 80, height: 80, borderRadius: 100, borderWidth: 1, borderColor: COLOR.BLACK }}>
-                        <Image style={styles.dotImage}
-                            source={{ uri: "https://media.istockphoto.com/photos/beauty-treatment-items-for-spa-procedures-on-white-wooden-table-picture-id1286682876?s=612x612" }} />
-
-                    </View>
-                    <Text style={{ textAlign: KEY.CENTER, color: COLOR.BLACK }}>{"Hair Cut"}</Text>
->>>>>>> 9e5b1457e8ea9c4b84fab063afb017f0ef69b0b9
-                </View>
-                <View style={{ flexDirection: KEY.COLUMN, }}>
-                    <View style={{ margin: 10, justifyContent: KEY.CENTER, alignItems: KEY.CENTER, width: 80, height: 80, borderRadius: 100, borderWidth: 1, borderColor: COLOR.BLACK }}>
-                        <Image style={styles.dotImage}
-                            source={{ uri: "https://thumbs.dreamstime.com/b/hairdresser-protective-mask-cutting-hair-curly-african-american-client-beauty-salon-free-space-195792989.jpg" }} />
-
-                    </View>
-                    <Text style={{ textAlign: KEY.CENTER, color: COLOR.BLACK }}>{"Hair Color"}</Text>
-                </View>
-<<<<<<< HEAD
-                        <View style={{flexDirection:KEY.COLUMN,}}>
-                        <View style={{margin:10,justifyContent:KEY.CENTER,alignItems:KEY.CENTER,width:80,height:80,borderRadius:100,borderWidth:1,borderColor:COLOR.BLACK }}>
-                                <Image style={styles.dotImage} 
-                                 source={{uri:"https://thumbs.dreamstime.com/b/hairdresser-protective-mask-cutting-hair-curly-african-american-client-beauty-salon-free-space-195792989.jpg"}} />
-                               
-                    </View>
-                        <Text style={{textAlign:KEY.CENTER,color:COLOR.BLACK}}>{"Hair setting"}</Text>
-=======
+                    <View style={{ flexDirection: KEY.ROW, }}>
                         <View style={{ flexDirection: KEY.COLUMN, }}>
-        <View style={{ margin: 10, justifyContent: KEY.CENTER, alignItems: KEY.CENTER, width: 80, height: 80, borderRadius: 100, borderWidth: 1, borderColor: COLOR.BLACK }}>
-            <Image style={styles.dotImage}
-                source={{ uri: "https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80" }} />
+                            <View style={{ margin: 10, justifyContent: KEY.CENTER, alignItems: KEY.CENTER, width: 80, height: 80, borderRadius: 100, borderWidth: 1, borderColor: COLOR.BLACK }}>
+                                <Image style={styles.dotImage}
+                                    source={{ uri: "https://media.istockphoto.com/photos/beauty-treatment-items-for-spa-procedures-on-white-wooden-table-picture-id1286682876?s=612x612" }} />
 
-        </View>
-        <Text style={{ textAlign: KEY.CENTER, color: COLOR.BLACK }}>{"Facial"}</Text>
-    </View>
-    <View style={{ flexDirection: KEY.COLUMN, }}>
-        <View style={{ margin: 10, justifyContent: KEY.CENTER, alignItems: KEY.CENTER, width: 80, height: 80, borderRadius: 100, borderWidth: 1, borderColor: COLOR.BLACK }}>
-            <Image style={styles.dotImage}
-                source={{ uri: "https://www.nerdwallet.com/assets/blog/wp-content/uploads/2017/10/GettyImages-947995974-1440x864.jpg" }} />
+                            </View>
+                            <Text style={{ textAlign: KEY.CENTER, color: COLOR.BLACK }}>{"Hair Cut"}</Text>
+                        </View>
+                        <View style={{ flexDirection: KEY.COLUMN, }}>
+                            <View style={{ margin: 10, justifyContent: KEY.CENTER, alignItems: KEY.CENTER, width: 80, height: 80, borderRadius: 100, borderWidth: 1, borderColor: COLOR.BLACK }}>
+                                <Image style={styles.dotImage}
+                                    source={{ uri: "https://thumbs.dreamstime.com/b/hairdresser-protective-mask-cutting-hair-curly-african-american-client-beauty-salon-free-space-195792989.jpg" }} />
 
-        </View>
-        <Text style={{ textAlign: KEY.CENTER, color: COLOR.BLACK }}>{"Smoothing"}</Text>
->>>>>>> 9e5b1457e8ea9c4b84fab063afb017f0ef69b0b9
-    </View>
+                            </View>
+                            <Text style={{ textAlign: KEY.CENTER, color: COLOR.BLACK }}>{"Hair Color"}</Text>
+                        </View>
+                        <View style={{ flexDirection: KEY.COLUMN, }}>
+                            <View style={{ margin: 10, justifyContent: KEY.CENTER, alignItems: KEY.CENTER, width: 80, height: 80, borderRadius: 100, borderWidth: 1, borderColor: COLOR.BLACK }}>
+                                <Image style={styles.dotImage}
+                                    source={{ uri: "https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80" }} />
 
-</View>
-    <View style={{ flexDirection: KEY.ROW, }}>
-        <View style={{ flexDirection: KEY.COLUMN, }}>
-            <View style={{ margin: 10, justifyContent: KEY.CENTER, alignItems: KEY.CENTER, width: 80, height: 80, borderRadius: 100, borderWidth: 1, borderColor: COLOR.BLACK }}>
-                <Image style={styles.dotImage}
-                    source={{ uri: "https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1011&q=80" }} />
+                            </View>
+                            <Text style={{ textAlign: KEY.CENTER, color: COLOR.BLACK }}>{"Facial"}</Text>
+                        </View>
+                        <View style={{ flexDirection: KEY.COLUMN, }}>
+                            <View style={{ margin: 10, justifyContent: KEY.CENTER, alignItems: KEY.CENTER, width: 80, height: 80, borderRadius: 100, borderWidth: 1, borderColor: COLOR.BLACK }}>
+                                <Image style={styles.dotImage}
+                                    source={{ uri: "https://www.nerdwallet.com/assets/blog/wp-content/uploads/2017/10/GettyImages-947995974-1440x864.jpg" }} />
 
-            </View>
-            <Text style={{ textAlign: KEY.CENTER, color: COLOR.BLACK }}>{"Hair Spa"}</Text>
-        </View>
-        <View style={{ flexDirection: KEY.COLUMN, }}>
-            <View style={{ margin: 10, justifyContent: KEY.CENTER, alignItems: KEY.CENTER, width: 80, height: 80, borderRadius: 100, borderWidth: 1, borderColor: COLOR.BLACK }}>
-                <Image style={styles.dotImage}
-                    source={{ uri: "https://images.unsplash.com/photo-1600948836101-f9ffda59d250?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=836&q=80" }} />
+                            </View>
+                            <Text style={{ textAlign: KEY.CENTER, color: COLOR.BLACK }}>{"Smoothing"}</Text>
+                        </View>
 
-            </View>
-            <Text style={{ textAlign: KEY.CENTER, color: COLOR.BLACK }}>{"Shaving"}</Text>
-        </View>
-        <View style={{ flexDirection: KEY.COLUMN, }}>
-            <View style={{ margin: 10, justifyContent: KEY.CENTER, alignItems: KEY.CENTER, width: 80, height: 80, borderRadius: 100, borderWidth: 1, borderColor: COLOR.BLACK }}>
-                <Image style={styles.dotImage}
-                    source={{ uri: "https://images.unsplash.com/photo-1556233464-7bf5fce10c7b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" }} />
+                    </View>
+                    <View style={{ flexDirection: KEY.ROW, }}>
+                        <View style={{ flexDirection: KEY.COLUMN, }}>
+                            <View style={{ margin: 10, justifyContent: KEY.CENTER, alignItems: KEY.CENTER, width: 80, height: 80, borderRadius: 100, borderWidth: 1, borderColor: COLOR.BLACK }}>
+                                <Image style={styles.dotImage}
+                                    source={{ uri: "https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1011&q=80" }} />
 
-            </View>
-            <Text style={{ textAlign: KEY.CENTER, color: COLOR.BLACK }}>{"strenghing"}</Text>
-        </View>
-        <View style={{ flexDirection: KEY.COLUMN, }}>
-            <View style={{ margin: 10, justifyContent: KEY.CENTER, alignItems: KEY.CENTER, width: 80, height: 80, borderRadius: 100, borderWidth: 1, borderColor: COLOR.BLACK }}>
-                <Image style={styles.dotImage}
-                    source={{ uri: "https://thumbs.dreamstime.com/b/hairdresser-protective-mask-cutting-hair-curly-african-american-client-beauty-salon-free-space-195792989.jpg" }} />
+                            </View>
+                            <Text style={{ textAlign: KEY.CENTER, color: COLOR.BLACK }}>{"Hair Spa"}</Text>
+                        </View>
+                        <View style={{ flexDirection: KEY.COLUMN, }}>
+                            <View style={{ margin: 10, justifyContent: KEY.CENTER, alignItems: KEY.CENTER, width: 80, height: 80, borderRadius: 100, borderWidth: 1, borderColor: COLOR.BLACK }}>
+                                <Image style={styles.dotImage}
+                                    source={{ uri: "https://images.unsplash.com/photo-1600948836101-f9ffda59d250?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=836&q=80" }} />
 
-            </View>
-            <Text style={{ textAlign: KEY.CENTER, color: COLOR.BLACK }}>{"Hair setting"}</Text>
-        </View>
+                            </View>
+                            <Text style={{ textAlign: KEY.CENTER, color: COLOR.BLACK }}>{"Shaving"}</Text>
+                        </View>
+                        <View style={{ flexDirection: KEY.COLUMN, }}>
+                            <View style={{ margin: 10, justifyContent: KEY.CENTER, alignItems: KEY.CENTER, width: 80, height: 80, borderRadius: 100, borderWidth: 1, borderColor: COLOR.BLACK }}>
+                                <Image style={styles.dotImage}
+                                    source={{ uri: "https://images.unsplash.com/photo-1556233464-7bf5fce10c7b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" }} />
 
-    </View>
+                            </View>
+                            <Text style={{ textAlign: KEY.CENTER, color: COLOR.BLACK }}>{"strenghing"}</Text>
+                        </View>
+                        <View style={{ flexDirection: KEY.COLUMN, }}>
+                            <View style={{ margin: 10, justifyContent: KEY.CENTER, alignItems: KEY.CENTER, width: 80, height: 80, borderRadius: 100, borderWidth: 1, borderColor: COLOR.BLACK }}>
+                                <Image style={styles.dotImage}
+                                    source={{ uri: "https://thumbs.dreamstime.com/b/hairdresser-protective-mask-cutting-hair-curly-african-american-client-beauty-salon-free-space-195792989.jpg" }} />
 
-{
-    teamList &&
-    <>
-        <View style={{ width: WIDTH, flexDirection: KEY.ROW, justifyContent: KEY.SPACEBETWEEN, alignItems: KEY.CENTER, marginTop: 10, marginBottom: 0 }}>
-            <Text style={{ marginRight: 15, marginLeft: 15, fontSize: FONT.FONT_SIZE_20, color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD }}>{"Our Specialist"}</Text>
-            <TouchableOpacity>
-                <Text style={{ marginRight: 15, marginLeft: 15, fontSize: FONT.FONT_SIZE_16, color: COLOR.DEFALUTCOLOR }}>{"View All"}</Text>
-            </TouchableOpacity>
-        </View>
-        <View style={{ flexDirection: KEY.ROW, marginTop: 10, marginBottom: 10 }}>
-            <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-                <FlatList
-                    showsHorizontalScrollIndicator={false}
-                    numColumns={5}
-                    style={{ flexDirection: KEY.ROW }}
-                    keyboardShouldPersistTaps={KEY.ALWAYS}
-                    data={teamList}
-                    renderItem={renderMyTeamList}
-                    keyboardShouldPersistTaps={KEY.ALWAYS}
-                    keyExtractor={item => item._id}
-                />
-            </ScrollView>
-        </View>
-    </>
-}
+                            </View>
+                            <Text style={{ textAlign: KEY.CENTER, color: COLOR.BLACK }}>{"Hair setting"}</Text>
+                        </View>
+
+                    </View>
+
+                    {
+                        teamList &&
+                        <>
+                            <View style={{ width: WIDTH, flexDirection: KEY.ROW, justifyContent: KEY.SPACEBETWEEN, alignItems: KEY.CENTER, marginTop: 10, marginBottom: 0 }}>
+                                <Text style={{ marginRight: 15, marginLeft: 15, fontSize: FONT.FONT_SIZE_20, color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD }}>{"Our Specialist"}</Text>
+                                <TouchableOpacity>
+                                    <Text style={{ marginRight: 15, marginLeft: 15, fontSize: FONT.FONT_SIZE_16, color: COLOR.DEFALUTCOLOR }}>{"View All"}</Text>
+                                </TouchableOpacity>
+                            </View>
+                            <View style={{ flexDirection: KEY.ROW, marginTop: 10, marginBottom: 10 }}>
+                                <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+                                    <FlatList
+                                        showsHorizontalScrollIndicator={false}
+                                        numColumns={5}
+                                        style={{ flexDirection: KEY.ROW }}
+                                        keyboardShouldPersistTaps={KEY.ALWAYS}
+                                        data={teamList}
+                                        renderItem={renderMyTeamList}
+                                        keyExtractor={item => item._id}
+                                    />
+                                </ScrollView>
+                            </View>
+                        </>
+                    }
                 </View >
             </ScrollView >
         </SafeAreaView >
