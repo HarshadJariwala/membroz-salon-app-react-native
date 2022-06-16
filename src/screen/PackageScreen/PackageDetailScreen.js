@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import {
     View, Text, Dimensions, SafeAreaView, FlatList, RefreshControl,
-    Image, TextInput, ScrollView, TouchableOpacity, StatusBar, Keyboard, Platform, Share
+    Image, TextInput, ScrollView, TouchableOpacity, StatusBar, Share
 } from 'react-native';
 import { SuggestedServiceList } from '../../services/AppointmentService/ServiceList';
 import { MemberLanguage } from '../../services/LocalService/LanguageService';
@@ -133,6 +133,28 @@ const PackageDetailScreen = (props) => {
         }
     }
 
+    //SHARE BUTTON CLICK
+    const onPressShare = async () => {
+        try {
+            const result = await Share.share({
+                title: 'Salon App',
+                message: `Please install this app and stay safe , AppLink :https://play.google.com/store/apps/developer?id=KRTYA+TECHNOLOGIES&hl=en_US&gl=US`,
+                url: `https://play.google.com/store/apps/developer?id=KRTYA+TECHNOLOGIES&hl=en_US&gl=US`
+            });
+            if (result.action === Share.sharedAction) {
+                if (result.activityType) {
+                    // shared with activity type of result.activityType
+                } else {
+                    // shared
+                }
+            } else if (result.action === Share.dismissedAction) {
+                // dismissed
+            }
+        } catch (error) {
+            //alert(error.message);
+        }
+    }
+
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: COLOR.BACKGROUNDCOLOR }}>
             <StatusBar hidden={false} translucent={true} backgroundColor={KEY.TRANSPARENT} barStyle={KEY.DARK_CONTENT} />
@@ -170,7 +192,8 @@ const PackageDetailScreen = (props) => {
                                 {packageDetails && packageDetails.membershipname} </Text>
                             <View style={{ flexDirection: KEY.ROW, marginLeft: 10, alignItems: KEY.CENTER }}>
                                 <Image source={IMAGE.TIMEICON} style={{ tintColor: COLOR.DEFALUTCOLOR, height: 20, width: 16 }} />
-                                <Text style={{ marginLeft: 5, color: COLOR.BLACK, fontSize: FONT.FONT_SIZE_14 }}> {packageDetails.property ? packageDetails.property.tenure + languageConfig.months : '--'} </Text>
+                                <Text style={{ marginLeft: 5, color: COLOR.BLACK, fontSize: FONT.FONT_SIZE_14 }}>
+                                    {packageDetails.property ? packageDetails.property.tenure + ' ' + languageConfig.months : '--'} </Text>
                             </View>
                         </View>
                         {packageDetails && packageDetails?.property && packageDetails?.property?.description ?

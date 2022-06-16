@@ -26,8 +26,6 @@ const Package = (props) => {
     const [packageList, setPackageList] = useState([]);
     const [refreshing, setrefreshing] = useState(false);
     const [appLogo, setAppLogo] = useState(null);
-    const [memberInfo, setMemberInfo] = useState(null);
-    const [memberID, setMemberID] = useState(null);
     const [currencySymbol, setCurrencySymbol] = useState(null);
 
     useEffect(() => {
@@ -66,8 +64,6 @@ const Package = (props) => {
             const response = getCurrency(memberInfo.branchid.currency);
             axiosConfig(memberInfo._id);
             setCurrencySymbol(response);
-            setMemberID(memberInfo?._id);
-            setMemberInfo(memberInfo?._id);
             getPackageList();
         } else {
             var publicUserInfo = await LocalService.LocalBranchDetails();
@@ -119,7 +115,7 @@ const Package = (props) => {
                     <View style={{ flexDirection: KEY.ROW, marginTop: 5, marginLeft: 2 }}>
                         <Image source={IMAGE.TIMEICON} style={{ tintColor: COLOR.DEFALUTCOLOR, height: 20, width: 16 }} />
                         <Text style={{ marginLeft: 7, fontSize: FONT.FONT_SIZE_14, color: COLOR.BLACK }}>
-                            {item.property ? item.property.tenure + languageConfig.months : '--'}
+                            {item.property ? item.property.tenure + ' ' + languageConfig.months : '--'}
                         </Text>
                     </View>
                 </View>
@@ -154,6 +150,15 @@ const Package = (props) => {
                     renderItem={renderPackage}
                     keyExtractor={item => item._id}
                     keyboardShouldPersistTaps={KEY.ALWAYS}
+                    refreshControl={
+                        <RefreshControl
+                            refreshing={refreshing}
+                            title={languageConfig.pullrefreshtext}
+                            tintColor={COLOR.DEFALUTCOLOR}
+                            titleColor={COLOR.DEFALUTCOLOR}
+                            colors={[COLOR.DEFALUTCOLOR]}
+                            onRefresh={onRefresh} />
+                    }
                     ListFooterComponent={() => (
                         packageList && packageList.length == 0 &&
                         <View style={{ justifyContent: KEY.CENTER, alignItems: KEY.CENTER }}>
