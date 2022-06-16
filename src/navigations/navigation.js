@@ -66,9 +66,25 @@ const Tab = createBottomTabNavigator();
 
 //Structure for the navigatin Drawer
 const NavigationDrawerStructureLeft = (props) => {
+    const [memberInfo, setMemberInfo] = useState(false);
+
+    useEffect(() => {
+        getMemberDeatilsLocalStorage();
+    }, [])
+
+    //GET MEMBER DATA IN MOBILE LOCAL STORAGE
+    const getMemberDeatilsLocalStorage = async () => {
+        var memberInfo = await LocalService.LocalStorageService();
+        if (memberInfo) {
+            setMemberInfo(true);
+        }
+    }
+
+    useEffect(() => {
+    }, [memberInfo])
+
     return (
-        <TouchableOpacity onPress={() => props.navigationProps.navigate(SCREEN.MENUSCREEN)}>
-            <TouchableOpacity onPress={() => props.navigationProps.navigate(SCREEN.MAINSCREEN)}></TouchableOpacity>
+        <TouchableOpacity onPress={() => memberInfo ? props.navigationProps.navigate(memberInfoSCREEN.MENUSCREEN) : {}} >
             <Image
                 source={IMAGE.MENUICON}
                 style={{
