@@ -17,6 +17,7 @@ import * as COLOR from "../../styles/colors";
 import * as IMAGE from '../../styles/image';
 import styles from './BookingComplateStyle';
 import moment from 'moment';
+import axiosConfig from '../../helpers/axiosConfig';
 const WIDTH = Dimensions.get('window').width;
 const HEIGHT = Dimensions.get('window').height;
 
@@ -42,6 +43,7 @@ const BookingComplateScreen = (props) => {
             var memberInfo = await LocalService.LocalStorageService();
             const response = getCurrency(memberInfo.branchid.currency);
             if (memberInfo) {
+                axiosConfig(memberInfo._id);
                 setCurrencySymbol(response);
                 setMemberID(memberInfo._id);
                 setMemberInfo(memberInfo);

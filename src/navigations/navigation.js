@@ -40,6 +40,7 @@ import BOOKINGCOMPLATESCREEN from '../screen/OurServiceScreen/BookingComplateScr
 import BOOKSERVICESCREEN from '../screen/OurServiceScreen/BookServiceScreen';
 import BOOKINGPAYMENTSCREEN from '../screen/OurServiceScreen/BookingPaymentScreen';
 import PACKAGE from '../screen/PackageScreen/Package';
+import PACKAGEDETAILSCREEN from '../screen/PackageScreen/PackageDetailScreen';
 
 import { NotificationService } from '../services/NotificationService/NotificationService';
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
@@ -84,7 +85,7 @@ const NavigationDrawerStructureLeft = (props) => {
     }, [memberInfo])
 
     return (
-        <TouchableOpacity onPress={() => memberInfo ? props.navigationProps.navigate(memberInfoSCREEN.MENUSCREEN) : {}} >
+        <TouchableOpacity onPress={() => memberInfo ? props.navigationProps.navigate(SCREEN.MENUSCREEN) : {}} >
             <Image
                 source={IMAGE.MENUICON}
                 style={{
@@ -696,6 +697,11 @@ const OurServiceStackScreen = ({ navigation }) => {
                     }
                 }}
             />
+            <Stack.Screen
+                name="OurServiceDetailScreen"
+                component={OURSERVICEDETAILSCREEN}
+                options={{ headerShown: false }}
+            />
         </Stack.Navigator>
     )
 }
@@ -751,6 +757,11 @@ const packagesStackScreen = ({ navigation }) => {
                         fontWeight: FONT.FONT_WEIGHT_MEDIAM, //Set Header text style
                     }
                 }}
+            />
+            <Stack.Screen
+                name="PackageDetailScreen"
+                component={PACKAGEDETAILSCREEN}
+                options={{ headerShown: false }}
             />
         </Stack.Navigator>
     )
@@ -913,8 +924,8 @@ const TabNavigation = () => {
             {memberInfo &&
                 <Tab.Screen name="MyBooking" component={MyBookingStackScreen} options={{ headerShown: false, title: languageConfig.mybooking }} />
             }
-            <Tab.Screen name="Package" component={packagesStackScreen} options={{ headerShown: false, title: languageConfig.packages }} />
             <Tab.Screen name="ourservice" component={OurServiceStackScreen} options={{ headerShown: false, title: languageConfig.services }} />
+            <Tab.Screen name="Package" component={packagesStackScreen} options={{ headerShown: false, title: languageConfig.packages }} />
             {!memberInfo &&
                 <Tab.Screen name="Support" component={SupportStackScreen} options={{ headerShown: false, title: languageConfig.support }} />
             }

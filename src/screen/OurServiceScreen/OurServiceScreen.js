@@ -11,6 +11,7 @@ import * as LocalService from '../../services/LocalService/LocalService';
 import getCurrency from '../../services/getCurrencyService/getCurrency';
 import languageConfig from '../../languages/languageConfig';
 import * as SCREEN from '../../context/screen/screenName';
+import axiosConfig from '../../helpers/axiosConfig';
 import Loader from '../../components/loader/index';
 import * as KEY from '../../context/actions/key';
 import * as FONT from '../../styles/typography';
@@ -61,12 +62,14 @@ const OurServiceScreen = (props) => {
         setLoading(true);
         if (memberInfo) {
             const response = getCurrency(memberInfo.branchid.currency);
+            axiosConfig(memberInfo._id);
             setCurrencySymbol(response);
             setMemberID(memberInfo?._id);
             setMemberInfo(memberInfo?._id);
             getServiceCategoryList();
         } else {
             var publicUserInfo = await LocalService.LocalBranchDetails();
+            axiosConfig(publicUserInfo._id);
             const response = getCurrency(publicUserInfo.branchid.currency);
             setCurrencySymbol(response);
             setMemberID(publicUserInfo?._id);

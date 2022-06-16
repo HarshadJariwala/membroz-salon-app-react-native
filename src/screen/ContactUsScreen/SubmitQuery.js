@@ -23,6 +23,7 @@ import Toast from 'react-native-simple-toast';
 import * as COLOR from '../../styles/colors';
 import styles from './SubmitQueryStyle';
 import RNFetchBlob from 'rn-fetch-blob';
+import axiosConfig from '../../helpers/axiosConfig';
 const HEIGHT = Dimensions.get('window').height;
 const WIDTH = Dimensions.get('window').width;
 
@@ -97,6 +98,7 @@ const SubmitQuery = (props) => {
             wait(1000).then(() => setLoading(false));
         } else {
             var publicUserInfo = await LocalService.LocalBranchDetails();
+            axiosConfig(publicUserInfo._id);
             setMemberID(publicUserInfo?._id);
             wait(1000).then(() => setLoading(false));
         }

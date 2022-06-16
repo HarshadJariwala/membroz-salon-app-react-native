@@ -13,25 +13,20 @@ import languageConfig from '../../languages/languageConfig';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import * as SCREEN from '../../context/screen/screenName';
 import Feather from 'react-native-vector-icons/Feather';
+import axiosConfig from '../../helpers/axiosConfig';
 import Loader from '../../components/loader/index';
 import RenderHTML from 'react-native-render-html';
 import * as KEY from '../../context/actions/key';
 import * as FONT from '../../styles/typography';
-import Toast from 'react-native-simple-toast';
 import * as COLOR from '../../styles/colors';
 import * as IMAGE from '../../styles/image';
-import styles from './OurServiceDetailStyle';
-import {
-    removeLocalWishList, getLocalWishList
-    , saveLocalWishList
-} from '../../services/LocalService/LocalWishList';
-import axiosConfig from '../../helpers/axiosConfig';
+import styles from './PackageDetailStyle';
 const HEIGHT = Dimensions.get('window').height;
 const WIDTH = Dimensions.get('window').width;
 
-const OurServiceDetailScreen = (props) => {
-    const selectedServiceDetails = props.route.params.item;
-    const [serviceDetails, setServiceDetails] = useState(selectedServiceDetails);
+const PackageDetailScreen = (props) => {
+    const selectedPackageDetails = props.route.params.item;
+    const [packageDetails, setPackageDetails] = useState(selectedPackageDetails);
     const [logo, setLogo] = useState(null);
     const [loading, setLoading] = useState(false);
     const [memberID, setMemberID] = useState(null);
@@ -44,10 +39,12 @@ const OurServiceDetailScreen = (props) => {
         MemberLanguage();
         RemoteController();
         getMemberDeatilsLocalStorage();
+        setPackageDetails(selectedPackageDetails);
+        setServiceList(selectedPackageDetails.services.length > 0 ? selectedPackageDetails.services : [])
     }, []);
 
     useEffect(() => {
-    }, [logo, loading, serviceDetails, memberID, memberInfo, serviceList, currencySymbol]);
+    }, [logo, loading, packageDetails, memberID, memberInfo, serviceList, currencySymbol]);
 
     //REMOTE DATA FATCH IN LOCAL STORAGE
     const RemoteController = async () => {
@@ -67,172 +64,73 @@ const OurServiceDetailScreen = (props) => {
             setCurrencySymbol(response);
             setMemberID(memberInfo?._id);
             setMemberInfo(memberInfo?._id);
-            getServiceList();
+            wait(1000).then(() => setLoading(false));
+
         } else {
             var publicUserInfo = await LocalService.LocalBranchDetails();
             const response = getCurrency(publicUserInfo.branchid.currency);
             axiosConfig(publicUserInfo._id);
             setCurrencySymbol(response);
-            getServiceList();
-            //setLoading(false);
+            wait(1000).then(() => setLoading(false));
         }
     }
 
-    //GET FETCH REWARD POINT DATA FROM API
-    const getServiceList = async (id) => {
-        try {
-            const response = await SuggestedServiceList(id);
-            if (response.data != null && response.data != 'undefind' && response.status == 200) {
-                setServiceList(response.data);
-                let localWishLists = await getLocalWishList();
-                let renderData = [...response.data];
-                for (let data of renderData) {
-                    for (let localdata of localWishLists) {
-                        if (data._id == localdata._id && localdata.selected == true) {
-                            data.selected = true;
-                            break;
-                        } else {
-                            data.selected = false;
-                        }
-                    }
-                }
-                setLoading(false);
-            }
-        } catch (error) {
-            setLoading(false);
-            firebase.crashlytics().recordError(error);
-        }
-    }
-
-    //WISH LIST REMOVE LOCAL STORATE
-    const removeLocalWishListService = async (item) => {
-        let tempArry = [...serviceList];
-        tempArry.forEach(element => {
-            if (element._id === item._id) { element.selected = false }
+    //TIME OUT FUNCTION
+    const wait = (timeout) => {
+        return new Promise(resolve => {
+            setTimeout(resolve, timeout);
         });
-        setServiceList(tempArry);
-        Toast.show("Remove Successfully", Toast.SHORT);
-        await removeLocalWishList(item);
     }
-
-    // //CLICK TO WISH LIST SERVICE (single item)
-    // const onPressAddWishSingle = () => {
-    //     if (serviceDetails.selected) {
-    //         removeLocalWishListSingle(serviceDetails);
-    //     } else {
-    //         let tempData = serviceDetails;
-    //         tempData.selected = true;
-    //         console.log(`tempData add`, tempData);
-    //         setServiceDetails(tempData);
-    //         saveLocalWishList(serviceDetails);
-    //         Toast.show("Wish list Add Successfully", Toast.SHORT);
-    //     }
-    // }
-
-    // //WISH LIST REMOVE LOCAL STORATE (single item)
-    // const removeLocalWishListSingle = async () => {
-    //     let tempData = serviceDetails;
-    //     tempData.selected = false;
-    //     setServiceDetails(tempData);
-    //     console.log(`tempData remove`, tempData);
-    //     Toast.show("Remove Successfully", Toast.SHORT);
-    //     await removeLocalWishList(serviceDetails);
-    // }
 
     //RENDER SERVICE LIST USING FLATLIST
     const renderService = ({ item }) => (
         <View style={styles.img_card}>
             <Image style={styles.img}
-                source={{ uri: item.gallery && item.gallery[0] && item.gallery[0].attachment ? item.gallery[0].attachment : logo }} />
+                source={{ uri: item.serviceid && item.serviceid.gallery && item.serviceid.gallery[0] && item.serviceid.gallery[0].attachment ? item.serviceid.gallery[0].attachment : logo }} />
             <View style={{ flexDirection: KEY.COLUMN, marginLeft: 10, width: WIDTH - 140 }}>
                 <View style={{ flexDirection: KEY.ROW, marginTop: 10, justifyContent: KEY.SPACEBETWEEN }}>
-                    <Text numberOfLines={1} style={[styles.text, { width: WIDTH / 2 }]}>{item.title}</Text>
+                    <Text numberOfLines={1} style={[styles.text, { width: WIDTH / 2 }]}>{item.serviceid && item.serviceid.title}</Text>
                     <Text style={{
                         fontSize: FONT.FONT_SIZE_16,
                         color: COLOR.BLACK,
                         fontWeight: FONT.FONT_BOLD,
                         marginRight: 10
-                    }}>{currencySymbol + item.charges}</Text>
+                    }}>{currencySymbol + (item.serviceid && item.serviceid.charges ? item.serviceid.charges : '---')}</Text>
                 </View>
                 <View style={{ flexDirection: KEY.ROW, marginTop: 5 }}>
                     <Ionicons name='location-outline' size={20} color={COLOR.DEFALUTCOLOR} />
                     <Text numberOfLines={1}
                         style={{ marginLeft: 5, fontSize: FONT.FONT_SIZE_14, color: COLOR.BLACK, width: WIDTH / 3 }}>
-                        {item.title}
+                        {item.serviceid && item.serviceid.title}
                     </Text>
                 </View>
                 <View style={{ flexDirection: KEY.ROW }}>
                     <View style={{ flexDirection: KEY.ROW, marginTop: 5, marginLeft: 2 }}>
                         <Image source={IMAGE.TIMEICON} style={{ tintColor: COLOR.DEFALUTCOLOR, height: 20, width: 16 }} />
                         <Text style={{ marginLeft: 7, fontSize: FONT.FONT_SIZE_14, color: COLOR.BLACK }}>
-                            {item.duration ? item.duration + ' ' + languageConfig.mintext : '--'}
+                            {item.serviceid && item.serviceid.duration ? item.serviceid.duration + ' ' + languageConfig.mintext : '--'}
                         </Text>
                         <TouchableOpacity onPress={() => onPressShare(item)}>
                             <Ionicons name='share-social-outline' size={20} style={{ marginLeft: 10, marginRight: 10 }} color={COLOR.DEFALUTCOLOR} />
                         </TouchableOpacity>
-                        {
-                            item.selected == true ?
-                                <TouchableOpacity onPress={() => removeLocalWishListService(item)}>
-                                    <Ionicons name='heart' size={20} color={COLOR.DEFALUTCOLOR} />
-                                </TouchableOpacity>
-                                :
-                                <TouchableOpacity onPress={() => onPressAddWishService(item)}>
-                                    <Ionicons name='ios-heart-outline' size={20} color={COLOR.DEFALUTCOLOR} />
-                                </TouchableOpacity>
-                        }
                     </View>
                 </View>
                 <View style={{ alignSelf: KEY.FLEX_END, marginTop: -14 }}>
-                    <TouchableOpacity style={styles.upgrade} onPress={() => onPressBooking(item)} >
-                        <FontAwesome5 name='plus' size={20} color={COLOR.WHITE} />
+                    <TouchableOpacity style={styles.upgrade} onPress={() => onPressBooking(item.serviceid)} >
+                        <Text style={styles.textbutton}>
+                            {languageConfig.booknowbtn}
+                        </Text>
                     </TouchableOpacity>
                 </View>
             </View>
         </View>
     )
 
-    //SHARE BUTTON CLICK
-    const onPressShare = async () => {
-        try {
-            const result = await Share.share({
-                title: 'Salon App',
-                message: `Please install this app and stay safe , AppLink :https://play.google.com/store/apps/developer?id=KRTYA+TECHNOLOGIES&hl=en_US&gl=US`,
-                url: `https://play.google.com/store/apps/developer?id=KRTYA+TECHNOLOGIES&hl=en_US&gl=US`
-            });
-            if (result.action === Share.sharedAction) {
-                if (result.activityType) {
-                    // shared with activity type of result.activityType
-                } else {
-                    // shared
-                }
-            } else if (result.action === Share.dismissedAction) {
-                // dismissed
-            }
-        } catch (error) {
-            //alert(error.message);
-        }
-    }
-
-    //CLICK TO WISH LIST SERVICE
-    const onPressAddWishService = (item) => {
-        if (item.selected) {
-            removeLocalWishList(item);
-        } else {
-            let tempArry = [...serviceList];
-            tempArry.forEach(element => {
-                if (element._id === item._id) { element.selected = true }
-            });
-            item.selected = true
-            setServiceList(tempArry);
-            saveLocalWishList(item);
-            Toast.show("Wish list Add Successfully", Toast.SHORT);
-        }
-    }
-
     //BOOK NOW BUTTON CLICK TO CALL FUNCTION
     const onPressBooking = (item) => {
-        item = serviceDetails;
-        props.navigation.navigate(SCREEN.BOOKSERVICESCREEN, { item });
+        if (item) {
+            // props.navigation.navigate(SCREEN.BOOKSERVICESCREEN, { item });
+        }
     }
 
     return (
@@ -246,7 +144,7 @@ const OurServiceDetailScreen = (props) => {
                         borderBottomRightRadius: 20,
                         borderBottomLeftRadius: 20,
                         resizeMode: KEY.STRETCH,
-                    }} source={{ uri: serviceDetails && serviceDetails.gallery && serviceDetails.gallery[0] && serviceDetails.gallery[0].attachment ? serviceDetails.gallery[0].attachment : logo }} />
+                    }} source={{ uri: packageDetails && packageDetails.profilepic ? packageDetails.profilepic : logo }} />
                     <View style={{ position: KEY.ABSOLUTE, marginTop: 30, marginLeft: 15 }} >
                         <TouchableOpacity onPress={() => props.navigation.goBack(null)}
                             style={{
@@ -260,38 +158,25 @@ const OurServiceDetailScreen = (props) => {
                 <View style={{ justifyContent: KEY.CENTER, alignItems: KEY.CENTER }}>
                     <View style={styles.cardview}>
                         <View style={{ flexDirection: KEY.ROW, justifyContent: KEY.SPACEBETWEEN }}>
-                            <Text style={{ marginTop: 10, marginLeft: 15, fontSize: FONT.FONT_SIZE_22, fontWeight: FONT.FONT_BOLD, color: COLOR.BLACK, width: WIDTH / 2 }}>{serviceDetails && serviceDetails.title}</Text>
-                            <Text style={{ marginTop: 10, marginRight: 15, fontSize: FONT.FONT_SIZE_22, fontWeight: FONT.FONT_BOLD, color: COLOR.BLACK }}>{currencySymbol + (serviceDetails && serviceDetails.charges)}</Text>
+                            <Text style={{ marginTop: 10, marginLeft: 15, fontSize: FONT.FONT_SIZE_22, fontWeight: FONT.FONT_BOLD, color: COLOR.BLACK, width: WIDTH / 2 }}>
+                                {packageDetails && packageDetails.membershipname}</Text>
+                            <Text style={{ marginTop: 10, marginRight: 15, fontSize: FONT.FONT_SIZE_22, fontWeight: FONT.FONT_BOLD, color: COLOR.BLACK }}>
+                                {currencySymbol + (packageDetails.property && packageDetails.property.cost ? packageDetails.property.cost : '---')}</Text>
                         </View>
                         <View style={{ marginTop: 10, marginLeft: 10, flexDirection: KEY.ROW, alignItems: KEY.CENTER }}>
                             <Ionicons name='location-outline' size={20} color={COLOR.DEFALUTCOLOR} />
                             <Text numberOfLines={1}
                                 style={{ color: COLOR.BLACK, fontSize: FONT.FONT_SIZE_14, width: "25%" }}>
-                                {serviceDetails && serviceDetails.title} </Text>
+                                {packageDetails && packageDetails.membershipname} </Text>
                             <View style={{ flexDirection: KEY.ROW, marginLeft: 10, alignItems: KEY.CENTER }}>
                                 <Image source={IMAGE.TIMEICON} style={{ tintColor: COLOR.DEFALUTCOLOR, height: 20, width: 16 }} />
-                                <Text style={{ marginLeft: 5, color: COLOR.BLACK, fontSize: FONT.FONT_SIZE_14 }}> {serviceDetails && serviceDetails.duration ? serviceDetails.duration + ' ' + languageConfig.mintext : '--'} </Text>
-                            </View>
-                            <View style={{ flexDirection: KEY.ROW, flex: 1, justifyContent: KEY.FLEX_END, marginRight: 15 }}>
-                                <TouchableOpacity onPress={() => onPressShare()} style={{ marginRight: 10 }}>
-                                    <Ionicons name='share-social-outline' size={25} color={COLOR.DEFALUTCOLOR} />
-                                </TouchableOpacity>
-                                {
-                                    serviceDetails && serviceDetails.selected === true ?
-                                        <View>
-                                            <Ionicons name='heart' size={25} color={COLOR.DEFALUTCOLOR} />
-                                        </View>
-                                        :
-                                        <View>
-                                            <Ionicons name='ios-heart-outline' size={25} color={COLOR.DEFALUTCOLOR} />
-                                        </View>
-                                }
+                                <Text style={{ marginLeft: 5, color: COLOR.BLACK, fontSize: FONT.FONT_SIZE_14 }}> {packageDetails.property ? packageDetails.property.tenure + languageConfig.months : '--'} </Text>
                             </View>
                         </View>
-                        {serviceDetails && serviceDetails?.description ?
+                        {packageDetails && packageDetails?.property && packageDetails?.property?.description ?
                             <Text style={styles.descripationText}>
                                 <RenderHTML contentWidth={WIDTH - 60}
-                                    source={{ html: serviceDetails.description }}
+                                    source={{ html: packageDetails.property.description }}
                                     baseStyle={styles.tagsStyles} />
                             </Text>
                             :
@@ -324,16 +209,11 @@ const OurServiceDetailScreen = (props) => {
                         />
                     </>
                 }
-                <TouchableOpacity style={styles.bookButton} onPress={() => onPressBooking()}>
-                    <Text style={{
-                        fontWeight: FONT.FONT_BOLD, color: COLOR.WHITE,
-                        fontSize: FONT.FONT_SIZE_18, textTransform: KEY.CAPITALIZE
-                    }}>{languageConfig.booknowbtn}</Text>
-                </TouchableOpacity>
+
             </ScrollView>
             {loading ? <Loader /> : null}
         </SafeAreaView>
     )
 }
 
-export default OurServiceDetailScreen;
+export default PackageDetailScreen;

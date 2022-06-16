@@ -21,6 +21,7 @@ import * as COLOR from '../../styles/colors';
 import * as IMAGE from '../../styles/image';
 import styles from './ContactUsStyle';
 import moment from 'moment';
+import axiosConfig from '../../helpers/axiosConfig';
 const HEIGHT = Dimensions.get('window').height;
 const WIDTH = Dimensions.get('window').width;
 const daylist = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
@@ -93,6 +94,7 @@ const ContactUsScreen = (props) => {
             wait(1000).then(() => setLoading(false));
         } else {
             var publicUserInfo = await LocalService.LocalBranchDetails();
+            axiosConfig(publicUserInfo._id);
             starttime = publicUserInfo?.branchid?.workinghours?.starttime;
             endtime = publicUserInfo?.branchid?.workinghours?.endtime;
             workingday = publicUserInfo?.branchid?.workinghours?.days;
