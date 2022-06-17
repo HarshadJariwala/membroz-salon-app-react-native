@@ -116,10 +116,10 @@ const WalletScreen = (props) => {
                         }} />
                         <View style={{ flexDirection: KEY.COLUMN, width: WIDTH / 1.8, }}>
                             <Text style={{ fontWeight: FONT.FONT_BOLD, color: COLOR.BLACK, fontSize: FONT.FONT_SIZE_18, marginLeft: 10, marginTop: 0 }}>
-                                {"Transaction history"}
+                                {languageConfig.transactionhistory}
                             </Text>
                             <Text style={{ color: COLOR.BLACK, fontSize: FONT.FONT_SIZE_14, marginLeft: 10 }}>
-                                {"View your wallet transaction history"}
+                                {languageConfig.yourwalletbalanceHistory}
                             </Text>
                         </View>
                         <View style={{ alignItems: KEY.FLEX_END, flex: 1, marginRight: 10, }}>
