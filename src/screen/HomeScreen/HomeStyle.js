@@ -20,8 +20,8 @@ const styles = StyleSheet.create({
         height: 180
     },
     dotImage: {
-        width: 70,
-        height: 70,
+        width: WIDTH / 6,
+        height: WIDTH / 6,
         borderRadius: 100,
     },
     dotImage1: {

@@ -388,13 +388,24 @@ const HomeScreen = (props) => {
 
     //RENDER CATEGORY SERVICE FLATLIST
     const renderCategory = ({ item }) => (
-        <TouchableOpacity style={{ flexDirection: KEY.COLUMN, paddingHorizontal: 10 }}
+        <TouchableOpacity style={{ flexDirection: KEY.COLUMN, paddingHorizontal: 0 }}
             onPress={() => viewCategoryScreen(item)}>
-            <View style={{ margin: 10, justifyContent: KEY.CENTER, alignItems: KEY.CENTER, width: 80, height: 80, borderRadius: 100, borderWidth: 1, borderColor: COLOR.BLACK }}>
+            <View style={{
+                margin: 10, justifyContent: KEY.CENTER, alignItems: KEY.CENTER,
+                width: WIDTH / 6 + 10, height: WIDTH / 6 + 10, borderRadius: 100,
+                borderWidth: 1, borderColor: COLOR.BLACK
+            }}>
                 <Image style={styles.dotImage}
-                    source={{ uri: item.property && item.property.img && item.property.img[0] && item.property.img[0].attachment ? item.property.img[0].attachment : logo }} />
+                    source={{
+                        uri: item.property && item.property.img && item.property.img[0] &&
+                            item.property.img[0].attachment ? item.property.img[0].attachment : logo
+                    }} />
             </View>
-            <Text style={{ textAlign: KEY.CENTER, alignSelf: KEY.CENTER, color: COLOR.BLACK, width: 80, marginTop: -7, marginBottom: 5 }}>{item.property && item.property.name}</Text>
+            <Text style={{
+                textAlign: KEY.CENTER, alignSelf: KEY.CENTER,
+                color: COLOR.BLACK, width: WIDTH / 6 + 10,
+                marginTop: -7, marginBottom: 5
+            }}>{item.property && item.property.name}</Text>
         </TouchableOpacity>
     )
 
@@ -460,7 +471,7 @@ const HomeScreen = (props) => {
                             <View style={{ flexDirection: KEY.ROW }}>
                                 <FlatList
                                     showsVerticalScrollIndicator={false}
-                                    numColumns={3}
+                                    numColumns={4}
                                     contentContainerStyle={{
                                         alignItems: KEY.CENTER,
                                         alignSelf: KEY.CENTER,
