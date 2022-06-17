@@ -22,6 +22,7 @@ import * as COLOR from '../../styles/colors';
 import * as IMAGE from '../../styles/image';
 import styles from './BookServiceStyle';
 import moment from 'moment';
+import axiosConfig from '../../helpers/axiosConfig';
 const HEIGHT = Dimensions.get('window').height;
 const WIDTH = Dimensions.get('window').width;
 
@@ -128,12 +129,14 @@ const BookServiceScreen = (props) => {
             var memberInfo = await LocalService.LocalStorageService();
             if (memberInfo) {
                 const response = getCurrency(memberInfo.branchid.currency);
+                axiosConfig(memberInfo._id);
                 setCurrencySymbol(response);
                 setMemberID(memberInfo._id);
                 setMemberInfo(memberInfo);
                 setLoading(false);
             } else {
                 var publicUserInfo = await LocalService.LocalBranchDetails();
+                axiosConfig(publicUserInfo._id);
                 const response = getCurrency(publicUserInfo.branchid.currency);
                 setCurrencySymbol(response);
                 setLoading(false);

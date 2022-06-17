@@ -37,6 +37,7 @@ export const MENUSCREEN = 'MenuScreen';
 export const CONTACTUSSCREEN = 'ContactUsScreen';
 export const BOOKINGCOMPLATESCREEN = 'BookingComplateScreen';
 export const PACKAGE = "Package";
+export const PACKAGEDETAILSCREEN = "PackageDetailScreen";
 
 
 

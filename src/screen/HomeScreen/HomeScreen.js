@@ -108,7 +108,6 @@ const HomeScreen = (props) => {
         if (userData) {
             setScanIconVisible(userData.scanicon);
             setNotificationIconVisible(userData.notificationicon);
-            axiosConfig(userData.authkey);
             setLogo(userData.applogo);
             publicAuthkey = userData.authkey;
             if (Platform.OS === KEY.IOS) {
@@ -125,6 +124,7 @@ const HomeScreen = (props) => {
     const getMemberDeatilsLocalStorage = async () => {
         var memberInfo = await LocalService.LocalStorageService();
         if (memberInfo) {
+            axiosConfig(memberInfo._id);
             getmemberid = memberInfo?._id;
             setMemberInfo(memberInfo);
             setMembershipPlan(memberInfo?.membershipid?.property?.membershipname);
@@ -142,6 +142,7 @@ const HomeScreen = (props) => {
                 setloading(false);
             });
         } else {
+            axiosConfig(publicAuthkey);
             getPublicUserDeatils(publicAuthkey);
             sliderService();
             getServiceCategoryList();
@@ -387,7 +388,7 @@ const HomeScreen = (props) => {
 
     //RENDER CATEGORY SERVICE FLATLIST
     const renderCategory = ({ item }) => (
-        <TouchableOpacity style={{ flexDirection: KEY.COLUMN, justifyContent: KEY.CENTER, alignItems: KEY.CENTER, width: WIDTH / 3, }}
+        <TouchableOpacity style={{ flexDirection: KEY.COLUMN, paddingHorizontal: 10 }}
             onPress={() => viewCategoryScreen(item)}>
             <View style={{ margin: 10, justifyContent: KEY.CENTER, alignItems: KEY.CENTER, width: 80, height: 80, borderRadius: 100, borderWidth: 1, borderColor: COLOR.BLACK }}>
                 <Image style={styles.dotImage}
@@ -460,7 +461,11 @@ const HomeScreen = (props) => {
                                 <FlatList
                                     showsVerticalScrollIndicator={false}
                                     numColumns={3}
-                                    contentContainerStyle={{ alignSelf: KEY.CENTER }}
+                                    contentContainerStyle={{
+                                        alignItems: KEY.CENTER,
+                                        alignSelf: KEY.CENTER,
+                                        width: WIDTH
+                                    }}
                                     style={{ flexDirection: KEY.ROW }}
                                     keyboardShouldPersistTaps={KEY.ALWAYS}
                                     data={serviceCategoryList}

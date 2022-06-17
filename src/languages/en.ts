@@ -349,6 +349,7 @@ export default {
     ordersummarytext: "Order Summary",
     availableslottext: "Available Slot",
     magpietext: "Magpie",
+    viewmoretext: "View more",
 
     //menu text
     updatenow: "Update Now",

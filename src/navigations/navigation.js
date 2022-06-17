@@ -40,6 +40,7 @@ import BOOKINGCOMPLATESCREEN from '../screen/OurServiceScreen/BookingComplateScr
 import BOOKSERVICESCREEN from '../screen/OurServiceScreen/BookServiceScreen';
 import BOOKINGPAYMENTSCREEN from '../screen/OurServiceScreen/BookingPaymentScreen';
 import PACKAGE from '../screen/PackageScreen/Package';
+import PACKAGEDETAILSCREEN from '../screen/PackageScreen/PackageDetailScreen';
 
 import { NotificationService } from '../services/NotificationService/NotificationService';
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
@@ -66,9 +67,25 @@ const Tab = createBottomTabNavigator();
 
 //Structure for the navigatin Drawer
 const NavigationDrawerStructureLeft = (props) => {
+    const [memberInfo, setMemberInfo] = useState(false);
+
+    useEffect(() => {
+        getMemberDeatilsLocalStorage();
+    }, [])
+
+    //GET MEMBER DATA IN MOBILE LOCAL STORAGE
+    const getMemberDeatilsLocalStorage = async () => {
+        var memberInfo = await LocalService.LocalStorageService();
+        if (memberInfo) {
+            setMemberInfo(true);
+        }
+    }
+
+    useEffect(() => {
+    }, [memberInfo])
+
     return (
-        <TouchableOpacity onPress={() => props.navigationProps.navigate(SCREEN.MENUSCREEN)}>
-            <TouchableOpacity onPress={() => props.navigationProps.navigate(SCREEN.MAINSCREEN)}></TouchableOpacity>
+        <TouchableOpacity onPress={() => memberInfo ? props.navigationProps.navigate(SCREEN.MENUSCREEN) : {}} >
             <Image
                 source={IMAGE.MENUICON}
                 style={{
@@ -680,6 +697,11 @@ const OurServiceStackScreen = ({ navigation }) => {
                     }
                 }}
             />
+            <Stack.Screen
+                name="OurServiceDetailScreen"
+                component={OURSERVICEDETAILSCREEN}
+                options={{ headerShown: false }}
+            />
         </Stack.Navigator>
     )
 }
@@ -735,6 +757,11 @@ const packagesStackScreen = ({ navigation }) => {
                         fontWeight: FONT.FONT_WEIGHT_MEDIAM, //Set Header text style
                     }
                 }}
+            />
+            <Stack.Screen
+                name="PackageDetailScreen"
+                component={PACKAGEDETAILSCREEN}
+                options={{ headerShown: false }}
             />
         </Stack.Navigator>
     )
@@ -897,8 +924,8 @@ const TabNavigation = () => {
             {memberInfo &&
                 <Tab.Screen name="MyBooking" component={MyBookingStackScreen} options={{ headerShown: false, title: languageConfig.mybooking }} />
             }
-            <Tab.Screen name="Package" component={packagesStackScreen} options={{ headerShown: false, title: languageConfig.packages }} />
             <Tab.Screen name="ourservice" component={OurServiceStackScreen} options={{ headerShown: false, title: languageConfig.services }} />
+            <Tab.Screen name="Package" component={packagesStackScreen} options={{ headerShown: false, title: languageConfig.packages }} />
             {!memberInfo &&
                 <Tab.Screen name="Support" component={SupportStackScreen} options={{ headerShown: false, title: languageConfig.support }} />
             }

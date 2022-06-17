@@ -6,6 +6,21 @@ const HEIGHT = Dimensions.get('window').height;
 const WIDTH = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
+    cardview: {
+        backgroundColor: COLOR.WHITE,
+        borderRadius: 10,
+        marginTop: 10,
+        width: WIDTH - 30,
+        shadowColor: COLOR.BLACK,
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 3,
+        marginBottom: 5
+    },
     img_card: {
         width: WIDTH - 30,
         height: 100,
@@ -41,12 +56,43 @@ const styles = StyleSheet.create({
     textbutton: {
         fontWeight: FONT.FONT_BOLD,
         color: COLOR.WHITE,
-        fontSize: FONT.FONT_SIZE_14
+        fontSize: FONT.FONT_SIZE_14,
+        textTransform: KEY.CAPITALIZE
     },
     text: {
         fontSize: FONT.FONT_SIZE_16,
         color: COLOR.BLACK,
         fontWeight: FONT.FONT_BOLD,
+    },
+    descripationText: {
+        textAlign: KEY.CENTER,
+        alignSelf: KEY.CENTER,
+        fontSize: FONT.FONT_SIZE_16,
+        marginBottom: 10,
+        color: COLOR.BLACK,
+        width: WIDTH - 60,
+        marginTop: 5
+
+    },
+    tagsStyles: {
+        //textAlign: KEY.CENTER,
+        fontSize: FONT.FONT_SIZE_16,
+        color: COLOR.BLACK,
+        marginBottom: 20,
+        width: WIDTH - 60
+    },
+    bookButton: {
+        borderBottomRightRadius: 20,
+        borderTopLeftRadius: 20,
+        borderRadius: 5,
+        backgroundColor: COLOR.DEFALUTCOLOR,
+        width: WIDTH - 30,
+        height: 45,
+        marginLeft: 15,
+        marginRight: 15,
+        justifyContent: KEY.CENTER,
+        alignItems: KEY.CENTER,
+        marginBottom: 20,
     },
 });
 
