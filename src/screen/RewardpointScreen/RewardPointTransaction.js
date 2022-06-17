@@ -106,7 +106,6 @@ const RewardPointTransaction = () => {
             console.log(`error`, error);
         }
     }
-
     //render recharge history in flatlist
     const renderRechargeHistory = ({ item, index }) => (
         item.txntype == 'Dr' ?
@@ -126,16 +125,16 @@ const RewardPointTransaction = () => {
                 <View style={{ flexDirection: KEY.COLUMN, justifyContent: KEY.SPACEBETWEEN, marginTop: 10, marginBottom: 10 }}>
                     <Text numberOfLines={1}
                         style={{
-                            fontSize: FONT.FONT_SIZE_14, marginLeft: 10, width: WIDTH / 2,
+                            fontSize: FONT.FONT_SIZE_14, marginLeft: 10, width: WIDTH * 0.6,
                             color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD, color: COLOR.RED
                         }}>{item.txnref}</Text>
-                    <Text style={{ fontSize: FONT.FONT_SIZE_14, marginLeft: 10, color: COLOR.GRANITE_GRAY }}>{moment().format('DD MMM YYYY hh:mm a')}</Text>
-                </View>
-                <View style={{ flexDirection: KEY.COLUMN, justifyContent: KEY.SPACEBETWEEN, marginTop: 10, marginBottom: 10 }}>
-                    <Text style={{
-                        fontSize: FONT.FONT_SIZE_14, marginLeft: 10,
-                        color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD, color: COLOR.RED
-                    }}>{'-' + item.value.toFixed(0) + ' ' + 'pts'}</Text>
+                    <View style={{ flexDirection: KEY.ROW, justifyContent: KEY.SPACEBETWEEN, width: WIDTH * 0.7, marginTop: 10, marginBottom: 10 }}>
+                        <Text style={{ fontSize: FONT.FONT_SIZE_14, marginLeft: 10, color: COLOR.GRANITE_GRAY }}>{moment().format('DD MMM YYYY hh:mm a')}</Text>
+                        <Text style={{
+                            fontSize: FONT.FONT_SIZE_14, marginLeft: 10,
+                            color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD, color: COLOR.RED
+                        }}>{'-' + item.value.toFixed(0) + ' ' + 'pts'}</Text>
+                    </View>
                 </View>
             </View>
             :
@@ -155,20 +154,19 @@ const RewardPointTransaction = () => {
                 <View style={{ flexDirection: KEY.COLUMN, justifyContent: KEY.SPACEBETWEEN, marginTop: 10, marginBottom: 10 }}>
                     <Text numberOfLines={1}
                         style={{
-                            fontSize: FONT.FONT_SIZE_14, marginLeft: 10, width: WIDTH / 2,
+                            fontSize: FONT.FONT_SIZE_14, marginLeft: 10, width: WIDTH * 0.6,
                             color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD, color: COLOR.GREEN
                         }}>{item.txnref}</Text>
-                    <Text style={{ fontSize: FONT.FONT_SIZE_14, marginLeft: 10, color: COLOR.GRANITE_GRAY }}>{moment().format('DD MMM YYYY hh:mm a')}</Text>
-                </View>
-                <View style={{ flexDirection: KEY.COLUMN, justifyContent: KEY.SPACEBETWEEN, marginTop: 10, marginBottom: 10 }}>
-                    <Text style={{
-                        fontSize: FONT.FONT_SIZE_14, marginLeft: 10,
-                        color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD, color: COLOR.GREEN
-                    }}>{'+' + item.value.toFixed(0) + ' ' + 'pts'}</Text>
+                    <View style={{ flexDirection: KEY.ROW, justifyContent: KEY.SPACEBETWEEN, width: WIDTH * 0.7, marginTop: 10, marginBottom: 10 }}>
+                        <Text style={{ fontSize: FONT.FONT_SIZE_14, marginLeft: 10, color: COLOR.GRANITE_GRAY }}>{moment().format('DD MMM YYYY hh:mm a')}</Text>
+                        <Text style={{
+                            fontSize: FONT.FONT_SIZE_14, marginLeft: 10,
+                            color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD, color: COLOR.GREEN
+                        }}>{'+' + item.value.toFixed(0) + ' ' + 'pts'}</Text>
+                    </View>
                 </View>
             </View>
     )
-
     //TIME OUT FUNCTION
     const wait = (timeout) => {
         return new Promise(resolve => {

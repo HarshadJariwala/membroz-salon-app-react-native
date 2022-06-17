@@ -142,17 +142,19 @@ const WalletTransaction = () => {
                 <View style={{ flexDirection: KEY.COLUMN, justifyContent: KEY.SPACEBETWEEN, marginTop: 10, marginBottom: 10 }}>
                     <Text numberOfLines={1}
                         style={{
-                            fontSize: FONT.FONT_SIZE_14, marginLeft: 10, width: WIDTH / 2,
+                            fontSize: FONT.FONT_SIZE_14, marginLeft: 10, width: WIDTH * 0.6,
                             color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD, color: COLOR.RED
                         }}>{item.txnref}</Text>
                     <Text style={{ fontSize: FONT.FONT_SIZE_14, marginLeft: 10, color: COLOR.GRANITE_GRAY }}>{moment().format('DD MMM YYYY hh:mm a')}</Text>
+                    <View style={{ flexDirection: KEY.ROW, justifyContent: KEY.SPACEBETWEEN, width: WIDTH * 0.7, marginTop: 12, marginBottom: 12 }}>
+                        <Text style={{ fontSize: FONT.FONT_SIZE_14, marginLeft: 10, color: COLOR.GRANITE_GRAY }}>{moment().format('DD MMM YYYY hh:mm a')}</Text>
+                        <Text style={{
+                            fontSize: FONT.FONT_SIZE_14, marginLeft: 10,
+                            color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD, color: COLOR.GREEN, alignSelf: KEY.FLEX_END
+                        }}>{'-' + item.value.toFixed(0) + ' ' + 'pts'}</Text>
+                    </View>
                 </View>
-                <View style={{ flexDirection: KEY.COLUMN, justifyContent: KEY.SPACEBETWEEN, marginTop: 10, marginBottom: 10 }}>
-                    <Text style={{
-                        fontSize: FONT.FONT_SIZE_14, marginLeft: 10,
-                        color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD, color: COLOR.RED
-                    }}>{'-' + item.value.toFixed(0) + ' ' + 'pts'}</Text>
-                </View>
+
             </View>
             :
             <View style={styles.transactionView}>
@@ -168,20 +170,22 @@ const WalletTransaction = () => {
                         <MaterialCommunityIcons name='plus' size={15} style={{ color: COLOR.GREEN, alignSelf: KEY.CENTER, margin: 2 }} />
                     </View>
                 </View>
-                <View style={{ flexDirection: KEY.COLUMN, justifyContent: KEY.SPACEBETWEEN, marginTop: 12, marginBottom: 12 }}>
+                <View style={{ flexDirection: KEY.COLUMN, marginTop: 12, marginBottom: 12, justifyContent: KEY.SPACEBETWEEN }}>
                     <Text numberOfLines={1}
                         style={{
-                            fontSize: FONT.FONT_SIZE_14, marginLeft: 10, width: WIDTH / 2,
+                            fontSize: FONT.FONT_SIZE_14, marginLeft: 10, width: WIDTH * 0.6,
                             color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD, color: COLOR.GREEN,
                         }}>{item.txnref}</Text>
-                    <Text style={{ fontSize: FONT.FONT_SIZE_14, marginLeft: 10, color: COLOR.GRANITE_GRAY }}>{moment().format('DD MMM YYYY hh:mm a')}</Text>
+                    <View style={{ flexDirection: KEY.ROW, justifyContent: KEY.SPACEBETWEEN, width: WIDTH * 0.7, marginTop: 12, marginBottom: 12 }}>
+                        <Text style={{ fontSize: FONT.FONT_SIZE_14, marginLeft: 10, color: COLOR.GRANITE_GRAY }}>{moment().format('DD MMM YYYY hh:mm a')}</Text>
+                        <Text style={{
+                            fontSize: FONT.FONT_SIZE_14, marginLeft: 10,
+                            color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD, color: COLOR.GREEN, alignSelf: KEY.FLEX_END
+                        }}>{'+' + item.value.toFixed(0) + ' ' + 'pts'}</Text>
+                    </View>
+
                 </View>
-                <View style={{ flexDirection: KEY.COLUMN, justifyContent: KEY.SPACEBETWEEN, marginTop: 12, marginBottom: 12 }}>
-                    <Text style={{
-                        fontSize: FONT.FONT_SIZE_14, marginLeft: 10,
-                        color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD, color: COLOR.GREEN
-                    }}>{'+' + item.value.toFixed(0) + ' ' + 'pts'}</Text>
-                </View>
+
             </View>
     )
     //TIME OUT FUNCTION

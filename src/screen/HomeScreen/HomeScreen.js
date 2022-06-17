@@ -462,7 +462,7 @@ const HomeScreen = (props) => {
                         serviceCategoryList &&
                         <SafeAreaView>
                             <View style={{ width: WIDTH, flexDirection: KEY.ROW, justifyContent: KEY.SPACEBETWEEN, alignItems: KEY.CENTER, marginTop: 0, marginBottom: 5 }}>
-                                <Text style={{ marginRight: 15, marginLeft: 15, fontSize: FONT.FONT_SIZE_20, color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD }}>{languageConfig.ourservicestext}</Text>
+                                <Text style={{ marginRight: 15, marginLeft: 15, fontSize: FONT.FONT_SIZE_20, color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD, }}>{languageConfig.ourservicestext}</Text>
                                 <TouchableOpacity onPress={() => viewCategoryScreen()}>
                                     <Text style={{ marginRight: 15, marginLeft: 15, fontSize: FONT.FONT_SIZE_16, color: COLOR.DEFALUTCOLOR }}>{languageConfig.Viewalltext}</Text>
                                 </TouchableOpacity>
