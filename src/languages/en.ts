@@ -175,7 +175,7 @@ export default {
     clearall: "Clear All",
     photos: "Photos",
     home: "Home",
-    alltext: "ALL",
+    alltext: "All",
     servicename: "Service Name",
     aboutmembership: "About Membership",
     exploreclubs: "Explore Clubs",
@@ -334,7 +334,7 @@ export default {
     paidsalarytext: "Paid Salary",
     bonusamounttext: "Bonus Amount",
     totalsalarytext: "Total Salary",
-    earningstext: "Earnings",
+    earningstext: "Earn",
     basictext: "Basic",
     bonustext: "Bonus",
     expensetext: "Expense",
@@ -378,7 +378,7 @@ export default {
     booking: "Booking",
     bookholiday: "Book a Holiday",
     announcement: "Announcement",
-    event: "Event",
+    event: "Events",
     referfriend: "Refer a Friend",
     usage: "Usage",
     team: "Team",
@@ -472,7 +472,7 @@ export default {
     class: "Class",
     updatepassword: "Update Password",
     workexperience: "Work Experience",
-    ourgymjoinedsince: "Our gym joined since",
+    ourgymjoinedsince: "Our Salon joined since",
     availabledays: "Available Days",
     availabletime: "Available Time",
     addressline1: "Address line 1",
@@ -524,7 +524,7 @@ export default {
     //calendar text
     Legend: "legend",
     PresentdayText: "present",
-    HolidayDaytext: "holiday",
+    HolidayDaytext: "Holidays",
     Weekoffdaytext: "week off",
     yesterdaytext: "yesterday",
     todaytext: "today",
@@ -535,7 +535,7 @@ export default {
     //submit query
     HeppytoText: "Happy to",
     helptext: "Help you",
-    SelectCategoryText: "Select category",
+    SelectCategoryText: "Select Category",
     subjecttext: "Subject",
     contactnumberText: "Contact number",
     emailtext: "Email",
@@ -550,7 +550,7 @@ export default {
     fivehundreadminustext: "-500 pts",
 
     //walet Transaction
-    PaidMoneyText: "paid",
+    PaidMoneyText: "Paid",
     ReceivedMoneyText: "Received",
     AddedMoneyText: "Added",
 

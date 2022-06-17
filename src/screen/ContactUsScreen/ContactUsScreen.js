@@ -163,11 +163,11 @@ const ContactUsScreen = (props) => {
                             alignSelf: KEY.FLEX_START, marginLeft: 20
                         }}>
                             <Text style={{
-                                fontSize: FONT.FONT_SIZE_18, textTransform: KEY.LOWERCASE, color: COLOR.BLACK,
+                                fontSize: FONT.FONT_SIZE_18, textTransform: KEY.CAPITALIZE, color: COLOR.BLACK,
                                 fontWeight: FONT.FONT_BOLD
                             }}>{languageConfig.hourstext}</Text>
                             <Text style={{
-                                fontSize: FONT.FONT_SIZE_18, textTransform: KEY.LOWERCASE, color: COLOR.DEFALUTCOLOR,
+                                fontSize: FONT.FONT_SIZE_18, textTransform: KEY.CAPITALIZE, color: COLOR.DEFALUTCOLOR,
                                 fontWeight: FONT.FONT_BOLD, marginLeft: 5
                             }}>{languageConfig.opentext}</Text>
                         </View>
@@ -175,7 +175,7 @@ const ContactUsScreen = (props) => {
                             <Text style={{
                                 alignItems: KEY.FLEX_START, fontSize: FONT.FONT_SIZE_18,
                                 color: COLOR.BLACK, marginLeft: 10, fontWeight: FONT.FONT_BOLD,
-                                textTransform: KEY.LOWERCASE
+                                textTransform: KEY.CAPITALIZE
                             }}>{languageConfig.mondaytext + ' - ' + languageConfig.saturdaytext}</Text>
 
                             <View style={{
@@ -184,7 +184,7 @@ const ContactUsScreen = (props) => {
                                 <Image source={(IMAGE.TIMEICON)} style={{ height: 20, width: 16, tintColor: COLOR.DEFALUTCOLOR }} />
                                 <Text style={{
                                     alignItems: KEY.FLEX_START, fontSize: FONT.FONT_SIZE_16,
-                                    color: COLOR.BLACK, marginLeft: 5, width: WIDTH / 2, textTransform: KEY.LOWERCASE
+                                    color: COLOR.BLACK, marginLeft: 5, width: WIDTH / 2, textTransform: KEY.CAPITALIZE
                                 }}>{moment(startTime, ["HH.mm"]).format("hh:mm A") + ' - ' + moment(endTime, ["HH.mm"]).format("hh:mm A")}</Text>
                             </View>
                         </View>
@@ -199,7 +199,7 @@ const ContactUsScreen = (props) => {
                                         <Text style={{
                                             alignItems: KEY.FLEX_START, fontSize: FONT.FONT_SIZE_16,
                                             color: COLOR.BLACK, marginLeft: 5, fontWeight: FONT.FONT_BOLD,
-                                            textTransform: KEY.LOWERCASE
+                                            textTransform: KEY.CAPITALIZE
                                         }}>{item}</Text>
                                         <Text style={{
                                             alignItems: KEY.FLEX_START, fontSize: FONT.FONT_SIZE_16,

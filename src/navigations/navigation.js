@@ -520,7 +520,7 @@ const HomeStackScreen = ({ navigation }) => {
                 name="ActivityCalenderScreen"
                 component={ACTIVITYCALENDERSCREEN}
                 options={{
-                    title: 'Activity Calender', //Set Header Title
+                    title: 'Activity Calendar', //Set Header Title
                     headerLeft: () =>
                         <NavigationDrawerStructureLeft
                             navigationProps={navigation}

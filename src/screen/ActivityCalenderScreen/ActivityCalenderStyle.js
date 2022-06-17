@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     deactiveTextStyle: {
         fontSize: FONT.FONT_SIZE_16,
         fontWeight: FONT.FONT_BOLD,
-        textTransform: KEY.LOWERCASE,
+        textTransform: KEY.CAPITALIZE,
         color: COLOR.BLACK,
         marginLeft: 20,
         marginRight: 20
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
     activeTextStyle: {
         fontSize: FONT.FONT_SIZE_16,
         fontWeight: FONT.FONT_BOLD,
-        textTransform: KEY.LOWERCASE,
+        textTransform: KEY.CAPITALIZE,
         color: COLOR.WHITE,
         marginLeft: 20,
         marginRight: 20
