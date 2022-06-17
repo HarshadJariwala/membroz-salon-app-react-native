@@ -41,19 +41,9 @@ const MyProfileScreen = ({ navigation }) => {
 
     useFocusEffect(
         React.useCallback(() => {
-            const getCallBackScreen = () => {
-                //LANGUAGE MANAGEMENT FUNCTION
-                MemberLanguage();
-                if (memberInfo) {
-                    setMemberProfilePic(memberInfo?.profilepic);
-                    setMemberNumber(memberInfo?.membernumber);
-                    setMemberName(memberInfo?.fullname);
-                    setMemberJoinDate(memberInfo?.property?.joining_date);
-                } else {
-                    navigation.navigate(SCREEN.AUTH);
-                }
-            }
-            getCallBackScreen();
+            //LANGUAGE MANAGEMENT FUNCTION
+            MemberLanguage();
+            getMemberDeatilsLocalStorage();
         }, [])
     );
 

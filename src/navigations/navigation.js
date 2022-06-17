@@ -85,7 +85,9 @@ const NavigationDrawerStructureLeft = (props) => {
     }, [memberInfo])
 
     return (
-        <TouchableOpacity onPress={() => memberInfo ? props.navigationProps.navigate(SCREEN.MENUSCREEN) : {}} >
+        <TouchableOpacity onPress={() => memberInfo ?
+            props.navigationProps.navigate(SCREEN.MENUSCREEN)
+            : props.navigationProps.navigate(SCREEN.AUTH)} >
             <Image
                 source={IMAGE.MENUICON}
                 style={{
@@ -840,7 +842,7 @@ const SupportStackScreen = ({ navigation }) => {
 }
 
 const TabNavigation = () => {
-    const [memberInfo, setMemberInfo] = useState(null);
+    const [memberInfo, setMemberInfo] = useState(false);
 
     useEffect(() => {
         getMemberDeatilsLocalStorage();
@@ -850,7 +852,7 @@ const TabNavigation = () => {
     const getMemberDeatilsLocalStorage = async () => {
         var memberInfo = await LocalService.LocalStorageService();
         if (memberInfo) {
-            setMemberInfo(memberInfo);
+            setMemberInfo(true);
         }
     }
 
@@ -904,6 +906,13 @@ const TabNavigation = () => {
                                 color={color}
                             />
                         );
+                    } else if (route.name === 'Login') {
+                        return (
+                            <Image
+                                source={IMAGE.MYBOOKINGICON}
+                                style={{ width: 25, height: 25, tintColor: color }}
+                            />
+                        );
                     }
                 },
                 tabBarActiveTintColor: COLOR.DEFALUTCOLOR,
@@ -928,6 +937,9 @@ const TabNavigation = () => {
             <Tab.Screen name="Package" component={packagesStackScreen} options={{ headerShown: false, title: languageConfig.packages }} />
             {!memberInfo &&
                 <Tab.Screen name="Support" component={SupportStackScreen} options={{ headerShown: false, title: languageConfig.support }} />
+            }
+            {!memberInfo &&
+                <Tab.Screen name="Login" component={AuthStackScreen} options={{ headerShown: false, title: languageConfig.loginbtn }} />
             }
             <Tab.Screen name="Profile" component={MyProfileStackScreen} options={{ headerShown: false, title: languageConfig.myprofile }} />
         </Tab.Navigator>
