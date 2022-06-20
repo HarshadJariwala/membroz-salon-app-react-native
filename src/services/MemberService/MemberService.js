@@ -21,7 +21,16 @@ export const getByMembershipService = (id) => {
                 "searchfield": "property.type",
                 "searchvalue": "package",
                 "datatype": "text",
-                "criteria": "ne"
+                "criteria": "ne",
+                "cond": "and"
+
+            },
+            {
+                "searchfield": "property.type",
+                "searchvalue": "series",
+                "datatype": "text",
+                "criteria": "ne",
+                "cond": "and"
             },
             {
                 "searchfield": "branchid",

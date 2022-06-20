@@ -28,6 +28,7 @@ import * as COLOR from '../../styles/colors';
 import * as IMAGE from '../../styles/image';
 import styles from './MemberShipStyle';
 import moment from 'moment';
+import { FlatList } from 'react-native-gesture-handler';
 
 const HEIGHT = Dimensions.get('window').height;
 const WIDTH = Dimensions.get('window').width;
@@ -61,7 +62,7 @@ const MemberShipScreen = (props) => {
 
     useEffect(() => {
     }, [membershipPlan, membershipcost, memberProfilePic, membershipstart,
-        branchname, membershipend, memberName])
+        branchname, membershipend, memberName, membershipList])
 
     const getCallBackScreen = () => {
         //LANGUAGE MANAGEMENT FUNCTION
@@ -88,7 +89,7 @@ const MemberShipScreen = (props) => {
             setMemberProfilePic(memberInfo?.profilepic);
             setMemberNumber(memberInfo.membernumber);
             setMemberName(memberInfo.fullname);
-            setMembershipPlan("abc");
+            setMembershipPlan("Hair Cut");
             setMembershipcost(200);
             setMembershipstart(new Date());
             setMembershipend(new Date());
@@ -97,10 +98,12 @@ const MemberShipScreen = (props) => {
         }
     }
 
-    const getMembershipList = (id) => {
+    const getMembershipList = async (id) => {
+        console.log("id", id)
         try {
             const response = await getByMembershipService(id);
             if (response.data != null && response.data != 'undefind' && response.status == 200) {
+                console.log("response", response)
                 setMembershipList(response.data);
                 setLoading(false);
             }
@@ -111,29 +114,39 @@ const MemberShipScreen = (props) => {
         }
     }
 
-    // //RENDER MEMBERSHIP LIST USING FLATLIST
-    // const renderMembership = ({ item }) => (
-    //     <View>
-    //         <TouchableOpacity style={{ justifyContent: KEY.SPACEBETWEEN, alignItems: KEY.CENTER, flexDirection: KEY.ROW, marginTop: 5 }}>
-    //             <View style={{ justifyContent: KEY.FLEX_START, flexDirection: KEY.ROW, alignItems: KEY.CENTER, marginLeft: 20 }}>
-    //                 <View style={styles.rounfIconStyle}>
-    //                     {/* <FONTAWESOME5 NAME='MONEY-BILL-WAVE-ALT' SIZE={20} COLOR={COLOR.DEFALUTCOLOR} /> */}
-    //                     <Image style={{ width: 20, height: 15, tintColor: COLOR.DEFALUTCOLOR, }} source={IMAGE.MONEYICON} />
-    //                 </View>
-    //                 <View style={{ flexDirection: KEY.COLUMN, alignItems: KEY.FLEX_START, marginLeft: 20, width: 150 }}>
-    //                     <Text style={{ fontSize: FONT.FONT_SIZE_16, textTransform: KEY.CAPITALIZE, color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD }}>
-    //                         {item && item.item && item.item.paymentterms && item.item.paymentterms.paymentitem && item.item.paymentterms.paymentitem.paymentitemname ? item.item.paymentterms.paymentitem.paymentitemname : languageConfig.noterms}</Text>
-    //                     <Text style={styles.text}>{moment(item && item.paymentdate).format('lll')}</Text>
-    //                 </View>
-    //             </View>
-    //             <View style={{ justifyContent: KEY.FLEX_END, marginRight: 20 }}>
-    //                 <Text style={{ color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD, fontSize: FONT.FONT_SIZE_14 }}>{currencySymbol + Number(item && item.paidamount).toFixed(2)}</Text>
+    //RENDER MEMBERSHIP LIST USING FLATLIST
+    const renderMembership = ({ item }) => (
+        <>
 
-    //             </View>
-    //         </TouchableOpacity>
-    //         <View style={{ borderBottomColor: COLOR.BRIGHT_GRAY, borderBottomWidth: 1, marginTop: 10, marginRight: 15, marginLeft: 15 }} />
-    //     </View>
-    // )
+            <View style={{ flexDirection: KEY.ROW, marginTop: 10 }}>
+                <View style={styles.rounfIconStyle}>
+                    <MaterialCommunityIcons name='wallet-membership' size={20} color={COLOR.DEFALUTCOLOR} />
+                </View>
+                <View style={{ flexDirection: KEY.COLUMN, marginLeft: -2 }}>
+                    <View style={{ marginLeft: 15 }}>
+                        <Text numberOfLines={1} style={[styles.rectangleText, { fontSize: FONT.FONT_SIZE_16, width: WIDTH / 2, fontWeight: FONT.FONT_BOLD, color: COLOR.BLACK }]}>{item.property.membershipname}</Text>
+                        <Text style={{
+                            fontSize: FONT.FONT_SIZE_16, textTransform: KEY.CAPITALIZE, color: COLOR.BLACK,
+                            fontWeight: FONT.FONT_BOLD, width: WIDTH / 2
+                        }} numberOfLines={1}>{item.property.cost}</Text>
+                    </View>
+                </View>
+                <View style={{ flex: 1, alignItems: KEY.FLEX_END, marginTop: 10 }}>
+                    <TouchableOpacity style={styles.btnStyle} >
+                        <Text style={{
+                            fontWeight: FONT.FONT_BOLD, textTransform: KEY.CAPITALIZE,
+                            color: COLOR.WHITE, fontSize: FONT.FONT_SIZE_12
+                        }}>{languageConfig.booknowbtn}</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
+
+            <View style={{
+                borderWidth: 0.2, marginTop: 15, borderColor: COLOR.LINE_COLOR,
+                marginRight: 15, marginLeft: 15, width: WIDTH - 60
+            }} />
+        </>
+    )
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: COLOR.BACKGROUNDCOLOR }}>
@@ -144,7 +157,7 @@ const MemberShipScreen = (props) => {
                         <Image source={!memberProfilePic ? IMAGE.USERPROFILE : { uri: memberProfilePic }}
                             style={{ height: 95, width: 95, borderRadius: 100 }} />
                     </TouchableOpacity>
-                    <Text style={styles.text}>{memberName}</Text>
+                    <Text numberOfLines={1} style={styles.text}>{memberName}</Text>
                     <View style={{ flexDirection: KEY.ROW, alignItems: KEY.CENTER, marginTop: 5 }}>
                         <Ionicons name='location-outline' size={22} color={COLOR.DEFALUTCOLOR} />
                         <Text style={{ fontSize: FONT.FONT_SIZE_14, color: COLOR.GRANITE_GRAY, marginLeft: 5 }}>{branchname}</Text>
@@ -235,136 +248,14 @@ const MemberShipScreen = (props) => {
                 <View style={styles.viewMain}>
                     <View style={styles.viewRectangle}>
                         <Text style={[styles.headertext, {}]}>{languageConfig.membershipplan}</Text>
-                        <View style={{ flexDirection: KEY.ROW, marginTop: 10 }}>
-                            <View style={styles.rounfIconStyle}>
-                                <MaterialCommunityIcons name='wallet-membership' size={20} color={COLOR.DEFALUTCOLOR} />
-                            </View>
-                            <View style={{ flexDirection: KEY.COLUMN, marginLeft: -2 }}>
-                                <View style={{ marginLeft: 15 }}>
-                                    <Text style={[styles.rectangleText, { fontSize: FONT.FONT_SIZE_16, color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD }]}>{languageConfig.goldmembershiptext}</Text>
-                                    <Text style={{
-                                        fontSize: FONT.FONT_SIZE_16, textTransform: KEY.CAPITALIZE, color: COLOR.BLACK,
-                                        fontWeight: FONT.FONT_BOLD, width: WIDTH / 2
-                                    }} numberOfLines={1}>{membershipPlan}</Text>
-                                </View>
-                            </View>
-                            <View style={{ flex: 1, alignItems: KEY.FLEX_END, marginTop: 10 }}>
-                                <TouchableOpacity style={styles.btnStyle} >
-                                    <Text style={{
-                                        fontWeight: FONT.FONT_BOLD, textTransform: KEY.CAPITALIZE,
-                                        color: COLOR.WHITE, fontSize: FONT.FONT_SIZE_14
-                                    }}>{languageConfig.booknowbtn}</Text>
-                                </TouchableOpacity>
-                            </View>
-                        </View>
-                        <View style={{
-                            borderWidth: 0.2, marginTop: 15, borderColor: COLOR.LINE_COLOR,
-                            marginRight: 15, marginLeft: 15, width: WIDTH - 60
-                        }} />
-                        <View style={{ flexDirection: KEY.ROW, marginTop: 10 }}>
-                            <View style={styles.rounfIconStyle}>
-                                <MaterialCommunityIcons name='wallet-membership' size={20} color={COLOR.DEFALUTCOLOR} />
-                            </View>
-                            <View style={{ flexDirection: KEY.COLUMN, marginLeft: -2 }}>
-                                <View style={{ marginLeft: 15 }}>
-                                    <Text style={[styles.rectangleText, { fontSize: FONT.FONT_SIZE_16, color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD }]}>{languageConfig.goldmembershiptext}</Text>
-                                    <Text style={{
-                                        fontSize: FONT.FONT_SIZE_16, textTransform: KEY.CAPITALIZE, color: COLOR.BLACK,
-                                        fontWeight: FONT.FONT_BOLD, width: WIDTH / 2
-                                    }} numberOfLines={1}>{membershipPlan}</Text>
-                                </View>
-                            </View>
-                            <View style={{ flex: 1, alignItems: KEY.FLEX_END, marginTop: 10 }}>
-                                <TouchableOpacity style={styles.btnStyle} >
-                                    <Text style={{
-                                        fontWeight: FONT.FONT_BOLD, textTransform: KEY.CAPITALIZE,
-                                        color: COLOR.WHITE, fontSize: FONT.FONT_SIZE_14
-                                    }}>{languageConfig.booknowbtn}</Text>
-                                </TouchableOpacity>
-                            </View>
-                        </View>
-                        <View style={{
-                            borderWidth: 0.2, marginTop: 15, borderColor: COLOR.LINE_COLOR,
-                            marginRight: 15, marginLeft: 15, width: WIDTH - 60
-                        }} />
-                        <View style={{ flexDirection: KEY.ROW, marginTop: 10 }}>
-                            <View style={styles.rounfIconStyle}>
-                                <MaterialCommunityIcons name='wallet-membership' size={20} color={COLOR.DEFALUTCOLOR} />
-                            </View>
-                            <View style={{ flexDirection: KEY.COLUMN, marginLeft: -2 }}>
-                                <View style={{ marginLeft: 15 }}>
-                                    <Text style={[styles.rectangleText, { fontSize: FONT.FONT_SIZE_16, color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD }]}>{languageConfig.goldmembershiptext}</Text>
-                                    <Text style={{
-                                        fontSize: FONT.FONT_SIZE_16, textTransform: KEY.CAPITALIZE, color: COLOR.BLACK,
-                                        fontWeight: FONT.FONT_BOLD, width: WIDTH / 2
-                                    }} numberOfLines={1}>{membershipPlan}</Text>
-                                </View>
-                            </View>
-                            <View style={{ flex: 1, alignItems: KEY.FLEX_END, marginTop: 10 }}>
-                                <TouchableOpacity style={styles.btnStyle} >
-                                    <Text style={{
-                                        fontWeight: FONT.FONT_BOLD, textTransform: KEY.CAPITALIZE,
-                                        color: COLOR.WHITE, fontSize: FONT.FONT_SIZE_14
-                                    }}>{languageConfig.booknowbtn}</Text>
-                                </TouchableOpacity>
-                            </View>
-                        </View>
-                        <View style={{
-                            borderWidth: 0.2, marginTop: 15, borderColor: COLOR.LINE_COLOR,
-                            marginRight: 15, marginLeft: 15, width: WIDTH - 60
-                        }} />
-                        <View style={{ flexDirection: KEY.ROW, marginTop: 10 }}>
-                            <View style={styles.rounfIconStyle}>
-                                <MaterialCommunityIcons name='wallet-membership' size={20} color={COLOR.DEFALUTCOLOR} />
-                            </View>
-                            <View style={{ flexDirection: KEY.COLUMN, marginLeft: -2 }}>
-                                <View style={{ marginLeft: 15 }}>
-                                    <Text style={[styles.rectangleText, { fontSize: FONT.FONT_SIZE_16, color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD }]}>{languageConfig.goldmembershiptext}</Text>
-                                    <Text style={{
-                                        fontSize: FONT.FONT_SIZE_16, textTransform: KEY.CAPITALIZE, color: COLOR.BLACK,
-                                        fontWeight: FONT.FONT_BOLD, width: WIDTH / 2
-                                    }} numberOfLines={1}>{membershipPlan}</Text>
-                                </View>
-                            </View>
-                            <View style={{ flex: 1, alignItems: KEY.FLEX_END, marginTop: 10 }}>
-                                <TouchableOpacity style={styles.btnStyle} >
-                                    <Text style={{
-                                        fontWeight: FONT.FONT_BOLD, textTransform: KEY.CAPITALIZE,
-                                        color: COLOR.WHITE, fontSize: FONT.FONT_SIZE_14
-                                    }}>{languageConfig.booknowbtn}</Text>
-                                </TouchableOpacity>
-                            </View>
-                        </View>
-                        <View style={{
-                            borderWidth: 0.2, marginTop: 15, borderColor: COLOR.LINE_COLOR,
-                            marginRight: 15, marginLeft: 15, width: WIDTH - 60
-                        }} />
-                        <View style={{ flexDirection: KEY.ROW, marginTop: 10 }}>
-                            <View style={styles.rounfIconStyle}>
-                                <MaterialCommunityIcons name='wallet-membership' size={20} color={COLOR.DEFALUTCOLOR} />
-                            </View>
-                            <View style={{ flexDirection: KEY.COLUMN, marginLeft: -2 }}>
-                                <View style={{ marginLeft: 15 }}>
-                                    <Text style={[styles.rectangleText, { fontSize: FONT.FONT_SIZE_16, color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD }]}>{languageConfig.goldmembershiptext}</Text>
-                                    <Text style={{
-                                        fontSize: FONT.FONT_SIZE_16, textTransform: KEY.CAPITALIZE, color: COLOR.BLACK,
-                                        fontWeight: FONT.FONT_BOLD, width: WIDTH / 2
-                                    }} numberOfLines={1}>{membershipPlan}</Text>
-                                </View>
-                            </View>
-                            <View style={{ flex: 1, alignItems: KEY.FLEX_END, marginTop: 10 }}>
-                                <TouchableOpacity style={styles.btnStyle} >
-                                    <Text style={{
-                                        fontWeight: FONT.FONT_BOLD, textTransform: KEY.CAPITALIZE,
-                                        color: COLOR.WHITE, fontSize: FONT.FONT_SIZE_14
-                                    }}>{languageConfig.booknowbtn}</Text>
-                                </TouchableOpacity>
-                            </View>
-                        </View>
-                        <View style={{
-                            borderWidth: 0.2, marginTop: 15, borderColor: COLOR.LINE_COLOR,
-                            marginRight: 15, marginLeft: 15, width: WIDTH - 60
-                        }} />
+                        <FlatList
+                            style={{ marginTop: 5 }}
+                            data={membershipList}
+                            showsVerticalScrollIndicator={false}
+                            renderItem={renderMembership}
+                            contentContainerStyle={{ paddingBottom: 20 }}
+                            keyExtractor={item => item._id}
+                        />
                     </View>
                 </View>
 
