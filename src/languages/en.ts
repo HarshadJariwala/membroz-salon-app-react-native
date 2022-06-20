@@ -352,6 +352,11 @@ export default {
     availableslottext: "Available Slot",
     magpietext: "Magpie",
     viewmoretext: "View more",
+    bookingMembershipRequest: "Membership Request Successfully",
+    removesuccessfully: "Remove Successfully",
+    wishlistaddsuccessfully: "Wish list Add Successfully",
+    pleaseselectbookingdate: "Please select booking date",
+    pleaseselectbookingtime: "Please select booking time",
 
     //menu text
     updatenow: "Update Now",

@@ -5,7 +5,7 @@ import {
     Dimensions,
     SafeAreaView,
     ImageBackground,
-    TextInput,
+    FlatList,
     ScrollView,
     TouchableOpacity,
     StatusBar, Image, Linking, Platform, Alert
@@ -24,11 +24,11 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Loader from '../../components/loader/index';
 import * as KEY from '../../context/actions/key';
 import * as FONT from '../../styles/typography';
+import Toast from 'react-native-simple-toast';
 import * as COLOR from '../../styles/colors';
 import * as IMAGE from '../../styles/image';
 import styles from './MemberShipStyle';
 import moment from 'moment';
-import { FlatList } from 'react-native-gesture-handler';
 
 const HEIGHT = Dimensions.get('window').height;
 const WIDTH = Dimensions.get('window').width;
@@ -86,15 +86,18 @@ const MemberShipScreen = (props) => {
             setCurrencySymbol(response);
             setMemberProfilePic(memberInfo?.profilepic);
             setMemberName(memberInfo.fullname);
-            setMembershipPlan("Hair Cut");
-            setMembershipcost(200);
-            setMembershipstart(new Date());
-            setMembershipend(new Date());
             setBranchname(memberInfo.branchid?.branchname);
             getMembershipList(memberInfo.branchid?._id)
+            if (memberInfo && memberInfo.membershipid && memberInfo.membershipid != undefined) {
+                setMembershipPlan(memberInfo.membershipid.membershipname);
+                setMembershipcost(memberInfo.membershipid.property.cost);
+                setMembershipstart(memberInfo.membershipstart);
+                setMembershipend(memberInfo.membershipend);
+            }
         }
     }
 
+    //GET MEMBERSHIP DATA FETCH TI API CALL
     const getMembershipList = async (id) => {
         try {
             const response = await getByMembershipService(id);
@@ -125,7 +128,7 @@ const MemberShipScreen = (props) => {
                     </View>
                 </View>
                 <View style={{ flex: 1, alignItems: KEY.FLEX_END, marginTop: 10 }}>
-                    <TouchableOpacity style={styles.btnStyle} >
+                    <TouchableOpacity style={styles.btnStyle} onPress={() => bookingMembershipRequest(item)}>
                         <Text style={{
                             fontWeight: FONT.FONT_BOLD, textTransform: KEY.CAPITALIZE,
                             color: COLOR.WHITE, fontSize: FONT.FONT_SIZE_12
@@ -133,12 +136,14 @@ const MemberShipScreen = (props) => {
                     </TouchableOpacity>
                 </View>
             </View>
-            <View style={{
-                borderWidth: 0.2, marginTop: 15, borderColor: COLOR.LINE_COLOR,
-                marginRight: 15, marginLeft: 15, width: WIDTH - 60
-            }} />
+            <View style={styles.line} />
         </>
     )
+
+    //ONPRESS TO MEMBERSHIP REQUEST
+    const bookingMembershipRequest = () => {
+        Toast.show(languageConfig.bookingMembershipRequest, Toast.SHORT);
+    }
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: COLOR.BACKGROUNDCOLOR }}>
@@ -155,87 +160,80 @@ const MemberShipScreen = (props) => {
                         <Text style={{ fontSize: FONT.FONT_SIZE_14, color: COLOR.GRANITE_GRAY, marginLeft: 5 }}>{branchname}</Text>
                     </View>
                 </View>
-                <View style={styles.viewMain}>
-                    <View style={styles.viewRectangle}>
-                        <Text style={styles.headertext}>{languageConfig.membership}</Text>
-                        <View style={{ flexDirection: KEY.ROW, marginTop: 10 }}>
-                            <View style={styles.rounfIconStyle}>
-                                <MaterialCommunityIcons name='wallet-membership' size={20} color={COLOR.DEFALUTCOLOR} />
-                            </View>
-                            <View style={{ flexDirection: KEY.COLUMN, marginLeft: -2 }}>
-                                <View style={{ marginLeft: 15 }}>
-                                    <Text style={styles.rectangleText}>{languageConfig.membershipplan}</Text>
-                                    <Text style={{
-                                        fontSize: FONT.FONT_SIZE_16, textTransform: KEY.CAPITALIZE, color: COLOR.BLACK,
-                                        fontWeight: FONT.FONT_BOLD, width: WIDTH / 2
-                                    }} numberOfLines={1}>{membershipPlan}</Text>
+                {memberInfo && memberInfo.membershipid &&
+                    <View style={styles.viewMain}>
+                        <View style={styles.viewRectangle}>
+                            <Text style={styles.headertext}>{languageConfig.membership}</Text>
+                            <View style={{ flexDirection: KEY.ROW, marginTop: 10, marginBottom: 5 }}>
+                                <View style={styles.rounfIconStyle}>
+                                    <MaterialCommunityIcons name='wallet-membership' size={20} color={COLOR.DEFALUTCOLOR} />
+                                </View>
+                                <View style={{ flexDirection: KEY.COLUMN, marginLeft: -2 }}>
+                                    <View style={{ marginLeft: 15 }}>
+                                        <Text style={styles.rectangleText}>{languageConfig.membershipplan}</Text>
+                                        <Text style={{
+                                            fontSize: FONT.FONT_SIZE_16, textTransform: KEY.CAPITALIZE, color: COLOR.BLACK,
+                                            fontWeight: FONT.FONT_BOLD, width: WIDTH / 2
+                                        }} numberOfLines={1}>{membershipPlan}</Text>
+                                    </View>
+                                </View>
+                                <View style={{ flex: 1, alignItems: KEY.FLEX_END, marginTop: 10 }}>
+                                    <TouchableOpacity style={styles.btnStyle} onPress={() => props.navigation.navigate(SCREEN.WALLETSCREEN)}>
+                                        <Text style={{
+                                            fontWeight: FONT.FONT_BOLD, textTransform: KEY.CAPITALIZE,
+                                            color: COLOR.WHITE, fontSize: FONT.FONT_SIZE_14
+                                        }}>{languageConfig.renew}</Text>
+                                    </TouchableOpacity>
                                 </View>
                             </View>
-                            <View style={{ flex: 1, alignItems: KEY.FLEX_END, marginTop: 10 }}>
-                                <TouchableOpacity style={styles.btnStyle} >
-                                    <Text style={{
-                                        fontWeight: FONT.FONT_BOLD, textTransform: KEY.CAPITALIZE,
-                                        color: COLOR.WHITE, fontSize: FONT.FONT_SIZE_14
-                                    }}>{languageConfig.renew}</Text>
-                                </TouchableOpacity>
-                            </View>
-                        </View>
-                        <View style={{
-                            borderWidth: 0.2, marginTop: 15, borderColor: COLOR.LINE_COLOR,
-                            marginRight: 15, marginLeft: 15, width: WIDTH - 60
-                        }} />
-                        <View style={{ flexDirection: KEY.ROW, marginTop: 5, alignSelf: KEY.FLEX_START }}>
-                            <View style={styles.rounfIconStyle}>
-                                <Image style={{ width: 20, height: 15, tintColor: COLOR.DEFALUTCOLOR, }} source={IMAGE.MONEYICON} />
-                            </View>
-                            <View style={{ flexDirection: KEY.COLUMN, marginLeft: -2 }}>
-                                <View style={{ marginLeft: 15, marginBottom: 10 }}>
-                                    <Text style={styles.rectangleText}>{languageConfig.amounttext}</Text>
-                                    <Text style={{
-                                        fontSize: FONT.FONT_SIZE_16, textTransform: KEY.UPPERCASE, color: COLOR.BLACK,
-                                        fontWeight: FONT.FONT_BOLD
-                                    }}>{currencySymbol + membershipcost}</Text>
+                            <View style={styles.lineView} />
+                            <View style={{ flexDirection: KEY.ROW, marginTop: 5, alignSelf: KEY.FLEX_START }}>
+                                <View style={styles.rounfIconStyle}>
+                                    <Image style={{ width: 20, height: 15, tintColor: COLOR.DEFALUTCOLOR, }} source={IMAGE.MONEYICON} />
+                                </View>
+                                <View style={{ flexDirection: KEY.COLUMN, marginLeft: -2 }}>
+                                    <View style={{ marginLeft: 15, marginBottom: 5 }}>
+                                        <Text style={styles.rectangleText}>{languageConfig.amounttext}</Text>
+                                        <Text style={{
+                                            fontSize: FONT.FONT_SIZE_16, textTransform: KEY.UPPERCASE, color: COLOR.BLACK,
+                                            fontWeight: FONT.FONT_BOLD
+                                        }}>{currencySymbol + membershipcost}</Text>
+                                    </View>
                                 </View>
                             </View>
-                        </View>
-                        <View style={{
-                            borderWidth: 0.2, marginTop: 5, borderColor: COLOR.LINE_COLOR,
-                            marginRight: 15, marginLeft: 15, width: WIDTH - 60
-                        }} />
-                        <View style={{ flexDirection: KEY.ROW, marginTop: 5, alignSelf: KEY.FLEX_START }}>
-                            <View style={styles.rounfIconStyle}>
-                                <MaterialCommunityIcons name='calendar-outline' size={24} color={COLOR.DEFALUTCOLOR} />
-                            </View>
-                            <View style={{ flexDirection: KEY.COLUMN, marginLeft: -2 }}>
-                                <View style={{ marginLeft: 15, marginBottom: 10 }}>
-                                    <Text style={styles.rectangleText}>{languageConfig.membershipstartdate}</Text>
-                                    <Text style={{
-                                        fontSize: FONT.FONT_SIZE_16, textTransform: KEY.UPPERCASE, color: COLOR.BLACK,
-                                        fontWeight: FONT.FONT_BOLD
-                                    }}>{moment(membershipstart).format('MMMM DD,YYYY')}</Text>
+                            <View style={styles.lineView} />
+                            <View style={{ flexDirection: KEY.ROW, marginTop: 5, alignSelf: KEY.FLEX_START }}>
+                                <View style={styles.rounfIconStyle}>
+                                    <MaterialCommunityIcons name='calendar-outline' size={24} color={COLOR.DEFALUTCOLOR} />
+                                </View>
+                                <View style={{ flexDirection: KEY.COLUMN, marginLeft: -2 }}>
+                                    <View style={{ marginLeft: 15, marginBottom: 10 }}>
+                                        <Text style={styles.rectangleText}>{languageConfig.membershipstartdate}</Text>
+                                        <Text style={{
+                                            fontSize: FONT.FONT_SIZE_16, textTransform: KEY.UPPERCASE, color: COLOR.BLACK,
+                                            fontWeight: FONT.FONT_BOLD
+                                        }}>{moment(membershipstart).format('MMMM DD,YYYY')}</Text>
+                                    </View>
                                 </View>
                             </View>
-                        </View>
-                        <View style={{
-                            borderWidth: 0.2, marginTop: 5, borderColor: COLOR.LINE_COLOR,
-                            marginRight: 15, marginLeft: 15, width: WIDTH - 60
-                        }} />
-                        <View style={{ flexDirection: KEY.ROW, marginTop: 5, alignSelf: KEY.FLEX_START }}>
-                            <View style={styles.rounfIconStyle}>
-                                <MaterialCommunityIcons name='calendar-outline' size={24} color={COLOR.DEFALUTCOLOR} />
-                            </View>
-                            <View style={{ flexDirection: KEY.COLUMN, marginLeft: -2 }}>
-                                <View style={{ marginLeft: 15, marginBottom: 10 }}>
-                                    <Text style={styles.rectangleText}>{languageConfig.membershipenddate}</Text>
-                                    <Text style={{
-                                        fontSize: FONT.FONT_SIZE_16, textTransform: KEY.UPPERCASE, color: COLOR.BLACK,
-                                        fontWeight: FONT.FONT_BOLD
-                                    }}>{moment(membershipend).format('MMMM DD,YYYY')}</Text>
+                            <View style={styles.lineView} />
+                            <View style={{ flexDirection: KEY.ROW, marginTop: 5, alignSelf: KEY.FLEX_START }}>
+                                <View style={styles.rounfIconStyle}>
+                                    <MaterialCommunityIcons name='calendar-outline' size={24} color={COLOR.DEFALUTCOLOR} />
+                                </View>
+                                <View style={{ flexDirection: KEY.COLUMN, marginLeft: -2 }}>
+                                    <View style={{ marginLeft: 15, marginBottom: 10 }}>
+                                        <Text style={styles.rectangleText}>{languageConfig.membershipenddate}</Text>
+                                        <Text style={{
+                                            fontSize: FONT.FONT_SIZE_16, textTransform: KEY.UPPERCASE, color: COLOR.BLACK,
+                                            fontWeight: FONT.FONT_BOLD
+                                        }}>{moment(membershipend).format('MMMM DD,YYYY')}</Text>
+                                    </View>
                                 </View>
                             </View>
                         </View>
                     </View>
-                </View>
+                }
                 {
                     membershipList && membershipList.length > 0 &&
                     <View style={styles.viewMain}>
@@ -253,6 +251,7 @@ const MemberShipScreen = (props) => {
                     </View>
                 }
             </ScrollView>
+            {loading ? <Loader /> : null}
         </SafeAreaView>
     )
 }

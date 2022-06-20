@@ -15,7 +15,6 @@ import axiosConfig from '../../helpers/axiosConfig';
 import Loader from '../../components/loader/index';
 import * as KEY from '../../context/actions/key';
 import * as FONT from '../../styles/typography';
-import { Button } from 'react-native-elements';
 import Toast from 'react-native-simple-toast';
 import * as COLOR from '../../styles/colors';
 import * as IMAGE from '../../styles/image';
@@ -28,8 +27,8 @@ export default LoginScreen = (props) => {
     const [logo, setLogo] = useState(null);
     const [backgroungImage, setBackgroungImage] = useState(null);
     const [appLogoVisible, setAppLogoVisible] = useState(false);
-    const [username, setUsername] = useState('SALONS1038');
-    const [password, setPassword] = useState('SALONS1038');
+    const [username, setUsername] = useState(null);
+    const [password, setPassword] = useState(null);
     const [usernameError, setUsernameError] = useState(null);
     const [passwordError, setPasswordError] = useState(null);
     const [loading, setLoading] = useState(false);

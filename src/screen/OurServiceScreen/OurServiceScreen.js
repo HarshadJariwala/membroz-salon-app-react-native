@@ -175,7 +175,7 @@ const OurServiceScreen = (props) => {
             if (element._id === item._id) { element.selected = false }
         });
         setServiceList(tempArry);
-        Toast.show("Remove Successfully", Toast.SHORT);
+        Toast.show(languageConfig.removesuccessfully, Toast.SHORT);
         await removeLocalWishList(item);
     }
 
@@ -219,7 +219,6 @@ const OurServiceScreen = (props) => {
                                 <TouchableOpacity onPress={() => onPressAddWishService(item)}>
                                     <Ionicons name='ios-heart-outline' size={20} color={COLOR.DEFALUTCOLOR} />
                                 </TouchableOpacity>
-
                         }
                     </View>
                 </View>
@@ -268,7 +267,7 @@ const OurServiceScreen = (props) => {
             item.selected = true
             setServiceList(tempArry);
             saveLocalWishList(item);
-            Toast.show("Wish list Add Successfully", Toast.SHORT);
+            Toast.show(languageConfig.wishlistaddsuccessfully, Toast.SHORT);
         }
     }
 

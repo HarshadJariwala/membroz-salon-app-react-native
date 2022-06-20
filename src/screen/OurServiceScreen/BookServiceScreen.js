@@ -108,7 +108,6 @@ const BookServiceScreen = (props) => {
                 time += parseInt(duration);
             }
             setTimeSlots(timeslotList);
-            console.log(`timeslotList`, timeslotList);
             return timeslotList;
         }
     }
@@ -161,10 +160,10 @@ const BookServiceScreen = (props) => {
     //BOOK NOW BUTTON CLICK TO CALL FUNCTION
     const onPressBooking = () => {
         if (!selectionDate) {
-            return Toast.show('Please select booking date', Toast.SHORT);
+            return Toast.show(languageConfig.pleaseselectbookingdate, Toast.SHORT);
         }
         if (!time) {
-            return Toast.show('Please select booking time', Toast.SHORT);
+            return Toast.show(languageConfig.pleaseselectbookingtime, Toast.SHORT);
         }
         let item = ServiceDetails;
         item.currentbookingdate = selectionDate;

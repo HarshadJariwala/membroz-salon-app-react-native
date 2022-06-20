@@ -851,7 +851,7 @@ const TabNavigation = () => {
     //GET MEMBER DATA IN MOBILE LOCAL STORAGE
     const getMemberDeatilsLocalStorage = async () => {
         var memberInfo = await LocalService.LocalStorageService();
-        if (memberInfo) {
+        if (memberInfo && memberInfo != undefined) {
             setMemberInfo(true);
         }
     }
@@ -909,7 +909,7 @@ const TabNavigation = () => {
                     } else if (route.name === 'Login') {
                         return (
                             <Image
-                                source={IMAGE.MYBOOKINGICON}
+                                source={IMAGE.USERICON}
                                 style={{ width: 25, height: 25, tintColor: color }}
                             />
                         );
@@ -941,7 +941,9 @@ const TabNavigation = () => {
             {!memberInfo &&
                 <Tab.Screen name="Login" component={AuthStackScreen} options={{ headerShown: false, title: languageConfig.loginbtn }} />
             }
-            <Tab.Screen name="Profile" component={MyProfileStackScreen} options={{ headerShown: false, title: languageConfig.myprofile }} />
+            {memberInfo &&
+                <Tab.Screen name="Profile" component={MyProfileStackScreen} options={{ headerShown: false, title: languageConfig.myprofile }} />
+            }
         </Tab.Navigator>
     )
 }

@@ -102,7 +102,23 @@ const styles = StyleSheet.create({
         position: KEY.ABSOLUTE, bottom: 20,
         elevation: 2,
         alignSelf: KEY.CENTER
-    }
+    },
+    line: {
+        borderBottomColor: COLOR.BRIGHT_GRAY,
+        marginTop: 10,
+        borderBottomWidth: 1,
+        marginRight: 15,
+        marginLeft: 15,
+        width: WIDTH - 60,
+    },
+    lineView: {
+        borderBottomColor: COLOR.BRIGHT_GRAY,
+        marginTop: 5,
+        borderBottomWidth: 1,
+        marginRight: 15,
+        marginLeft: 15,
+        width: WIDTH - 60,
+    },
 });
 
 export default styles;

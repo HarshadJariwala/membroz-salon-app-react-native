@@ -111,7 +111,7 @@ const OurServiceDetailScreen = (props) => {
             if (element._id === item._id) { element.selected = false }
         });
         setServiceList(tempArry);
-        Toast.show("Remove Successfully", Toast.SHORT);
+        Toast.show(languageConfig.removesuccessfully, Toast.SHORT);
         await removeLocalWishList(item);
     }
 
@@ -184,7 +184,7 @@ const OurServiceDetailScreen = (props) => {
                 </View>
                 <View style={{ alignSelf: KEY.FLEX_END, marginTop: -14 }}>
                     <TouchableOpacity style={styles.upgrade} onPress={() => onPressBooking(item)} >
-                        <FontAwesome5 name='plus' size={20} color={COLOR.WHITE} />
+                        <FontAwesome5 name='plus' size={15} color={COLOR.WHITE} />
                     </TouchableOpacity>
                 </View>
             </View>

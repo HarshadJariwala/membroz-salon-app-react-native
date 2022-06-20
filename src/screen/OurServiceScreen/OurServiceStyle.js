@@ -45,16 +45,16 @@ const styles = StyleSheet.create({
         fontWeight: FONT.FONT_BOLD,
         textTransform: KEY.CAPITALIZE,
         color: COLOR.BLACK,
-        marginLeft: 20,
-        marginRight: 20
+        marginLeft: 15,
+        marginRight: 15
     },
     activeTextStyle: {
         fontSize: FONT.FONT_SIZE_14,
         fontWeight: FONT.FONT_BOLD,
         textTransform: KEY.CAPITALIZE,
         color: COLOR.WHITE,
-        marginLeft: 20,
-        marginRight: 20
+        marginLeft: 15,
+        marginRight: 15
     },
     img_card: {
         width: WIDTH - 30,
