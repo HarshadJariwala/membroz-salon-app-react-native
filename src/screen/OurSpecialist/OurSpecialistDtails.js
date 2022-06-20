@@ -131,7 +131,7 @@ const OurSpecialistDtails = (props) => {
                                     <Text style={{
                                         fontSize: FONT.FONT_SIZE_16, color: COLOR.BLACK,
                                         fontWeight: FONT.FONT_BOLD
-                                    }}>{moment(oursSpeacilistDetails && oursSpeacilistDetails.property && oursSpeacilistDetails.property.joiningdate).format('MMMM DD,YYYY')}</Text>
+                                    }}>{oursSpeacilistDetails && oursSpeacilistDetails.property.joiningdate ? moment(oursSpeacilistDetails.property.joiningdate).format('MMMM DD,YYYY') : " --- "}</Text>
                                 </View>
                             </View>
                         </View>
