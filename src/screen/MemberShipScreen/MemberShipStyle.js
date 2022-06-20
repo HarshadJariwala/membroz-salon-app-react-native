@@ -29,7 +29,8 @@ const styles = StyleSheet.create({
     },
     headertext: {
         marginTop: 10,
-        marginLeft: -WIDTH / 2 - 40,
+        alignSelf: KEY.FLEX_START,
+        marginLeft: 15,
         fontSize: FONT.FONT_SIZE_18,
         fontWeight: FONT.FONT_BOLD,
         color: COLOR.BLACK,

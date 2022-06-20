@@ -179,6 +179,7 @@ export default {
     alltext: "All",
     servicename: "Service Name",
     aboutmembership: "About Membership",
+    goldmembershiptext: "Gold Membership",
     exploreclubs: "Explore Clubs",
     overview: "Overview",
     benefits: "Benefits",
