@@ -37,7 +37,6 @@ const MemberShipScreen = (props) => {
     const [loading, setLoading] = useState(false);
     const [currencySymbol, setCurrencySymbol] = useState(null);
     const [memberProfilePic, setMemberProfilePic] = useState(null);
-    const [memberNumber, setMemberNumber] = useState(null);
     const [memberName, setMemberName] = useState(null);
     const [membershipPlan, setMembershipPlan] = useState(null);
     const [memberInfo, setMemberInfo] = useState(null);
@@ -62,13 +61,13 @@ const MemberShipScreen = (props) => {
 
     useEffect(() => {
     }, [membershipPlan, membershipcost, memberProfilePic, membershipstart,
-        branchname, membershipend, memberName, membershipList])
+        branchname, membershipend, memberName, membershipList, loading])
 
     const getCallBackScreen = () => {
         //LANGUAGE MANAGEMENT FUNCTION
         MemberLanguage();
         if (memberInfo) {
-            setLoading(false);
+            setLoading(true);
             setMembershipPlan(memberInfo?.membershipid?.property?.membershipname);
             setMembershipcost(memberInfo?.membershipid?.property?.cost);
             setMembershipstart(memberInfo.membershipstart);
@@ -82,12 +81,10 @@ const MemberShipScreen = (props) => {
     const getMemberDeatilsLocalStorage = async () => {
         var memberInfo = await LocalService.LocalStorageService();
         if (memberInfo) {
-            console.log("memberInfo", memberInfo);
             const response = getCurrency(memberInfo.branchid.currency);
             setMemberInfo(memberInfo);
             setCurrencySymbol(response);
             setMemberProfilePic(memberInfo?.profilepic);
-            setMemberNumber(memberInfo.membernumber);
             setMemberName(memberInfo.fullname);
             setMembershipPlan("Hair Cut");
             setMembershipcost(200);
@@ -99,16 +96,13 @@ const MemberShipScreen = (props) => {
     }
 
     const getMembershipList = async (id) => {
-        console.log("id", id)
         try {
             const response = await getByMembershipService(id);
             if (response.data != null && response.data != 'undefind' && response.status == 200) {
-                console.log("response", response)
                 setMembershipList(response.data);
                 setLoading(false);
             }
         } catch (error) {
-            console.log(`error`, error);
             setLoading(false);
             firebase.crashlytics().recordError(error);
         }
@@ -117,7 +111,6 @@ const MemberShipScreen = (props) => {
     //RENDER MEMBERSHIP LIST USING FLATLIST
     const renderMembership = ({ item }) => (
         <>
-
             <View style={{ flexDirection: KEY.ROW, marginTop: 10 }}>
                 <View style={styles.rounfIconStyle}>
                     <MaterialCommunityIcons name='wallet-membership' size={20} color={COLOR.DEFALUTCOLOR} />
@@ -140,7 +133,6 @@ const MemberShipScreen = (props) => {
                     </TouchableOpacity>
                 </View>
             </View>
-
             <View style={{
                 borderWidth: 0.2, marginTop: 15, borderColor: COLOR.LINE_COLOR,
                 marginRight: 15, marginLeft: 15, width: WIDTH - 60
@@ -163,7 +155,6 @@ const MemberShipScreen = (props) => {
                         <Text style={{ fontSize: FONT.FONT_SIZE_14, color: COLOR.GRANITE_GRAY, marginLeft: 5 }}>{branchname}</Text>
                     </View>
                 </View>
-
                 <View style={styles.viewMain}>
                     <View style={styles.viewRectangle}>
                         <Text style={styles.headertext}>{languageConfig.membership}</Text>
@@ -245,120 +236,24 @@ const MemberShipScreen = (props) => {
                         </View>
                     </View>
                 </View>
-                <View style={styles.viewMain}>
-                    <View style={styles.viewRectangle}>
-                        <Text style={[styles.headertext, {}]}>{languageConfig.membershipplan}</Text>
-                        <FlatList
-                            style={{ marginTop: 5 }}
-                            data={membershipList}
-                            showsVerticalScrollIndicator={false}
-                            renderItem={renderMembership}
-                            contentContainerStyle={{ paddingBottom: 20 }}
-                            keyExtractor={item => item._id}
-                        />
-                    </View>
-                </View>
-
-                {/* <View style={styles.viewMain}>
-                    <View style={styles.viewRectangle}>
-                        <View style={{
-                            flexDirection: KEY.ROW, marginTop: 10,
-                            alignSelf: KEY.FLEX_START, marginLeft: 15
-                        }}>
-                            <Text style={{
-                                fontSize: FONT.FONT_SIZE_18, textTransform: KEY.CAPITALIZE, color: COLOR.BLACK,
-                                fontWeight: FONT.FONT_BOLD
-                            }}>{languageConfig.packagetext}</Text>
-                        </View>
-
-                        <View style={{ marginTop: 15 }}>
-                            <View style={{ flexDirection: KEY.COLUMN, marginBottom: 10 }}>
-                                <TouchableOpacity
-                                    style={{ flexDirection: KEY.ROW, alignItems: KEY.CENTER, justifyContent: KEY.SPACEBETWEEN }}>
-                                    <Text style={{
-                                        fontSize: FONT.FONT_SIZE_16, textTransform: KEY.CAPITALIZE, color: COLOR.BLACK,
-                                        fontWeight: FONT.FONT_BOLD, width: WIDTH / 2
-                                    }} >{'Yoga Class'}</Text>
-                                    <Text style={{
-                                        fontSize: FONT.FONT_SIZE_16, textTransform: KEY.CAPITALIZE, color: COLOR.BLACK,
-                                        fontWeight: FONT.FONT_BOLD
-                                    }} >{'$500'}</Text>
-                                </TouchableOpacity>
-                                <Text style={{
-                                    fontSize: FONT.FONT_SIZE_14, textTransform: KEY.CAPITALIZE, color: COLOR.GRANITE_GRAY,
-                                    width: WIDTH / 2, marginTop: 5
-                                }} >{languageConfig.validtill + moment().format("MMMM DD,YYYY")} </Text>
-                            </View>
-                            <View style={{ borderBottomColor: COLOR.LINE_COLOR, borderBottomWidth: 1, width: WIDTH - 60 }} />
-                        </View>
-
-                        <View style={{ marginTop: 10 }}>
-                            <View style={{ flexDirection: KEY.COLUMN, marginBottom: 10 }}>
-                                <TouchableOpacity
-                                    style={{ flexDirection: KEY.ROW, alignItems: KEY.CENTER, justifyContent: KEY.SPACEBETWEEN }}>
-                                    <Text style={{
-                                        fontSize: FONT.FONT_SIZE_16, textTransform: KEY.CAPITALIZE, color: COLOR.BLACK,
-                                        fontWeight: FONT.FONT_BOLD, width: WIDTH / 2
-                                    }} >{'Yoga Class'}</Text>
-                                    <Text style={{
-                                        fontSize: FONT.FONT_SIZE_16, textTransform: KEY.CAPITALIZE, color: COLOR.BLACK,
-                                        fontWeight: FONT.FONT_BOLD
-                                    }} >{'$500'}</Text>
-                                </TouchableOpacity>
-                                <Text style={{
-                                    fontSize: FONT.FONT_SIZE_14, textTransform: KEY.CAPITALIZE, color: COLOR.GRANITE_GRAY,
-                                    width: WIDTH / 2, marginTop: 5
-                                }} >{languageConfig.validtill + moment().format("MMMM DD,YYYY")} </Text>
-                            </View>
-                            <View style={{ borderBottomColor: COLOR.LINE_COLOR, borderBottomWidth: 1, width: WIDTH - 60 }} />
-                        </View>
-
-                        <View style={{ marginTop: 10 }}>
-                            <View style={{ flexDirection: KEY.COLUMN, marginBottom: 10 }}>
-                                <TouchableOpacity
-                                    style={{ flexDirection: KEY.ROW, alignItems: KEY.CENTER, justifyContent: KEY.SPACEBETWEEN }}>
-                                    <Text style={{
-                                        fontSize: FONT.FONT_SIZE_16, textTransform: KEY.CAPITALIZE, color: COLOR.BLACK,
-                                        fontWeight: FONT.FONT_BOLD, width: WIDTH / 2
-                                    }} >{'Yoga Class'}</Text>
-                                    <Text style={{
-                                        fontSize: FONT.FONT_SIZE_16, textTransform: KEY.CAPITALIZE, color: COLOR.BLACK,
-                                        fontWeight: FONT.FONT_BOLD
-                                    }} >{'$500'}</Text>
-                                </TouchableOpacity>
-                                <Text style={{
-                                    fontSize: FONT.FONT_SIZE_14, textTransform: KEY.CAPITALIZE, color: COLOR.GRANITE_GRAY,
-                                    width: WIDTH / 2, marginTop: 5
-                                }} >{languageConfig.validtill + moment().format("MMMM DD,YYYY")} </Text>
-                            </View>
-                            <View style={{ borderBottomColor: COLOR.LINE_COLOR, borderBottomWidth: 1, width: WIDTH - 60 }} />
-                        </View>
-
-                        <View style={{ marginTop: 10 }}>
-                            <View style={{ flexDirection: KEY.COLUMN, marginBottom: 10 }}>
-                                <TouchableOpacity
-                                    style={{ flexDirection: KEY.ROW, alignItems: KEY.CENTER, justifyContent: KEY.SPACEBETWEEN }}>
-                                    <Text style={{
-                                        fontSize: FONT.FONT_SIZE_16, textTransform: KEY.CAPITALIZE, color: COLOR.BLACK,
-                                        fontWeight: FONT.FONT_BOLD, width: WIDTH / 2
-                                    }} >{'Yoga Class'}</Text>
-                                    <Text style={{
-                                        fontSize: FONT.FONT_SIZE_16, textTransform: KEY.CAPITALIZE, color: COLOR.BLACK,
-                                        fontWeight: FONT.FONT_BOLD
-                                    }} >{'$500'}</Text>
-                                </TouchableOpacity>
-                                <Text style={{
-                                    fontSize: FONT.FONT_SIZE_14, textTransform: KEY.CAPITALIZE, color: COLOR.GRANITE_GRAY,
-                                    width: WIDTH / 2, marginTop: 5
-                                }} >{languageConfig.validtill + moment().format("MMMM DD,YYYY")} </Text>
-                            </View>
-                            <View style={{ borderBottomColor: COLOR.LINE_COLOR, borderBottomWidth: 1, width: WIDTH - 60 }} />
+                {
+                    membershipList && membershipList.length > 0 &&
+                    <View style={styles.viewMain}>
+                        <View style={styles.viewRectangle}>
+                            <Text style={[styles.headertext, {}]}>{languageConfig.membershipplan}</Text>
+                            <FlatList
+                                style={{ marginTop: 5 }}
+                                data={membershipList}
+                                showsVerticalScrollIndicator={false}
+                                renderItem={renderMembership}
+                                contentContainerStyle={{ paddingBottom: 20 }}
+                                keyExtractor={item => item._id}
+                            />
                         </View>
                     </View>
-                    <View style={{ marginBottom: 80 }} />
-                </View> */}
+                }
             </ScrollView>
-        </SafeAreaView >
+        </SafeAreaView>
     )
 }
 
