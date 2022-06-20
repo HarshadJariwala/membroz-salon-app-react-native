@@ -26,7 +26,6 @@ const WishlistScreen = () => {
     const [logo, setLogo] = useState(null);
     const [loading, setLoading] = useState(false);
     const [serviceList, setServiceList] = useState([]);
-    const [selectCategory, setCategory] = useState(null);
     const [currencySymbol, setCurrencySymbol] = useState(null);
     const [serviceCategoryList, setServiceCategoryList] = useState([]);
 
@@ -38,7 +37,7 @@ const WishlistScreen = () => {
     }, []);
 
     useEffect(() => {
-    }, [loading, selectCategory]);
+    }, [loading]);
 
     //REMOTE DATA FATCH IN LOCAL STORAGE
     const RemoteController = async () => {
@@ -55,7 +54,6 @@ const WishlistScreen = () => {
         if (memberInfo) {
             setLoading(true);
             setCurrencySymbol(response);
-            const wishlist = await getLocalWishListService();
             getServiceCategoryList();
         } else {
             setLoading(false);
@@ -70,7 +68,8 @@ const WishlistScreen = () => {
                 let allOption = { _id: "12345678963", selected: true, property: { name: languageConfig.alltext } }
                 let temArry = [allOption, ...response.data];
                 setServiceCategoryList(temArry);
-                getServiceList();
+                const wishlist = await getLocalWishListService();
+                setServiceList(wishlist);
             }
         } catch (error) {
             setLoading(false);
@@ -100,7 +99,7 @@ const WishlistScreen = () => {
     const removeLocalWishListService = async (item) => {
         await removeLocalWishList(item);
         await getLocalWishListService();
-        Toast.show("remove Successfully", Toast.SHORT);
+        Toast.show(languageConfig.removesuccessfully, Toast.SHORT);
     }
 
     //SHARE BUTTON CLICK
