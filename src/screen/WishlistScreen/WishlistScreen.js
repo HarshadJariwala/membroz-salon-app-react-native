@@ -6,9 +6,9 @@ import {
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { getLocalWishList, removeLocalWishList } from '../../services/LocalService/LocalWishList';
 import { ServiceList } from '../../services/AppointmentService/ServiceList';
-import * as LocalService from '../../services/LocalService/LocalService';
 import { MemberLanguage } from '../../services/LocalService/LanguageService';
 import crashlytics, { firebase } from "@react-native-firebase/crashlytics";
+import * as LocalService from '../../services/LocalService/LocalService';
 import getCurrency from '../../services/getCurrencyService/getCurrency';
 import languageConfig from '../../languages/languageConfig';
 import * as SCREEN from '../../context/screen/screenName';
@@ -68,8 +68,8 @@ const WishlistScreen = () => {
                 let allOption = { _id: "12345678963", selected: true, property: { name: languageConfig.alltext } }
                 let temArry = [allOption, ...response.data];
                 setServiceCategoryList(temArry);
-                const wishlist = await getLocalWishListService();
-                setServiceList(wishlist);
+                await getLocalWishListService();
+
             }
         } catch (error) {
             setLoading(false);
@@ -80,17 +80,22 @@ const WishlistScreen = () => {
     //LOCAL WISH LIST MANAGE 
     const getLocalWishListService = async (id) => {
         const serviceArray = await getLocalWishList();
-        let tempServiceArry = [];
-        if (id) {
-            serviceArray.forEach(element => {
-                if (element.category._id === id) {
-                    tempServiceArry.push(element);
-                }
-            });
-            setServiceList(tempServiceArry);
-            setLoading(false);
+        if (serviceArray && serviceArray.length > 0) {
+            let tempServiceArry = [];
+            if (id) {
+                serviceArray.forEach(element => {
+                    if (element.category._id === id) {
+                        tempServiceArry.push(element);
+                    }
+                });
+                setServiceList(tempServiceArry);
+                setLoading(false);
+            } else {
+                setServiceList(serviceArray);
+                setLoading(false);
+            }
         } else {
-            setServiceList(serviceArray);
+            setServiceList([]);
             setLoading(false);
         }
     }
@@ -197,7 +202,6 @@ const WishlistScreen = () => {
             });
             categoryItem[index].selected = true;
             setServiceCategoryList(categoryItem);
-            setSelectCategory(item._id);
             if (languageConfig.alltext === item.property.name) {
                 getLocalWishListService();
             } else {
