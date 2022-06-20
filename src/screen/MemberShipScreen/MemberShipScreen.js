@@ -11,11 +11,12 @@ import {
     StatusBar, Image, Linking, Platform, Alert
 } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { getByMembershipService } from '../../services/MemberService/MemberService';
 import { MemberLanguage } from '../../services/LocalService/LanguageService';
 import crashlytics, { firebase } from "@react-native-firebase/crashlytics";
 import * as LocalService from '../../services/LocalService/LocalService';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import getCurrency from '../../services/getCurrencyService/getCurrency';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import languageConfig from '../../languages/languageConfig';
 import * as SCREEN from '../../context/screen/screenName';
 import { useFocusEffect } from '@react-navigation/native';
@@ -32,7 +33,7 @@ const HEIGHT = Dimensions.get('window').height;
 const WIDTH = Dimensions.get('window').width;
 
 const MemberShipScreen = (props) => {
-
+    const [loading, setLoading] = useState(false);
     const [currencySymbol, setCurrencySymbol] = useState(null);
     const [memberProfilePic, setMemberProfilePic] = useState(null);
     const [memberNumber, setMemberNumber] = useState(null);
@@ -43,26 +44,14 @@ const MemberShipScreen = (props) => {
     const [membershipstart, setMembershipstart] = useState(null);
     const [membershipend, setMembershipend] = useState(null);
     const [branchname, setBranchname] = useState(null);
+    const [membershipList, setMembershipList] = useState(null);
 
     useFocusEffect(
         React.useCallback(() => {
-            const getCallBackScreen = () => {
-                //LANGUAGE MANAGEMENT FUNCTION
-                MemberLanguage();
-                if (memberInfo) {
-                    console.log(`memberInfo`)
-                    getmemberid = memberInfo?._id;
-                    setMembershipPlan(memberInfo?.membershipid?.property?.membershipname);
-                    setMembershipcost(memberInfo?.membershipid?.property?.cost);
-                    setMembershipstart(memberInfo.membershipstart);
-                    setMembershipend(memberInfo.membershipend);
-                    setBranchname(memberInfo.branchid.branchname);
-                    setMemberName(memberInfo?.fullname);
-                }
-            }
             getCallBackScreen();
         }, [])
     );
+
     useEffect(() => {
         //LANGUAGE MANAGEMENT FUNCTION
         MemberLanguage();
@@ -74,11 +63,25 @@ const MemberShipScreen = (props) => {
     }, [membershipPlan, membershipcost, memberProfilePic, membershipstart,
         branchname, membershipend, memberName])
 
+    const getCallBackScreen = () => {
+        //LANGUAGE MANAGEMENT FUNCTION
+        MemberLanguage();
+        if (memberInfo) {
+            setLoading(false);
+            setMembershipPlan(memberInfo?.membershipid?.property?.membershipname);
+            setMembershipcost(memberInfo?.membershipid?.property?.cost);
+            setMembershipstart(memberInfo.membershipstart);
+            setMembershipend(memberInfo.membershipend);
+            setBranchname(memberInfo.branchid.branchname);
+            setMemberName(memberInfo?.fullname);
+        }
+    }
+
     //GET MEMBER DATA IN MOBILE LOCAL STORAGE
     const getMemberDeatilsLocalStorage = async () => {
         var memberInfo = await LocalService.LocalStorageService();
         if (memberInfo) {
-            console.log("memberInfo", memberInfo)
+            console.log("memberInfo", memberInfo);
             const response = getCurrency(memberInfo.branchid.currency);
             setMemberInfo(memberInfo);
             setCurrencySymbol(response);
@@ -90,8 +93,48 @@ const MemberShipScreen = (props) => {
             setMembershipstart(new Date());
             setMembershipend(new Date());
             setBranchname(memberInfo.branchid?.branchname);
+            getMembershipList(memberInfo.branchid?._id)
         }
     }
+
+    const getMembershipList = (id) => {
+        try {
+            const response = await getByMembershipService(id);
+            if (response.data != null && response.data != 'undefind' && response.status == 200) {
+                setMembershipList(response.data);
+                setLoading(false);
+            }
+        } catch (error) {
+            console.log(`error`, error);
+            setLoading(false);
+            firebase.crashlytics().recordError(error);
+        }
+    }
+
+    // //RENDER MEMBERSHIP LIST USING FLATLIST
+    // const renderMembership = ({ item }) => (
+    //     <View>
+    //         <TouchableOpacity style={{ justifyContent: KEY.SPACEBETWEEN, alignItems: KEY.CENTER, flexDirection: KEY.ROW, marginTop: 5 }}>
+    //             <View style={{ justifyContent: KEY.FLEX_START, flexDirection: KEY.ROW, alignItems: KEY.CENTER, marginLeft: 20 }}>
+    //                 <View style={styles.rounfIconStyle}>
+    //                     {/* <FONTAWESOME5 NAME='MONEY-BILL-WAVE-ALT' SIZE={20} COLOR={COLOR.DEFALUTCOLOR} /> */}
+    //                     <Image style={{ width: 20, height: 15, tintColor: COLOR.DEFALUTCOLOR, }} source={IMAGE.MONEYICON} />
+    //                 </View>
+    //                 <View style={{ flexDirection: KEY.COLUMN, alignItems: KEY.FLEX_START, marginLeft: 20, width: 150 }}>
+    //                     <Text style={{ fontSize: FONT.FONT_SIZE_16, textTransform: KEY.CAPITALIZE, color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD }}>
+    //                         {item && item.item && item.item.paymentterms && item.item.paymentterms.paymentitem && item.item.paymentterms.paymentitem.paymentitemname ? item.item.paymentterms.paymentitem.paymentitemname : languageConfig.noterms}</Text>
+    //                     <Text style={styles.text}>{moment(item && item.paymentdate).format('lll')}</Text>
+    //                 </View>
+    //             </View>
+    //             <View style={{ justifyContent: KEY.FLEX_END, marginRight: 20 }}>
+    //                 <Text style={{ color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD, fontSize: FONT.FONT_SIZE_14 }}>{currencySymbol + Number(item && item.paidamount).toFixed(2)}</Text>
+
+    //             </View>
+    //         </TouchableOpacity>
+    //         <View style={{ borderBottomColor: COLOR.BRIGHT_GRAY, borderBottomWidth: 1, marginTop: 10, marginRight: 15, marginLeft: 15 }} />
+    //     </View>
+    // )
+
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: COLOR.BACKGROUNDCOLOR }}>
             <StatusBar hidden={false} translucent={true} backgroundColor={COLOR.STATUSBARCOLOR} barStyle={KEY.DARK_CONTENT} />
