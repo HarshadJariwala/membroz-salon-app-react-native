@@ -21,7 +21,7 @@ import styles from './InviteFriendStyle';
 const HEIGHT = Dimensions.get('window').height;
 const WIDTH = Dimensions.get('window').width;
 
-const InviteFriendScreen = () => {
+const InviteFriendScreen = (props) => {
     const [loading, setLoading] = useState(false);
     const [memberInfo, setMemberInfo] = useState(null);
     const [memberNumber, setMemberNumber] = useState(null);
@@ -60,6 +60,9 @@ const InviteFriendScreen = () => {
             //alert(error.message);
         }
     }
+    const onPressToShareNow = () => {
+        props.navigation.navigate(SCREEN.WALLETSCREEN);
+    }
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: COLOR.BACKGROUNDCOLOR }}>
@@ -93,12 +96,14 @@ const InviteFriendScreen = () => {
                                     }}>{languageConfig.totalreawardstext}</Text>
                                 </View>
                                 <View style={{ flexDirection: KEY.COLUMN, justifyContent: KEY.CENTER, alignItems: KEY.CENTER, marginTop: 5 }}>
-                                    <Text style={{ fontSize: FONT.FONT_SIZE_20, color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD }}>{"450"}</Text>
-                                    <Text style={{
-                                        fontSize: FONT.FONT_SIZE_16,
-                                        color: COLOR.DEFALUTCOLOR,
-                                        marginTop: 10
-                                    }}>{languageConfig.totalinvitedtext1}</Text>
+                                    <Text style={{ fontSize: FONT.FONT_SIZE_20, color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD }}>{"0"}</Text>
+                                    <TouchableOpacity onPress={() => onPressToShareNow()}>
+                                        <Text style={{
+                                            fontSize: FONT.FONT_SIZE_16,
+                                            color: COLOR.DEFALUTCOLOR,
+                                            marginTop: 10
+                                        }}>{languageConfig.totalinvitedtext1}</Text>
+                                    </TouchableOpacity>
                                 </View>
                             </View>
                         </View>
@@ -111,7 +116,7 @@ const InviteFriendScreen = () => {
                                     }}>{languageConfig.totalinvitedtext}</Text>
                                 </View>
                                 <View style={{ flexDirection: KEY.COLOR, justifyContent: KEY.CENTER, alignItems: KEY.CENTER, marginTop: 5 }}>
-                                    <Text style={{ fontSize: FONT.FONT_SIZE_20, color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD }}>{"45"}</Text>
+                                    <Text style={{ fontSize: FONT.FONT_SIZE_20, color: COLOR.BLACK, fontWeight: FONT.FONT_BOLD }}>{"0"}</Text>
                                     <Text style={{
                                         fontSize: FONT.FONT_SIZE_16,
                                         color: COLOR.BLACK,

@@ -3,6 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 
 import FORGETPASSWORDSCREEN from '../screen/ForgetPasswordScreen/ForgetPasswordScreen';
 import PAYMENTDETAILSSCREEN from '../screen/PaymentDetailsScreen/PaymentDetailsScreen';
@@ -929,23 +930,51 @@ const TabNavigation = () => {
                 headerTintColor: COLOR.BLACK
             })}
             backBehavior="initialRoute" >
-            <Tab.Screen name="Home" component={HomeStackScreen} options={{ headerShown: false, title: languageConfig.home }} />
+            <Tab.Screen name="Home" component={HomeStackScreen} options={({ route }) => ({ headerShown: false, title: languageConfig.home, tabBarStyle: { display: getTabBarVisibility(route) } })} />
             {memberInfo &&
-                <Tab.Screen name="MyBooking" component={MyBookingStackScreen} options={{ headerShown: false, title: languageConfig.mybooking }} />
+                <Tab.Screen name="MyBooking" component={MyBookingStackScreen} options={({ route }) => ({ headerShown: false, title: languageConfig.mybooking, tabBarStyle: { display: getTabBarVisibility(route) } })} />
             }
-            <Tab.Screen name="ourservice" component={OurServiceStackScreen} options={{ headerShown: false, title: languageConfig.services }} />
-            <Tab.Screen name="Package" component={packagesStackScreen} options={{ headerShown: false, title: languageConfig.packages }} />
+            <Tab.Screen name="ourservice" component={OurServiceStackScreen} options={({ route }) => ({ headerShown: false, title: languageConfig.services, tabBarStyle: { display: getTabBarVisibility(route) } })} />
+            <Tab.Screen name="Package" component={packagesStackScreen} options={({ route }) => ({ headerShown: false, title: languageConfig.packages, tabBarStyle: { display: getTabBarVisibility(route) } })} />
             {!memberInfo &&
-                <Tab.Screen name="Support" component={SupportStackScreen} options={{ headerShown: false, title: languageConfig.support }} />
+                <Tab.Screen name="Support" component={SupportStackScreen} options={({ route }) => ({ headerShown: false, title: languageConfig.support, tabBarStyle: { display: getTabBarVisibility(route) } })} />
             }
             {!memberInfo &&
-                <Tab.Screen name="Login" component={AuthStackScreen} options={{ headerShown: false, title: languageConfig.loginbtn }} />
+                <Tab.Screen name="Login" component={AuthStackScreen} options={({ route }) => ({ headerShown: false, title: languageConfig.loginbtn, tabBarStyle: { display: getTabBarVisibility(route) } })} />
             }
             {memberInfo &&
-                <Tab.Screen name="Profile" component={MyProfileStackScreen} options={{ headerShown: false, title: languageConfig.myprofile }} />
+                <Tab.Screen name="Profile" component={MyProfileStackScreen} options={({ route }) => ({ headerShown: false, title: languageConfig.myprofile, tabBarStyle: { display: getTabBarVisibility(route) } })} />
             }
         </Tab.Navigator>
     )
+}
+
+const getTabBarVisibility = (route) => {
+    console.log(route);
+    const routeName = getFocusedRouteNameFromRoute(route) ?? 'Feed';
+    console.log(routeName);
+
+    if (routeName == "NotificationScreen") {
+        return 'none';
+    } else if (routeName == "OurServiceDetailScreen") {
+        return 'none';
+    } else if (routeName == "BookServiceScreen") {
+        return 'none';
+    } else if (routeName == "BookingPaymentScreen") {
+        return 'none';
+    } else if (routeName == "InviteFriendScreen") {
+        return 'none';
+    } else if (routeName == "OurSpecialistDtails") {
+        return 'none';
+    } else if (routeName == "ExploreStatus") {
+        return 'none';
+    } else if (routeName == "LoginScreen") {
+        return 'none';
+    } else if (routeName == "RegisterScreen") {
+        return 'none';
+    } else if (routeName == "PackageDetailScreen") {
+        return 'none';
+    }
 }
 
 export default NavigationsApp = () => {

@@ -91,6 +91,7 @@ const UpdateProfileScreen = (props) => {
     //CHECK FULL NAME VALIDATION
     const CheckFullName = (fullname) => {
         if (!fullname || fullname.length <= 0) {
+            console.log(`fullname`)
             setFullNameError(languageConfig.mobileerror);
             return;
         }
@@ -147,6 +148,7 @@ const UpdateProfileScreen = (props) => {
         try {
             const response = await patchMemberService(memberID, member);
             if (response.data != null && response.data != 'undefind' && response.status == 200) {
+                console.log(`response`, response);
                 props.navigation.replace(SCREEN.MYPROFILESCREEN);
                 LocalService.AuthenticateMember(response.data);
                 setLoading(false);

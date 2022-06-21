@@ -77,7 +77,7 @@ const OfferScreen = (props) => {
 
     //OFFERS RENDER FUNCTION
     const renderOffers = ({ item }) => (
-        <TouchableOpacity style={{ marginBottom: 0 }}>
+        <View style={{ marginBottom: 0 }}>
             <View style={styles.viewSquareTwoColumn}>
                 <View style={{
                     marginBottom: 5, borderRadius: 100,
@@ -99,7 +99,7 @@ const OfferScreen = (props) => {
                     </Text>
                 }
             </View>
-        </TouchableOpacity>
+        </View>
     )
 
     //TIME OUT FUNCTION

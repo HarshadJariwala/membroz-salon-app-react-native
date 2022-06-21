@@ -67,8 +67,8 @@ const RewardPointScreen = (props) => {
 
     //OFFERS RENDER FUNCTION
     const renderRewardPoint = ({ item }) => (
-        <TouchableOpacity style={{ marginBottom: 0 }}>
-            <TouchableOpacity style={styles.viewSquareTwoColumn}>
+        <View style={{ marginBottom: 0 }}>
+            <View style={styles.viewSquareTwoColumn}>
                 <Text numberOfLines={1} style={styles.titleText}>
                     {item.couponcode}
                 </Text>
@@ -84,8 +84,8 @@ const RewardPointScreen = (props) => {
                 <View style={styles.rewardpointStyle}>
                     <Text style={styles.rewardpointtext}>{item.value + ' ' + "points"}</Text>
                 </View>
-            </TouchableOpacity>
-        </TouchableOpacity>
+            </View>
+        </View>
     )
 
     //TIME OUT FUNCTION
