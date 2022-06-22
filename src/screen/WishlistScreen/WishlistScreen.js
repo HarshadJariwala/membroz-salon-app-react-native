@@ -148,7 +148,7 @@ const WishlistScreen = () => {
                     <Ionicons name='location-outline' size={20} color={COLOR.DEFALUTCOLOR} />
                     <Text numberOfLines={1}
                         style={{ marginLeft: 5, fontSize: FONT.FONT_SIZE_14, color: COLOR.BLACK, width: WIDTH / 3 }}>
-                        {item.title}
+                        {item.branchid.branchname}
                     </Text>
                 </View>
                 <View style={{ flexDirection: KEY.ROW }}>

@@ -158,7 +158,7 @@ const OurServiceDetailScreen = (props) => {
                     <Ionicons name='location-outline' size={20} color={COLOR.DEFALUTCOLOR} />
                     <Text numberOfLines={1}
                         style={{ marginLeft: 5, fontSize: FONT.FONT_SIZE_14, color: COLOR.BLACK, width: WIDTH / 3 }}>
-                        {item.title}
+                        {item.branchid.branchname}
                     </Text>
                 </View>
                 <View style={{ flexDirection: KEY.ROW }}>
@@ -267,7 +267,7 @@ const OurServiceDetailScreen = (props) => {
                             <Ionicons name='location-outline' size={20} color={COLOR.DEFALUTCOLOR} />
                             <Text numberOfLines={1}
                                 style={{ color: COLOR.BLACK, fontSize: FONT.FONT_SIZE_14, width: "25%" }}>
-                                {serviceDetails && serviceDetails.title} </Text>
+                                {serviceDetails && serviceDetails.branchid.branchname} </Text>
                             <View style={{ flexDirection: KEY.ROW, marginLeft: 10, alignItems: KEY.CENTER }}>
                                 <Image source={IMAGE.TIMEICON} style={{ tintColor: COLOR.DEFALUTCOLOR, height: 20, width: 16 }} />
                                 <Text style={{ marginLeft: 5, color: COLOR.BLACK, fontSize: FONT.FONT_SIZE_14 }}> {serviceDetails && serviceDetails.duration ? serviceDetails.duration + ' ' + languageConfig.mintext : '--'} </Text>

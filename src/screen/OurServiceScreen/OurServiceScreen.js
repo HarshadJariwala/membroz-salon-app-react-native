@@ -110,6 +110,7 @@ const OurServiceScreen = (props) => {
         try {
             const response = await ServiceTypeList(id);
             if (response.data != null && response.data != 'undefind' && response.status == 200) {
+                console.log("response", response);
                 setServiceList(response.data);
                 let localWishLists = await getLocalWishList();
                 let renderData = [...response.data];
@@ -198,7 +199,7 @@ const OurServiceScreen = (props) => {
                     <Ionicons name='location-outline' size={20} color={COLOR.DEFALUTCOLOR} />
                     <Text numberOfLines={1}
                         style={{ marginLeft: 5, fontSize: FONT.FONT_SIZE_14, color: COLOR.BLACK, width: WIDTH / 3 }}>
-                        {item.title}
+                        {item.branchid.branchname}
                     </Text>
                 </View>
                 <View style={{ flexDirection: KEY.ROW }}>
