@@ -31,7 +31,8 @@ const styles = StyleSheet.create({
         borderColor: COLOR.DEFALUTCOLOR,
         borderWidth: 2,
         justifyContent: KEY.CENTER,
-        alignItems: KEY.CENTER
+        alignItems: KEY.CENTER,
+        backgroundColor: COLOR.WELDON_BLUE,
     },
     rectangleText: {
         fontSize: FONT.FONT_SIZE_14,

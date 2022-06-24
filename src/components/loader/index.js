@@ -14,8 +14,8 @@ const styles = StyleSheet.create({
   loaderContainer: {
     zIndex: 1,
     elevation: 2,
-    height,
-    width,
+    height: "100%",
+    width: "100%",
     position: KEY.ABSOLUTE,
     alignItems: KEY.CENTER,
     justifyContent: KEY.CENTER,

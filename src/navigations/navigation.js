@@ -124,7 +124,6 @@ const NavigationDrawerStructureRight = (props) => {
     const getNotification = async (id) => {
         try {
             const response = await NotificationService(id);
-            console.log(`response getNotification`, response.data);
             setNotification(response.data.length)
         } catch (error) {
             firebase.crashlytics().recordError(error);
@@ -896,7 +895,7 @@ const TabNavigation = () => {
                         return (
                             <Image
                                 source={IMAGE.USERICON}
-                                style={{ width: 25, height: 25, tintColor: color }}
+                                style={{ width: 26, height: 24, tintColor: color }}
                             />
                         );
                     } else if (route.name === 'Support') {
@@ -911,7 +910,7 @@ const TabNavigation = () => {
                         return (
                             <Image
                                 source={IMAGE.USERICON}
-                                style={{ width: 25, height: 25, tintColor: color }}
+                                style={{ width: 26, height: 24, tintColor: color }}
                             />
                         );
                     }
@@ -949,10 +948,11 @@ const TabNavigation = () => {
     )
 }
 
+//CUSTOME TAB VISIBLE INTO PARTICULAR SCREEN 
 const getTabBarVisibility = (route) => {
-    console.log(route);
+    //console.log(route);
     const routeName = getFocusedRouteNameFromRoute(route) ?? 'Feed';
-    console.log(routeName);
+    //console.log("routeName", routeName);
 
     if (routeName == "NotificationScreen") {
         return 'none';
@@ -974,6 +974,8 @@ const getTabBarVisibility = (route) => {
         return 'none';
     } else if (routeName == "PackageDetailScreen") {
         return 'none';
+    } else if (route.name == "Login") {
+        return 'none';
     }
 }
 
@@ -984,7 +986,6 @@ export default NavigationsApp = () => {
                 <Stack.Screen name="SplashScreen" component={SPLASHSCREEN} options={{ headerShown: false }} />
                 <Stack.Screen name="TabNavigation" component={TabNavigation} options={{ headerShown: false }} />
                 <Stack.Screen name="Auth" component={AuthStackScreen} options={{ headerShown: false }} />
-                {/* <Stack.Screen name="MainScreen" component={HomeStackScreen} options={{ headerShown: false }} /> */}
             </Stack.Navigator>
         </NavigationContainer>
     )
