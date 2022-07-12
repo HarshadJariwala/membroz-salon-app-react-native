@@ -856,10 +856,7 @@ const TabNavigation = () => {
             setMemberInfo(true);
         }
     }
-
-    useEffect(() => {
-    }, [memberInfo])
-
+    useEffect(() => { }, [memberInfo])
     return (
         <Tab.Navigator
             screenOptions={({ route }) => ({
@@ -924,7 +921,6 @@ const TabNavigation = () => {
                     backgroundColor: COLOR.WHITE,
                     //height: 60
                 },
-
                 tabBarLabelStyle: { fontSize: 12, textTransform: KEY.CAPITALIZE },
                 tabBarHideOnKeyboard: true,
                 headerTintColor: COLOR.BLACK

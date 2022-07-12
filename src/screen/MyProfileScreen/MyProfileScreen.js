@@ -262,7 +262,7 @@ const MyProfileScreen = ({ navigation }) => {
                         </TouchableOpacity>
                         <View style={{
                             borderWidth: 0.2, marginTop: 5, borderColor: COLOR.LINE_COLOR,
-                            marginRight: 15, marginLeft: 15, width: WIDTH - 60
+                            marginRight: 15, marginLeft: 15, width: WIDTH - 60,
                         }} />
                         <TouchableOpacity onPress={() => navigation.navigate(SCREEN.WISHLISTSCREEN)}>
                             <View style={styles.viewCard}>
