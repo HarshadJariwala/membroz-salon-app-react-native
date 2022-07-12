@@ -51,6 +51,7 @@ const styles = StyleSheet.create({
         fontSize: FONT.FONT_SIZE_16,
         color: COLOR.BLACK,
         fontWeight: FONT.FONT_BOLD,
+        width: '80%'
     },
     listTab: {
         marginTop: 0,
