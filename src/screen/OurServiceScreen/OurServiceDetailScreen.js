@@ -141,7 +141,7 @@ const OurServiceDetailScreen = (props) => {
 
     //RENDER SERVICE LIST USING FLATLIST
     const renderService = ({ item }) => (
-        <View style={styles.img_card}>
+        <TouchableOpacity style={styles.img_card} onPress={() => setServiceDetails(item)}>
             <Image style={styles.img}
                 source={{ uri: item.gallery && item.gallery[0] && item.gallery[0].attachment ? item.gallery[0].attachment : logo }} />
             <View style={{ flexDirection: KEY.COLUMN, marginLeft: 10, width: WIDTH - 140 }}>
@@ -183,12 +183,12 @@ const OurServiceDetailScreen = (props) => {
                     </View>
                 </View>
                 <View style={{ alignSelf: KEY.FLEX_END, marginTop: -14 }}>
-                    <TouchableOpacity style={styles.upgrade} onPress={() => onPressBooking(item)} >
+                    <TouchableOpacity style={styles.upgrade} onPress={() => setServiceDetails(item)}>
                         <FontAwesome5 name='plus' size={15} color={COLOR.WHITE} />
                     </TouchableOpacity>
                 </View>
             </View>
-        </View>
+        </TouchableOpacity>
     )
 
     //SHARE BUTTON CLICK
@@ -277,14 +277,14 @@ const OurServiceDetailScreen = (props) => {
                                     <Ionicons name='share-social-outline' size={25} color={COLOR.DEFALUTCOLOR} />
                                 </TouchableOpacity>
                                 {
-                                    serviceDetails && serviceDetails.selected === true ?
-                                        <View>
+                                    serviceDetails && serviceDetails.selected == true ?
+                                        <TouchableOpacity onPress={() => removeLocalWishListService(serviceDetails)}>
                                             <Ionicons name='heart' size={25} color={COLOR.DEFALUTCOLOR} />
-                                        </View>
+                                        </TouchableOpacity>
                                         :
-                                        <View>
+                                        <TouchableOpacity onPress={() => onPressAddWishService(serviceDetails)}>
                                             <Ionicons name='ios-heart-outline' size={25} color={COLOR.DEFALUTCOLOR} />
-                                        </View>
+                                        </TouchableOpacity>
                                 }
                             </View>
                         </View>

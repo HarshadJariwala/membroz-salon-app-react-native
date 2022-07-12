@@ -683,7 +683,7 @@ const OurServiceStackScreen = ({ navigation }) => {
                 name="OurServiceScreen"
                 component={OURSERVICESCREEN}
                 options={{
-                    title: "ourservice",
+                    title: "Our Service",
                     headerLeft: () =>
                         <NavigationDrawerStructureLeft
                             navigationProps={navigation}
@@ -736,7 +736,7 @@ const MyBookingStackScreen = ({ navigation }) => {
     )
 }
 
-const packagesStackScreen = ({ navigation }) => {
+const PackagesStackScreen = ({ navigation }) => {
     return (
         <Stack.Navigator initialRouteName='Package'
             screenOptions={{ headerShadowVisible: false }}>
@@ -934,7 +934,7 @@ const TabNavigation = () => {
                 <Tab.Screen name="MyBooking" component={MyBookingStackScreen} options={({ route }) => ({ headerShown: false, title: languageConfig.mybooking, tabBarStyle: { display: getTabBarVisibility(route) } })} />
             }
             <Tab.Screen name="ourservice" component={OurServiceStackScreen} options={({ route }) => ({ headerShown: false, title: languageConfig.services, tabBarStyle: { display: getTabBarVisibility(route) } })} />
-            <Tab.Screen name="Package" component={packagesStackScreen} options={({ route }) => ({ headerShown: false, title: languageConfig.packages, tabBarStyle: { display: getTabBarVisibility(route) } })} />
+            <Tab.Screen name="Package" component={PackagesStackScreen} options={({ route }) => ({ headerShown: false, title: languageConfig.packages, tabBarStyle: { display: getTabBarVisibility(route) } })} />
             {!memberInfo &&
                 <Tab.Screen name="Support" component={SupportStackScreen} options={({ route }) => ({ headerShown: false, title: languageConfig.support, tabBarStyle: { display: getTabBarVisibility(route) } })} />
             }

@@ -363,13 +363,14 @@ const HomeScreen = (props) => {
 
     //RENDER SPECIALIST INTO FLATLIST
     const renderMyTeamList = ({ item }) => (
-        <View style={{ flexDirection: KEY.COLUMN, paddingHorizontal: 5 }}>
+        <TouchableOpacity style={{ flexDirection: KEY.COLUMN, paddingHorizontal: 5 }}
+            onPress={() => props.navigation.navigate(SCREEN.OURSPECIALISTDTAILS, { item })}>
             <View style={{ margin: 5, justifyContent: KEY.CENTER, alignItems: KEY.CENTER }}>
                 <Image style={!item.profilepic ? styles.noimagestyle : styles.dotImage1}
                     source={!item.profilepic ? IMAGE.USERPROFILE : { uri: item.profilepic }} />
             </View>
             <Text style={{ textAlign: KEY.CENTER, color: COLOR.BLACK, width: 100 }}>{item.property && item.property.fullname}</Text>
-        </View>
+        </TouchableOpacity>
     )
 
     //GET FETCH REWARD POINT DATA FROM API

@@ -110,7 +110,6 @@ const OurServiceScreen = (props) => {
         try {
             const response = await ServiceTypeList(id);
             if (response.data != null && response.data != 'undefind' && response.status == 200) {
-                console.log("response", response);
                 setServiceList(response.data);
                 let localWishLists = await getLocalWishList();
                 let renderData = [...response.data];
@@ -182,7 +181,7 @@ const OurServiceScreen = (props) => {
 
     //RENDER SERVICE LIST USING FLATLIST
     const renderService = ({ item }) => (
-        <View style={styles.img_card}>
+        <TouchableOpacity style={styles.img_card} onPress={() => onPressBooking(item)}>
             <Image style={styles.img}
                 source={{ uri: item.gallery && item.gallery[0] && item.gallery[0].attachment ? item.gallery[0].attachment : logo }} />
             <View style={{ flexDirection: KEY.COLUMN, marginLeft: 10, width: WIDTH - 140 }}>
@@ -231,7 +230,7 @@ const OurServiceScreen = (props) => {
                     </TouchableOpacity>
                 </View>
             </View>
-        </View>
+        </TouchableOpacity>
     )
 
     //SHARE BUTTON CLICK
