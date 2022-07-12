@@ -480,7 +480,7 @@ export default {
     class: "Class",
     updatepassword: "Update Password",
     workexperience: "Work Experience",
-    ourgymjoinedsince: "Our Salon joined since",
+    ourgymjoinedsince: "joined our Salon since",
     availabledays: "Available Days",
     availabletime: "Available Time",
     addressline1: "Address line 1",

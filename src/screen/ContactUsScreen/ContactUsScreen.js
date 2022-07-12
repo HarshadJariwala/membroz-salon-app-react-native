@@ -186,7 +186,7 @@ const ContactUsScreen = (props) => {
                                 <Image source={(IMAGE.TIMEICON)} style={{ height: 20, width: 16, tintColor: COLOR.DEFALUTCOLOR }} />
                                 <Text style={{
                                     alignItems: KEY.FLEX_START, fontSize: FONT.FONT_SIZE_16,
-                                    color: COLOR.BLACK, marginLeft: 5, width: WIDTH / 2, textTransform: KEY.CAPITALIZE
+                                    color: COLOR.BLACK, marginLeft: 5, width: WIDTH / 2, textTransform: KEY.UPPERCASE
                                 }}>{moment(startTime, ["HH.mm"]).format("hh:mm A") + ' - ' + moment(endTime, ["HH.mm"]).format("hh:mm A")}</Text>
                             </View>
                         </View>

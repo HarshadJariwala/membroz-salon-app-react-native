@@ -124,7 +124,6 @@ const NavigationDrawerStructureRight = (props) => {
     const getNotification = async (id) => {
         try {
             const response = await NotificationService(id);
-            console.log(`response getNotification`, response.data);
             setNotification(response.data.length)
         } catch (error) {
             firebase.crashlytics().recordError(error);
@@ -684,7 +683,7 @@ const OurServiceStackScreen = ({ navigation }) => {
                 name="OurServiceScreen"
                 component={OURSERVICESCREEN}
                 options={{
-                    title: "ourservice",
+                    title: "Our Service",
                     headerLeft: () =>
                         <NavigationDrawerStructureLeft
                             navigationProps={navigation}
@@ -737,7 +736,7 @@ const MyBookingStackScreen = ({ navigation }) => {
     )
 }
 
-const packagesStackScreen = ({ navigation }) => {
+const PackagesStackScreen = ({ navigation }) => {
     return (
         <Stack.Navigator initialRouteName='Package'
             screenOptions={{ headerShadowVisible: false }}>
@@ -893,7 +892,7 @@ const TabNavigation = () => {
                         return (
                             <Image
                                 source={IMAGE.USERICON}
-                                style={{ width: 25, height: 25, tintColor: color }}
+                                style={{ width: 26, height: 24, tintColor: color }}
                             />
                         );
                     } else if (route.name === 'Support') {
@@ -908,7 +907,7 @@ const TabNavigation = () => {
                         return (
                             <Image
                                 source={IMAGE.USERICON}
-                                style={{ width: 25, height: 25, tintColor: color }}
+                                style={{ width: 26, height: 24, tintColor: color }}
                             />
                         );
                     }
@@ -931,7 +930,7 @@ const TabNavigation = () => {
                 <Tab.Screen name="MyBooking" component={MyBookingStackScreen} options={({ route }) => ({ headerShown: false, title: languageConfig.mybooking, tabBarStyle: { display: getTabBarVisibility(route) } })} />
             }
             <Tab.Screen name="ourservice" component={OurServiceStackScreen} options={({ route }) => ({ headerShown: false, title: languageConfig.services, tabBarStyle: { display: getTabBarVisibility(route) } })} />
-            <Tab.Screen name="Package" component={packagesStackScreen} options={({ route }) => ({ headerShown: false, title: languageConfig.packages, tabBarStyle: { display: getTabBarVisibility(route) } })} />
+            <Tab.Screen name="Package" component={PackagesStackScreen} options={({ route }) => ({ headerShown: false, title: languageConfig.packages, tabBarStyle: { display: getTabBarVisibility(route) } })} />
             {!memberInfo &&
                 <Tab.Screen name="Support" component={SupportStackScreen} options={({ route }) => ({ headerShown: false, title: languageConfig.support, tabBarStyle: { display: getTabBarVisibility(route) } })} />
             }
@@ -945,10 +944,11 @@ const TabNavigation = () => {
     )
 }
 
+//CUSTOME TAB VISIBLE INTO PARTICULAR SCREEN 
 const getTabBarVisibility = (route) => {
-    console.log(route);
+    //console.log(route);
     const routeName = getFocusedRouteNameFromRoute(route) ?? 'Feed';
-    console.log(routeName);
+    //console.log("routeName", routeName);
 
     if (routeName == "NotificationScreen") {
         return 'none';
@@ -970,6 +970,8 @@ const getTabBarVisibility = (route) => {
         return 'none';
     } else if (routeName == "PackageDetailScreen") {
         return 'none';
+    } else if (route.name == "Login") {
+        return 'none';
     }
 }
 
@@ -980,7 +982,6 @@ export default NavigationsApp = () => {
                 <Stack.Screen name="SplashScreen" component={SPLASHSCREEN} options={{ headerShown: false }} />
                 <Stack.Screen name="TabNavigation" component={TabNavigation} options={{ headerShown: false }} />
                 <Stack.Screen name="Auth" component={AuthStackScreen} options={{ headerShown: false }} />
-                {/* <Stack.Screen name="MainScreen" component={HomeStackScreen} options={{ headerShown: false }} /> */}
             </Stack.Navigator>
         </NavigationContainer>
     )

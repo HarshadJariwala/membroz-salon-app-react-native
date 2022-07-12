@@ -52,7 +52,7 @@ const OurSpecialistDtails = (props) => {
                 <View style={styles.containerView}>
                     <View style={{ justifyContent: KEY.CENTER, alignItems: KEY.CENTER, marginTop: 20 }}>
                         <TouchableOpacity style={styles.viewRound}>
-                            <Image source={!oursSpeacilistDetails && oursSpeacilistDetails.profilepic ? IMAGE.USERPROFILE : { uri: oursSpeacilistDetails.profilepic }}
+                            <Image source={!oursSpeacilistDetails && !oursSpeacilistDetails.profilepic ? { uri: oursSpeacilistDetails.profilepic } : IMAGE.USERPROFILE}
                                 style={!profilepic ? { height: 70, width: 70, borderRadius: 100 } : { height: 75, width: 75, borderRadius: 100 }} />
                         </TouchableOpacity>
                         <Text style={styles.text}> {oursSpeacilistDetails && oursSpeacilistDetails.property && oursSpeacilistDetails.property.fullname}</Text>
@@ -112,7 +112,7 @@ const OurSpecialistDtails = (props) => {
                                     <Text style={{
                                         fontSize: FONT.FONT_SIZE_16, color: COLOR.BLACK,
                                         fontWeight: FONT.FONT_BOLD
-                                    }}>{oursSpeacilistDetails && oursSpeacilistDetails.property && oursSpeacilistDetails.property.workexperience + ' ' + languageConfig.yearstext}</Text>
+                                    }}>{oursSpeacilistDetails && oursSpeacilistDetails.property && oursSpeacilistDetails.property.workexperience ? oursSpeacilistDetails.property.workexperience : '0' + ' ' + languageConfig.yearstext}</Text>
                                 </View>
                             </View>
                         </View>
@@ -168,7 +168,7 @@ const OurSpecialistDtails = (props) => {
                                     <Text style={{
                                         fontSize: FONT.FONT_SIZE_16, textTransform: KEY.UPPERCASE, color: COLOR.BLACK,
                                         fontWeight: FONT.FONT_BOLD, flex: 1
-                                    }}>{starttime + ' - ' + endtime}</Text>
+                                    }}>{(starttime + 'AM') + ' - ' + (endtime + 'PM')}</Text>
                                 </View>
                             </View>
                         </View>

@@ -235,7 +235,7 @@ const MyBooking = (props) => {
     }
 
     return (
-        <SafeAreaView style={{ flex: 1, alignItems: KEY.CENTER, backgroundColor: COLOR.WHITE }}>
+        <SafeAreaView style={{ flex: 1, alignItems: KEY.CENTER, backgroundColor: COLOR.BACKGROUNDCOLOR }}>
             {
                 showprofileModalVisible
                     ?
